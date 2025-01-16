@@ -1,0 +1,71 @@
+plugins {
+    // id "com.github.spotbugs" version "4.5.1"
+    // id "checkstyle"
+}
+apply plugin: 'application'
+
+
+mainClassName = 'memoranda/Start'
+
+compileJava.options.encoding = 'UTF-8'
+
+// Repositories and dependencies for code go here
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation 'com.io7m.xom:xom:1.2.+'
+  implementation 'net.sourceforge.nekohtml:nekohtml:1.9.+'
+}
+
+// // Define the Java source and target compatibility
+// java {
+//     sourceCompatibility = JavaVersion.VERSION_11  // or the version you need
+//     targetCompatibility = JavaVersion.VERSION_11  // same as above
+// }
+
+//sourceCompatibility = '18.0.2'
+//targetCompatibility = '18.0.2'
+
+///////////////////////////////////////////////////////////////////////
+// Configure Checkstyle
+/////////////////////////////////////////////////////////////////////
+// apply plugin: 'checkstyle'
+// checkstyle {
+//   // Keep checkstyle a little quieter
+//   ignoreFailures = true
+//   showViolations = false
+// }
+
+// tasks.withType(Checkstyle) {
+  
+//   reports {
+//     html.enabled = true
+//     xml.enabled = false
+//   }
+//   // include '**/*.java'
+//   include '**/ui/App.java'
+//  }
+
+// checkstyle {
+//     toolVersion = "8.8"
+// }
+
+
+///////////////////////////////////////////////////////////////////////
+// Configure SpotBugs
+///////////////////////////////////////////////////////////////////////
+// To generate an HTML report instead of XML
+// spotbugsMain {
+//     reports {
+//         xml.enabled = false
+//         html.enabled = true
+//     }
+// }
+// spotbugs {
+//     toolVersion = '4.2.2'
+//     ignoreFailures = true
+//     showProgress = true
+//     effort = 'max'
+// }
