@@ -519,7 +519,7 @@ public class TaskPanel extends JPanel {
     }
 
     void addSubTask_actionPerformed(ActionEvent e) {
-        TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("New Task"));
+        TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("New Sub-Task"));
         String parentTaskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
         
 //        Util.debug("Adding sub task under " + parentTaskId);
