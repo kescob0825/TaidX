@@ -51,7 +51,7 @@ public class Util {
             + "/"
             + (cal.get(Calendar.MONTH))
             + "/"
-            + new Integer(cal.get(Calendar.YEAR)).toString();
+            + String.valueOf(cal.get(Calendar.YEAR));
 
     }
 
