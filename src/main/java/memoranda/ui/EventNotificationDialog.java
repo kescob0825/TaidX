@@ -17,8 +17,12 @@ import javax.swing.border.Border;
 import memoranda.util.Configuration;
 import memoranda.util.Local;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.io.File;
 import java.net.URL;
 
@@ -127,11 +131,13 @@ public class EventNotificationDialog extends JFrame {
 					EventNotificationDialog.class.getResource(
 						"/ui/beep.wav");
 			}
-		try {
-			AudioClip clip = Applet.newAudioClip(url);
-			clip.play();
-		} catch (Exception ex) {
-			new ExceptionDialog(ex, "Error loading audioclip from "+url, "Check the location and type of audioclip file.");
-		}
+      try {
+          AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(url);
+          Clip clip = AudioSystem.getClip();
+          clip.open(audioInputStream);
+          clip.start();
+      } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+          e.printStackTrace();
+      }
 	}
 }

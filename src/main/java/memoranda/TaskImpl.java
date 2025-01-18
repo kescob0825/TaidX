@@ -133,7 +133,7 @@ public class TaskImpl implements Task, Comparable {
     }
 
     /**s
-     * @see memoranda.Task#getStatus()
+     * @see memoranda.Task #getStatus()
      */
     public int getStatus(CalendarDate date) {
         CalendarDate start = getStartDate();
@@ -202,7 +202,7 @@ public class TaskImpl implements Task, Comparable {
     }
     
     /**
-     * @see memoranda.Task#setText()
+     * @see memoranda.Task #setText()
      */
     public void setText(String s) {
         _element.getFirstChildElement("text").removeChildren();
@@ -225,7 +225,7 @@ public class TaskImpl implements Task, Comparable {
     }
 
     /**
-     * @see memoranda.Task#getDependsFrom()
+     * @see memoranda.Task #getDependsFrom()
      */
     public Collection getDependsFrom() {
         Vector v = new Vector();
@@ -239,7 +239,7 @@ public class TaskImpl implements Task, Comparable {
         return v;
     }
     /**
-     * @see memoranda.Task#addDependsFrom(memoranda.Task)
+     * @see memoranda.Task #addDependsFrom(memoranda.Task)
      */
     public void addDependsFrom(Task task) {
         Element dep = new Element("dependsFrom");
@@ -247,7 +247,7 @@ public class TaskImpl implements Task, Comparable {
         _element.appendChild(dep);
     }
     /**
-     * @see memoranda.Task#removeDependsFrom(memoranda.Task)
+     * @see memoranda.Task #removeDependsFrom(memoranda.Task)
      */
     public void removeDependsFrom(Task task) {
         Elements deps = _element.getChildElements("dependsFrom");
@@ -263,14 +263,14 @@ public class TaskImpl implements Task, Comparable {
      * @see memoranda.Task#getProgress()
      */
     public int getProgress() {
-        return new Integer(_element.getAttribute("progress").getValue()).intValue();
+        return Integer.parseInt(_element.getAttribute("progress").getValue());
     }
     /**
      * @see memoranda.Task#setProgress(int)
      */
     public void setProgress(int p) {
         if ((p >= 0) && (p <= 100))
-            setAttr("progress", new Integer(p).toString());
+            setAttr("progress", String.valueOf(p));
     }
     /**
      * @see memoranda.Task#getPriority()
@@ -279,7 +279,7 @@ public class TaskImpl implements Task, Comparable {
         Attribute pa = _element.getAttribute("priority");
         if (pa == null)
             return Task.PRIORITY_NORMAL;
-        return new Integer(pa.getValue()).intValue();
+        return Integer.parseInt(pa.getValue());
     }
     /**
      * @see memoranda.Task#setPriority(int)
@@ -302,7 +302,7 @@ public class TaskImpl implements Task, Comparable {
 	 * progress. 
 	 * 
 	 * rate = (100-progress) / (numOfDays+1) * (priority+1)
-	 * @param CalendarDate
+	 * @param d CalendarDate
 	 * @return long
 	 */
 
