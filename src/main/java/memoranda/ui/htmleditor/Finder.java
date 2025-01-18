@@ -25,6 +25,8 @@ public class Finder extends Thread {
     String dispText = "";
     String _replace = null;
     HTMLEditor editor;
+    volatile boolean suspended = false;
+    final Object lockObject = new Object();
 
     /**
      * Constructor for Finder.
@@ -123,8 +125,17 @@ public class Finder extends Thread {
                     editor.showToolsPanel();
                     editor.toolsPanel.addTab(Local.getString("Find"), cdlg);
                     showCdlg = true;
-                }                
-                this.suspend();
+                }
+                synchronized (lockObject) {
+                    try {
+                        suspended = true;
+                        while (suspended && !cdlg.cancel) {
+                            lockObject.wait();
+                        }
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
 
                 if (cdlg.cancel) {
                     editor.toolsPanel.remove(cdlg);

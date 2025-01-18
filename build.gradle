@@ -5,6 +5,10 @@ plugins {
   id 'application'
 }
 
+wrapper {
+  gradleVersion = '7.5'
+  distributionType = Wrapper.DistributionType.BIN
+}
 
 mainClassName = 'memoranda/Start'
 
@@ -30,13 +34,12 @@ task FatJar(type: Jar) {
   with jar
 }
 // // Define the Java source and target compatibility
-// java {
-//     sourceCompatibility = JavaVersion.VERSION_11  // or the version you need
-//     targetCompatibility = JavaVersion.VERSION_11  // same as above
-// }
+java {
+  sourceCompatibility = '18.0.2'
+  targetCompatibility = '18.0.2'
+}
 
-//sourceCompatibility = '18.0.2'
-//targetCompatibility = '18.0.2'
+
 
 ///////////////////////////////////////////////////////////////////////
 // Configure Checkstyle
