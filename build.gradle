@@ -1,14 +1,8 @@
 plugins {
-    // Uncomment and use these plugins if needed
-    // id 'com.github.spotbugs' version '4.5.1'
-    // id 'checkstyle'
-    id 'java'
-    id 'application'
-}
-
-// Basic project configuration
-application {
-    mainClass = 'memoranda.Start'
+    // id "com.github.spotbugs" version "4.5.1"
+    // id "checkstyle"
+  id 'java'
+  id 'application'
 }
 
 // Gradle wrapper configuration
@@ -29,11 +23,9 @@ wrapper {
         options.encoding = 'UTF-8'
     }
 
-// Repository configuration
-allprojects{
-    repositories {
-        mavenCentral()
-    }
+// Repositories and dependencies for code go here
+repositories {
+  mavenCentral()
 }
 
 // Dependencies
@@ -51,7 +43,6 @@ allprojects{
         implementation('net.sourceforge.nekohtml:nekohtml:1.9.22') {
             exclude group: 'xml-apis', module: 'xml-apis'
         }
-        implementation project(':taiga-api')
         implementation 'org.apache.commons:commons-lang3:3.12.0'
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     }
@@ -62,7 +53,6 @@ allprojects{
     }*/
 
 tasks.register('runMain', JavaExec) {
-    dependsOn ':taiga-api:build'
     group = 'Application'
     description = 'Runs the main class'
     classpath = sourceSets.main.runtimeClasspath
