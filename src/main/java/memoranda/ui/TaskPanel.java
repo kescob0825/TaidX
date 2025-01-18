@@ -230,7 +230,6 @@ public class TaskPanel extends JPanel {
 
 
         this.setLayout(borderLayout1);
-        scrollPane.getViewport().setBackground(Color.blue);
         /*taskTable.setMaximumSize(new Dimension(32767, 32767));
         taskTable.setRowHeight(24);*/
         ppEditTask.setFont(new java.awt.Font("Dialog", 1, 11));
