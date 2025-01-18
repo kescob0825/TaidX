@@ -1,8 +1,9 @@
 plugins {
     // id "com.github.spotbugs" version "4.5.1"
     // id "checkstyle"
+  id 'java'
+  id 'application'
 }
-apply plugin: 'application'
 
 
 mainClassName = 'memoranda/Start'
@@ -19,6 +20,15 @@ dependencies {
   implementation 'net.sourceforge.nekohtml:nekohtml:1.9.+'
 }
 
+task FatJar(type: Jar) {
+  manifest {
+    attributes 'Main-Class': 'com.baeldung.fatjar.Application'
+  }
+  archiveBaseName = 'kescob12_Ruebezahl_spring25A'
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+  from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+  with jar
+}
 // // Define the Java source and target compatibility
 // java {
 //     sourceCompatibility = JavaVersion.VERSION_11  // or the version you need
