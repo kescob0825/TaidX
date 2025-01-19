@@ -9,7 +9,7 @@ public class ApiTest {
     public static void main(String[] args) {
         try {
             TaigaClient client = new TaigaClient();
-            client.authenticate("jdlafond@asu.edu", "qt!fXT!En65RCLY"); // Replace with actual credentials
+            client.authenticate("your_username", "your_password"); // Replace with actual credentials
             System.out.println("Auth Token: " + client.getAuthToken());
         } catch (IOException e) {
             e.printStackTrace();
