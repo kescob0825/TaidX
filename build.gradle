@@ -19,6 +19,16 @@ dependencies {
   implementation 'net.sourceforge.nekohtml:nekohtml:1.9.+'
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    archiveBaseName = 'ebmarti5_RUEBEZAHL'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 // // Define the Java source and target compatibility
 // java {
 //     sourceCompatibility = JavaVersion.VERSION_11  // or the version you need
