@@ -1,93 +1,42 @@
 plugins {
-    // Uncomment and use these plugins if needed
-    // id 'com.github.spotbugs' version '4.5.1'
-    // id 'checkstyle'
-    id 'java'
-    id 'application'
+    // id "com.github.spotbugs" version "4.5.1"
+    // id "checkstyle"
+}
+apply plugin: 'application'
+
+
+mainClassName = 'memoranda/Start'
+
+compileJava.options.encoding = 'UTF-8'
+
+// Repositories and dependencies for code go here
+repositories {
+  mavenCentral()
 }
 
-// Basic project configuration
-application {
-    mainClass = 'memoranda.Start'
+dependencies {
+  implementation 'com.io7m.xom:xom:1.2.+'
+  implementation 'net.sourceforge.nekohtml:nekohtml:1.9.+'
 }
 
-// Gradle wrapper configuration
-wrapper {
-    gradleVersion = '7.5'
-    distributionType = Wrapper.DistributionType.BIN
-}
-
-// Java configuration
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(18))
-        }
-    }
-
-// Compiler options
-    compileJava {
-        options.encoding = 'UTF-8'
-    }
-
-// Repository configuration
-allprojects{
-    repositories {
-        mavenCentral()
-    }
-}
-
-// Dependencies
-    dependencies {
-        // HTTP and JSON handling
-        implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-        implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
-        implementation 'org.json:json:20250107'
-
-        // XML handling
-        implementation 'xom:xom:1.3.9'
-        implementation('xerces:xercesImpl:2.12.2'){
-            exclude group: 'xml-apis', module: 'xml-apis'
-        }
-        implementation('net.sourceforge.nekohtml:nekohtml:1.9.22') {
-            exclude group: 'xml-apis', module: 'xml-apis'
-        }
-        implementation project(':taiga-api')
-        implementation 'org.apache.commons:commons-lang3:3.12.0'
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    }
-
-// Test configuration
-    /*test {
-        useJUnitPlatform()
-    }*/
-
-tasks.register('runMain', JavaExec) {
-    dependsOn ':taiga-api:build'
-    group = 'Application'
-    description = 'Runs the main class'
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass.set('memoranda.Start')
-
-    // Add any additional configuration from taiga-api if needed
-    doFirst {
-        // Any setup that needs to happen before execution
-        println "Starting Memoranda application..."
-    }
-}
-
-// Fat JAR configuration for packaging the application
-tasks.register('fatJar', Jar) {
+task fatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': application.mainClass
+        attributes 'Main-Class': mainClassName
     }
-    archiveBaseName.set('jdlafond_ruebezahl')
+    archiveBaseName = 'jdlafond_RUEBEZAHL'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
+// // Define the Java source and target compatibility
+// java {
+//     sourceCompatibility = JavaVersion.VERSION_11  // or the version you need
+//     targetCompatibility = JavaVersion.VERSION_11  // same as above
+// }
+
+//sourceCompatibility = '18.0.2'
+//targetCompatibility = '18.0.2'
 
 ///////////////////////////////////////////////////////////////////////
 // Configure Checkstyle
