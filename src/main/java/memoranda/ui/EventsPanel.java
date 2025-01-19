@@ -183,9 +183,9 @@ public class EventsPanel extends JPanel {
 
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) {
-                eventsTable.initTable(d);     
+                eventsTable.initTable(d);
                 boolean enbl = d.after(CalendarDate.today()) || d.equals(CalendarDate.today());
-                newEventB.setEnabled(enbl);           
+                newEventB.setEnabled(enbl);
                 ppNewEvent.setEnabled(enbl);
                 editEventB.setEnabled(false);
                 ppEditEvent.setEnabled(false);
@@ -209,16 +209,16 @@ public class EventsPanel extends JPanel {
         eventPPMenu.addSeparator();
         eventPPMenu.add(ppNewEvent);
         eventPPMenu.add(ppRemoveEvent);
-		
+
 		// remove events using the DEL key
 		eventsTable.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e){
-				if(eventsTable.getSelectedRows().length>0 
+				if(eventsTable.getSelectedRows().length>0
 					&& e.getKeyCode()==KeyEvent.VK_DELETE)
 					ppRemoveEvent_actionPerformed(null);
 			}
 			public void	keyReleased(KeyEvent e){}
-			public void keyTyped(KeyEvent e){} 
+			public void keyTyped(KeyEvent e){}
 		});
     }
 
@@ -228,13 +228,13 @@ public class EventsPanel extends JPanel {
             (memoranda.Event) eventsTable.getModel().getValueAt(
                 eventsTable.getSelectedRow(),
                 EventsTable.EVENT);
-        
+
         dlg.timeSpin.getModel().setValue(ev.getTime());
-        /*if (new CalendarDate(ev.getTime()).equals(CalendarDate.today())) 
+        /*if (new CalendarDate(ev.getTime()).equals(CalendarDate.today()))
             ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(new Date());
         else
         ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(CalendarDate.today().getDate());
-        ((SpinnerDateModel)dlg.timeSpin.getModel()).setEnd(CalendarDate.tomorrow().getDate());*/    
+        ((SpinnerDateModel)dlg.timeSpin.getModel()).setEnd(CalendarDate.tomorrow().getDate());*/
         dlg.textField.setText(ev.getText());
         int rep = ev.getRepeat();
         if (rep > 0) {
@@ -242,7 +242,7 @@ public class EventsPanel extends JPanel {
             if (rep == EventsManager.REPEAT_DAILY) {
                 dlg.dailyRepeatRB.setSelected(true);
                 dlg.dailyRepeatRB_actionPerformed(null);
-                dlg.daySpin.setValue(ev.getPeriod());
+                dlg.daySpin.setValue(Integer.valueOf(ev.getPeriod()));
             }
             else if (rep == EventsManager.REPEAT_WEEKLY) {
                 dlg.weeklyRepeatRB.setSelected(true);
@@ -257,12 +257,12 @@ public class EventsPanel extends JPanel {
             else if (rep == EventsManager.REPEAT_MONTHLY) {
                 dlg.monthlyRepeatRB.setSelected(true);
                 dlg.monthlyRepeatRB_actionPerformed(null);
-                dlg.dayOfMonthSpin.setValue(ev.getPeriod());
+                dlg.dayOfMonthSpin.setValue(Integer.valueOf(ev.getPeriod()));
             }
 	    else if (rep == EventsManager.REPEAT_YEARLY) {
 		dlg.yearlyRepeatRB.setSelected(true);
 		dlg.yearlyRepeatRB_actionPerformed(null);
-		dlg.dayOfMonthSpin.setValue(ev.getPeriod());
+		dlg.dayOfMonthSpin.setValue(Integer.valueOf(ev.getPeriod()));
 	    }
         if (ev.getEndDate() != null) {
            dlg.endDate.getModel().setValue(ev.getEndDate().getDate());
