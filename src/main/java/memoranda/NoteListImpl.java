@@ -69,7 +69,7 @@ public class NoteListImpl implements NoteList {
     }
     
     /**
-     * @see memoranda.NoteList#getMarkedNotes()
+     * @see NoteList#getMarkedNotes()
      */
     public Collection getMarkedNotes() {
         Vector v = new Vector();
@@ -126,7 +126,7 @@ public class NoteListImpl implements NoteList {
 
 	/**
 	 * returns the first note for a date.
-	 * @param CalendarDate
+	 * @param date CalendarDate
 	 * @return Note
 	 */
 	 
@@ -187,7 +187,7 @@ public class NoteListImpl implements NoteList {
 
     private Year getYear(int y) {
         Elements yrs = _root.getChildElements("year");
-        String yy = new Integer(y).toString();
+        String yy = String.valueOf(y);
         for (int i = 0; i < yrs.size(); i++)
             if (yrs.get(i).getAttribute("year").getValue().equals(yy))
                 return new Year(yrs.get(i));
@@ -197,7 +197,7 @@ public class NoteListImpl implements NoteList {
 
     private Year createYear(int y) {
         Element el = new Element("year");
-        el.addAttribute(new Attribute("year", new Integer(y).toString()));
+        el.addAttribute(new Attribute("year", String.valueOf(y)));
         _root.appendChild(el);
         return new Year(el);
     }
@@ -227,13 +227,11 @@ public class NoteListImpl implements NoteList {
             yearElement = el;
         }
 
-        public int getValue() {
-            return new Integer(yearElement.getAttribute("year").getValue()).intValue();
-        }
+        public int getValue() {return Integer.parseInt(yearElement.getAttributeValue("year"));}
 
         public Month getMonth(int m) {
             Elements ms = yearElement.getChildElements("month");
-            String mm = new Integer(m).toString();
+            String mm = String.valueOf(m);
             for (int i = 0; i < ms.size(); i++)
                 if (ms.get(i).getAttribute("month").getValue().equals(mm))
                     return new Month(ms.get(i));
@@ -243,7 +241,7 @@ public class NoteListImpl implements NoteList {
 
         private Month createMonth(int m) {
             Element el = new Element("month");
-            el.addAttribute(new Attribute("month", new Integer(m).toString()));
+            el.addAttribute(new Attribute("month", String.valueOf(m)));
             yearElement.appendChild(el);
             return new Month(el);
         }
@@ -270,14 +268,14 @@ public class NoteListImpl implements NoteList {
         }
 
         public int getValue() {
-            return new Integer(mElement.getAttribute("month").getValue()).intValue();
+            return Integer.parseInt(mElement.getAttributeValue("month"));
         }
 
         public Day getDay(int d) {
             if (mElement == null)
                 return null;
             Elements ds = mElement.getChildElements("day");
-            String dd = new Integer(d).toString();
+            String dd = String.valueOf(d);
             for (int i = 0; i < ds.size(); i++)
                 if (ds.get(i).getAttribute("day").getValue().equals(dd))
                     return new Day(ds.get(i));
@@ -287,7 +285,7 @@ public class NoteListImpl implements NoteList {
 
         private Day createDay(int d) {
             Element el = new Element("day");
-            el.addAttribute(new Attribute("day", new Integer(d).toString()));
+            el.addAttribute(new Attribute("day", String.valueOf(d)));
 /*            el.addAttribute(
                 new Attribute(
                     "date",
@@ -343,7 +341,7 @@ public class NoteListImpl implements NoteList {
         }
 
         public int getValue() {
-            return new Integer(dEl.getAttribute("day").getValue()).intValue();
+            return Integer.parseInt(dEl.getAttributeValue("day"));
         }
 
         /*public Note getNote() {
@@ -411,7 +409,7 @@ public class NoteListImpl implements NoteList {
 	}
 	
     /**
-     * @see memoranda.NoteList#getXMLContent()
+     * @see NoteList#getXMLContent()
      */
     public Document getXMLContent() {
         return _doc;

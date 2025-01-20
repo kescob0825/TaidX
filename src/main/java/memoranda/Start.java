@@ -8,9 +8,9 @@
  */
 package memoranda;
 
+
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import memoranda.ui.*;
 import memoranda.util.Configuration;
 
@@ -44,6 +44,7 @@ public class Start {
     }
     
     public static void main(String[] args) {
+        //taiga.apitest.ApiTest.run();
         if (checkIfAlreadyStartet) {
             try {
                 // Try to open a socket. If socket opened successfully (app is already started), take no action and exit.
