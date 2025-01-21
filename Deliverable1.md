@@ -9,34 +9,34 @@ Make sure you refer to the [Kickoff Document](#) for additional details and guid
 ## 1: Basic Information (To be completed before you start Sprint)
 
 ### Project Information:
-- **Topic Chosen**: _Your chosen topic name_
-- **Sprint Number**: _Sprint number_
-- **Scrum Master**: _Name of Scrum Master_
-- **Git Master**: _Name of Git Master_
+- **Topic Chosen**: _Topic 3_
+- **Sprint Number**: _1_
+- **Scrum Master**: _Jedi_
+- **Git Master**: _Edwin_
 
 ### Sprint Planning (For Sprint 1-3):
 Fill out your Sprint Planning here, based on the kickoff document and your team's discussions.
 
 #### Sprint Goal:
-- **Sprint Goal**: _Clearly state the goal of the sprint._
+- **Sprint Goal**: _Fix bugs, and enhance memoranda to get ready for Taiga API implementation in sprint 2._
 
 #### Product Backlog & Sprint Backlog:
-- **User Stories in Product Backlog**: _Number of User Stories added to the Product Backlog_
-- **User Stories in Sprint Backlog**: _Number of User Stories selected for this Sprint_
+- **User Stories in Product Backlog**: _10_
+- **User Stories in Sprint Backlog**: _10_
 
 #### Sprint Planning Questions:
-- **Why did you select these User Stories for this Spring?**
-    > _Your Answer_
+- **Why did you select these User Stories for this Sprint?**
+    > _9 were provided and the one that was added was to create a functional user interface to be able interact with the API implemented in Sprint 2+._
 
  #### Sprint Planning Questions:
 - **Why do you think you can complete them in this Sprint?**
-    > _Your Answer_
+    > _8 of these tasks are a light load and the 2 that are not have enough tasks to be spread throughout the team._
 
 - **How do these User Stories align with the Sprint Goal?**
-    > _Your Answer_
+    > _They all enhance the user experience by fixing bugs, improving the UI and put the team in a position to implement API features in sprint 2+._
 
 - **Do you have a clear idea of the tasks needed to complete these User Stories? (If not, please notify via Slack.)**
-    > _Your Answer_
+    > _For this Sprint US5 is ambiguous need to read out to PO to get a better understanding, however there are some nuances that will need to be ironed out for some US's in the PB._
 
 ---
 
@@ -113,15 +113,54 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 > This section should be filled out by each team member. Below is the structure for how each team member will describe their contributions. You may copy and paste the template below for each person.
 
-### Team Member [Name]
+### Team Member [Jedi]
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
     > _Your Answer_
 
-- **What buisiness value did you deliver personally?**
+- **What business value did you deliver personally?**
     > _Your Answer_
+### Team Member [Jimmy]
 
+#### Consistency and Effort:
+- **Did you work consistently and contribute enough to the project?**
+  > _Your Answer_
+
+- **What business value did you deliver personally?**
+  > _Your Answer_
+### Team Member [Edwin]
+
+#### Consistency and Effort:
+- **Did you work consistently and contribute enough to the project?**
+  > _Your Answer_
+
+- **What business value did you deliver personally?**
+  > _Your Answer_
+### Team Member [Karl]
+
+#### Consistency and Effort:
+- **Did you work consistently and contribute enough to the project?**
+  > _Your Answer_
+
+- **What business value did you deliver personally?**
+  > _Your Answer_
+### Team Member [Andrew]
+
+#### Consistency and Effort:
+- **Did you work consistently and contribute enough to the project?**
+  > _Your Answer_
+
+- **What business value did you deliver personally?**
+  > _Your Answer_
+### Team Member [Mohammed]
+
+#### Consistency and Effort:
+- **Did you work consistently and contribute enough to the project?**
+  > _Your Answer_
+
+- **What business value did you deliver personally?**
+  > _Your Answer_
 #### GitHub Links to Work:
 Please provide the links to your key contributions on GitHub. Include **commits, pull requests**, and other important work items.
 
@@ -158,8 +197,12 @@ Before submitting your Sprint deliverables, make sure to check the following ite
 - [ ] User Stories that were not completed have been moved to the next Sprint’s backlog.
 - [ ] Quality Policies are up-to-date and accurate.
 - [ ] Individual Sprint Surveys have been submitted (one per team member).
-  - [ ] Team member 1
-  - [ ] Team member 2
+  - [ ] Team member Jedi
+  - [ ] Team member Edwin
+  - [ ] Team member Karl
+  - [ ] Team member Jimmy
+  - [ ] Team member Andrew
+  - [ ] Team member Mohammed
 - [ ] The original template has been copied for the next Sprint (except for the last Sprint).
 - [ ] New User Stories for the next Sprint are added and well-defined.
 
