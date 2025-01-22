@@ -63,12 +63,10 @@ public class Configuration {
   }
 
   public static Object get(String key) {
-      System.out.println("1:" + key);
     if ((config.get(key)) == null) {
         /*DEBUG*///System.out.println("Configuration: Key '"+key+"' not found.");
         return "";
     }
-    System.out.println("2:" + config.get(key));
     return config.get(key);
   }
 
