@@ -42,7 +42,7 @@ public class Configuration {
   }
   
   static String getConfigPath() {
-    String p = Util.getEnvDir()+"memoranda.properties";
+    String p = Util.getEnvDir()+"memoranda.default.properties";
     if (new File(p).exists()) 
         return p;
     String p1 = Util.getEnvDir()+"jnotes2.properties";
@@ -63,10 +63,12 @@ public class Configuration {
   }
 
   public static Object get(String key) {
+      System.out.println("1:" + key);
     if ((config.get(key)) == null) {
         /*DEBUG*///System.out.println("Configuration: Key '"+key+"' not found.");
         return "";
     }
+    System.out.println("2:" + config.get(key));
     return config.get(key);
   }
 
