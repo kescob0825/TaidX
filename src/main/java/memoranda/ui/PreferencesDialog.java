@@ -218,11 +218,7 @@ public class PreferencesDialog extends JDialog {
 		minGroup.add(minTaskbarRB);
 		minTaskbarRB.setSelected(true);
 		minTaskbarRB.setText(Local.getString("Minimize to taskbar"));
-		minTaskbarRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				minTaskbarRB_actionPerformed(e);
-			}
-		});
+		minTaskbarRB.addActionListener(this::minTaskbarRB_actionPerformed);
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 0;
@@ -559,7 +555,11 @@ public class PreferencesDialog extends JDialog {
 		}
 
 		String onmin = Configuration.get("ON_MINIMIZE").toString();
-		this.minTaskbarRB.setSelected(true);
+		if (onmin.equals("normal")) {
+			this.minTaskbarRB.setSelected(true);
+		} else {
+			this.minTaskbarRB.setSelected(false);
+		}
 
 		if (!System.getProperty("os.name").startsWith("Win"))
 			this.browserPath.setText(MimeTypesList.getAppList()
@@ -747,7 +747,17 @@ public class PreferencesDialog extends JDialog {
 	}
 
 	void minTaskbarRB_actionPerformed(ActionEvent e) {
-
+		if (minTaskbarRB.isSelected()) {
+			Configuration.put("ON_MINIMIZE", "normal");
+			// Set the window state to minimize to taskbar
+			AppFrame mainFrame = App.getFrame();
+			if (mainFrame != null) {
+				mainFrame.setExtendedState(Frame.ICONIFIED);
+				System.out.println("Set window state to minimize to taskbar");
+			}
+		} else {
+			Configuration.put("ON_MINIMIZE", "minimize");
+		}
 	}
 
 	void minHideRB_actionPerformed(ActionEvent e) {
