@@ -32,6 +32,7 @@
 - [ ] Commit history is clean, and unnecessary commits have been squashed if needed.
 - [ ] No large binary files or sensitive data included.
 - [ ] PR is scoped appropriately (not too large or too small).
+- [ ] Each user story branch should be occupied by 1 person to prevent any conflicts with merges.
 
 ### 5. Dependencies and Configuration
 - [ ] Dependencies have been reviewed and unnecessary ones removed.
@@ -67,7 +68,7 @@
 - [ ] Have integration tests been considered where applicable?
 
 ### 4. Performance Considerations
-- [ ] Is the code optimized for performance (e.g., no unnecessary loops, minimal memory usage)?
+- [ ] Is the code optimized for performance (e.g., no unnecessary loops, minimal memory usage, proper data structures are used)?
 - [ ] Have any potential performance bottlenecks been addressed?
 - [ ] Are database queries optimized and efficient?
 
@@ -82,7 +83,7 @@
 - [ ] Is the PR description clear and informative?
 
 ### 7. Usability (If Applicable)
-- [ ] Is the feature user-friendly and intuitive?
+- [ ] Is the feature user-friendly and intuitive(can a random person who has no idea how this software works use this without confusion?
 - [ ] Are UI/UX changes visually consistent with the rest of the application?
 - [ ] Have accessibility considerations been met?
 
@@ -92,6 +93,7 @@
 
 ### 9. Git Practices
 - [ ] Are commits well-structured and meaningful?
+- [ ] Do commits have detailed comments explaining what changes are taking place?
 - [ ] Is the branch rebased correctly and free of merge conflicts?
 - [ ] Is the PR scoped appropriately (not too broad or too narrow)?
 
@@ -118,6 +120,14 @@
   > 13. Team member will update the Deliverable1.md document as needed.
   > 14. Upon Sprint completion Git Master and Scrum Master will merge the dev and doc to the master.
 
+## Collaboration Policy: (TBD)
+> In the event 2 or more team members are working on features that interact with each other
+  > 1.Team members will notify the Scrum Master (SM) and the team in Discord when their tasks involve interacting features. 
+  > 2.A brief discussion will be held during the standup or planning session to outline dependencies, shared responsibilities, and integration points(IE: Person A is reworking a feature that has dependencies and should expect certain features to not work until the task is finished.
+  > 3.If 2 or more members are working on a feature, both members should communicate and coordinate commits and merges to ensure smooth changes and prevent and conflicts before merging.
+  > 4.If a conflict occurs during a commit, both team members will need to coordinate and resolve conflicts collaboratively to ensure application functionality.
+  > 5. Once dependent features are done and no conflicts exist, notify the Scrum Master to complete the tasks.
+
 **Unit Tests Blackbox** (start Sprint 2)
   > Describe your Blackbox testing policy 
 
@@ -128,10 +138,10 @@
   > Describe your Code Review policy for on campus it is ok to have a less formal process in Sprint 2,
   > should be updated in Sprint 3 though
 
-  > Include a checklist/questions list which every developer will need to fill out/answe when creating a
+  > Include a checklist/questions list which every developer will need to fill out/answer when creating a
   > Pull Request to the Dev branch. 
 
-  > Include a checklist/question list which every reviewer will need to fill out/anser when conducting a
+  > Include a checklist/question list which every reviewer will need to fill out/answer when conducting a
   > review, this checklist (and the answers of course) need to be put into the Pull Request review.
 
 **Static Analysis**  (online: start Sprint 3, campus: start Sprint 3)
