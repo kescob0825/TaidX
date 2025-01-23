@@ -64,6 +64,7 @@ public class Start {
         }
         else
             app = new App(false);
+        TaigaLoginDialog taigaDlg = new TaigaLoginDialog(null, "Taiga Login"); // TODO: THIS IS WHEHRE THE TAIGAdlg is called
     }
 }
 
