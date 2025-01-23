@@ -687,13 +687,12 @@ public class AppFrame extends JFrame {
         Context.put("FRAME_XPOS", Integer.valueOf(this.getLocation().x));
         Context.put("FRAME_YPOS", Integer.valueOf(this.getLocation().y));
         exitNotify();
-        System.exit(0);
+        App.closeWindow();
     }
 
     public void doMinimize() {
-        //exitNotify();
+        exitNotify();
         App.minimizeWindow();
-        System.out.println("Minimize called");
     }
 
     //Help | About action performed

@@ -137,11 +137,13 @@ public class App {
 		frame.requestFocus();
 
 	}
+	//Iconified will minimize Frame to toolbar
 	public static void minimizeWindow(){
 		if (frame == null)
 			return;
 		frame.setState(Frame.ICONIFIED);
 	}
+	//doExit calls
 	public static void closeWindow() {
 		if (frame == null)
 			return;
