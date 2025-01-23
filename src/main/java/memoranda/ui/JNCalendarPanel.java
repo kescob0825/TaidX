@@ -29,7 +29,6 @@ import memoranda.CurrentProject;
 import memoranda.NoteList;
 import memoranda.Project;
 import memoranda.ProjectListener;
-import memoranda.ResourcesList;
 import memoranda.TaskList;
 import memoranda.date.CalendarDate;
 import memoranda.date.CurrentDate;
@@ -213,7 +212,7 @@ public class JNCalendarPanel extends JPanel {
       }
     });
     CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {}
+            public void projectChange(Project p, NoteList nl, TaskList tl) {}
             public void projectWasChanged() {
                 jnCalendar.updateUI();
             }

@@ -38,7 +38,6 @@ import memoranda.NoteList;
 import memoranda.Project;
 import memoranda.ProjectListener;
 import memoranda.ProjectManager;
-import memoranda.ResourcesList;
 import memoranda.TaskList;
 import memoranda.date.CalendarDate;
 import memoranda.date.CurrentDate;
@@ -239,8 +238,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 			public void projectChange(
 				Project p,
 				NoteList nl,
-				TaskList tl,
-				ResourcesList rl) {
+				TaskList tl) {
 			}
 			public void projectWasChanged() {
 				curProjectTitle.setText(CurrentProject.get().getTitle());

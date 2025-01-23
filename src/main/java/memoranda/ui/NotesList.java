@@ -20,7 +20,6 @@ import memoranda.NoteList;
 import memoranda.NoteListener;
 import memoranda.Project;
 import memoranda.ProjectListener;
-import memoranda.ResourcesList;
 import memoranda.TaskList;
 import memoranda.date.CalendarDate;
 import memoranda.date.CurrentDate;
@@ -60,7 +59,7 @@ public class NotesList extends JList {
         });
 
         CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
+            public void projectChange(Project p, NoteList nl, TaskList tl) {
             }
             public void projectWasChanged() {
                 update();
