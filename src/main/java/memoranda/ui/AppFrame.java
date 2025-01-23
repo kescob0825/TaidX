@@ -691,8 +691,9 @@ public class AppFrame extends JFrame {
     }
 
     public void doMinimize() {
-        exitNotify();
-        App.closeWindow();
+        //exitNotify();
+        App.minimizeWindow();
+        System.out.println("Minimize called");
     }
 
     //Help | About action performed
@@ -714,8 +715,6 @@ public class AppFrame extends JFrame {
                 doMinimize();
         }
         else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
-            super.processWindowEvent(new WindowEvent(this,
-                    WindowEvent.WINDOW_CLOSING));
             doMinimize();
         }
         else
