@@ -10,6 +10,7 @@ public class TaigaClient {
     private final OkHttpClient httpClient;
     private final ObjectMapper objectMapper;
     private String authToken;
+    private int lastResponseCode;
 
     public TaigaClient() {
         this.httpClient = new OkHttpClient();
@@ -33,6 +34,7 @@ public class TaigaClient {
                 .build();
 
         Response response = httpClient.newCall(request).execute();
+        lastResponseCode = response.code();
         if (response.isSuccessful() && response.body() != null) {
             String responseBody = response.body().string();
             authToken = objectMapper.readTree(responseBody).get("auth_token").asText();
@@ -45,5 +47,9 @@ public class TaigaClient {
             throw new IllegalStateException("Auth token is not available. Please authenticate first.");
         }
         return authToken;
+    }
+
+    public int getLastResponseCode() {
+        return lastResponseCode;
     }
 }
