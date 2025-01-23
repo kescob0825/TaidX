@@ -94,7 +94,6 @@ public class App {
 		frame = new AppFrame();
 		if (fullmode) {
 			init();
-			TaigaLoginDialog taigaDlg = new TaigaLoginDialog(null, "Taiga Login");
 		}
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			splash.dispose();
