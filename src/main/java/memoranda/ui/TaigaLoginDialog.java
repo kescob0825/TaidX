@@ -6,21 +6,16 @@ import java.awt.event.ActionListener;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerDateModel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
@@ -40,8 +35,10 @@ public class TaigaLoginDialog extends JDialog {
     JPanel centerPanel = new JPanel(new GridBagLayout());
     public JTextField userNameField = new JTextField();
     JLabel userNameLabel = new JLabel();
-    public JTextField passwordField = new JTextField();
+    public JPasswordField passwordField = new JPasswordField();
     JLabel passwordLabel = new JLabel();
+    JButton forgotPasswordButton = new JButton();
+    JButton createAccountButton = new JButton();
     JPanel bottomPanel = new JPanel();
     JButton loginButton = new JButton();
     JButton quitButton = new JButton();
@@ -62,7 +59,7 @@ public class TaigaLoginDialog extends JDialog {
         //taigaheader.setFont(new java.awt.Font("Dialog", 0, 20));
         //taigaheader.setForeground(new Color(0, 0, 124));
         //taigaheader.setText(Local.getString("Taiga Login"));
-        ImageIcon taigaLogo = new ImageIcon(App.class.getResource("/ui/taiga_banner.jpg"));
+        ImageIcon taigaLogo = new ImageIcon(Objects.requireNonNull(App.class.getResource("/ui/taiga_banner.jpg")));
         int bannerH = 110, bannerW = 380;
         Image originalImage = taigaLogo.getImage();
         Image resizedImage = originalImage.getScaledInstance(bannerW, bannerH, Image.SCALE_SMOOTH);
@@ -102,7 +99,30 @@ public class TaigaLoginDialog extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         centerPanel.add(passwordField, gbc);
-
+        // Forgot password button
+        gbc = new GridBagConstraints();
+        gbc.gridwidth = 1;
+        gbc.gridx = 0; gbc.gridy = 4;
+        forgotPasswordButton.setText(Local.getString("Forgot Password"));
+        forgotPasswordButton.setHorizontalAlignment(SwingConstants.LEFT);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+        centerPanel.add(forgotPasswordButton, gbc);
+        forgotPasswordButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                forgotPasswordButton_actionPerformed(e);
+            }
+        });
+        // Create Account button (DELETE THIS BLOCK IF WERE NOT IMPLEMENTING THIS)
+        //bottomPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        createAccountButton.setPreferredSize(new Dimension(150, 25));
+        createAccountButton.setText(Local.getString("Create Account"));
+        createAccountButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                createAccountButton_actionPerformed(e);
+            }
+        });
+        // Login button
         bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         loginButton.setMaximumSize(new Dimension(100, 25));
         loginButton.setMinimumSize(new Dimension(100, 25));
@@ -110,19 +130,19 @@ public class TaigaLoginDialog extends JDialog {
         loginButton.setText(Local.getString("Login"));
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //okButton_actionPerformed(e);
+                loginButton_actionPerformed(e);
             }
         });
         this.getRootPane().setDefaultButton(loginButton);
-        quitButton.setMaximumSize(new Dimension(100, 25));
-        quitButton.setMinimumSize(new Dimension(100, 25));
+        // Quit button
         quitButton.setPreferredSize(new Dimension(100, 25));
         quitButton.setText(Local.getString("Cancel"));
         quitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            //    cancelButton_actionPerformed(e);
+                cancelButton_actionPerformed(e);
             }
         });
+        bottomPanel.add(createAccountButton);
         bottomPanel.add(loginButton);
         bottomPanel.add(quitButton);
 
@@ -142,8 +162,50 @@ public class TaigaLoginDialog extends JDialog {
         gbc.anchor = GridBagConstraints.EAST;
         getContentPane().add(bottomPanel, "South");
 
-        this.setSize(400, 300);
+        this.setSize(400, 310);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    void loginButton_actionPerformed(ActionEvent e) {
+        // TODO: Needs to be implemented
+        // This closes the dialog box for now
+        // TODO: if Taiga Client auth_token == null throw an error indicating the account doesn't exists.
+        // TODO: IF Taiga Client auth_token is good then populate the taiga information onto taidX and dispose of this dialog box
+        this.dispose();
+    }
+
+    void cancelButton_actionPerformed(ActionEvent e) {
+        this.dispose();
+    }
+
+    void forgotPasswordButton_actionPerformed(ActionEvent e) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://tree.taiga.io/forgot-password"));
+        } catch (IOException | URISyntaxException iourie) {
+            iourie.printStackTrace();
+        }
+    }
+
+    void createAccountButton_actionPerformed(ActionEvent e) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://tree.taiga.io/register"));
+        } catch (IOException | URISyntaxException iourie) {
+            iourie.printStackTrace();
+        }
+    }
+
+    public void loginMember() {
+        String username = this.userNameField.getText();
+        String password = this.passwordField.getText();
+        // TODO: Once the TaigaClient is in the same src folder, then this can be uncommented out.
+        /*
+        try {
+            TaigaClient client = new TaigaClient();
+            client.authenticate(username, password); // Replace with actual credentials
+            System.out.println("Auth Token: " + client.getAuthToken());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
     }
 }
