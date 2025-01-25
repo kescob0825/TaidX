@@ -1,47 +1,38 @@
 package memoranda.ui;
+import memoranda.api.TaigaClient;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import memoranda.Project;
-import memoranda.ProjectManager;
-import memoranda.date.CalendarDate;
-import memoranda.util.CurrentStorage;
 import memoranda.util.Local;
 
 public class TaigaLoginDialog extends JDialog {
+
     public boolean CANCELLED = true;
+    TaigaClient client = new TaigaClient();
     GridBagConstraints gbc;
     JPanel topPanel = new JPanel(new FlowLayout());
-    JLabel taigaheader = new JLabel();
+    JLabel taigaHeader = new JLabel();
     JPanel centerPanel = new JPanel(new GridBagLayout());
     public JTextField userNameField = new JTextField();
     JLabel userNameLabel = new JLabel();
-    public JPasswordField passwordField = new JPasswordField();
+    private JPasswordField passwordField = new JPasswordField();
     JLabel passwordLabel = new JLabel();
     JButton forgotPasswordButton = new JButton();
     JButton createAccountButton = new JButton();
     JPanel bottomPanel = new JPanel();
     JButton loginButton = new JButton();
     JButton quitButton = new JButton();
+
     public TaigaLoginDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
@@ -65,9 +56,9 @@ public class TaigaLoginDialog extends JDialog {
         Image resizedImage = originalImage.getScaledInstance(bannerW, bannerH, Image.SCALE_SMOOTH);
         ImageIcon resizedTaigaLogo = new ImageIcon(resizedImage);
         topPanel.setSize(bannerW, bannerH);
-        taigaheader.setSize(bannerW, bannerH);
-        taigaheader.setIcon(resizedTaigaLogo);
-        topPanel.add(taigaheader);
+        taigaHeader.setSize(bannerW, bannerH);
+        taigaHeader.setIcon(resizedTaigaLogo);
+        topPanel.add(taigaHeader);
         // Username label
         centerPanel.setBorder(new EtchedBorder());
         userNameLabel.setText(Local.getString("Username"));
@@ -168,11 +159,39 @@ public class TaigaLoginDialog extends JDialog {
     }
 
     void loginButton_actionPerformed(ActionEvent e) {
-        // TODO: Needs to be implemented
-        // This closes the dialog box for now
-        // TODO: if Taiga Client auth_token == null throw an error indicating the account doesn't exists.
-        // TODO: IF Taiga Client auth_token is good then populate the taiga information onto taidX and dispose of this dialog box
-        this.dispose();
+
+        try {
+            loginMember();
+            client.getAuthToken();
+            // TODO: Populate user credentials to taidX here
+            this.dispose();
+        }
+        catch (IllegalStateException | IOException isioe) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Invalid username or password. Please double-check your credentials.",
+                    "Authentication Failed",
+                    JOptionPane.ERROR_MESSAGE);
+            isioe.fillInStackTrace();
+        }
+        catch (InvalidUsernameException iune) {
+            iune.fillInStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "No username provided. Please make sure to provide a valid username.",
+                    "Authentication Failed",
+                    JOptionPane.ERROR_MESSAGE);
+            iune.fillInStackTrace();
+        }
+        catch (InvalidPasswordException ipwe) {
+            ipwe.fillInStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "No password provided. Please make sure to provide a valid password.",
+                    "Authentication Failed",
+                    JOptionPane.ERROR_MESSAGE);
+            ipwe.fillInStackTrace();
+        }
     }
 
     void cancelButton_actionPerformed(ActionEvent e) {
@@ -183,7 +202,7 @@ public class TaigaLoginDialog extends JDialog {
         try {
             Desktop.getDesktop().browse(new URI("https://tree.taiga.io/forgot-password"));
         } catch (IOException | URISyntaxException iourie) {
-            iourie.printStackTrace();
+            iourie.fillInStackTrace();
         }
     }
 
@@ -191,21 +210,35 @@ public class TaigaLoginDialog extends JDialog {
         try {
             Desktop.getDesktop().browse(new URI("https://tree.taiga.io/register"));
         } catch (IOException | URISyntaxException iourie) {
-            iourie.printStackTrace();
+            iourie.fillInStackTrace();
         }
     }
 
     public void loginMember() {
+
+        if (this.userNameField.getText().isEmpty())
+            throw new InvalidUsernameException("No username provided");
+        if (this.passwordField.getText().isEmpty())
+            throw new InvalidPasswordException("No password provided");
+
         String username = this.userNameField.getText();
         String password = this.passwordField.getText();
-        // TODO: Once the TaigaClient is in the same src folder, then this can be uncommented out.
-        /*
         try {
-            TaigaClient client = new TaigaClient();
             client.authenticate(username, password); // Replace with actual credentials
-            System.out.println("Auth Token: " + client.getAuthToken());
         } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+            e.fillInStackTrace();
+        }
+    }
+
+    // Exception classes
+    private static class InvalidUsernameException extends IllegalArgumentException {
+        public InvalidUsernameException(String message) {
+            super(message);
+        }
+    }
+    private static class InvalidPasswordException extends IllegalArgumentException {
+        public InvalidPasswordException(String message) {
+            super(message);
+        }
     }
 }
