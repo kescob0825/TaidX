@@ -76,17 +76,16 @@ tasks.register('runMain', JavaExec) {
 }
 
 // Fat JAR configuration for packaging the application
-tasks.register('fatJar', Jar) {
-    manifest {
-        attributes 'Main-Class': application.mainClass
-    }
-    archiveBaseName.set('jdlafond_ruebezahl')
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    with jar
-}
+
+
+
+
+
+
+
+
+
+
 
 
 ///////////////////////////////////////////////////////////////////////
