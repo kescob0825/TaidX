@@ -32,7 +32,10 @@
 - [ ] Commit history is clean, and unnecessary commits have been squashed if needed.
 - [ ] No large binary files or sensitive data included.
 - [ ] PR is scoped appropriately (not too large or too small).
+<<<<<<< HEAD
 - [ ] Each user story branch should be occupied by 1 person to prevent any conflicts with merges.
+=======
+>>>>>>> 4bd13d37bde6563a5ec86e6a51c0e43e02697e56
 
 ### 5. Dependencies and Configuration
 - [ ] Dependencies have been reviewed and unnecessary ones removed.
@@ -68,7 +71,11 @@
 - [ ] Have integration tests been considered where applicable?
 
 ### 4. Performance Considerations
+<<<<<<< HEAD
 - [ ] Is the code optimized for performance (e.g., no unnecessary loops, minimal memory usage, proper data structures are used)?
+=======
+- [ ] Is the code optimized for performance (e.g., no unnecessary loops, minimal memory usage)?
+>>>>>>> 4bd13d37bde6563a5ec86e6a51c0e43e02697e56
 - [ ] Have any potential performance bottlenecks been addressed?
 - [ ] Are database queries optimized and efficient?
 
@@ -83,7 +90,11 @@
 - [ ] Is the PR description clear and informative?
 
 ### 7. Usability (If Applicable)
+<<<<<<< HEAD
 - [ ] Is the feature user-friendly and intuitive(can a random person who has no idea how this software works use this without confusion?
+=======
+- [ ] Is the feature user-friendly and intuitive?
+>>>>>>> 4bd13d37bde6563a5ec86e6a51c0e43e02697e56
 - [ ] Are UI/UX changes visually consistent with the rest of the application?
 - [ ] Have accessibility considerations been met?
 
@@ -93,7 +104,10 @@
 
 ### 9. Git Practices
 - [ ] Are commits well-structured and meaningful?
+<<<<<<< HEAD
 - [ ] Do commits have detailed comments explaining what changes are taking place?
+=======
+>>>>>>> 4bd13d37bde6563a5ec86e6a51c0e43e02697e56
 - [ ] Is the branch rebased correctly and free of merge conflicts?
 - [ ] Is the PR scoped appropriately (not too broad or too narrow)?
 
@@ -119,6 +133,7 @@
   > 12. Process will repeat until sprint ends or all US's are finished. Whichever happens first.
   > 13. Team member will update the Deliverable1.md document as needed.
   > 14. Upon Sprint completion Git Master and Scrum Master will merge the dev and doc to the master.
+<<<<<<< HEAD
 
 ## Collaboration Policy: (TBD)
 > In the event 2 or more team members are working on features that interact with each other
@@ -127,6 +142,8 @@
   > 3.If 2 or more members are working on a feature, both members should communicate and coordinate commits and merges to ensure smooth changes and prevent and conflicts before merging.
   > 4.If a conflict occurs during a commit, both team members will need to coordinate and resolve conflicts collaboratively to ensure application functionality.
   > 5. Once dependent features are done and no conflicts exist, notify the Scrum Master to complete the tasks.
+=======
+>>>>>>> 4bd13d37bde6563a5ec86e6a51c0e43e02697e56
 
 **Unit Tests Blackbox** (start Sprint 2)
   > Describe your Blackbox testing policy 
@@ -138,10 +155,17 @@
   > Describe your Code Review policy for on campus it is ok to have a less formal process in Sprint 2,
   > should be updated in Sprint 3 though
 
+<<<<<<< HEAD
   > Include a checklist/questions list which every developer will need to fill out/answer when creating a
   > Pull Request to the Dev branch. 
 
   > Include a checklist/question list which every reviewer will need to fill out/answer when conducting a
+=======
+  > Include a checklist/questions list which every developer will need to fill out/answe when creating a
+  > Pull Request to the Dev branch. 
+
+  > Include a checklist/question list which every reviewer will need to fill out/anser when conducting a
+>>>>>>> 4bd13d37bde6563a5ec86e6a51c0e43e02697e56
   > review, this checklist (and the answers of course) need to be put into the Pull Request review.
 
 **Static Analysis**  (online: start Sprint 3, campus: start Sprint 3)

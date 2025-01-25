@@ -44,7 +44,6 @@ public class Start {
     }
     
     public static void main(String[] args) {
-        //taiga.apitest.ApiTest.run();
         if (checkIfAlreadyStartet) {
             try {
                 // Try to open a socket. If socket opened successfully (app is already started), take no action and exit.
@@ -65,6 +64,7 @@ public class Start {
         }
         else
             app = new App(false);
+        TaigaLoginDialog taigaDlg = new TaigaLoginDialog(null, "Taiga Login"); // TODO: THIS IS WHEHRE THE TAIGAdlg is called
     }
 }
 
