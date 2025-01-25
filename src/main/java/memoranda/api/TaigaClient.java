@@ -1,4 +1,4 @@
-package memoranda.taiga;
+package memoranda.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
