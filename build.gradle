@@ -1,8 +1,14 @@
 plugins {
-    // id "com.github.spotbugs" version "4.5.1"
-    // id "checkstyle"
-  id 'java'
-  id 'application'
+    // Uncomment and use these plugins if needed
+    // id 'com.github.spotbugs' version '4.5.1'
+    // id 'checkstyle'
+    id 'java'
+    id 'application'
+}
+
+// Basic project configuration
+application {
+    mainClass = 'memoranda.Start'
 }
 
 // Gradle wrapper configuration
@@ -23,10 +29,11 @@ wrapper {
         options.encoding = 'UTF-8'
     }
 
-// Repositories and dependencies for code go here
-repositories {
-  mavenCentral()
-}
+// Repository configuration
+    repositories {
+        mavenCentral()
+    }
+
 
 // Dependencies
     dependencies {
@@ -70,7 +77,7 @@ tasks.register('fatJar', Jar) {
     manifest {
         attributes 'Main-Class': application.mainClass
     }
-    archiveBaseName.set('jdlafond_ruebezahl')
+    archiveBaseName.set('ruebezahl_spring25')
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }

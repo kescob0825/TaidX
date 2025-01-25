@@ -1,2 +1,1 @@
 rootProject.name = 'Ruebezahl_spring25A'
-include('taiga-api')
