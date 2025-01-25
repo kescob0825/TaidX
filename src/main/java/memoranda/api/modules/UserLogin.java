@@ -1,12 +1,11 @@
-package taiga.apitest;
+package memoranda.api.modules;
 
-import taiga.TaigaClient;
+import memoranda.api.TaigaClient;
 
 import java.io.IOException;
 
-
-public class ApiTest {
-    public static void main(String[] args) {
+public class UserLogin {
+    public void userLogin() {
         try {
             TaigaClient client = new TaigaClient();
             client.authenticate("your_username", "your_password"); // Replace with actual credentials
