@@ -124,7 +124,7 @@ public class App {
 
 		frame.pack();
 		if (JVMVer >= 1.4) {
-			frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+			frame.setExtendedState(Frame.NORMAL);
 		} else {
 			frame.setExtendedState(Frame.NORMAL);
 		}
@@ -137,11 +137,18 @@ public class App {
 		frame.requestFocus();
 
 	}
-
+	//Iconified will minimize Frame to toolbar
+	public static void minimizeWindow(){
+		if (frame == null)
+			return;
+		frame.setState(Frame.ICONIFIED);
+	}
+	//doExit calls
 	public static void closeWindow() {
 		if (frame == null)
 			return;
 		frame.dispose();
+		System.exit(0);
 	}
 
 	/**

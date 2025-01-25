@@ -1,10 +1,9 @@
 package memoranda.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
-import org.json.JSONObject;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import org.json.JSONObject;
 
 public class TaigaClient {
     private static final String BASE_URL = "https://api.taiga.io/api/v1/";
