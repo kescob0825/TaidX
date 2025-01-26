@@ -1,37 +1,16 @@
 package memoranda.ui;
 
-import java.awt.AWTEvent;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
+import java.net.URI;
+import java.util.*;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.JToolBar;
-import javax.swing.KeyStroke;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 
 import memoranda.CurrentProject;
@@ -277,17 +256,13 @@ public class AppFrame extends JFrame {
         jMenuHelp.setText(Local.getString("Help"));
         
         jMenuHelpGuide.setText(Local.getString("Online user's guide"));
-        jMenuHelpGuide.setIcon(new ImageIcon(AppFrame.class.getResource(
-                "/ui/icons/help.png")));
-        jMenuHelpGuide.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpGuide_actionPerformed(e);
-            }
-        });
+        jMenuHelpGuide.setIcon(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
+                "/ui/icons/help.png"))));
+        jMenuHelpGuide.addActionListener(this::jMenuHelpGuide_actionPerformed);
         
         jMenuHelpWeb.setText(Local.getString("Memoranda web site"));
-        jMenuHelpWeb.setIcon(new ImageIcon(AppFrame.class.getResource(
-                "/ui/icons/web.png")));
+        jMenuHelpWeb.setIcon(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
+                "/ui/icons/web.png"))));
         jMenuHelpWeb.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 jMenuHelpWeb_actionPerformed(e);
@@ -598,8 +573,8 @@ public class AppFrame extends JFrame {
         Object fwo = Context.get("FRAME_WIDTH");
         Object fho = Context.get("FRAME_HEIGHT");
         if ((fwo != null) && (fho != null)) {
-            int w = new Integer((String) fwo).intValue();
-            int h = new Integer((String) fho).intValue();
+            int w = Integer.parseInt((String) fwo);
+            int h = Integer.parseInt((String) fho);
             this.setSize(w, h);
         }
         else
@@ -608,8 +583,8 @@ public class AppFrame extends JFrame {
         Object xo = Context.get("FRAME_XPOS");
         Object yo = Context.get("FRAME_YPOS");
         if ((xo != null) && (yo != null)) {
-            int x = new Integer((String) xo).intValue();
-            int y = new Integer((String) yo).intValue();
+            int x = Integer.parseInt((String) xo);
+            int y = Integer.parseInt((String) yo);
             this.setLocation(x, y);
         }
 
@@ -633,15 +608,66 @@ public class AppFrame extends JFrame {
     }
    
     protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.BUGS_TRACKER_URL);
+        try{
+            if(Desktop.isDesktopSupported()){
+                Desktop desktop = Desktop.getDesktop();
+                URI uri = new URI("https://github.com/amehlhase316/Ruebezahl_spring25A/issues/new?template=Blank+issue");
+                desktop.browse(uri);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Desktop browsing is not supported on this platform.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Error opening online bug reporter: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
-   
+
     protected void jMenuHelpWeb_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.WEBSITE_URL);
+        try {
+            // Check if Desktop is supported
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                // Replace this URL with your actual user guide URL
+                URI uri = new URI("https://memoranda.sourceforge.net/");
+                desktop.browse(uri);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Desktop browsing is not supported on this platform",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error opening online guide: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
-   
+
     protected void jMenuHelpGuide_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.GUIDE_URL);
+        try {
+            // Check if Desktop is supported
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                // Replace this URL with your actual user guide URL
+                URI uri = new URI("https://memoranda.sourceforge.net/guide.html");
+                desktop.browse(uri);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Desktop browsing is not supported on this platform",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error opening online guide: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     //File | Exit action performed
@@ -656,10 +682,10 @@ public class AppFrame extends JFrame {
                         if(dlg.CANCELLED) return;
         }
 
-        Context.put("FRAME_WIDTH", new Integer(this.getWidth()));
-        Context.put("FRAME_HEIGHT", new Integer(this.getHeight()));
-        Context.put("FRAME_XPOS", new Integer(this.getLocation().x));
-        Context.put("FRAME_YPOS", new Integer(this.getLocation().y));
+        Context.put("FRAME_WIDTH", Integer.valueOf(this.getWidth()));
+        Context.put("FRAME_HEIGHT", Integer.valueOf(this.getHeight()));
+        Context.put("FRAME_XPOS", Integer.valueOf(this.getLocation().x));
+        Context.put("FRAME_YPOS", Integer.valueOf(this.getLocation().y));
         exitNotify();
         System.exit(0);
     }
@@ -912,8 +938,8 @@ public class AppFrame extends JFrame {
                         Context.put(
                                 "LAST_SELECTED_EXPORT_FILE",
                                 chooser.getSelectedFile().getPath());
-                        Context.put("EXPORT_SPLIT_NOTES", new Boolean(dlg.splitChB.isSelected()).toString());
-                        Context.put("EXPORT_TITLES_AS_HEADERS", new Boolean(dlg.titlesAsHeadersChB.isSelected()).toString());
+                        Context.put("EXPORT_SPLIT_NOTES", Boolean.valueOf(dlg.splitChB.isSelected()).toString());
+                        Context.put("EXPORT_TITLES_AS_HEADERS", Boolean.valueOf(dlg.titlesAsHeadersChB.isSelected()).toString());
                 
                 int ei = dlg.encCB.getSelectedIndex();
                 enc = null;

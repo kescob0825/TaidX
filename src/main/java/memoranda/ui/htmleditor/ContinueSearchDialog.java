@@ -26,8 +26,9 @@ public class ContinueSearchDialog extends JPanel {
   
   Thread thread;
 
-  public boolean cont = false;
-  public boolean cancel = false;
+  volatile boolean cont = false;
+  volatile boolean cancel = false;
+  private final Object lock = new Object();
 
   public ContinueSearchDialog(Thread t, String txt) {    
     try {
@@ -79,13 +80,17 @@ public class ContinueSearchDialog extends JPanel {
   }
 
   void cancelB_actionPerformed(ActionEvent e) {
-    cont = true;
-    cancel = true;    
-    thread.resume();
+    synchronized (lock) {
+      cont = true;
+      cancel = true;
+      lock.notify();  // Wake up the waiting thread
+    }
   }
 
   void continueB_actionPerformed(ActionEvent e) {
-     cont = true;     
-     thread.resume();
+    synchronized (lock) {
+      cont = true;
+      lock.notify();  // Wake up the waiting thread
+    }
   }
 }
