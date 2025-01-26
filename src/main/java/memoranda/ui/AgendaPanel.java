@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,7 +27,6 @@ import memoranda.NoteList;
 import memoranda.Project;
 import memoranda.ProjectListener;
 import memoranda.ProjectManager;
-import memoranda.ResourcesList;
 import memoranda.TaskList;
 import memoranda.date.CalendarDate;
 import memoranda.date.CurrentDate;
@@ -253,8 +251,7 @@ public class AgendaPanel extends JPanel {
 			public void projectChange(
 					Project prj,
 					NoteList nl,
-					TaskList tl,
-					ResourcesList rl) {
+					TaskList tl) {
 			}
 
 			public void projectWasChanged() {

@@ -26,7 +26,6 @@ import memoranda.Note;
 import memoranda.NoteList;
 import memoranda.Project;
 import memoranda.ProjectListener;
-import memoranda.ResourcesList;
 import memoranda.TaskList;
 import memoranda.util.CurrentStorage;
 import memoranda.util.Local;
@@ -114,7 +113,7 @@ public class SearchPanel extends JPanel {
         jPanel4.add(regexpCB, BorderLayout.CENTER);
         jPanel3.add(searchB, BorderLayout.SOUTH);
         CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
+            public void projectChange(Project p, NoteList nl, TaskList tl) {
                 notesList.update(new Vector());
             }
             public void projectWasChanged() {}

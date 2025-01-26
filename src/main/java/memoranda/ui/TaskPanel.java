@@ -1,7 +1,6 @@
 package memoranda.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -29,7 +28,6 @@ import memoranda.History;
 import memoranda.NoteList;
 import memoranda.Project;
 import memoranda.ProjectListener;
-import memoranda.ResourcesList;
 import memoranda.Task;
 import memoranda.TaskList;
 import memoranda.date.CalendarDate;
@@ -339,7 +337,7 @@ public class TaskPanel extends JPanel {
             }
         });
         CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
+            public void projectChange(Project p, NoteList nl, TaskList tl) {
                 newTaskB.setEnabled(
                     CurrentDate.get().inPeriod(p.getStartDate(), p.getEndDate()));
             }

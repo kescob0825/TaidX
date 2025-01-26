@@ -11,7 +11,6 @@ package memoranda.util;
 import memoranda.Note;
 import memoranda.NoteList;
 import memoranda.Project;
-import memoranda.ResourcesList;
 import memoranda.TaskList;
 /**
  * 
@@ -42,9 +41,7 @@ public interface Storage {
     
     void createProjectStorage(Project prj);
     void removeProjectStorage(Project prj);
-   
-    ResourcesList openResourcesList(Project prj);
-    void storeResourcesList(ResourcesList rl, Project prj);
+
     
     void restoreContext();
     void storeContext(); 

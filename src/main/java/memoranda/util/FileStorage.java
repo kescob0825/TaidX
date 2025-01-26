@@ -25,15 +25,12 @@ import memoranda.NoteList;
 import memoranda.NoteListImpl;
 import memoranda.Project;
 import memoranda.ProjectManager;
-import memoranda.ResourcesList;
-import memoranda.ResourcesListImpl;
 import memoranda.TaskList;
 import memoranda.TaskListImpl;
 import memoranda.date.CalendarDate;
 import memoranda.ui.ExceptionDialog;
 import memoranda.ui.htmleditor.AltHTMLWriter;
 import nu.xom.Builder;
-import nu.xom.DocType;
 import nu.xom.Document;
 
 
@@ -408,37 +405,7 @@ public class FileStorage implements Storage {
             "[DEBUG] Save mimetypes list: " + JN_DOCPATH + ".mimetypes");
         saveDocument(MimeTypesList._doc, JN_DOCPATH + ".mimetypes");
     }
-    /**
-     * @see memoranda.util.Storage#openResourcesList(memoranda.Project)
-     */
-    public ResourcesList openResourcesList(Project prj) {
-        String fn = JN_DOCPATH + prj.getID() + File.separator + ".resources";
-        if (documentExists(fn)) {
-            /*DEBUG*/
-            System.out.println("[DEBUG] Open resources list: " + fn);
-            return new ResourcesListImpl(openDocument(fn), prj);
-        }
-        else {
-            /*DEBUG*/
-            System.out.println("[DEBUG] New note list created");
-            return new ResourcesListImpl(prj);
-        }
-    }
-    /**
-     * @see memoranda.util.Storage#storeResourcesList(memoranda.ResourcesList, memoranda.Project)
-     */
-    public void storeResourcesList(ResourcesList rl, Project prj) {
-        /*DEBUG*/
-        System.out.println(
-            "[DEBUG] Save resources list: "
-                + JN_DOCPATH
-                + prj.getID()
-                + File.separator
-                + ".resources");
-        saveDocument(
-            rl.getXMLContent(),
-            JN_DOCPATH + prj.getID() + File.separator + ".resources");
-    }
+
     /**
      * @see memoranda.util.Storage#restoreContext()
      */
