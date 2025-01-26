@@ -157,7 +157,7 @@ public class App {
 	 */
 	private void showSplash() {
 		splash = new JFrame();
-		ImageIcon originalIcon = new ImageIcon(App.class.getResource("/ui/taidx.png"));
+		ImageIcon originalIcon = new ImageIcon(App.class.getResource("/ui/splash.png"));
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = screenSize.width;
 		int screenHeight = screenSize.height;
