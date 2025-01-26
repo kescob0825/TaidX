@@ -9,8 +9,12 @@
 package memoranda;
 
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import memoranda.api.Credentials;
+import memoranda.api.TaigaClient;
 import memoranda.ui.*;
 import memoranda.util.Configuration;
 
@@ -43,8 +47,7 @@ public class Start {
         }
     }
     
-    public static void main(String[] args) {
-        //taiga.apitest.ApiTest.run();
+    public static void main(String[] args) throws IOException {
         if (checkIfAlreadyStartet) {
             try {
                 // Try to open a socket. If socket opened successfully (app is already started), take no action and exit.
@@ -63,9 +66,12 @@ public class Start {
         if ((args.length == 0) || (!args[0].equals("-m"))) {
             app = new App(true);
         }
-        else
+        else {
             app = new App(false);
-        TaigaLoginDialog taigaDlg = new TaigaLoginDialog(null, "Taiga Login"); // TODO: THIS IS WHEHRE THE TAIGAdlg is called
+        }
+        TaigaLoginDialog taigaDlg = new TaigaLoginDialog(null, "Taiga Login"); // TODO: THIS IS WHERE THE TAIGAdlg is called
+
+
     }
 }
 

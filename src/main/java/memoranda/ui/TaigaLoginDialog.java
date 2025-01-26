@@ -1,4 +1,5 @@
 package memoranda.ui;
+import memoranda.api.Credentials;
 import memoranda.api.TaigaClient;
 
 import java.awt.*;
@@ -99,40 +100,24 @@ public class TaigaLoginDialog extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         centerPanel.add(forgotPasswordButton, gbc);
-        forgotPasswordButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                forgotPasswordButton_actionPerformed(e);
-            }
-        });
+        forgotPasswordButton.addActionListener(this::forgotPasswordButton_actionPerformed);
         // Create Account button (DELETE THIS BLOCK IF WERE NOT IMPLEMENTING THIS)
         //bottomPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         createAccountButton.setPreferredSize(new Dimension(150, 25));
         createAccountButton.setText(Local.getString("Create Account"));
-        createAccountButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                createAccountButton_actionPerformed(e);
-            }
-        });
+        createAccountButton.addActionListener(this::createAccountButton_actionPerformed);
         // Login button
         bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         loginButton.setMaximumSize(new Dimension(100, 25));
         loginButton.setMinimumSize(new Dimension(100, 25));
         loginButton.setPreferredSize(new Dimension(100, 25));
         loginButton.setText(Local.getString("Login"));
-        loginButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                loginButton_actionPerformed(e);
-            }
-        });
+        loginButton.addActionListener(this::loginButton_actionPerformed);
         this.getRootPane().setDefaultButton(loginButton);
         // Quit button
         quitButton.setPreferredSize(new Dimension(100, 25));
         quitButton.setText(Local.getString("Cancel"));
-        quitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cancelButton_actionPerformed(e);
-            }
-        });
+        quitButton.addActionListener(this::cancelButton_actionPerformed);
         bottomPanel.add(createAccountButton);
         bottomPanel.add(loginButton);
         bottomPanel.add(quitButton);
@@ -162,8 +147,18 @@ public class TaigaLoginDialog extends JDialog {
 
         try {
             loginMember();
-            client.getAuthToken();
-            // TODO: Populate user credentials to taidX here
+            /// /////////////////////////////////////////////////////////////////////////////////
+            //********REMOVE BEFORE DEPLOYED TO MASTER ONLY FOR TESTING**********
+            if(Objects.equals(this.userNameField.getText(), "test") && Objects.equals(this.passwordField.getText(), "test")) {
+                Credentials creds = new Credentials();
+                client.authenticate(creds.getUsername(), creds.getPassword());
+                System.out.println("Authentication successful. Token: " + client.getAuthToken());
+            }
+            /// ///////////////////////////////////////////////////////////////////////////////////
+            else {
+                client.authenticate(this.userNameField.getText(), this.passwordField.getText());
+                System.out.println("Authentication successful. Token: " + client.getAuthToken());
+            }
             this.dispose();
         }
         catch (IllegalStateException | IOException isioe) {
