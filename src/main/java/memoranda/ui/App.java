@@ -3,6 +3,7 @@ package memoranda.ui;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.Image;
 import java.util.Calendar;
 
 import javax.swing.ImageIcon;
@@ -156,18 +157,22 @@ public class App {
 	 */
 	private void showSplash() {
 		splash = new JFrame();
-		ImageIcon spl =
-			new ImageIcon(App.class.getResource("/ui/splash.png"));
-		JLabel l = new JLabel();
-		l.setSize(400, 300);
-		l.setIcon(spl);
-		splash.getContentPane().add(l);
-		splash.setSize(400, 300);
+		ImageIcon originalIcon = new ImageIcon(App.class.getResource("/ui/taidx.png"));
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		splash.setLocation(
-			(screenSize.width - 400) / 2,
-			(screenSize.height - 300) / 2);
+		int screenWidth = screenSize.width;
+		int screenHeight = screenSize.height;
+		int targetWidth = (int)(screenWidth*0.4);
+		int targetHeight = (int)(screenHeight*0.65);
+		Image scaledImage = originalIcon.getImage().getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+		ImageIcon scaledIcon = new ImageIcon(scaledImage);
+		JLabel l = new JLabel();
+		l.setSize(targetWidth, targetHeight);
+		l.setIcon(scaledIcon);
+		splash.getContentPane().add(l);
+		splash.setSize(targetWidth, targetHeight);
+		splash.setLocation((screenSize.width - targetWidth) / 2, (screenSize.height - targetHeight) / 2);
 		splash.setUndecorated(true);
 		splash.setVisible(true);
+
 	}
 }
