@@ -119,7 +119,7 @@ public class App {
 		/* --------------------------------------------------------------- */
 		double JVMVer =
 			Double
-				.valueOf(System.getProperty("java.version").substring(0, 3))
+				.valueOf(System.getProperty("java.version").substring(0, 2))
 				.doubleValue();
 
 		frame.pack();
