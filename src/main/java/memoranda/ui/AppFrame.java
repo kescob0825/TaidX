@@ -688,8 +688,8 @@ public class AppFrame extends JFrame {
 
         // Set the dialog position
         taigaDlg.setLocation(x, y);
-
-        // Make the dialog visible
+        taigaDlg.setLocationRelativeTo(App.frame);
+        taigaDlg.setAlwaysOnTop(true);
         taigaDlg.setVisible(true);
     }
     protected void jMenuTaigiLogout_actionPerformed(ActionEvent e){
