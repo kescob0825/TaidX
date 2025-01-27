@@ -684,12 +684,11 @@ public class AppFrame extends JFrame {
         Context.put("FRAME_XPOS", Integer.valueOf(this.getLocation().x));
         Context.put("FRAME_YPOS", Integer.valueOf(this.getLocation().y));
         exitNotify();
-        System.exit(0);
+        App.closeWindow();
     }
 
     public void doMinimize() {
-        exitNotify();
-        App.closeWindow();
+        App.minimizeWindow();
     }
 
     //Help | About action performed
@@ -711,8 +710,6 @@ public class AppFrame extends JFrame {
                 doMinimize();
         }
         else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
-            super.processWindowEvent(new WindowEvent(this,
-                    WindowEvent.WINDOW_CLOSING));
             doMinimize();
         }
         else

@@ -9,10 +9,18 @@
 package memoranda;
 
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import memoranda.api.TaigaClient;
+import memoranda.api.TaigaModule;
 import memoranda.ui.*;
 import memoranda.util.Configuration;
+
+import javax.swing.*;
 
 /**
  *
@@ -21,7 +29,7 @@ import memoranda.util.Configuration;
 public class Start {
     
     static App app = null;
-    
+    private static Injector injector;
     static int DEFAULT_PORT = 19432;
     static boolean checkIfAlreadyStartet = true;
     
@@ -42,9 +50,15 @@ public class Start {
             checkIfAlreadyStartet = false;
         }
     }
-    
-    public static void main(String[] args) {
-        //taiga.apitest.ApiTest.run();
+
+    public static Injector getInjector() {
+        return injector;
+    }
+
+    public static void main(String[] args) throws IOException {
+        injector = Guice.createInjector(new TaigaModule());
+        TaigaClient client = injector.getInstance(TaigaClient.class);
+
         if (checkIfAlreadyStartet) {
             try {
                 // Try to open a socket. If socket opened successfully (app is already started), take no action and exit.
@@ -63,8 +77,12 @@ public class Start {
         if ((args.length == 0) || (!args[0].equals("-m"))) {
             app = new App(true);
         }
-        else
+        else {
             app = new App(false);
+        }
+
+        TaigaLoginDialog taigaDlg = injector.getInstance(TaigaLoginDialog.class);
+
     }
 }
 

@@ -321,7 +321,7 @@ public class TaskPanel extends JPanel {
         tasksToolBar.add(completeTaskB, null);
 
 		//tasksToolBar.add(showActiveOnly, null);
-        
+
 
         this.add(tasksToolBar, BorderLayout.NORTH);
 
@@ -350,30 +350,30 @@ public class TaskPanel extends JPanel {
                 boolean enbl = (taskTable.getRowCount() > 0)&&(taskTable.getSelectedRow() > -1);
                 editTaskB.setEnabled(enbl);ppEditTask.setEnabled(enbl);
                 removeTaskB.setEnabled(enbl);ppRemoveTask.setEnabled(enbl);
-				
+
 				ppCompleteTask.setEnabled(enbl);
 				completeTaskB.setEnabled(enbl);
 				ppAddSubTask.setEnabled(enbl);
 				//ppSubTasks.setEnabled(enbl); // default value to be over-written later depending on whether it has sub tasks
 				ppCalcTask.setEnabled(enbl); // default value to be over-written later depending on whether it has sub tasks
-				
+
 				/*if (taskTable.getCurrentRootTask() == null) {
 					ppParentTask.setEnabled(false);
 				}
 				else {
 					ppParentTask.setEnabled(true);
 				}XXX*/
-				
-                if (enbl) {   
+
+                if (enbl) {
     				String thisTaskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
-    				
+
     				boolean hasSubTasks = CurrentProject.getTaskList().hasSubTasks(thisTaskId);
     				//ppSubTasks.setEnabled(hasSubTasks);
     				ppCalcTask.setEnabled(hasSubTasks);
     				Task t = CurrentProject.getTaskList().getTask(thisTaskId);
                     parentPanel.calendar.jnCalendar.renderer.setTask(t);
                     parentPanel.calendar.jnCalendar.updateUI();
-                }    
+                }
                 else {
                     parentPanel.calendar.jnCalendar.renderer.setTask(null);
                     parentPanel.calendar.jnCalendar.updateUI();
@@ -387,27 +387,27 @@ public class TaskPanel extends JPanel {
 		//ppSubTasks.setEnabled(false);
 		//ppParentTask.setEnabled(false);
     taskPPMenu.add(ppEditTask);
-    
+
     taskPPMenu.addSeparator();
     taskPPMenu.add(ppNewTask);
     taskPPMenu.add(ppAddSubTask);
     taskPPMenu.add(ppRemoveTask);
-    
+
     taskPPMenu.addSeparator();
 	taskPPMenu.add(ppCompleteTask);
 	taskPPMenu.add(ppCalcTask);
-	
+
     //taskPPMenu.addSeparator();
-    
+
     //taskPPMenu.add(ppSubTasks);
-    
+
     //taskPPMenu.addSeparator();
     //taskPPMenu.add(ppParentTask);
-    
+
     taskPPMenu.addSeparator();
 	taskPPMenu.add(ppShowActiveOnlyChB);
 
-	
+
 		// define key actions in TaskPanel:
 		// - KEY:DELETE => delete tasks (recursivly).
 		// - KEY:INTERT => insert new Subtask if another is selected.
@@ -415,27 +415,27 @@ public class TaskPanel extends JPanel {
 		// - KEY:SPACE => finish Task.
 		taskTable.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e){
-				if(taskTable.getSelectedRows().length>0 
+				if(taskTable.getSelectedRows().length>0
 					&& e.getKeyCode()==KeyEvent.VK_DELETE)
 					ppRemoveTask_actionPerformed(null);
-				
+
 				else if(e.getKeyCode()==KeyEvent.VK_INSERT) {
 					if(taskTable.getSelectedRows().length>0) {
 						ppAddSubTask_actionPerformed(null);
 					}
 					else {
-						ppNewTask_actionPerformed(null);						
+						ppNewTask_actionPerformed(null);
 					}
 				}
-				
+
 				else if(e.getKeyCode()==KeyEvent.VK_SPACE
 						&& taskTable.getSelectedRows().length>0) {
 					ppCompleteTask_actionPerformed(null);
 				}
 			}
 			public void	keyReleased(KeyEvent e){}
-			public void keyTyped(KeyEvent e){} 
-		});	
+			public void keyTyped(KeyEvent e){}
+		});
 
     }
 
@@ -451,14 +451,14 @@ public class TaskPanel extends JPanel {
         dlg.descriptionField.setText(t.getDescription());
         dlg.startDate.getModel().setValue(t.getStartDate().getDate());
         dlg.endDate.getModel().setValue(t.getEndDate().getDate());
-        dlg.priorityCB.setSelectedIndex(t.getPriority());                
+        dlg.priorityCB.setSelectedIndex(t.getPriority());
         dlg.effortField.setText(Util.getHoursFromMillis(t.getEffort()));
 	if((t.getStartDate().getDate()).after(t.getEndDate().getDate()))
 		dlg.chkEndDate.setSelected(false);
 	else
 		dlg.chkEndDate.setSelected(true);
-		dlg.progress.setValue(t.getProgress());
- 	dlg.chkEndDate_actionPerformed(null);	
+		dlg.progress.setValue(Integer.valueOf(t.getProgress()));
+ 	dlg.chkEndDate_actionPerformed(null);
         dlg.setVisible(true);
         if (dlg.CANCELLED)
             return;
@@ -476,7 +476,7 @@ public class TaskPanel extends JPanel {
         t.setPriority(dlg.priorityCB.getSelectedIndex());
         t.setEffort(Util.getMillisFromHours(dlg.effortField.getText()));
         t.setProgress(((Integer)dlg.progress.getValue()).intValue());
-        
+
 //		CurrentProject.getTaskList().adjustParentTasks(t);
 
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
@@ -487,9 +487,9 @@ public class TaskPanel extends JPanel {
 
     void newTaskB_actionPerformed(ActionEvent e) {
         TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("New task"));
-        
+
         //XXX String parentTaskId = taskTable.getCurrentRootTask();
-        
+
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
         dlg.startDate.getModel().setValue(CurrentDate.get().getDate());
@@ -519,9 +519,9 @@ public class TaskPanel extends JPanel {
     void addSubTask_actionPerformed(ActionEvent e) {
         TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("New Task"));
         String parentTaskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
-        
+
 //        Util.debug("Adding sub task under " + parentTaskId);
-        
+
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
 		Task parent = CurrentProject.getTaskList().getTask(parentTaskId);
@@ -530,9 +530,9 @@ public class TaskPanel extends JPanel {
 			dlg.setStartDate(todayD);
 		else
 			dlg.setStartDate(parent.getStartDate());
-		if (parent.getEndDate() != null) 
+		if (parent.getEndDate() != null)
 			dlg.setEndDate(parent.getEndDate());
-		else 
+		else
 			dlg.setEndDate(CurrentProject.get().getEndDate());
 		dlg.setStartDateLimit(parent.getStartDate(), parent.getEndDate());
 		dlg.setEndDateLimit(parent.getStartDate(), parent.getEndDate());
@@ -562,32 +562,32 @@ public class TaskPanel extends JPanel {
         TaskCalcDialog dlg = new TaskCalcDialog(App.getFrame());
         dlg.pack();
         Task t = CurrentProject.getTaskList().getTask(taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString());
-        
+
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
-        
+
         dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
         dlg.setVisible(true);
         if (dlg.CANCELLED) {
-            return;            
+            return;
         }
-        
+
         TaskList tl = CurrentProject.getTaskList();
         if(dlg.calcEffortChB.isSelected()) {
             t.setEffort(tl.calculateTotalEffortFromSubTasks(t));
         }
-        
+
         if(dlg.compactDatesChB.isSelected()) {
             t.setStartDate(tl.getEarliestStartDateFromSubTasks(t));
             t.setEndDate(tl.getLatestEndDateFromSubTasks(t));
         }
-        
+
         if(dlg.calcCompletionChB.isSelected()) {
             long[] res = tl.calculateCompletionFromSubTasks(t);
             int thisProgress = (int) Math.round((((double)res[0] / (double)res[1]) * 100));
             t.setProgress(thisProgress);
         }
-        
+
 //        CalendarDate sd = new CalendarDate((Date) dlg.startDate.getModel().getValue());
 ////        CalendarDate ed = new CalendarDate((Date) dlg.endDate.getModel().getValue());
 //          CalendarDate ed;
@@ -597,8 +597,8 @@ public class TaskPanel extends JPanel {
 // 			ed = new CalendarDate(0,0,0);
 //        long effort = Util.getMillisFromHours(dlg.effortField.getText());
 //		Task newTask = CurrentProject.getTaskList().createTask(sd, ed, dlg.todoField.getText(), dlg.priorityCB.getSelectedIndex(),effort, dlg.descriptionField.getText(),parentTaskId);
-//		
-		
+//
+
         CurrentStorage.get().storeTaskList(CurrentProject.getTaskList(), CurrentProject.get());
         taskTable.tableChanged();
 //        parentPanel.updateIndicators();
@@ -607,8 +607,8 @@ public class TaskPanel extends JPanel {
 
     void listSubTasks_actionPerformed(ActionEvent e) {
         String parentTaskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
-        
-        //XXX taskTable.setCurrentRootTask(parentTaskId); 
+
+        //XXX taskTable.setCurrentRootTask(parentTaskId);
 		taskTable.tableChanged();
 
 //        parentPanel.updateIndicators();
@@ -617,15 +617,15 @@ public class TaskPanel extends JPanel {
 
     void parentTask_actionPerformed(ActionEvent e) {
 //    	String taskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
-//      
+//
 //    	Task t = CurrentProject.getTaskList().getTask(taskId);
     	/*XXX Task t2 = CurrentProject.getTaskList().getTask(taskTable.getCurrentRootTask());
-    	
+
     	String parentTaskId = t2.getParent();
     	if((parentTaskId == null) || (parentTaskId.equals(""))) {
     		parentTaskId = null;
     	}
-    	taskTable.setCurrentRootTask(parentTaskId); 
+    	taskTable.setCurrentRootTask(parentTaskId);
     	taskTable.tableChanged();*/
 
 //      parentPanel.updateIndicators();
@@ -635,17 +635,17 @@ public class TaskPanel extends JPanel {
     void removeTaskB_actionPerformed(ActionEvent e) {
         String msg;
         String thisTaskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
-        
+
         if (taskTable.getSelectedRows().length > 1)
             msg = Local.getString("Remove")+" "+taskTable.getSelectedRows().length +" "+Local.getString("tasks")+"?"
              + "\n"+Local.getString("Are you sure?");
-        else {        	
+        else {
         	Task t = CurrentProject.getTaskList().getTask(thisTaskId);
         	// check if there are subtasks
 			if(CurrentProject.getTaskList().hasSubTasks(thisTaskId)) {
 				msg = Local.getString("Remove task")+"\n'" + t.getText() + Local.getString("' and all subtasks") +"\n"+Local.getString("Are you sure?");
 			}
-			else {		            
+			else {
 				msg = Local.getString("Remove task")+"\n'" + t.getText() + "'\n"+Local.getString("Are you sure?");
 			}
         }
