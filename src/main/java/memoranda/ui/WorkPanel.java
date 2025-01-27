@@ -1,10 +1,6 @@
 package memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
@@ -36,6 +32,7 @@ public class WorkPanel extends JPanel {
 	public JButton agendaB = new JButton();
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
+	public JButton taigaB = new JButton();
 	JButton currentB = null;
 	Border border1;
 
@@ -170,6 +167,34 @@ public class WorkPanel extends JPanel {
 		notesB.setSelected(true);
 		this.setPreferredSize(new Dimension(1073, 300));
 
+		taigaB.setFont(new java.awt.Font("Dialog", 1, 10));
+		taigaB.setBackground(Color.white);
+		taigaB.setBorder(null);
+		taigaB.setMaximumSize(new Dimension(60, 80));
+		taigaB.setMinimumSize(new Dimension(30, 30));
+		taigaB.setOpaque(false);
+		taigaB.setPreferredSize(new Dimension(60, 50));
+		taigaB.setBorderPainted(false);
+		taigaB.setContentAreaFilled(false);
+		taigaB.setFocusPainted(false);
+		taigaB.setHorizontalTextPosition(SwingConstants.CENTER);
+		taigaB.setText(Local.getString("Taiga"));
+		taigaB.setVerticalAlignment(SwingConstants.TOP);
+		taigaB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		taigaB.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				taigaB_actionPerformed(e);
+			}
+		});
+		ImageIcon icon = new ImageIcon(memoranda.ui.AppFrame.class.getResource(
+				"/ui/icons/tasks_v5copy.png"));
+		Image originalImg = icon.getImage();
+		Image rescaledImg = originalImg.getScaledInstance( 40, 40,  java.awt.Image.SCALE_SMOOTH);
+		taigaB.setIcon(new ImageIcon(rescaledImg));
+		taigaB.setMargin(new Insets(0, 0, 50, 0));
+		taigaB.setSelected(true);
+		this.setPreferredSize(new Dimension(1073, 300));
+
 
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
@@ -178,6 +203,7 @@ public class WorkPanel extends JPanel {
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
+		toolBar.add(taigaB, null);
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -228,7 +254,11 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "EVENTS");
 	}
 
-
+	public void taigaB_actionPerformed(ActionEvent e) {
+		cardLayout1.show(panel, "DAILYITEMS");
+		dailyItemsPanel.selectPanel("TAIGA");
+		setCurrentButton(taigaB);
+	}
 
 	void setCurrentButton(JButton cb) {
 		currentB.setBackground(Color.white);
