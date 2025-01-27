@@ -2,6 +2,7 @@ package memoranda.ui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -186,8 +187,8 @@ public class WorkPanel extends JPanel {
 				taigaB_actionPerformed(e);
 			}
 		});
-		ImageIcon icon = new ImageIcon(memoranda.ui.AppFrame.class.getResource(
-				"/ui/icons/taigalogo_archednobg.png"));
+		ImageIcon icon = new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
+                "/ui/icons/taigalogo_archednobg.png")));
 		Image originalImg = icon.getImage();
 		Image rescaledImg = originalImg.getScaledInstance( 40, 40,  java.awt.Image.SCALE_SMOOTH);
 		taigaB.setIcon(new ImageIcon(rescaledImg));
