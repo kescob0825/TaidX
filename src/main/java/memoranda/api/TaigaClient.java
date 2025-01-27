@@ -1,5 +1,6 @@
 package memoranda.api;
 
+import com.google.inject.Inject;
 import memoranda.api.modules.TaigaAuthenticate;
 import okhttp3.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +14,7 @@ public class TaigaClient {
     private final TaigaAuthenticate authenticator;
     private int lastResponseCode;
 
+    @Inject
     public TaigaClient() {
         this.httpClient = new OkHttpClient();
         this.objectMapper = new ObjectMapper();
@@ -21,7 +23,7 @@ public class TaigaClient {
         this.authenticator = new TaigaAuthenticate(httpClient, objectMapper);
     }
 
-    public void authenticate(String username, String password) throws IOException {
+    public void authenticateClient(String username, String password) throws IOException {
         authenticator.authenticate(username, password);
         lastResponseCode = authenticator.getLastResponseCode();
     }

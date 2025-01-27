@@ -50,6 +50,10 @@ wrapper {
         implementation('net.sourceforge.nekohtml:nekohtml:1.9.22') {
             exclude group: 'xml-apis', module: 'xml-apis'
         }
+        // https://mvnrepository.com/artifact/com.google.inject/guice
+        implementation group: 'com.google.inject', name: 'guice', version: '7.0.0'
+        // https://mvnrepository.com/artifact/com.google.inject.extensions/guice-assistedinject
+        implementation group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '7.0.0'
         implementation 'org.apache.commons:commons-lang3:3.12.0'
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     }
