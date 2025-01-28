@@ -567,7 +567,7 @@ public class AppFrame extends JFrame {
 
         this.workPanel.tasksB.addActionListener(setMenusDisabled);
         this.workPanel.eventsB.addActionListener(setMenusDisabled);
-        this.workPanel.filesB.addActionListener(setMenusDisabled);
+
         this.workPanel.agendaB.addActionListener(setMenusDisabled);
 
         this.workPanel.notesB.addActionListener(
@@ -603,8 +603,7 @@ public class AppFrame extends JFrame {
 
         CurrentProject.addProjectListener(new ProjectListener() {
 
-            public void projectChange(Project prj, NoteList nl, TaskList tl,
-                    ResourcesList rl) {
+            public void projectChange(Project prj, NoteList nl, TaskList tl) {
             }
 
             public void projectWasChanged() {
