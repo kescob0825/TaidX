@@ -45,7 +45,7 @@ public class ProjectImpl implements Project {
     }
 
     /**
-     * @see memoranda.Project#setStartDate(net.sf.memoranda.util.CalendarDate)
+     * @see memoranda.Project #setStartDate(net.sf.memoranda.util.CalendarDate)
      */
     public void setStartDate(CalendarDate date) {
         if (date != null)
@@ -62,7 +62,7 @@ public class ProjectImpl implements Project {
     }
 
     /**
-     * @see memoranda.Project#setEndDate(net.sf.memoranda.util.CalendarDate)
+     * @see memoranda.Project #setEndDate(net.sf.memoranda.util.CalendarDate)
      */
     public void setEndDate(CalendarDate date) {
         if (date != null)
@@ -75,34 +75,8 @@ public class ProjectImpl implements Project {
      * @see memoranda.Project#getStatus()
      */
     public int getStatus() {
-        if (isFrozen())
-            return Project.FROZEN;
-        CalendarDate today = CurrentDate.get();
-        CalendarDate prStart = getStartDate();
-        CalendarDate prEnd = getEndDate();
-        if (prEnd == null) {
-            if (today.before(prStart))
-                return Project.SCHEDULED;
-            else
-                return Project.ACTIVE;                
-        }    
-        if (today.inPeriod(prStart, prEnd))
-            return Project.ACTIVE;
-        else if (today.after(prEnd)) {
-            //if (getProgress() == 100)
-                return Project.COMPLETED;
-            /*else
-                return Project.FAILED;*/
-        }
-        else
-            return Project.SCHEDULED;
+        return 0;
     }
-
-    private boolean isFrozen() {
-        return _root.getAttribute("frozen") != null;
-    }
-
-   
     /*public int getProgress() {
         Vector v = getAllTasks();
         if (v.size() == 0) return 0;
@@ -113,22 +87,6 @@ public class ProjectImpl implements Project {
         }
         return (p*100)/(v.size()*100);
     }*/
-  
-    
-    /**
-     * @see memoranda.Project#freeze()
-     */
-    public void freeze() {
-        _root.addAttribute(new Attribute("frozen", "yes"));
-    }
-
-    /**
-     * @see memoranda.Project#unfreeze()
-     */
-    public void unfreeze() {
-        if (this.isFrozen())
-            _root.removeAttribute(new Attribute("frozen", "yes"));
-    }
     
     /**
      * @see memoranda.Project#getTitle()

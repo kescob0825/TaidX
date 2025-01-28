@@ -1,0 +1,46 @@
+:root {
+    --theme-background: #EFEFEF; /* Light theme background */
+    --theme-box-background: #FFFFFF; /* Slightly lighter box background */
+    --background-primary: #FFFFFF;
+    --background-secondary: #F5F5F5;
+    --text-primary: #000000;
+    --text-secondary: #555555;
+}
+
+.dark-theme {
+    --theme-background: #333333; /* Dark theme background */
+    --theme-box-background: #3A3A3A; /* Slightly lighter box background for dark theme */
+    --background-primary: #2b2b2b;
+    --background-secondary: #3c3f41;
+    --text-primary: #bbbbbb;
+    --text-secondary: #989898;
+}
+
+.light-theme {
+    --theme-background: #EFEFEF; /* Light theme background */
+    --theme-box-background: #FFFFFF; /* Slightly lighter box background for light theme */
+    --background-primary: #FFFFFF;
+    --background-secondary: #F5F5F5;
+    --text-primary: #000000;
+    --text-secondary: #555555;
+}
+
+.project-container {
+    background-color: var(--background-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.project-title {
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    font-size: 24px;
+}
+
+.project-content {
+    background-color: var(--background-primary);
+    border-radius: 8px;
+    padding: 16px;
+}

@@ -13,6 +13,8 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import memoranda.*;
 import memoranda.date.CurrentDate;
 import memoranda.ui.htmleditor.HTMLEditor;
@@ -20,8 +22,6 @@ import memoranda.util.Configuration;
 import memoranda.util.Context;
 import memoranda.util.CurrentStorage;
 import memoranda.util.Local;
-import memoranda.util.ProjectExporter;
-import memoranda.util.ProjectPackager;
 import memoranda.util.Util;
 import nu.xom.Builder;
 import nu.xom.Document;
@@ -219,6 +219,12 @@ public class AppFrame extends JFrame {
     JMenu jMenuLogin = new JMenu();
     JMenuItem  jMenuTaigiLogin = new JMenuItem();
     JMenuItem  jMenuTaigiLogout = new JMenuItem();
+
+    JMenu jMenuTheme = new JMenu();
+    JMenuItem jMenuThemeDark = new JMenuItem();
+    JMenuItem  jMenuThemeLight = new JMenuItem();
+
+
     //Construct the frame
     public AppFrame() {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
@@ -231,13 +237,14 @@ public class AppFrame extends JFrame {
     }
     //Component initialization
     private void jbInit() throws Exception {
-        this.setIconImage(new ImageIcon(AppFrame.class.getResource(
-                "/ui/icons/jnotes16.png"))
+        this.setIconImage(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
+                "/ui/icons/jnotes16.png")))
                 .getImage());
         contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(borderLayout1);
         //this.setSize(new Dimension(800, 500));
         this.setTitle("Memoranda - " + CurrentProject.get().getTitle());
+
         //Added a space to App.VERSION_INFO to make it look some nicer
         statusBar.setText(" Version:" + App.VERSION_INFO + " (Build "
                 + App.BUILD_INFO + " )");
@@ -250,13 +257,7 @@ public class AppFrame extends JFrame {
             }
         });
         jMenuHelp.setText(Local.getString("Help"));
-        jMenuLogin.setText(Local.getString("Taiga Login"));
-        jMenuTaigiLogin.setText(Local.getString("Sign in"));
-        jMenuLogin.setIcon(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
-                "/ui/icons/taigaicon.png"))));
-        jMenuTaigiLogout.setText(Local.getString("Sign out"));
-        jMenuTaigiLogin.addActionListener(e -> jMenuTaigiLogin_actionPerformed(e));
-        jMenuTaigiLogout.addActionListener(e -> jMenuTaigiLogout_actionPerformed(e));
+
         jMenuHelpGuide.setText(Local.getString("Online user's guide"));
         jMenuHelpGuide.setIcon(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
                 "/ui/icons/help.png"))));
@@ -286,26 +287,30 @@ public class AppFrame extends JFrame {
         });
         //jButton3.setIcon(image3);
         jButton3.setToolTipText(Local.getString("Help"));
+
+        jMenuLogin.setText(Local.getString("Taiga Login"));
+        jMenuTaigiLogin.setText(Local.getString("Sign in"));
+        jMenuLogin.setIcon(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
+                "/ui/icons/taigaicon.png"))));
+        jMenuTaigiLogout.setText(Local.getString("Sign out"));
+        jMenuTaigiLogin.addActionListener(this::jMenuTaigiLogin_actionPerformed);
+        jMenuTaigiLogout.addActionListener(this::jMenuTaigiLogout_actionPerformed);
+
+        jMenuTheme.setText(Local.getString("Theme"));
+        jMenuThemeDark.setText(Local.getString("Dark"));
+        jMenuThemeLight.setText(Local.getString("Light"));
+        jMenuThemeDark.addActionListener(this::jMenuThemeDark_actionPerformed);
+        jMenuThemeLight.addActionListener(this::jMenuThemeLight_actionPerformed);
+
         splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 
         splitPane.setContinuousLayout(true);
         splitPane.setDividerSize(3);
-        //splitPane.setOneTouchExpandable(true);
         splitPane.setDividerLocation(28);
-        //projectsPanel.setMaximumSize(new Dimension(2147483647, 200));
         projectsPanel.setMinimumSize(new Dimension(10, 28));
         projectsPanel.setPreferredSize(new Dimension(10, 28));
-        /*workPanel.setMinimumSize(new Dimension(734, 300));
-         workPanel.setPreferredSize(new Dimension(1073, 300));*/
         splitPane.setDividerLocation(28);
 
-        /* jMenuFileNewPrj.setText(Local.getString("New project") + "...");
-         jMenuFileNewPrj.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {
-         ProjectDialog.newProject();
-         }
-         });
-         */
         jMenuFileNewPrj.setAction(projectsPanel.newProjectAction);
 
         jMenuFileUnpackPrj.setText(Local.getString("Unpack project") + "...");
@@ -448,6 +453,9 @@ public class AppFrame extends JFrame {
         jMenuLogin.add(jMenuTaigiLogin);
         jMenuLogin.add(jMenuTaigiLogout);
 
+        jMenuTheme.add(jMenuThemeLight);
+        jMenuTheme.add(jMenuThemeDark);
+
         menuBar.add(jMenuFile);
         menuBar.add(jMenuEdit);
         menuBar.add(jMenuInsert);
@@ -455,6 +463,7 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuGo);
         menuBar.add(jMenuHelp);
         menuBar.add(jMenuLogin);
+        menuBar.add(jMenuTheme);
 
         this.setJMenuBar(menuBar);
         //contentPane.add(toolBar, BorderLayout.NORTH);
@@ -613,7 +622,46 @@ public class AppFrame extends JFrame {
         });
 
     }
-   
+
+    protected void jMenuThemeDark_actionPerformed(ActionEvent e) {
+        Configuration.put("LOOK_AND_FEEL", "dark");
+        Configuration.saveConfig();
+
+        try {
+            FlatDarkLaf.setup();
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+
+            // Update all components to use the new Look and Feel
+            SwingUtilities.updateComponentTreeUI(App.frame);
+
+            // If you have any other frames or dialogs open, update them too
+            for (Window window : Window.getWindows()) {
+                SwingUtilities.updateComponentTreeUI(window);
+            }
+        }catch(UnsupportedLookAndFeelException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    protected void jMenuThemeLight_actionPerformed(ActionEvent e) {
+        Configuration.put("LOOK_AND_FEEL", "light");
+        Configuration.saveConfig();
+        try {
+            FlatLightLaf.setup();
+            UIManager.setLookAndFeel(new FlatLightLaf());
+
+            // Update all components to use the new Look and Feel
+            SwingUtilities.updateComponentTreeUI(App.frame);
+
+            // If you have any other frames or dialogs open, update them too
+            for (Window window : Window.getWindows()) {
+                SwingUtilities.updateComponentTreeUI(window);
+            }
+        }catch(UnsupportedLookAndFeelException ex){
+            ex.printStackTrace();
+        }
+    }
+
     protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
         try{
             if(Desktop.isDesktopSupported()){
@@ -819,7 +867,6 @@ public class AppFrame extends JFrame {
             return;
         Context.put("LAST_SELECTED_PACK_FILE", chooser.getSelectedFile());        
         java.io.File f = chooser.getSelectedFile();
-        ProjectPackager.pack(CurrentProject.get(), f);
     }
 
     public void doPrjUnPack() {
@@ -875,7 +922,6 @@ public class AppFrame extends JFrame {
             return;
         Context.put("LAST_SELECTED_PACK_FILE", chooser.getSelectedFile());        
         java.io.File f = chooser.getSelectedFile();
-        ProjectPackager.unpack(f);
         projectsPanel.prjTablePanel.updateUI();
     }
 
@@ -973,8 +1019,6 @@ public class AppFrame extends JFrame {
                 boolean xhtml =
                         chooser.getFileFilter().getDescription().indexOf("XHTML") > -1;
                  CurrentProject.save();
-                 ProjectExporter.export(CurrentProject.get(), chooser.getSelectedFile(), enc, xhtml, 
-                                 dlg.splitChB.isSelected(), true, nument, dlg.titlesAsHeadersChB.isSelected(), false); 
                 }
             
             protected void ppImport_actionPerformed(ActionEvent e) {

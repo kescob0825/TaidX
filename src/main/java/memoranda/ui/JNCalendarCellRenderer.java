@@ -11,10 +11,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.Calendar;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JTable;
+import javax.swing.*;
 
 import memoranda.CurrentProject;
 import memoranda.EventsManager;
@@ -72,7 +69,7 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 
 
         if (d.equals(CalendarDate.today())) {
-            label.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 128)));
+            label.setBorder(BorderFactory.createLineBorder(UIManager.getColor("controlHighlight")));
         }
         
 		// set foreground color

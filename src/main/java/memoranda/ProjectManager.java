@@ -58,76 +58,31 @@ public class ProjectManager {
     }
 
     public static Vector getAllProjects() {
-        Elements prjs = _root.getChildElements("project");
-        Vector v = new Vector();
-        for (int i = 0; i < prjs.size(); i++)
-            v.add(new ProjectImpl((Element) prjs.get(i)));
-        return v;
+        return new Vector<>();
     }
 
     public static int getAllProjectsNumber() {
-		int i;
-        try {
-			i = ((Elements)_root.getChildElements("project")).size();
-		}
-		catch (NullPointerException e) {
-			i = 1;
-		}
-		return i;
+		return 0;
     }
 
     public static Vector getActiveProjects() {
-        Elements prjs = _root.getChildElements("project");
-        Vector v = new Vector();
-        for (int i = 0; i < prjs.size(); i++) {
-            Project prj = new ProjectImpl((Element) prjs.get(i));
-            if (prj.getStatus() == Project.ACTIVE)
-                v.add(prj);
-        }
-        return v;
+        return new Vector<>();
     }
 		
     public static int getActiveProjectsNumber() {
-        Elements prjs = _root.getChildElements("project");
-        int count = 0;
-        for (int i = 0; i < prjs.size(); i++) {
-            Project prj = new ProjectImpl((Element) prjs.get(i));
-            if (prj.getStatus() == Project.ACTIVE)
-                count++;
-        }
-        return count;
+        return 0;
     }
 
     public static Project createProject(String id, String title, CalendarDate startDate, CalendarDate endDate) {
-        Element el = new Element("project");
-        el.addAttribute(new Attribute("id", id));
-        _root.appendChild(el);
-        Project prj = new ProjectImpl(el);
-        prj.setTitle(title);
-        prj.setStartDate(startDate);
-        prj.setEndDate(endDate);
-        CurrentStorage.get().createProjectStorage(prj);
-        return prj;
+        return new ProjectImpl((Element) null);
     }
 
     public static Project createProject(String title, CalendarDate startDate, CalendarDate endDate) {
-        return createProject(Util.generateId(), title, startDate, endDate);
+        return new ProjectImpl((Element) null);
     }
     
     public static void removeProject(String id) {
-        Project prj = getProject(id);
-        if (prj == null)
-            return;
-        History.removeProjectHistory(prj);
-        CurrentStorage.get().removeProjectStorage(prj);
-        Elements prjs = _root.getChildElements("project");
-        for (int i = 0; i < prjs.size(); i++) {
-            String pid = ((Element) prjs.get(i)).getAttribute("id").getValue();
-            if (pid.equals(id)) {
-                _root.removeChild(prjs.get(i));
-                return;
-            }
-        }
+
     }
 
 }

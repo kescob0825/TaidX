@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
@@ -58,12 +59,12 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 	boolean expanded = false;
 	ImageIcon expIcon =
 		new ImageIcon(
-			memoranda.ui.AppFrame.class.getResource(
-				"/ui/icons/exp_panel.png"));
+                Objects.requireNonNull(AppFrame.class.getResource(
+                        "/ui/icons/exp_panel.png")));
 	ImageIcon collIcon =
 		new ImageIcon(
-			memoranda.ui.AppFrame.class.getResource(
-				"/ui/icons/coll_panel.png"));
+                Objects.requireNonNull(AppFrame.class.getResource(
+                        "/ui/icons/coll_panel.png")));
 	JLabel curProjectTitle = new JLabel();
 	Component component1;
 	JPopupMenu projectsPPMenu = new JPopupMenu();
@@ -79,8 +80,8 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		new AbstractAction(
 			Local.getString("New project") + "...",
 			new ImageIcon(
-				memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/newproject.png"))) {
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/newproject.png")))) {
 
 		public void actionPerformed(ActionEvent e) {
 			ppNewProject_actionPerformed(e);
@@ -99,7 +100,6 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 	void jbInit() throws Exception {
 		component1 = Box.createHorizontalStrut(20);
 		this.setLayout(borderLayout1);
-		topBar.setBackground(new Color(215, 225, 250));
 		topBar.setAlignmentX((float) 0.0);
 		topBar.setFloatable(false);
 		toolbarPanel.setLayout(borderLayout2);
@@ -112,12 +112,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		toggleButton.setFocusPainted(false);
 		toggleButton.setVerticalAlignment(SwingConstants.TOP);
 		toggleButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-		toggleButton.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				toggleButton_actionPerformed(null);
-			}
-		});
-
+		toggleButton.addActionListener(e -> toggleButton_actionPerformed(null));
 		toggleButton.setIcon(expIcon);
 		toggleButton.setMargin(new Insets(0, 0, 0, 0));
 		buttonsPanel.setMinimumSize(new Dimension(70, 22));
@@ -134,7 +129,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		flowLayout1.setVgap(0);
 
 		curProjectTitle.setFont(new java.awt.Font("Dialog", 1, 11));
-		curProjectTitle.setForeground(new Color(64, 70, 128));
+		curProjectTitle.setForeground(new Color(129, 136, 239));
 		curProjectTitle.setMaximumSize(new Dimension(32767, 22));
 		curProjectTitle.setPreferredSize(new Dimension(32767, 22));
 		curProjectTitle.setText(CurrentProject.get().getTitle());
@@ -160,8 +155,8 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		});
 		ppProperties.setIcon(
 			new ImageIcon(
-				memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/editproject.png")));
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/editproject.png"))));
 		ppProperties.setEnabled(false);
 		ppDeleteProject.setFont(new java.awt.Font("Dialog", 1, 11));
 		ppDeleteProject.setText(Local.getString("Delete project"));
@@ -172,8 +167,8 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		});
 		ppDeleteProject.setIcon(
 			new ImageIcon(
-				memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/removeproject.png")));
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/removeproject.png"))));
 		ppDeleteProject.setEnabled(false);
 
 		ppOpenProject.setFont(new java.awt.Font("Dialog", 1, 11));
@@ -217,8 +212,8 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		});
 		ppOpenB.setIcon(
 			new ImageIcon(
-				memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/ppopen.png")));
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/ppopen.png"))));
 		buttonsPanel.add(ppOpenB, null);
 		buttonsPanel.add(component1, null);
 		this.add(topBar, BorderLayout.NORTH);
@@ -421,8 +416,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 			dlg.endDate.getModel().setValue(
 				prj.getEndDate().getCalendar().getTime());
 		}
-		/*if (prj.getStatus() == Project.FROZEN)
-			dlg.freezeChB.setSelected(true);*/
+
 		dlg.setVisible(true);
 		if (dlg.CANCELLED)
 			return;
@@ -436,9 +430,7 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		else
 			prj.setEndDate(null);
 		prjTablePanel.updateUI();
-		/*
-		 * if (dlg.freezeChB.isSelected()) prj.freeze(); else
-		 */
+
 	}
 
 	void ppShowActiveOnlyChB_actionPerformed(ActionEvent e) {

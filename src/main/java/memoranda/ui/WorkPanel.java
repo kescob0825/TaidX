@@ -6,13 +6,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
@@ -39,7 +35,7 @@ public class WorkPanel extends JPanel {
 	public JButton eventsB = new JButton();
 	public JButton filesB = new JButton();
 	JButton currentB = null;
-	Border border1;
+
 
 	public WorkPanel() {
 		try {
@@ -50,25 +46,13 @@ public class WorkPanel extends JPanel {
 	}
 
 	void jbInit() throws Exception {
-		border1 =
-			BorderFactory.createCompoundBorder(
-				BorderFactory.createBevelBorder(
-					BevelBorder.LOWERED,
-					Color.white,
-					Color.white,
-					new Color(124, 124, 124),
-					new Color(178, 178, 178)),
-				BorderFactory.createEmptyBorder(0, 2, 0, 0));
 
 		this.setLayout(borderLayout1);
 		toolBar.setOrientation(JToolBar.VERTICAL);
-		toolBar.setBackground(Color.white);
-
 		toolBar.setBorderPainted(false);
 		toolBar.setFloatable(false);
 		panel.setLayout(cardLayout1);
 
-		agendaB.setBackground(Color.white);
 		agendaB.setMaximumSize(new Dimension(60, 80));
 		agendaB.setMinimumSize(new Dimension(30, 30));
 
@@ -78,23 +62,18 @@ public class WorkPanel extends JPanel {
 		agendaB.setContentAreaFilled(false);
 		agendaB.setFocusPainted(false);
 		agendaB.setHorizontalTextPosition(SwingConstants.CENTER);
-		agendaB.setText(Local.getString("Agenda"));
+		agendaB.setText(Local.getString("Home"));
 		agendaB.setVerticalAlignment(SwingConstants.TOP);
 		agendaB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		agendaB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				agendaB_actionPerformed(e);
-			}
-		});
+		agendaB.addActionListener(this::agendaB_actionPerformed);
 		agendaB.setIcon(
 			new ImageIcon(
-				memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/agenda.png")));
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/taiga50.png"))));
 		agendaB.setOpaque(false);
 		agendaB.setMargin(new Insets(0, 0, 0, 0));
 		agendaB.setSelected(true);
 
-		eventsB.setBackground(Color.white);
 		eventsB.setMaximumSize(new Dimension(60, 80));
 		eventsB.setMinimumSize(new Dimension(30, 30));
 
@@ -107,15 +86,11 @@ public class WorkPanel extends JPanel {
 		eventsB.setText(Local.getString("Events"));
 		eventsB.setVerticalAlignment(SwingConstants.TOP);
 		eventsB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		eventsB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				eventsB_actionPerformed(e);
-			}
-		});
+		eventsB.addActionListener(this::eventsB_actionPerformed);
 		eventsB.setIcon(
 			new ImageIcon(
-				memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/events.png")));
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/events.png"))));
 		eventsB.setOpaque(false);
 		eventsB.setMargin(new Insets(0, 0, 0, 0));
 		//eventsB.setSelected(true);
@@ -125,14 +100,10 @@ public class WorkPanel extends JPanel {
 		tasksB.setMargin(new Insets(0, 0, 0, 0));
 		tasksB.setIcon(
 			new ImageIcon(
-				memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/tasks.png")));
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/tasks.png"))));
 		tasksB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		tasksB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tasksB_actionPerformed(e);
-			}
-		});
+		tasksB.addActionListener(this::tasksB_actionPerformed);
 		tasksB.setVerticalAlignment(SwingConstants.TOP);
 		tasksB.setText(Local.getString("Tasks"));
 		tasksB.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -159,15 +130,11 @@ public class WorkPanel extends JPanel {
 		notesB.setText(Local.getString("Notes"));
 		notesB.setVerticalAlignment(SwingConstants.TOP);
 		notesB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		notesB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				notesB_actionPerformed(e);
-			}
-		});
+		notesB.addActionListener(this::notesB_actionPerformed);
 		notesB.setIcon(
 			new ImageIcon(
-				memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/notes.png")));
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/notes.png"))));
 		notesB.setMargin(new Insets(0, 0, 0, 0));
 		notesB.setSelected(true);
 		this.setPreferredSize(new Dimension(1073, 300));
@@ -176,14 +143,10 @@ public class WorkPanel extends JPanel {
 		filesB.setMargin(new Insets(0, 0, 0, 0));
 		filesB.setIcon(
 			new ImageIcon(
-				memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/files.png")));
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/files.png"))));
 		filesB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		filesB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				filesB_actionPerformed(e);
-			}
-		});
+		filesB.addActionListener(this::filesB_actionPerformed);
 		filesB.setFont(new java.awt.Font("Dialog", 1, 10));
 		filesB.setVerticalAlignment(SwingConstants.TOP);
 		filesB.setText(Local.getString("Resources"));
@@ -195,7 +158,6 @@ public class WorkPanel extends JPanel {
 		filesB.setMinimumSize(new Dimension(30, 30));
 		filesB.setOpaque(false);
 		filesB.setMaximumSize(new Dimension(60, 80));
-		filesB.setBackground(Color.white);
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
@@ -207,7 +169,7 @@ public class WorkPanel extends JPanel {
 		toolBar.add(filesB, null);
 		currentB = agendaB;
 		// Default blue color
-		currentB.setBackground(new Color(215, 225, 250));
+		currentB.setBackground(UIManager.getColor("controlShadow"));
 		currentB.setOpaque(true);
 
 		toolBar.setBorder(null);

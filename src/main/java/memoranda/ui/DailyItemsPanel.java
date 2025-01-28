@@ -10,16 +10,9 @@ import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 import memoranda.CurrentNote;
@@ -112,8 +105,8 @@ public class DailyItemsPanel extends JPanel {
         }
     }
     void jbInit() throws Exception {
-        border1 = BorderFactory.createEtchedBorder(Color.white, Color.gray);
-        border2 = BorderFactory.createEtchedBorder(Color.white, new Color(161, 161, 161));
+        border1 = BorderFactory.createEtchedBorder(UIManager.getColor("controlHighlight"), UIManager.getColor("controlShadow"));
+        border2 = BorderFactory.createEtchedBorder(UIManager.getColor("controlHighlight"), UIManager.getColor("controlShadow"));
         this.setLayout(borderLayout1);
         splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setBorder(null);
@@ -131,7 +124,6 @@ public class DailyItemsPanel extends JPanel {
         currentDateLabel.setForeground(Color.white);
         currentDateLabel.setText(CurrentDate.get().getFullDateString());
         borderLayout4.setHgap(4);
-        controlPanel.setBackground(new Color(230, 230, 230));
         controlPanel.setBorder(border2);
         controlPanel.setMinimumSize(new Dimension(20, 170));
         controlPanel.setPreferredSize(new Dimension(205, 170));
@@ -139,7 +131,7 @@ public class DailyItemsPanel extends JPanel {
         //controlPanel.setSize(controlPanel.getMaximumSize());
         calendar.setFont(new java.awt.Font("Dialog", 0, 11));
         calendar.setMinimumSize(new Dimension(0, 168));
-        toggleToolBar.setBackground(new Color(215, 225, 250));
+        toggleToolBar.setBackground(new Color(21, 21, 21));
         toggleToolBar.setRequestFocusEnabled(false);
         toggleToolBar.setFloatable(false);
         cmainPanel.setLayout(borderLayout5);
@@ -173,7 +165,7 @@ public class DailyItemsPanel extends JPanel {
                 alarmB_actionPerformed(e);
             }
         });
-        alarmB.setIcon(new ImageIcon(memoranda.ui.AppFrame.class.getResource("/ui/icons/alarm.png")));
+        alarmB.setIcon(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource("/ui/icons/alarm.png"))));
         flowLayout1.setAlignment(FlowLayout.RIGHT);
         flowLayout1.setVgap(0);
         taskB.setMargin(new Insets(0, 0, 0, 0));
@@ -187,7 +179,7 @@ public class DailyItemsPanel extends JPanel {
         taskB.setBorderPainted(false);
         taskB.setMaximumSize(new Dimension(24, 24));
         taskB.setOpaque(false);
-        taskB.setIcon(new ImageIcon(memoranda.ui.AppFrame.class.getResource("/ui/icons/task.png")));
+        taskB.setIcon(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource("/ui/icons/task.png"))));
 
         notesControlPane.setFont(new java.awt.Font("Dialog", 1, 10));
         mainTabsPanel.setLayout(cardLayout2);
@@ -302,7 +294,7 @@ public class DailyItemsPanel extends JPanel {
         mainTabsPanel.add(notesControlPane, "NOTESTAB");
 		mainTabsPanel.add(agendaTabbedPane, "AGENDATAB");
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
-        mainPanel.setBorder(null);
+        mainPanel.setBorder(BorderFactory.createEtchedBorder(UIManager.getColor("controlHighlight"), UIManager.getColor("controlDkShadow")));
     }
 
    

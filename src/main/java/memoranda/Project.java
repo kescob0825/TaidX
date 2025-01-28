@@ -51,7 +51,6 @@ public interface Project {
     
     //ResourcesList getResourcesList();
     
-    void freeze();
-    void unfreeze();  
+
     
 }
