@@ -18,6 +18,12 @@ public class TaigaAuthenticate {
     private AuthToken authToken;
     private int lastResponseCode;
 
+    // User fields if authentication is successful
+    private String username;
+    private String email;
+    private String name;
+    private int totalProjects;
+
     public TaigaAuthenticate(OkHttpClient httpClient, ObjectMapper objectMapper) {
         this.httpClient = httpClient;
 
@@ -45,6 +51,13 @@ public class TaigaAuthenticate {
                 JSONObject jsonResponse = new JSONObject(responseBody);
                 String token = jsonResponse.getString("auth_token");
                 authToken = new AuthToken(token);
+                this.username = jsonResponse.getString("username");
+                this.email = jsonResponse.getString("email");
+                this.name = jsonResponse.getString("full_name");
+                // add private and public projects
+                String public_projects = jsonResponse.getString("total_public_projects");
+                String private_projects = jsonResponse.getString("total_private_projects");
+                this.totalProjects = (Integer.parseInt(public_projects) + Integer.parseInt(private_projects));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,6 +69,30 @@ public class TaigaAuthenticate {
             throw new IOException("Authentication failed");
         }
         return authToken.getToken();
+    }
+    public String getUsername() throws IOException {
+        if (authToken == null || authToken.isEmpty()) {
+            throw new IOException("Authentication failed");
+        }
+        return this.username;
+    }
+    public String getEmail() throws IOException {
+        if (authToken == null || authToken.isEmpty()) {
+            throw new IOException("Authentication failed");
+        }
+        return this.email;
+    }
+    public String getName() throws IOException {
+        if (authToken == null || authToken.isEmpty()) {
+            throw new IOException("Authentication failed");
+        }
+        return this.name;
+    }
+    public int getTotalProjects() throws IOException {
+        if (authToken == null || authToken.isEmpty()) {
+            throw new IOException("Authentication failed");
+        }
+        return this.totalProjects;
     }
 
     public int getLastResponseCode() {
