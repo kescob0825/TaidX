@@ -13,7 +13,7 @@ public class TaigaClient {
     private final ObjectMapper objectMapper;
     private final TaigaAuthenticate authenticator;
     private int lastResponseCode;
-
+    private boolean isLoggedIn = false;
     @Inject
     public TaigaClient() {
         this.httpClient = new OkHttpClient();
@@ -26,13 +26,34 @@ public class TaigaClient {
     public void authenticateClient(String username, String password) throws IOException {
         authenticator.authenticate(username, password);
         lastResponseCode = authenticator.getLastResponseCode();
+        if (authenticator.getAuthToken() != null || !authenticator.getAuthToken().isEmpty())
+            isLoggedIn = true;
+
     }
 
     public String getAuthToken() throws IOException {
         return authenticator.getAuthToken();
     }
 
+    public String getUsername() throws IOException {
+        return authenticator.getUsername();
+    }
+
+    public String getEmail() throws IOException {
+        return authenticator.getEmail();
+    }
+
+    public String getName() throws IOException {
+        return authenticator.getName();
+    }
+
+    public int getTotalProjects() throws IOException {
+        return authenticator.getTotalProjects();
+    }
+
     public int getLastResponseCode() {
         return lastResponseCode;
     }
+
+    public boolean isLoggedIn() {return this.isLoggedIn;}
 }
