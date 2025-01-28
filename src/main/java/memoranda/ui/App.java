@@ -1,16 +1,12 @@
 package memoranda.ui;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Toolkit;
-import java.awt.Image;
+import java.awt.*;
 import java.util.Calendar;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.UIManager;
+import javax.swing.*;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import memoranda.EventsScheduler;
 import memoranda.util.Configuration;
 import memoranda.util.Context;
@@ -64,22 +60,7 @@ public class App {
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			showSplash();
 		System.out.println(VERSION_INFO);
-		System.out.println(Configuration.get("LOOK_AND_FEEL"));
-		try {
-			if (Configuration.get("LOOK_AND_FEEL").equals("system"))
-				UIManager.setLookAndFeel(
-					UIManager.getSystemLookAndFeelClassName());
-			else if (Configuration.get("LOOK_AND_FEEL").equals("default"))
-				UIManager.setLookAndFeel(
-					UIManager.getCrossPlatformLookAndFeelClassName());					
-			else if (
-				Configuration.get("LOOK_AND_FEEL").toString().length() > 0)
-				UIManager.setLookAndFeel(
-					Configuration.get("LOOK_AND_FEEL").toString());
 
-		} catch (Exception e) {		    
-			new ExceptionDialog(e, "Error when initializing a pluggable look-and-feel. Default LF will be used.", "Make sure that specified look-and-feel library classes are on the CLASSPATH.");
-		}
 		if (Configuration.get("FIRST_DAY_OF_WEEK").equals("")) {
 			String fdow;
 			if (Calendar.getInstance().getFirstDayOfWeek() == 2)
@@ -99,6 +80,41 @@ public class App {
 		}
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			splash.dispose();
+		System.out.println(Configuration.get("LOOK_AND_FEEL"));
+		SwingUtilities.invokeLater(() -> {
+			try {
+				String osName = System.getProperty("os.name").toLowerCase();
+				boolean isMac = osName.contains("mac");
+				boolean isWindows = osName.contains("win");
+
+				JFrame.setDefaultLookAndFeelDecorated(true);
+				JDialog.setDefaultLookAndFeelDecorated(true);
+
+				if (Configuration.get("LOOK_AND_FEEL").equals("light")) {
+					UIManager.setLookAndFeel(new FlatLightLaf());
+					if (isMac) {
+						frame.getRootPane().putClientProperty("apple.awt.windowTitleAppearance", "NSAppearanceNameAqua");
+						frame.getRootPane().putClientProperty("apple.awt.windowTitleForeground", Color.BLACK);
+					}
+				}
+				else if (Configuration.get("LOOK_AND_FEEL").equals("dark")) {
+					UIManager.setLookAndFeel(new FlatDarkLaf());
+					if (isMac) {
+						frame.getRootPane().putClientProperty("apple.awt.windowTitleAppearance", "NSAppearanceNameDarkAqua");
+						frame.getRootPane().putClientProperty("apple.awt.windowTitleForeground", Color.WHITE);
+					}
+				}
+				else {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				}
+
+				SwingUtilities.updateComponentTreeUI(frame);
+				frame.getRootPane().revalidate();
+				frame.repaint();
+			} catch (Exception e) {
+				new ExceptionDialog(e);
+			}
+		});
 	}
 
 	void init() {
