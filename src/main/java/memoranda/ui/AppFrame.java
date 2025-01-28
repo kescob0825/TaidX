@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 
 import memoranda.*;
+import memoranda.api.TaigaClient;
 import memoranda.date.CurrentDate;
 import memoranda.ui.htmleditor.HTMLEditor;
 import memoranda.util.Configuration;
@@ -677,7 +678,16 @@ public class AppFrame extends JFrame {
     }
 
     protected void jMenuTaigiLogin_actionPerformed(ActionEvent e){
-        TaigaLoginDialog taigaDlg = Start.getInjector().getInstance(TaigaLoginDialog.class);
+        TaigaClient client = Start.getInjector().getInstance(TaigaClient.class);
+        if (client.isLoggedIn()) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "You are already logged in.",
+                    "Illegal Action",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        TaigaLoginDialog taigaDlg = new TaigaLoginDialog();
 
         taigaDlg.pack();
 
