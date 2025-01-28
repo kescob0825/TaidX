@@ -13,6 +13,7 @@ import javax.swing.UIManager;
 
 import memoranda.EventsScheduler;
 import memoranda.util.Configuration;
+import memoranda.util.Context;
 
 /**
  * 
@@ -101,38 +102,18 @@ public class App {
 	}
 
 	void init() {
-		/*
-		 * if (packFrame) { frame.pack(); } else { frame.validate(); }
-		 * 
-		 * Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		 * 
-		 * Dimension frameSize = frame.getSize(); if (frameSize.height >
-		 * screenSize.height) { frameSize.height = screenSize.height; } if
-		 * (frameSize.width > screenSize.width) { frameSize.width =
-		 * screenSize.width; }
-		 * 
-		 * 
-		 * Make the window fullscreen - On Request of users This seems not to
-		 * work on sun's version 1.4.1_01 Works great with 1.4.2 !!! So update
-		 * your J2RE or J2SDK.
-		 */
-		/* Used to maximize the screen if the JVM Version if 1.4 or higher */
-		/* --------------------------------------------------------------- */
-		double JVMVer =
-			Double
-				.valueOf(System.getProperty("java.version").substring(0, 2))
-				.doubleValue();
-
 		frame.pack();
-		if (JVMVer >= 1.4) {
-			frame.setExtendedState(Frame.NORMAL);
-		} else {
-			frame.setExtendedState(Frame.NORMAL);
-		}
-		/* --------------------------------------------------------------- */
-		/* Added By Jeremy Whitlock (jcscoobyrs) 07-Nov-2003 at 15:54:24 */
+		int width = Context.get("FRAME_WIDTH") != null ?
+                Integer.valueOf((String)Context.get("FRAME_WIDTH")) : 800; // default width
+		int height = Context.get("FRAME_HEIGHT") != null ?
+				Integer.valueOf((String)Context.get("FRAME_HEIGHT")) : 600; // default height
+		int xPos = Context.get("FRAME_XPOS") != null ?
+				Integer.valueOf((String)Context.get("FRAME_XPOS")) : 0;
+		int yPos = Context.get("FRAME_YPOS") != null ?
+				Integer.valueOf((String)Context.get("FRAME_YPOS")) : 0;
+		frame.setSize(width, height);
+		frame.setLocation(xPos, yPos);
 
-		// Not needed ???
 		frame.setVisible(true);
 		frame.toFront();
 		frame.requestFocus();

@@ -13,14 +13,7 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 
-import memoranda.CurrentProject;
-import memoranda.History;
-import memoranda.Note;
-import memoranda.NoteList;
-import memoranda.Project;
-import memoranda.ProjectListener;
-import memoranda.ResourcesList;
-import memoranda.TaskList;
+import memoranda.*;
 import memoranda.date.CurrentDate;
 import memoranda.ui.htmleditor.HTMLEditor;
 import memoranda.util.Configuration;
@@ -34,7 +27,6 @@ import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
-
 
 /**
  * 
@@ -64,6 +56,7 @@ public class AppFrame extends JFrame {
     JMenu jMenuEdit = new JMenu();
     JMenu jMenuFormat = new JMenu();
     JMenu jMenuInsert = new JMenu();
+
 
     public WorkPanel workPanel = new WorkPanel();
     HTMLEditor editor = workPanel.dailyItemsPanel.editorPanel.editor;
@@ -223,6 +216,9 @@ public class AppFrame extends JFrame {
     JMenuItem jMenuHelpBug = new JMenuItem();
     JMenuItem jMenuHelpAbout = new JMenuItem();
 
+    JMenu jMenuLogin = new JMenu();
+    JMenuItem  jMenuTaigiLogin = new JMenuItem();
+    JMenuItem  jMenuTaigiLogout = new JMenuItem();
     //Construct the frame
     public AppFrame() {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
@@ -254,7 +250,13 @@ public class AppFrame extends JFrame {
             }
         });
         jMenuHelp.setText(Local.getString("Help"));
-        
+        jMenuLogin.setText(Local.getString("Taiga Login"));
+        jMenuTaigiLogin.setText(Local.getString("Sign in"));
+        jMenuLogin.setIcon(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
+                "/ui/icons/taigaicon.png"))));
+        jMenuTaigiLogout.setText(Local.getString("Sign out"));
+        jMenuTaigiLogin.addActionListener(e -> jMenuTaigiLogin_actionPerformed(e));
+        jMenuTaigiLogout.addActionListener(e -> jMenuTaigiLogout_actionPerformed(e));
         jMenuHelpGuide.setText(Local.getString("Online user's guide"));
         jMenuHelpGuide.setIcon(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
                 "/ui/icons/help.png"))));
@@ -442,13 +444,18 @@ public class AppFrame extends JFrame {
         jMenuHelp.add(jMenuHelpBug);
         jMenuHelp.addSeparator();
         jMenuHelp.add(jMenuHelpAbout);
-        
+
+        jMenuLogin.add(jMenuTaigiLogin);
+        jMenuLogin.add(jMenuTaigiLogout);
+
         menuBar.add(jMenuFile);
         menuBar.add(jMenuEdit);
         menuBar.add(jMenuInsert);
         menuBar.add(jMenuFormat);
         menuBar.add(jMenuGo);
         menuBar.add(jMenuHelp);
+        menuBar.add(jMenuLogin);
+
         this.setJMenuBar(menuBar);
         //contentPane.add(toolBar, BorderLayout.NORTH);
         contentPane.add(statusBar, BorderLayout.SOUTH);
@@ -668,6 +675,25 @@ public class AppFrame extends JFrame {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    protected void jMenuTaigiLogin_actionPerformed(ActionEvent e){
+        TaigaLoginDialog taigaDlg = Start.getInjector().getInstance(TaigaLoginDialog.class);
+
+        taigaDlg.pack();
+
+        // Calculate the center position
+        int x = App.getFrame().getX() + (App.getFrame().getWidth() - taigaDlg.getWidth()) / 2;
+        int y = App.getFrame().getY() + (App.getFrame().getHeight() - taigaDlg.getHeight()) / 2;
+
+        // Set the dialog position
+        taigaDlg.setLocation(x, y);
+        taigaDlg.setLocationRelativeTo(App.frame);
+        taigaDlg.setAlwaysOnTop(true);
+        taigaDlg.setVisible(true);
+    }
+    protected void jMenuTaigiLogout_actionPerformed(ActionEvent e){
+
     }
     
     //File | Exit action performed

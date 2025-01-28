@@ -1,4 +1,5 @@
 package memoranda.ui;
+
 import memoranda.api.Credentials;
 import memoranda.api.TaigaClient;
 
@@ -9,7 +10,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
-
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.Inject;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -19,7 +21,7 @@ import memoranda.util.Local;
 public class TaigaLoginDialog extends JDialog {
 
     public boolean CANCELLED = true;
-    TaigaClient client = new TaigaClient();
+    private TaigaClient client;
     GridBagConstraints gbc;
     JPanel topPanel = new JPanel(new FlowLayout());
     JLabel taigaHeader = new JLabel();
@@ -34,8 +36,10 @@ public class TaigaLoginDialog extends JDialog {
     JButton loginButton = new JButton();
     JButton quitButton = new JButton();
 
-    public TaigaLoginDialog(Frame frame, String title) {
-        super(frame, title, true);
+    @Inject
+    public TaigaLoginDialog(TaigaClient client) {
+        this.setTitle(Local.getString("Taiga Login"));
+        this.client = client;
         try {
             jbInit();
             pack();
@@ -44,6 +48,7 @@ public class TaigaLoginDialog extends JDialog {
             new ExceptionDialog(ex);
         }
     }
+
     void jbInit() throws Exception {
         this.setResizable(false);
         topPanel.setBorder(new EmptyBorder(new Insets(0, 5, 0, 5)));
@@ -151,12 +156,12 @@ public class TaigaLoginDialog extends JDialog {
             //********REMOVE BEFORE DEPLOYED TO MASTER ONLY FOR TESTING**********
             if(Objects.equals(this.userNameField.getText(), "test") && Objects.equals(this.passwordField.getText(), "test")) {
                 Credentials creds = new Credentials();
-                client.authenticate(creds.getUsername(), creds.getPassword());
+                client.authenticateClient(creds.getUsername(), creds.getPassword());
                 System.out.println("Authentication successful. Token: " + client.getAuthToken());
             }
             /// ///////////////////////////////////////////////////////////////////////////////////
             else {
-                client.authenticate(this.userNameField.getText(), this.passwordField.getText());
+                client.authenticateClient(this.userNameField.getText(), this.passwordField.getText());
                 System.out.println("Authentication successful. Token: " + client.getAuthToken());
             }
             this.dispose();
@@ -219,7 +224,7 @@ public class TaigaLoginDialog extends JDialog {
         String username = this.userNameField.getText();
         String password = this.passwordField.getText();
         try {
-            client.authenticate(username, password); // Replace with actual credentials
+            client.authenticateClient(username, password); // Replace with actual credentials
         } catch (IOException e) {
             e.fillInStackTrace();
         }
