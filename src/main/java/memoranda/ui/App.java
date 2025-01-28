@@ -1,12 +1,16 @@
 package memoranda.ui;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Toolkit;
+import java.awt.Image;
 import java.util.Calendar;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import memoranda.EventsScheduler;
 import memoranda.util.Configuration;
 import memoranda.util.Context;
@@ -28,7 +32,6 @@ public class App {
 
 	private JFrame splash = null;
 
-	JPanel titleBar = null;
 	/*========================================================================*/ 
 	/* Note: Please DO NOT edit the version/build info manually!
        The actual values are substituted by the Ant build script using 
@@ -61,7 +64,22 @@ public class App {
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			showSplash();
 		System.out.println(VERSION_INFO);
+		System.out.println(Configuration.get("LOOK_AND_FEEL"));
+		try {
+			if (Configuration.get("LOOK_AND_FEEL").equals("system"))
+				UIManager.setLookAndFeel(
+					UIManager.getSystemLookAndFeelClassName());
+			else if (Configuration.get("LOOK_AND_FEEL").equals("default"))
+				UIManager.setLookAndFeel(
+					UIManager.getCrossPlatformLookAndFeelClassName());					
+			else if (
+				Configuration.get("LOOK_AND_FEEL").toString().length() > 0)
+				UIManager.setLookAndFeel(
+					Configuration.get("LOOK_AND_FEEL").toString());
 
+		} catch (Exception e) {		    
+			new ExceptionDialog(e, "Error when initializing a pluggable look-and-feel. Default LF will be used.", "Make sure that specified look-and-feel library classes are on the CLASSPATH.");
+		}
 		if (Configuration.get("FIRST_DAY_OF_WEEK").equals("")) {
 			String fdow;
 			if (Calendar.getInstance().getFirstDayOfWeek() == 2)
@@ -79,54 +97,20 @@ public class App {
 		if (fullmode) {
 			init();
 		}
-		if (!Configuration.get("SHOW_SPLASH").equals("no"))  splash.dispose();
-		System.out.println(Configuration.get("LOOK_AND_FEEL"));
-		SwingUtilities.invokeLater(() -> {
-			try {
-				String osName = System.getProperty("os.name").toLowerCase();
-				boolean isMac = osName.contains("mac");
-				boolean isWindows = osName.contains("win");
-
-				JFrame.setDefaultLookAndFeelDecorated(true);
-				JDialog.setDefaultLookAndFeelDecorated(true);
-
-				if (Configuration.get("LOOK_AND_FEEL").equals("light")) {
-					UIManager.setLookAndFeel(new FlatLightLaf());
-					if (isMac) {
-						frame.getRootPane().putClientProperty("apple.awt.windowTitleAppearance", "NSAppearanceNameAqua");
-						frame.getRootPane().putClientProperty("apple.awt.windowTitleForeground", Color.BLACK);
-					}
-				}
-				else if (Configuration.get("LOOK_AND_FEEL").equals("dark")) {
-					UIManager.setLookAndFeel(new FlatDarkLaf());
-					if (isMac) {
-						frame.getRootPane().putClientProperty("apple.awt.windowTitleAppearance", "NSAppearanceNameDarkAqua");
-						frame.getRootPane().putClientProperty("apple.awt.windowTitleForeground", Color.WHITE);
-					}
-				}
-				else {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				}
-
-				SwingUtilities.updateComponentTreeUI(frame);
-				frame.getRootPane().revalidate();
-				frame.repaint();
-			} catch (Exception e) {
-				new ExceptionDialog(e);
-			}
-		});
+		if (!Configuration.get("SHOW_SPLASH").equals("no"))
+			splash.dispose();
 	}
 
 	void init() {
 		frame.pack();
 		int width = Context.get("FRAME_WIDTH") != null ?
-                Integer.parseInt((String)Context.get("FRAME_WIDTH")) : 800; // default width
+                Integer.valueOf((String)Context.get("FRAME_WIDTH")) : 800; // default width
 		int height = Context.get("FRAME_HEIGHT") != null ?
-				Integer.parseInt((String)Context.get("FRAME_HEIGHT")) : 600; // default height
+				Integer.valueOf((String)Context.get("FRAME_HEIGHT")) : 600; // default height
 		int xPos = Context.get("FRAME_XPOS") != null ?
-				Integer.parseInt((String)Context.get("FRAME_XPOS")) : 0;
+				Integer.valueOf((String)Context.get("FRAME_XPOS")) : 0;
 		int yPos = Context.get("FRAME_YPOS") != null ?
-				Integer.parseInt((String)Context.get("FRAME_YPOS")) : 0;
+				Integer.valueOf((String)Context.get("FRAME_YPOS")) : 0;
 		frame.setSize(width, height);
 		frame.setLocation(xPos, yPos);
 
@@ -154,18 +138,22 @@ public class App {
 	 */
 	private void showSplash() {
 		splash = new JFrame();
-		ImageIcon spl =
-			new ImageIcon(App.class.getResource("/ui/splash.png"));
-		JLabel l = new JLabel();
-		l.setSize(400, 300);
-		l.setIcon(spl);
-		splash.getContentPane().add(l);
-		splash.setSize(400, 300);
+		ImageIcon originalIcon = new ImageIcon(App.class.getResource("/ui/splash.png"));
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		splash.setLocation(
-			(screenSize.width - 400) / 2,
-			(screenSize.height - 300) / 2);
+		int screenWidth = screenSize.width;
+		int screenHeight = screenSize.height;
+		int targetWidth = (int)(screenWidth*0.4);
+		int targetHeight = (int)(screenHeight*0.65);
+		Image scaledImage = originalIcon.getImage().getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+		ImageIcon scaledIcon = new ImageIcon(scaledImage);
+		JLabel l = new JLabel();
+		l.setSize(targetWidth, targetHeight);
+		l.setIcon(scaledIcon);
+		splash.getContentPane().add(l);
+		splash.setSize(targetWidth, targetHeight);
+		splash.setLocation((screenSize.width - targetWidth) / 2, (screenSize.height - targetHeight) / 2);
 		splash.setUndecorated(true);
 		splash.setVisible(true);
+
 	}
 }
