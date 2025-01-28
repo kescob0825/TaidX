@@ -38,7 +38,7 @@ public class TaigaLoginDialog extends JDialog {
 
     @Inject
     public TaigaLoginDialog(TaigaClient client) {
-        super((Frame) null, "title", true);
+        this.setTitle(Local.getString("Taiga Login"));
         this.client = client;
         try {
             jbInit();

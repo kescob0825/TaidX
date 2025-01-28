@@ -81,7 +81,7 @@ public class Start {
             app = new App(false);
         }
 
-        TaigaLoginDialog taigaDlg = injector.getInstance(TaigaLoginDialog.class);
+
 
     }
 }
