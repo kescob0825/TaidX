@@ -1,9 +1,12 @@
 package memoranda.ui;
 
+import memoranda.Start;
 import memoranda.util.Local;
 import memoranda.api.TaigaClient;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.Objects;
 
 public class TaigaPanel extends JPanel {
@@ -30,6 +33,8 @@ public class TaigaPanel extends JPanel {
 
     GridBagConstraints gbc;
     DailyItemsPanel parentPanel = null;
+    TaigaClient client = Start.getInjector().getInstance(TaigaClient.class);
+    JButton logIn = new JButton("Refresh");
 
     public TaigaPanel(DailyItemsPanel _parentPanel) {
         try {
@@ -51,23 +56,24 @@ public class TaigaPanel extends JPanel {
         profileInfoPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         this.add(profileInfoPanel, BorderLayout.WEST);
         // Top panel within left side panel
-        profilePanel.setBackground(Color.RED);
+        //profilePanel.setBackground(Color.RED);
         profilePanel.setPreferredSize(new Dimension(298, 300));
         profileInfoPanel.add(profilePanel, BorderLayout.NORTH);
         // Taiga title panel on top of profilePanel
         panelTitleH.setText("Taiga Profile");
         panelTitleH.setFont(new Font("Dialog", 0, 20));
         panelTitleH.setForeground(new Color(0, 0, 124));
-        titlePanel.setBackground(Color.BLUE);
+        //titlePanel.setBackground(Color.BLUE);
         titlePanel.setPreferredSize(new Dimension(300, 30));
         titlePanel.add(panelTitleH);
 
-        pfpPanel.setBackground(Color.WHITE);
+        //pfpPanel.setBackground(Color.WHITE);
         pfpPanel.setPreferredSize(new Dimension(300, NULL_VAL));
-
+        pfpPanel.add(this.logIn);
+        this.logIn.addActionListener(this::refreshPanel);
         infoPanel.setLayout(new GridBagLayout());
         infoPanel.setPreferredSize(new Dimension(300, 150));
-        infoPanel.setBackground(Color.GREEN);
+        //infoPanel.setBackground(Color.GREEN);
 
         pRealNameH.setText("Name:");
         gbc = new GridBagConstraints();
@@ -127,5 +133,16 @@ public class TaigaPanel extends JPanel {
         profilePanel.add(titlePanel, BorderLayout.NORTH);
         profilePanel.add(pfpPanel, BorderLayout.CENTER);
         profilePanel.add(infoPanel, BorderLayout.SOUTH);
+    }
+    void refreshPanel(ActionEvent e) {
+        try {
+            pUsernameH.setText("Username: " + client.getUsername());
+            pRealNameH.setText("RealName: " + client.getName());
+            pEmailH.setText("Email: " + client.getEmail());
+            pProjectsH.setText("Number of Projects: " + client.getTotalProjects());
+        }
+        catch (IOException io) {
+            io.fillInStackTrace();
+        }
     }
 }
