@@ -1,5 +1,6 @@
 package memoranda.ui;
 
+import memoranda.Start;
 import memoranda.api.Credentials;
 import memoranda.api.TaigaClient;
 
@@ -37,9 +38,9 @@ public class TaigaLoginDialog extends JDialog {
     JButton quitButton = new JButton();
 
     @Inject
-    public TaigaLoginDialog(TaigaClient client) {
+    public TaigaLoginDialog() {
         this.setTitle(Local.getString("Taiga Login"));
-        this.client = client;
+        this.client = Start.getInjector().getInstance(TaigaClient.class);
         try {
             jbInit();
             pack();
@@ -158,11 +159,15 @@ public class TaigaLoginDialog extends JDialog {
                 Credentials creds = new Credentials();
                 client.authenticateClient(creds.getUsername(), creds.getPassword());
                 System.out.println("Authentication successful. Token: " + client.getAuthToken());
+                System.out.println("Authentication successful. Username: " + client.getUsername());
+                System.out.println("Authentication successful. Email: " + client.getEmail());
             }
             /// ///////////////////////////////////////////////////////////////////////////////////
             else {
                 client.authenticateClient(this.userNameField.getText(), this.passwordField.getText());
                 System.out.println("Authentication successful. Token: " + client.getAuthToken());
+                System.out.println("Authentication successful. Username: " + client.getUsername());
+                System.out.println("Authentication successful. Email: " + client.getEmail());
             }
             this.dispose();
         }
@@ -190,7 +195,6 @@ public class TaigaLoginDialog extends JDialog {
                     "No password provided. Please make sure to provide a valid password.",
                     "Authentication Failed",
                     JOptionPane.ERROR_MESSAGE);
-            ipwe.fillInStackTrace();
         }
     }
 
