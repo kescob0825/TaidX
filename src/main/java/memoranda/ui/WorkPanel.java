@@ -27,6 +27,7 @@ public class WorkPanel extends JPanel {
 	JPanel panel = new JPanel();
 	CardLayout cardLayout1 = new CardLayout();
 
+	public JButton homeB = new JButton();
 	public JButton notesB = new JButton();
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
@@ -53,6 +54,27 @@ public class WorkPanel extends JPanel {
 		toolBar.setFloatable(false);
 		panel.setLayout(cardLayout1);
 
+		homeB.setMaximumSize(new Dimension(60, 80));
+		homeB.setMinimumSize(new Dimension(30, 30));
+
+		homeB.setFont(new java.awt.Font("Dialog", 1, 10));
+		homeB.setPreferredSize(new Dimension(50, 50));
+		homeB.setBorderPainted(false);
+		homeB.setContentAreaFilled(false);
+		homeB.setFocusPainted(false);
+		homeB.setHorizontalTextPosition(SwingConstants.CENTER);
+		homeB.setText(Local.getString("Home"));
+		homeB.setVerticalAlignment(SwingConstants.TOP);
+		homeB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		homeB.addActionListener(this::homeB_actionPerformed);
+		homeB.setIcon(
+			new ImageIcon(
+                    Objects.requireNonNull(AppFrame.class.getResource(
+                            "/ui/icons/taiga50.png"))));
+		homeB.setOpaque(false);
+		homeB.setMargin(new Insets(0, 0, 0, 0));
+		homeB.setSelected(true);
+
 		agendaB.setMaximumSize(new Dimension(60, 80));
 		agendaB.setMinimumSize(new Dimension(30, 30));
 
@@ -62,14 +84,14 @@ public class WorkPanel extends JPanel {
 		agendaB.setContentAreaFilled(false);
 		agendaB.setFocusPainted(false);
 		agendaB.setHorizontalTextPosition(SwingConstants.CENTER);
-		agendaB.setText(Local.getString("Home"));
+		agendaB.setText(Local.getString("Scrum"));
 		agendaB.setVerticalAlignment(SwingConstants.TOP);
 		agendaB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		agendaB.addActionListener(this::agendaB_actionPerformed);
 		agendaB.setIcon(
 			new ImageIcon(
                     Objects.requireNonNull(AppFrame.class.getResource(
-                            "/ui/icons/taiga50.png"))));
+                            "/ui/icons/scrum.png"))));
 		agendaB.setOpaque(false);
 		agendaB.setMargin(new Insets(0, 0, 0, 0));
 		agendaB.setSelected(true);
@@ -83,14 +105,14 @@ public class WorkPanel extends JPanel {
 		eventsB.setContentAreaFilled(false);
 		eventsB.setFocusPainted(false);
 		eventsB.setHorizontalTextPosition(SwingConstants.CENTER);
-		eventsB.setText(Local.getString("Events"));
+		eventsB.setText(Local.getString("Issues"));
 		eventsB.setVerticalAlignment(SwingConstants.TOP);
 		eventsB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		eventsB.addActionListener(this::eventsB_actionPerformed);
 		eventsB.setIcon(
 			new ImageIcon(
                     Objects.requireNonNull(AppFrame.class.getResource(
-                            "/ui/icons/events.png"))));
+                            "/ui/icons/issues.png"))));
 		eventsB.setOpaque(false);
 		eventsB.setMargin(new Insets(0, 0, 0, 0));
 		//eventsB.setSelected(true);
@@ -101,11 +123,11 @@ public class WorkPanel extends JPanel {
 		tasksB.setIcon(
 			new ImageIcon(
                     Objects.requireNonNull(AppFrame.class.getResource(
-                            "/ui/icons/tasks.png"))));
+                            "/ui/icons/search.png"))));
 		tasksB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		tasksB.addActionListener(this::tasksB_actionPerformed);
 		tasksB.setVerticalAlignment(SwingConstants.TOP);
-		tasksB.setText(Local.getString("Tasks"));
+		tasksB.setText(Local.getString("Search"));
 		tasksB.setHorizontalTextPosition(SwingConstants.CENTER);
 		tasksB.setFocusPainted(false);
 		tasksB.setBorderPainted(false);
@@ -127,14 +149,14 @@ public class WorkPanel extends JPanel {
 		notesB.setContentAreaFilled(false);
 		notesB.setFocusPainted(false);
 		notesB.setHorizontalTextPosition(SwingConstants.CENTER);
-		notesB.setText(Local.getString("Notes"));
+		notesB.setText(Local.getString("Wiki"));
 		notesB.setVerticalAlignment(SwingConstants.TOP);
 		notesB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		notesB.addActionListener(this::notesB_actionPerformed);
 		notesB.setIcon(
 			new ImageIcon(
                     Objects.requireNonNull(AppFrame.class.getResource(
-                            "/ui/icons/notes.png"))));
+                            "/ui/icons/wiki.png"))));
 		notesB.setMargin(new Insets(0, 0, 0, 0));
 		notesB.setSelected(true);
 		this.setPreferredSize(new Dimension(1073, 300));
@@ -144,12 +166,12 @@ public class WorkPanel extends JPanel {
 		filesB.setIcon(
 			new ImageIcon(
                     Objects.requireNonNull(AppFrame.class.getResource(
-                            "/ui/icons/files.png"))));
+                            "/ui/icons/team.png"))));
 		filesB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		filesB.addActionListener(this::filesB_actionPerformed);
 		filesB.setFont(new java.awt.Font("Dialog", 1, 10));
 		filesB.setVerticalAlignment(SwingConstants.TOP);
-		filesB.setText(Local.getString("Resources"));
+		filesB.setText(Local.getString("Team"));
 		filesB.setHorizontalTextPosition(SwingConstants.CENTER);
 		filesB.setFocusPainted(false);
 		filesB.setBorderPainted(false);
@@ -162,12 +184,13 @@ public class WorkPanel extends JPanel {
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
+		toolBar.add(homeB, null);
 		toolBar.add(agendaB, null);
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
-		currentB = agendaB;
+		currentB = homeB;
 		// Default blue color
 		currentB.setBackground(UIManager.getColor("controlShadow"));
 		currentB.setOpaque(true);
@@ -192,6 +215,13 @@ public class WorkPanel extends JPanel {
 		}
 	}
 
+	public void homeB_actionPerformed(ActionEvent e) {
+		cardLayout1.show(panel, "DAILYITEMS");
+		dailyItemsPanel.selectPanel("HOME");
+		setCurrentButton(homeB);
+		Context.put("CURRENT_PANEL", "HOME");
+	}
+	
 	public void agendaB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("AGENDA");
