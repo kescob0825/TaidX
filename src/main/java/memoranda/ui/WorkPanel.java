@@ -29,8 +29,6 @@ public class WorkPanel extends JPanel {
 
 	public JButton homeB = new JButton();
 	public JButton notesB = new JButton();
-	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
-	public ResourcesPanel filesPanel = new ResourcesPanel();
 	public JButton agendaB = new JButton();
 	public JButton tasksB = new JButton();
 	public JButton eventsB = new JButton();
@@ -182,8 +180,6 @@ public class WorkPanel extends JPanel {
 		filesB.setMaximumSize(new Dimension(60, 80));
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
-		panel.add(dailyItemsPanel, "DAILYITEMS");
-		panel.add(filesPanel, "FILES");
 		toolBar.add(homeB, null);
 		toolBar.add(agendaB, null);
 		toolBar.add(eventsB, null);
@@ -197,8 +193,6 @@ public class WorkPanel extends JPanel {
 
 		toolBar.setBorder(null);
 		panel.setBorder(null);
-		dailyItemsPanel.setBorder(null);
-		filesPanel.setBorder(null);
 
 	}
 
@@ -217,35 +211,30 @@ public class WorkPanel extends JPanel {
 
 	public void homeB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
-		dailyItemsPanel.selectPanel("HOME");
 		setCurrentButton(homeB);
 		Context.put("CURRENT_PANEL", "HOME");
 	}
 	
 	public void agendaB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
-		dailyItemsPanel.selectPanel("AGENDA");
 		setCurrentButton(agendaB);
 		Context.put("CURRENT_PANEL", "AGENDA");
 	}
 
 	public void notesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
-		dailyItemsPanel.selectPanel("NOTES");
 		setCurrentButton(notesB);
 		Context.put("CURRENT_PANEL", "NOTES");
 	}
 
 	public void tasksB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
-		dailyItemsPanel.selectPanel("TASKS");
 		setCurrentButton(tasksB);
 		Context.put("CURRENT_PANEL", "TASKS");
 	}
 
 	public void eventsB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
-		dailyItemsPanel.selectPanel("EVENTS");
 		setCurrentButton(eventsB);
 		Context.put("CURRENT_PANEL", "EVENTS");
 	}

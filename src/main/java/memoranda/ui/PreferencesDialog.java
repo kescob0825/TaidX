@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import memoranda.util.Configuration;
-import memoranda.util.CurrentStorage;
 import memoranda.util.Local;
 import memoranda.util.MimeTypesList;
 
@@ -58,7 +57,6 @@ public class PreferencesDialog extends JDialog {
 
 	JPanel resourcePanel = new JPanel(new BorderLayout());
 
-	ResourceTypePanel resourceTypePanel = new ResourceTypePanel();
 
 	Border rstPanelBorder;
 
@@ -387,8 +385,6 @@ public class PreferencesDialog extends JDialog {
 
 		// Build Tab2
 		rstPanelBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-		resourceTypePanel.setBorder(rstPanelBorder);
-		resourcePanel.add(resourceTypePanel, BorderLayout.CENTER);
 		rsbpBorder = new TitledBorder(BorderFactory.createEmptyBorder(5, 5, 5,
 				5), Local.getString("Web browser executable"));
 		rsBottomPanel.setBorder(rsbpBorder);
@@ -614,7 +610,6 @@ public class PreferencesDialog extends JDialog {
 		String brPath = this.browserPath.getText();
 		if (new java.io.File(brPath).isFile()) {
 			MimeTypesList.getAppList().setBrowserExec(brPath);
-			CurrentStorage.get().storeMimeTypesList();
 		}
 
 		if (!this.enableSoundCB.isSelected())
@@ -636,9 +631,7 @@ public class PreferencesDialog extends JDialog {
 		Configuration.put("HEADER_FONT", headerFontCB.getSelectedItem());
 		Configuration.put("MONO_FONT", monoFontCB.getSelectedItem());
 		Configuration.put("BASE_FONT_SIZE", baseFontSize.getValue());
-		App.getFrame().workPanel.dailyItemsPanel.editorPanel.editor.editor.setAntiAlias(antialiasChB.isSelected());
-		App.getFrame().workPanel.dailyItemsPanel.editorPanel.initCSS();
-		App.getFrame().workPanel.dailyItemsPanel.editorPanel.editor.repaint();
+
 		
 		Configuration.saveConfig();
 		

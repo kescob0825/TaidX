@@ -127,7 +127,6 @@ public class Util {
         if (chooser.showOpenDialog(App.getFrame()) != JFileChooser.APPROVE_OPTION)
             return false;
         appList.setBrowserExec(chooser.getSelectedFile().getPath());
-        CurrentStorage.get().storeMimeTypesList();
         return true;
     }
     

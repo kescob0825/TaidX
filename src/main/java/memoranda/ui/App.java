@@ -7,7 +7,6 @@ import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import memoranda.EventsScheduler;
 import memoranda.util.Configuration;
 import memoranda.util.Context;
 
@@ -72,8 +71,7 @@ public class App {
 			/* DEBUG */
 			System.out.println("[DEBUG] first day of week is set to " + fdow);
 		}
-
-		EventsScheduler.init();
+		
 		frame = new AppFrame();
 		if (fullmode) {
 			init();
