@@ -44,7 +44,7 @@ public class WorkPanel extends JPanel {
 	public JButton statsB = createMenuButton("Stats", "/ui/icons/stats.png");
 
 	private JButton currentB = null;
-
+	private JButton lastB = null;
 	JPanel homeSubToolBar;
 	JPanel scrumSubToolBar;
 	JPanel issuesSubToolBar;
@@ -82,34 +82,6 @@ public class WorkPanel extends JPanel {
 		} catch (Exception ex) {
 			new ExceptionDialog(ex);
 		}
-	}
-
-	private void collapseCurrentSubmenu() {
-		// Reset the expansion state
-		isHomeExpanded = false;
-		isScrumExpanded = false;
-		isIssuesExpanded = false;
-		isStatsExpanded = false;
-	}
-
-	private JButton createMenuButton(String text, String iconPath) {
-		JButton button = new JButton();
-		button.setMaximumSize(new Dimension(200, 60));
-		button.setMinimumSize(new Dimension(200, 60));
-		button.setPreferredSize(new Dimension(200, 60));
-
-		button.setFont(new Font("Dialog", Font.BOLD, 12));
-		button.setText(Local.getString(text));
-		button.setIcon(new ImageIcon(Objects.requireNonNull(
-				AppFrame.class.getResource(iconPath))));
-
-		button.setBorderPainted(false);
-		button.setContentAreaFilled(true);
-		button.setFocusPainted(false);
-		button.setHorizontalAlignment(SwingConstants.LEFT);
-		button.setIconTextGap(10); // space between icon and text
-
-		return button;
 	}
 
 	void jbInit() throws Exception {
@@ -169,6 +141,26 @@ public class WorkPanel extends JPanel {
 		setCurrentButton(homeB);
 		AppFrame.rightPanel.revalidate();
 		AppFrame.rightPanel.repaint();
+	}
+
+	private JButton createMenuButton(String text, String iconPath) {
+		JButton button = new JButton();
+		button.setMaximumSize(new Dimension(200, 60));
+		button.setMinimumSize(new Dimension(200, 60));
+		button.setPreferredSize(new Dimension(200, 60));
+
+		button.setFont(new Font("Dialog", Font.BOLD, 12));
+		button.setText(Local.getString(text));
+		button.setIcon(new ImageIcon(Objects.requireNonNull(
+				AppFrame.class.getResource(iconPath))));
+
+		button.setBorderPainted(false);
+		button.setContentAreaFilled(true);
+		button.setFocusPainted(false);
+		button.setHorizontalAlignment(SwingConstants.LEFT);
+		button.setIconTextGap(10); // space between icon and text
+
+		return button;
 	}
 
 	private JButton createSubmenuButton(String text) {
@@ -433,11 +425,42 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "TEAM_STATS");
 	}
 
+	private void initState(){
+		toolBar.removeAll();
+		toolBar.add(homeB);
+		if (isHomeExpanded) {
+			toolBar.add(homeSubToolBar);
+		}
+		toolBar.add(scrumB);
+		if (isScrumExpanded) {
+			toolBar.add(scrumSubToolBar);
+		}
+		toolBar.add(issuesB);
+		if (isIssuesExpanded) {
+			toolBar.add(issuesSubToolBar);
+		}
+		toolBar.add(statsB);
+		if (isStatsExpanded) {
+			toolBar.add(statsSubToolBar);
+		}
+		toolBar.revalidate();
+		toolBar.repaint();
+	}
+
+
+
 	void setCurrentButton (JButton cb){
 		currentB.setBackground(UIManager.getColor("control"));
 
-		if(cb == homeB || cb == scrumB || cb == issuesB || cb == statsB ) {
-			collapseCurrentSubmenu();
+		if(cb == homeB || cb == scrumB || cb == issuesB || cb == statsB) {
+//			System.out.println("Home: "+isHomeExpanded);
+//			System.out.println("Scrum: "+isScrumExpanded);
+//			System.out.println("Issues: "+isIssuesExpanded);
+//			System.out.println("Stats: "+isStatsExpanded);
+//			System.out.println();
+			if(isHomeExpanded || isScrumExpanded || isIssuesExpanded || isStatsExpanded){
+				initState();
+			}
 		}
 		if(App.getFrame() != null && App.getFrame().workPanel != null) {
 			updateLookAndFeel2(getFrame().workPanel);
