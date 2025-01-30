@@ -167,10 +167,8 @@ public class App {
 		splash = new JFrame();
 		ImageIcon originalIcon = new ImageIcon(App.class.getResource("/ui/splash.png"));
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int screenWidth = screenSize.width;
-		int screenHeight = screenSize.height;
-		int targetWidth = (int)(screenWidth*0.4);
-		int targetHeight = (int)(screenHeight*0.65);
+		int targetWidth = 500;
+		int targetHeight = 500;
 		Image scaledImage = originalIcon.getImage().getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
 		ImageIcon scaledIcon = new ImageIcon(scaledImage);
 		JLabel l = new JLabel();
