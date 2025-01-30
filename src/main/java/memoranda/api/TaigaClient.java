@@ -2,6 +2,7 @@ package memoranda.api;
 
 import com.google.inject.Inject;
 import memoranda.api.modules.TaigaAuthenticate;
+import memoranda.api.modules.TaigaRefreshAuth;
 import okhttp3.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -12,6 +13,7 @@ public class TaigaClient {
     private final OkHttpClient httpClient;
     private final ObjectMapper objectMapper;
     private final TaigaAuthenticate authenticator;
+    private final TaigaRefreshAuth refreshAuth;
     private int lastResponseCode;
 
     @Inject
@@ -21,6 +23,7 @@ public class TaigaClient {
 
         //initiate modules
         this.authenticator = new TaigaAuthenticate(httpClient, objectMapper);
+        this.refreshAuth = new TaigaRefreshAuth(httpClient, objectMapper);
     }
 
     public void authenticateClient(String username, String password) throws IOException {
@@ -28,8 +31,17 @@ public class TaigaClient {
         lastResponseCode = authenticator.getLastResponseCode();
     }
 
+    public void refreshAuthClient() throws IOException {
+        refreshAuth.refreshAuth();
+        lastResponseCode = refreshAuth.getLastResponseCode();
+    }
+
     public String getAuthToken() throws IOException {
-        return authenticator.getAuthToken();
+        return TaigaAuthenticate.getAuthAndRefreshToken().getAuthToken();
+    }
+
+    public String getRefreshToken() throws IOException {
+        return TaigaAuthenticate.getAuthAndRefreshToken().getRefreshToken();
     }
 
     public int getLastResponseCode() {

@@ -10,24 +10,25 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class TaigaAuthenticate {
-    private static final String AUTH_URL = "https://api.taiga.io/api/v1/auth";
+import static memoranda.api.modules.TaigaAuthenticate.getAuthAndRefreshToken;
+
+/**
+ * If response code is 401 unauthorized attempt a refresh
+ */
+public class TaigaRefreshAuth {
+    private static final String AUTH_URL = "http://localhost:8000/api/v1/auth/refresh";
     private final OkHttpClient httpClient;
 
-    private static AuthAndRefreshToken authAndRefreshToken;
     private int lastResponseCode;
 
-    public TaigaAuthenticate(OkHttpClient httpClient, ObjectMapper objectMapper) {
+    public TaigaRefreshAuth(OkHttpClient httpClient, ObjectMapper objectMapper) {
         this.httpClient = httpClient;
-
     }
 
-    public void authenticate(String username, String password) throws IOException {
+    public void refreshAuth() throws IOException {
         MediaType mediaType = MediaType.get("application/json");
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("type", "normal");
-        jsonObject.put("username", username);
-        jsonObject.put("password", password);
+        jsonObject.put("refresh", getRefreshToken());
 
         String jsonBody = jsonObject.toString();
         RequestBody body = RequestBody.create(jsonBody, mediaType);
@@ -44,18 +45,19 @@ public class TaigaAuthenticate {
                 JSONObject jsonResponse = new JSONObject(responseBody);
                 String token = jsonResponse.getString("auth_token");
                 String refreshToken = jsonResponse.getString("refresh");
-                authAndRefreshToken = new AuthAndRefreshToken(token, refreshToken);
+                getAuthAndRefreshToken().setAuthToken(token);
+                getAuthAndRefreshToken().setRefreshToken(refreshToken);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static AuthAndRefreshToken getAuthAndRefreshToken() throws IOException {
-        if (authAndRefreshToken == null || authAndRefreshToken.isAuthEmpty()) {
+    public String getRefreshToken() throws IOException {
+        if (getAuthAndRefreshToken() == null || getAuthAndRefreshToken().isRefreshEmpty()) {
             throw new IOException("Authentication failed");
         }
-        return authAndRefreshToken;
+        return getAuthAndRefreshToken().getRefreshToken();
     }
 
     public int getLastResponseCode() {
