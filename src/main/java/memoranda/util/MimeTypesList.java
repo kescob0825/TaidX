@@ -22,7 +22,7 @@ public class MimeTypesList {
     static Element _root = null;
 
     static {
-        //CurrentStorage.get().openMimeTypesList();
+        CurrentStorage.get().openMimeTypesList();
         _root = _doc.getRootElement();
     }
 

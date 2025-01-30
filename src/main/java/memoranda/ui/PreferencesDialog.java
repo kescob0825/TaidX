@@ -152,41 +152,21 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(10, 10, 0, 15);
 		gbc.anchor = GridBagConstraints.EAST;
 		enableSoundCB.setText(Local.getString("Enable sound notifications"));
-		enableSoundCB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				enableSoundCB_actionPerformed(e);
-			}
-		});
+		enableSoundCB.addActionListener(this::enableSoundCB_actionPerformed);
 		soundPanel.setLayout(borderLayout1);
 		soundFileBrowseB.setText(Local.getString("Browse"));
-		soundFileBrowseB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				soundFileBrowseB_actionPerformed(e);
-			}
-		});
+		soundFileBrowseB.addActionListener(this::soundFileBrowseB_actionPerformed);
 		gridLayout1.setRows(4);
 		jPanel1.setBorder(titledBorder1);
 		jPanel1.setLayout(gridLayout1);
 		soundBeepRB.setText(Local.getString("System beep"));
-		soundBeepRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				soundBeepRB_actionPerformed(e);
-			}
-		});
+		soundBeepRB.addActionListener(this::soundBeepRB_actionPerformed);
 		jLabel6.setText(Local.getString("Sound file") + ":");
 		soundDefaultRB.setText(Local.getString("Default"));
-		soundDefaultRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				soundDefaultRB_actionPerformed(e);
-			}
-		});
+		soundDefaultRB.addActionListener(this::soundDefaultRB_actionPerformed);
 		jPanel3.setLayout(borderLayout3);
 		soundCustomRB.setText(Local.getString("Custom"));
-		soundCustomRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				soundCustomRB_actionPerformed(e);
-			}
-		});
+		soundCustomRB.addActionListener(this::soundCustomRB_actionPerformed);
 		jPanel2.setLayout(borderLayout2);
 		soundPanel.add(jPanel2, BorderLayout.CENTER);
 		jPanel2.add(jPanel1, BorderLayout.NORTH);
@@ -327,11 +307,7 @@ public class PreferencesDialog extends JDialog {
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(startMinimizedChB, gbc);
 		enSplashChB.setText(Local.getString("Show splash screen"));
-		enSplashChB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				enSplashChB_actionPerformed(e);
-			}
-		});
+		enSplashChB.addActionListener(this::enSplashChB_actionPerformed);
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 12;
@@ -339,11 +315,7 @@ public class PreferencesDialog extends JDialog {
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enSplashChB, gbc);
 		enL10nChB.setText(Local.getString("Enable localization"));
-		enL10nChB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				enL10nChB_actionPerformed(e);
-			}
-		});
+		enL10nChB.addActionListener(this::enL10nChB_actionPerformed);
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 13;
@@ -351,10 +323,6 @@ public class PreferencesDialog extends JDialog {
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(enL10nChB, gbc);
 		firstdow.setText(Local.getString("First day of week - Monday"));
-		firstdow.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
 		gbc.gridy = 14;
@@ -405,11 +373,7 @@ public class PreferencesDialog extends JDialog {
 		rsBottomPanel.add(browserPath, gbc);
 		browseB.setText(Local.getString("Browse"));
 		browseB.setPreferredSize(new Dimension(110, 25));
-		browseB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				browseB_actionPerformed(e);
-			}
-		});
+		browseB.addActionListener(this::browseB_actionPerformed);
 		gbc = new GridBagConstraints();
 		gbc.gridx = 2;
 		gbc.gridy = 0;

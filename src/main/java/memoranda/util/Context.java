@@ -9,11 +9,7 @@ public class Context {
 
     static {
         CurrentStorage.get().restoreContext();
-        AppFrame.addExitListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CurrentStorage.get().storeContext();
-            }
-        });
+        AppFrame.addExitListener(e -> CurrentStorage.get().storeContext());
     }
 
     public static Object get(Object key) {

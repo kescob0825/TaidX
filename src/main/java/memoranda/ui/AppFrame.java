@@ -11,8 +11,6 @@ import java.util.*;
 
 import javax.swing.*;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import memoranda.*;
 import memoranda.util.Configuration;
 import memoranda.util.Context;
@@ -33,18 +31,18 @@ public class AppFrame extends JFrame {
     JMenuItem jMenuFileExit = new JMenuItem();
 
     JToolBar toolBar = new JToolBar();
-    //JButton jButton3 = new JButton();
-    ImageIcon image1;
-    ImageIcon image2;
-    ImageIcon image3;
+    JButton jButton3 = new JButton();
     JLabel statusBar = new JLabel();
     BorderLayout borderLayout1 = new BorderLayout();
-    JSplitPane splitPane = new JSplitPane();
+    JPanel containerPanel = new JPanel();
+
 
     JMenu jMenuEdit = new JMenu();
     JMenu jMenuFormat = new JMenu();
     JMenu jMenuInsert = new JMenu();
+
     public WorkPanel workPanel = new WorkPanel();
+    public static JPanel rightPanel = new JPanel();
 
     static Vector exitListeners = new Vector();
 
@@ -60,10 +58,6 @@ public class AppFrame extends JFrame {
             showPreferences();
         }
     };
-
-    
-    JMenuItem jMenuFileNewPrj = new JMenuItem();
-
 
     JMenuItem jMenuFileMin = new JMenuItem(minimizeAction);
 
@@ -108,25 +102,14 @@ public class AppFrame extends JFrame {
     }
     //Component initialization
     private void jbInit() throws Exception {
-        this.setIconImage(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
-                "/ui/icons/jnotes16.png")))
-                .getImage());
+
         contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(borderLayout1);
-        this.setSize(new Dimension(800, 500));
-        //this.setTitle("Memoranda - " + CurrentProject.get().getTitle());
-
-        //Added a space to App.VERSION_INFO to make it look some nicer
         statusBar.setText(" Version:" + App.VERSION_INFO + " (Build "
                 + App.BUILD_INFO + " )");
-
         jMenuFile.setText(Local.getString("File"));
         jMenuFileExit.setText(Local.getString("Exit"));
-        jMenuFileExit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                doExit();
-            }
-        });
+        jMenuFileExit.addActionListener(e -> doExit());
         jMenuHelp.setText(Local.getString("Help"));
 
         jMenuHelpGuide.setText(Local.getString("Online user's guide"));
@@ -137,27 +120,14 @@ public class AppFrame extends JFrame {
         jMenuHelpWeb.setText(Local.getString("Memoranda web site"));
         jMenuHelpWeb.setIcon(new ImageIcon(Objects.requireNonNull(AppFrame.class.getResource(
                 "/ui/icons/web.png"))));
-        jMenuHelpWeb.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpWeb_actionPerformed(e);
-            }
-        });
+        jMenuHelpWeb.addActionListener(this::jMenuHelpWeb_actionPerformed);
         
         jMenuHelpBug.setText(Local.getString("Report a bug"));
-        jMenuHelpBug.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpBug_actionPerformed(e);
-            }
-        });        
+        jMenuHelpBug.addActionListener(this::jMenuHelpBug_actionPerformed);
         
         jMenuHelpAbout.setText(Local.getString("About Memoranda"));
-        jMenuHelpAbout.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpAbout_actionPerformed(e);
-            }
-        });
-        //jButton3.setIcon(image3);
-        //jButton3.setToolTipText(Local.getString("Help"));
+        jMenuHelpAbout.addActionListener(this::jMenuHelpAbout_actionPerformed);
+        jButton3.setToolTipText(Local.getString("Help"));
 
         jMenuLogin.setText(Local.getString("Taiga Login"));
         jMenuTaigiLogin.setText(Local.getString("Sign in"));
@@ -173,11 +143,14 @@ public class AppFrame extends JFrame {
         jMenuThemeDark.addActionListener(this::jMenuThemeDark_actionPerformed);
         jMenuThemeLight.addActionListener(this::jMenuThemeLight_actionPerformed);
 
-        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        containerPanel.setLayout(new BorderLayout());
+        int staticWidth = 200;
+        workPanel.setPreferredSize(new Dimension(staticWidth, 0));
+        workPanel.setMaximumSize(new Dimension(staticWidth, Integer.MAX_VALUE));
+        workPanel.setMinimumSize(new Dimension(staticWidth, 0));
 
-        splitPane.setContinuousLayout(true);
-        splitPane.setDividerSize(3);
-        splitPane.setDividerLocation(28);
+        rightPanel.setMinimumSize(new Dimension(100, 0));
+        rightPanel.setBackground(UIManager.getColor("control"));
 
         jMenuFileMin.setText(Local.getString("Close the window"));
         jMenuFileMin.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10,
@@ -199,13 +172,8 @@ public class AppFrame extends JFrame {
         jMenuFormatAlign.setText(Local.getString("Alignment"));
         jMenuFormatTable.setText(Local.getString("Table"));
 
-
         jMenuInsertSpecial.setText(Local.getString("Special"));
 
-        //toolBar.add(jButton3);
-        jMenuFile.add(jMenuFileNewPrj);
-
-        jMenuFile.addSeparator();
         jMenuFile.add(jMenuEditPref);
         jMenuFile.addSeparator();
         jMenuFile.add(jMenuFileMin);
@@ -234,13 +202,16 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuTheme);
 
         this.setJMenuBar(menuBar);
-        //contentPane.add(toolBar, BorderLayout.NORTH);
+
+        rightPanel.setBorder(BorderFactory.createEtchedBorder());
+        containerPanel.add(workPanel, BorderLayout.WEST);
+        containerPanel.add(rightPanel, BorderLayout.CENTER);
+
+        contentPane.add(toolBar, BorderLayout.NORTH);
         contentPane.add(statusBar, BorderLayout.SOUTH);
-        contentPane.add(splitPane, BorderLayout.CENTER);
-        splitPane.add(workPanel, JSplitPane.BOTTOM);
+        contentPane.add(containerPanel, BorderLayout.CENTER);
 
         jMenuInsert.add(jMenuInsertList);
-        //jMenuInsert.add(jMenuInsertSpecial);
         jMenuInsert.addSeparator();
 
         jMenuFormat.add(jMenuFormatPStyle);
@@ -251,21 +222,9 @@ public class AppFrame extends JFrame {
 
         jMenuGo.addSeparator();
 
-        splitPane.setBorder(null);
-        workPanel.setBorder(null);
+        containerPanel.setBorder(null);
+        workPanel.setBorder(BorderFactory.createEtchedBorder(UIManager.getColor("Button.darkShadow"), UIManager.getColor("Button.shadow")));
         setEnabledEditorMenus(false);
-
-        java.awt.event.ActionListener setMenusDisabled = new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setEnabledEditorMenus(false);
-            }
-        };
-
-        this.workPanel.tasksB.addActionListener(setMenusDisabled);
-        this.workPanel.eventsB.addActionListener(setMenusDisabled);
-        this.workPanel.filesB.addActionListener(setMenusDisabled);
-        this.workPanel.agendaB.addActionListener(setMenusDisabled);
-        this.workPanel.homeB.addActionListener(setMenusDisabled);
 
         Object fwo = Context.get("FRAME_WIDTH");
         Object fho = Context.get("FRAME_HEIGHT");
@@ -285,53 +244,18 @@ public class AppFrame extends JFrame {
             int y = Integer.parseInt((String) yo);
             this.setLocation(x, y);
         }
-
-        String pan = (String) Context.get("CURRENT_PANEL");
-        if (pan != null) {
-            workPanel.selectPanel(pan);
-            setEnabledEditorMenus(pan.equalsIgnoreCase("NOTES"));
-        }
-
-
     }
 
     protected void jMenuThemeDark_actionPerformed(ActionEvent e) {
         Configuration.put("LOOK_AND_FEEL", "dark");
         Configuration.saveConfig();
-
-        try {
-            FlatDarkLaf.setup();
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-
-            // Update all components to use the new Look and Feel
-            SwingUtilities.updateComponentTreeUI(App.frame);
-
-            // If you have any other frames or dialogs open, update them too
-            for (Window window : Window.getWindows()) {
-                SwingUtilities.updateComponentTreeUI(window);
-            }
-        }catch(UnsupportedLookAndFeelException ex){
-            ex.printStackTrace();
-        }
+        App.updateLookAndFeel();
     }
 
     protected void jMenuThemeLight_actionPerformed(ActionEvent e) {
-        Configuration.put("LOOK_AND_FEEL", "light");
+        Configuration.put("LOOK_AND_FEEL", "default");
         Configuration.saveConfig();
-        try {
-            FlatLightLaf.setup();
-            UIManager.setLookAndFeel(new FlatLightLaf());
-
-            // Update all components to use the new Look and Feel
-            SwingUtilities.updateComponentTreeUI(App.frame);
-
-            // If you have any other frames or dialogs open, update them too
-            for (Window window : Window.getWindows()) {
-                SwingUtilities.updateComponentTreeUI(window);
-            }
-        }catch(UnsupportedLookAndFeelException ex){
-            ex.printStackTrace();
-        }
+        App.updateLookAndFeel();
     }
 
     protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
@@ -490,7 +414,5 @@ public class AppFrame extends JFrame {
         dlg.setLocationRelativeTo(this);
         dlg.setVisible(true);
     }
-    
-
 
 }

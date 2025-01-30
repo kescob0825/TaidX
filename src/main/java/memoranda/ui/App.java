@@ -38,6 +38,7 @@ public class App {
 	/*========================================================================*/
 
 	public static AppFrame getFrame() {
+		if(frame == null) {return null;}
 		return frame;
 	}
 
@@ -79,40 +80,7 @@ public class App {
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			splash.dispose();
 		System.out.println(Configuration.get("LOOK_AND_FEEL"));
-		SwingUtilities.invokeLater(() -> {
-			try {
-				String osName = System.getProperty("os.name").toLowerCase();
-				boolean isMac = osName.contains("mac");
-				boolean isWindows = osName.contains("win");
-
-				JFrame.setDefaultLookAndFeelDecorated(true);
-				JDialog.setDefaultLookAndFeelDecorated(true);
-
-				if (Configuration.get("LOOK_AND_FEEL").equals("light")) {
-					UIManager.setLookAndFeel(new FlatLightLaf());
-					if (isMac) {
-						frame.getRootPane().putClientProperty("apple.awt.windowTitleAppearance", "NSAppearanceNameAqua");
-						frame.getRootPane().putClientProperty("apple.awt.windowTitleForeground", Color.BLACK);
-					}
-				}
-				else if (Configuration.get("LOOK_AND_FEEL").equals("dark")) {
-					UIManager.setLookAndFeel(new FlatDarkLaf());
-					if (isMac) {
-						frame.getRootPane().putClientProperty("apple.awt.windowTitleAppearance", "NSAppearanceNameDarkAqua");
-						frame.getRootPane().putClientProperty("apple.awt.windowTitleForeground", Color.WHITE);
-					}
-				}
-				else {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				}
-
-				SwingUtilities.updateComponentTreeUI(frame);
-				frame.getRootPane().revalidate();
-				frame.repaint();
-			} catch (Exception e) {
-				new ExceptionDialog(e);
-			}
-		});
+		updateLookAndFeel();
 	}
 
 	void init() {
@@ -132,6 +100,51 @@ public class App {
 		frame.toFront();
 		frame.requestFocus();
 
+	}
+
+	public static void updateLookAndFeel2(JPanel workPanel) {
+		SwingUtilities.invokeLater(() -> {
+			try {
+				JFrame.setDefaultLookAndFeelDecorated(true);
+				JDialog.setDefaultLookAndFeelDecorated(true);
+				SwingUtilities.updateComponentTreeUI(workPanel);
+				workPanel.getRootPane().revalidate();
+				workPanel.repaint();
+			} catch (Exception e) {
+				new ExceptionDialog(e);
+			}
+		});
+	}
+
+	public static void updateLookAndFeel() {
+		SwingUtilities.invokeLater(() -> {
+			try {
+				JFrame.setDefaultLookAndFeelDecorated(true);
+				JDialog.setDefaultLookAndFeelDecorated(true);
+
+				if (Configuration.get("LOOK_AND_FEEL").equals("default")) {
+					FlatLightLaf.setup();
+					UIManager.setLookAndFeel(new FlatLightLaf());
+					SwingUtilities.updateComponentTreeUI(App.frame);
+					for (Window window : Window.getWindows()) {
+						SwingUtilities.updateComponentTreeUI(window);
+					}
+				}
+				else if (Configuration.get("LOOK_AND_FEEL").equals("dark")) {
+					FlatDarkLaf.setup();
+					UIManager.setLookAndFeel(new FlatDarkLaf());
+					SwingUtilities.updateComponentTreeUI(App.frame);
+					for (Window window : Window.getWindows()) {
+						SwingUtilities.updateComponentTreeUI(window);
+					}
+				}
+				SwingUtilities.updateComponentTreeUI(frame);
+				frame.getRootPane().revalidate();
+				frame.repaint();
+			} catch (Exception e) {
+				new ExceptionDialog(e);
+			}
+		});
 	}
 	//Iconified will minimize Frame to toolbar
 	public static void minimizeWindow(){
