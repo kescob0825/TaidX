@@ -1,5 +1,6 @@
 package memoranda.ui;
 
+import memoranda.Start;
 import memoranda.api.Credentials;
 import memoranda.api.TaigaClient;
 
@@ -34,12 +35,13 @@ public class TaigaLoginDialog extends JDialog {
     JButton createAccountButton = new JButton();
     JPanel bottomPanel = new JPanel();
     JButton loginButton = new JButton();
-    JButton quitButton = new JButton();
-
+    JButton cancelButton = new JButton();
+    JFrame frame;
     @Inject
-    public TaigaLoginDialog(TaigaClient client) {
+    public TaigaLoginDialog(JFrame frame) {
+        this.frame = frame;
         this.setTitle(Local.getString("Taiga Login"));
-        this.client = client;
+        this.client = Start.getInjector().getInstance(TaigaClient.class);
         try {
             jbInit();
             pack();
@@ -53,9 +55,6 @@ public class TaigaLoginDialog extends JDialog {
         this.setResizable(false);
         topPanel.setBorder(new EmptyBorder(new Insets(0, 5, 0, 5)));
         topPanel.setBackground(UIManager.getColor("control"));
-        //taigaheader.setFont(new java.awt.Font("Dialog", 0, 20));
-        //taigaheader.setForeground(new Color(0, 0, 124));
-        //taigaheader.setText(Local.getString("Taiga Login"));
         ImageIcon taigaLogo = new ImageIcon(Objects.requireNonNull(App.class.getResource("/ui/taiga_banner.jpg")));
         int bannerH = 110, bannerW = 380;
         Image originalImage = taigaLogo.getImage();
@@ -119,13 +118,13 @@ public class TaigaLoginDialog extends JDialog {
         loginButton.setText(Local.getString("Login"));
         loginButton.addActionListener(this::loginButton_actionPerformed);
         this.getRootPane().setDefaultButton(loginButton);
-        // Quit button
-        quitButton.setPreferredSize(new Dimension(100, 25));
-        quitButton.setText(Local.getString("Cancel"));
-        quitButton.addActionListener(this::cancelButton_actionPerformed);
+        // Cancel button
+        cancelButton.setPreferredSize(new Dimension(100, 25));
+        cancelButton.setText(Local.getString("Cancel"));
+        cancelButton.addActionListener(this::cancelButton_actionPerformed);
         bottomPanel.add(createAccountButton);
         bottomPanel.add(loginButton);
-        bottomPanel.add(quitButton);
+        bottomPanel.add(cancelButton);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 0;
@@ -152,32 +151,19 @@ public class TaigaLoginDialog extends JDialog {
 
         try {
             loginMember();
-            /// /////////////////////////////////////////////////////////////////////////////////
-            //********REMOVE BEFORE DEPLOYED TO MASTER ONLY FOR TESTING**********
-            if(Objects.equals(this.userNameField.getText(), "test") && Objects.equals(this.passwordField.getText(), "test")) {
-                Credentials creds = new Credentials();
-                client.authenticateClient(creds.getUsername(), creds.getPassword());
-                System.out.println("Authentication successful. Token: " + client.getAuthToken());
-            }
-            /// ///////////////////////////////////////////////////////////////////////////////////
-            else {
-                client.authenticateClient(this.userNameField.getText(), this.passwordField.getText());
-                System.out.println("Authentication successful. Token: " + client.getAuthToken());
-            }
             this.dispose();
         }
         catch (IllegalStateException | IOException isioe) {
             JOptionPane.showMessageDialog(
-                    null,
+                    this,
                     "Invalid username or password. Please double-check your credentials.",
                     "Authentication Failed",
                     JOptionPane.ERROR_MESSAGE);
-            isioe.fillInStackTrace();
         }
         catch (InvalidUsernameException iune) {
             iune.fillInStackTrace();
             JOptionPane.showMessageDialog(
-                    null,
+                    this,
                     "No username provided. Please make sure to provide a valid username.",
                     "Authentication Failed",
                     JOptionPane.ERROR_MESSAGE);
@@ -186,11 +172,10 @@ public class TaigaLoginDialog extends JDialog {
         catch (InvalidPasswordException ipwe) {
             ipwe.fillInStackTrace();
             JOptionPane.showMessageDialog(
-                    null,
+                    this,
                     "No password provided. Please make sure to provide a valid password.",
                     "Authentication Failed",
                     JOptionPane.ERROR_MESSAGE);
-            ipwe.fillInStackTrace();
         }
     }
 
@@ -214,7 +199,7 @@ public class TaigaLoginDialog extends JDialog {
         }
     }
 
-    public void loginMember() {
+    public void loginMember() throws IOException {
 
         if (this.userNameField.getText().isEmpty())
             throw new InvalidUsernameException("No username provided");
@@ -224,9 +209,25 @@ public class TaigaLoginDialog extends JDialog {
         String username = this.userNameField.getText();
         String password = this.passwordField.getText();
         try {
-            client.authenticateClient(username, password); // Replace with actual credentials
-        } catch (IOException e) {
-            e.fillInStackTrace();
+            //////////////////////////////////////////////////////////////////////////////////////
+            // TODO: ********REMOVE BEFORE DEPLOYED TO MASTER ONLY FOR TESTING**********
+            if(Objects.equals(this.userNameField.getText(), "test") && Objects.equals(this.passwordField.getText(), "test")) {
+                Credentials creds = new Credentials();
+                username = creds.getUsername();
+                password = creds.getPassword();
+            }
+            //////////////////////////////////////////////////////////////////////////////////////
+            client.authenticateClient(username, password);
+            //////////////////////////////////////////////////////////////////////////////////////
+            // TODO: Print statement below is added for debugging purpose
+            System.out.println("Authentication successful. Token: " + client.getAuthToken());
+            //////////////////////////////////////////////////////////////////////////////////////
+            // Stack trace will be maintained. Throwing another to trigger error handler.
+            if (client.getAuthToken().isEmpty()) {
+                throw new IOException();
+            }
+        } catch (IllegalStateException | IOException isioe) {
+            throw isioe;
         }
     }
 
