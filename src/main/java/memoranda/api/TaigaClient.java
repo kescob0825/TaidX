@@ -99,4 +99,12 @@ public class TaigaClient {
         return lastResponseCode;
     }
 
+    /**
+     * Returns whether the user is logged in or not.
+     * @return true if the user is logged in
+     */
+    public boolean isLoggedIn() throws IOException {
+        return authenticator.getAuthAndRefreshToken().isLoggedIn();
+    }
+
 }
