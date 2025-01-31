@@ -323,9 +323,22 @@ public class AppFrame extends JFrame {
         }
     }
 
-    protected void jMenuTaigiLogin_actionPerformed(ActionEvent e){
-        TaigaLoginDialog taigaDlg = Start.getInjector().getInstance(TaigaLoginDialog.class);
+    protected void jMenuTaigiLogin_actionPerformed(ActionEvent e) {
 
+        TaigaClient client  = Start.getInjector().getInstance(TaigaClient.class);
+        try {
+            if (client.isLoggedIn()) {
+                JOptionPane.showMessageDialog(this,
+                        "You are already logged in.",
+                        "Illegal Action",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+        catch (IOException ioe) {
+            ioe.fillInStackTrace();
+        }
+        TaigaLoginDialog taigaDlg = new TaigaLoginDialog(this);
         taigaDlg.pack();
 
         // Calculate the center position
