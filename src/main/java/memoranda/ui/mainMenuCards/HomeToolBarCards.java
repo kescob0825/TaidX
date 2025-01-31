@@ -1,5 +1,7 @@
 package memoranda.ui.mainMenuCards;
 
+import memoranda.ui.TaigaPanel;
+
 import javax.swing.*;
 import javax.swing.JLabel;
 import java.awt.*;
@@ -64,7 +66,7 @@ public class HomeToolBarCards extends JPanel{
     }
 
     private JPanel createProfileCard() {
-        JPanel panel = new JPanel(new BorderLayout());
+        TaigaPanel tPanel = new TaigaPanel(new BorderLayout());
         JPanel subtitlePanel = new JPanel();
         JLabel subtitleLabel = new JLabel("Profile:");
         subtitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -76,9 +78,9 @@ public class HomeToolBarCards extends JPanel{
 
         centerWrapper.add(content);
 
-        panel.add(subtitlePanel, BorderLayout.NORTH);
-        panel.add(centerWrapper, BorderLayout.CENTER);
-        return panel;
+        tPanel.add(subtitlePanel, BorderLayout.NORTH);
+        tPanel.add(centerWrapper, BorderLayout.CENTER);
+        return tPanel;
     }
 
     private JPanel createProjectsCard() {
