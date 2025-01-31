@@ -1,13 +1,11 @@
 package memoranda.ui;
 
 import memoranda.Start;
-import memoranda.util.Local;
+import memoranda.api.models.UserProfile;
 import memoranda.api.TaigaClient;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.util.Objects;
 
 public class TaigaPanel extends JPanel {
 
@@ -35,18 +33,19 @@ public class TaigaPanel extends JPanel {
     TaigaClient client = Start.getInjector().getInstance(TaigaClient.class);
     JButton logIn = new JButton("Refresh");
 
-    public TaigaPanel() {
+    public TaigaPanel(LayoutManager layout) {
+
+        // Parent panel
+        this.setLayout(layout);
         try {
             jbInit();
         }
         catch (Exception ex) {
-            ex.printStackTrace();
+            ex.fillInStackTrace();
         }
     }
     void jbInit() throws Exception {
 
-        // Parent panel
-        this.setLayout(new BorderLayout());
         // Left side panel
         profileInfoPanel.setLayout(new BorderLayout());
         //profileInfoPanel.setBackground(Color.BLACK);
@@ -73,7 +72,7 @@ public class TaigaPanel extends JPanel {
         infoPanel.setPreferredSize(new Dimension(300, 150));
         //infoPanel.setBackground(Color.GREEN);
 
-        pRealNameH.setText("Name:");
+        pRealNameH.setText("Name");
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.gridwidth = 20;
@@ -83,7 +82,7 @@ public class TaigaPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         infoPanel.add(pRealNameH, gbc);
 
-        pUsernameH.setText("Username:");
+        pUsernameH.setText("Username");
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.gridwidth = 20;
@@ -92,7 +91,7 @@ public class TaigaPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         infoPanel.add(pUsernameH, gbc);
 
-        pEmailH.setText("Email:");
+        pEmailH.setText("Email");
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.gridwidth = 20;
@@ -101,7 +100,7 @@ public class TaigaPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         infoPanel.add(pEmailH, gbc);
 
-        pProjectsH.setText("Number of Projects:");
+        pProjectsH.setText("Number of Projects");
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.gridwidth = 20;
@@ -110,7 +109,7 @@ public class TaigaPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         infoPanel.add(pProjectsH, gbc);
 
-        pClosedUSH.setText("Closed US:");
+        pClosedUSH.setText("Closed US");
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.gridwidth = 20;
@@ -119,7 +118,7 @@ public class TaigaPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         infoPanel.add(pClosedUSH, gbc);
 
-        pContactsH.setText("Contacts:");
+        pContactsH.setText("Contacts");
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(2, 2, 2, 2);
         gbc.gridwidth = 20;
@@ -134,14 +133,18 @@ public class TaigaPanel extends JPanel {
     }
     void refreshPanel(ActionEvent e) {
 
-        /*try {
-            pUsernameH.setText("Username: " + client.getUsername());
-            pRealNameH.setText("RealName: " + client.getName());
-            pEmailH.setText("Email: " + client.getEmail());
-            pProjectsH.setText("Number of Projects: " + client.getTotalProjects());
-        }
-        catch (IOException io) {
-            io.fillInStackTrace();
-        }*/
+        UserProfile user = client.getUserProfile();
+
+        pUsernameH.setText("@" + user.getUsername());
+        pRealNameH.setText(user.getFullName());
+        pEmailH.setText(user.getEmail());
+    }
+    public void refreshPanel() {
+
+        UserProfile user = client.getUserProfile();
+
+        pUsernameH.setText("@" + user.getUsername());
+        pRealNameH.setText(user.getFullName());
+        pEmailH.setText(user.getEmail());
     }
 }
