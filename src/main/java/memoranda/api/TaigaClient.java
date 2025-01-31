@@ -1,6 +1,7 @@
 package memoranda.api;
 
 import com.google.inject.Inject;
+import memoranda.api.models.UserProfile;
 import memoranda.api.modules.TaigaAuthenticate;
 import memoranda.api.modules.TaigaProject;
 import okhttp3.*;
@@ -105,6 +106,14 @@ public class TaigaClient {
      */
     public boolean isLoggedIn() throws IOException {
         return authenticator.getAuthAndRefreshToken().isLoggedIn();
+    }
+
+    /**
+     * Returns the user's profile.
+     * @return the user's profile
+     */
+    public UserProfile getUserProfile() {
+        return authenticator.getUserProfile();
     }
 
 }
