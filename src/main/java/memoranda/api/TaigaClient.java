@@ -1,11 +1,16 @@
 package memoranda.api;
 
 import com.google.inject.Inject;
+import memoranda.api.models.ProjectData;
+import memoranda.api.models.UserProfile;
+import memoranda.api.models.UserStoryNode;
 import memoranda.api.modules.TaigaAuthenticate;
 import memoranda.api.modules.TaigaProject;
+import memoranda.api.modules.TaigaUserStory;
 import okhttp3.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.List;
 
 
 public class TaigaClient {
@@ -14,6 +19,7 @@ public class TaigaClient {
     private final ObjectMapper objectMapper;
     private final TaigaAuthenticate authenticator;
     private final TaigaProject projects;
+    private final TaigaUserStory userStory;
 
     protected int lastResponseCode;
 
@@ -25,6 +31,7 @@ public class TaigaClient {
         //initiate modules
         this.authenticator = new TaigaAuthenticate(httpClient, objectMapper);
         this.projects = new TaigaProject(httpClient, objectMapper);
+        this.userStory = new TaigaUserStory(httpClient, objectMapper);
     }
 
     /**
@@ -36,16 +43,28 @@ public class TaigaClient {
     public void authenticateClient(String username, String password) throws IOException {
         authenticator.authenticate(username, password);
         setLastResponseCode(authenticator.getLastResponseCode());
+        initLoadProjectAndUserStoryData();
+    }
+
+    public void initLoadProjectAndUserStoryData() throws IOException {
+        projects.getProjects(this.authenticator.getAuthToken(), this.authenticator.getUserProfile().getUid());
+        userStory.getUserStories(this.authenticator.getAuthToken(), this.projects.getProjectData().get(0).getProjectID());
+    }
+    /**
+     * Retrieves the projects for the authenticated user.
+     */
+    public List<ProjectData> getProjectsList() throws IOException {
+        return projects.getProjectData();
     }
 
     /**
-     * Retrieves the projects for the authenticated user.
-     * @param uid the user ID
+     * Retrieves the user stories for the authenticated user.
+     * @throws IOException if an I/O error occurs during the user story retrieval process
      */
-    public void getProjects(int uid) {
-        projects.getProjects(this.authenticator.getUserProfile().getUid());
-        setLastResponseCode(projects.getLastResponseCode());
+    public List<UserStoryNode> getUserStories() throws IOException {
+        return userStory.getUserStoryNodes();
     }
+
 
     /**
      * Refreshes the authentication token and refresh token.
@@ -97,6 +116,10 @@ public class TaigaClient {
      */
     public int getLastResponseCode() {
         return lastResponseCode;
+    }
+
+    public UserProfile getUserProfile() throws IOException {
+        return authenticator.getUserProfile();
     }
 
 }

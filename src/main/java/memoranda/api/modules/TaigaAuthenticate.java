@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class TaigaAuthenticate {
     private static final String AUTH_URL = "https://api.taiga.io/api/v1/auth";
-    private static final String AUTH_REFRESH_URL = "http://localhost:8000/api/v1/auth/refresh";
+    private static final String AUTH_REFRESH_URL = "https://api.taiga.io/api/v1/auth/refresh";
     private final OkHttpClient httpClient;
     private UserProfile userProfile;
 
@@ -100,6 +100,12 @@ public class TaigaAuthenticate {
         }
     }
 
+    public String getAuthToken() throws IOException {
+        if (getAuthAndRefreshToken() == null || getAuthAndRefreshToken().isAuthEmpty()) {
+            throw new IOException("Authentication failed");
+        }
+        return getAuthAndRefreshToken().getAuthToken();
+    }
     public String getRefreshToken() throws IOException {
         if (getAuthAndRefreshToken() == null || getAuthAndRefreshToken().isRefreshEmpty()) {
             throw new IOException("Authentication failed");
@@ -113,7 +119,6 @@ public class TaigaAuthenticate {
         }
         return authAndRefreshToken;
     }
-
     public int getLastResponseCode() {
         return lastResponseCode;
     }

@@ -1,5 +1,7 @@
 package memoranda.ui.mainMenuCards;
 
+import memoranda.ui.mainMenuCards.homeSubMenuCards.Profile;
+
 import javax.swing.*;
 import javax.swing.JLabel;
 import java.awt.*;
@@ -73,11 +75,12 @@ public class HomeToolBarCards extends JPanel{
         JPanel centerWrapper = new JPanel(new GridBagLayout());
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-
+        Profile profile = new Profile();
+        content.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
         centerWrapper.add(content);
 
         panel.add(subtitlePanel, BorderLayout.NORTH);
-        panel.add(centerWrapper, BorderLayout.CENTER);
+        panel.add(profile);
         return panel;
     }
 
