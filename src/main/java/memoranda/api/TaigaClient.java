@@ -27,13 +27,24 @@ public class TaigaClient {
         this.projects = new TaigaProject(httpClient, objectMapper);
     }
 
+    /**
+     * Authenticates the client with the provided username and password.
+     * @param username the username
+     * @param password the password
+     * @throws IOException if an I/O error occurs during the authentication process
+     */
     public void authenticateClient(String username, String password) throws IOException {
         authenticator.authenticate(username, password);
         setLastResponseCode(authenticator.getLastResponseCode());
     }
 
+    /**
+     * Retrieves the projects for the authenticated user.
+     * @param uid the user ID
+     */
     public void getProjects(int uid) {
         projects.getProjects(this.authenticator.getUserProfile().getUid());
+        setLastResponseCode(projects.getLastResponseCode());
     }
 
     /**
@@ -52,6 +63,15 @@ public class TaigaClient {
      */
     public String getAuthToken() throws IOException {
         return authenticator.getAuthAndRefreshToken().getAuthToken();
+    }
+
+    public void logoutTaiga()  {
+        try{
+            authenticator.getAuthAndRefreshToken().logout();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     /**

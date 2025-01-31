@@ -15,17 +15,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.URL;
 
-import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-import memoranda.Project;
-import memoranda.date.CalendarDate;
 import memoranda.ui.ExceptionDialog;
-import memoranda.ui.htmleditor.AltHTMLWriter;
 import nu.xom.Builder;
-import nu.xom.DocType;
 import nu.xom.Document;
 
 

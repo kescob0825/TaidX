@@ -8,8 +8,6 @@ package memoranda.util;
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 
-import memoranda.Project;
-
 /**
  *
  */

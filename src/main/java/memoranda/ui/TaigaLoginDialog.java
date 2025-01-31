@@ -52,7 +52,7 @@ public class TaigaLoginDialog extends JDialog {
     void jbInit() throws Exception {
         this.setResizable(false);
         topPanel.setBorder(new EmptyBorder(new Insets(0, 5, 0, 5)));
-        topPanel.setBackground(Color.WHITE);
+        topPanel.setBackground(UIManager.getColor("control"));
         //taigaheader.setFont(new java.awt.Font("Dialog", 0, 20));
         //taigaheader.setForeground(new Color(0, 0, 124));
         //taigaheader.setText(Local.getString("Taiga Login"));

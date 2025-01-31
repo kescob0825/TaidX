@@ -48,6 +48,9 @@ public class TaigaAuthenticate {
                 String token = jsonResponse.getString("auth_token");
                 String refreshToken = jsonResponse.getString("refresh");
                 authAndRefreshToken = new AuthAndRefreshToken(token, refreshToken);
+                if(authAndRefreshToken.getAuthToken() != null) {
+                    authAndRefreshToken.setLoggedIn(true);
+                }
                 //Create a new UserProfile object
                 userProfile = new UserProfile(
                         jsonResponse.getString("full_name"),
@@ -56,7 +59,8 @@ public class TaigaAuthenticate {
                         jsonResponse.getString("lang"),
                         jsonResponse.getString("timezone"),
                         jsonResponse.getString("bio"),
-                        jsonResponse.getString("roles"),
+                        jsonResponse.getJSONArray("roles")
+                                .toList().stream().map(Object::toString).toList(),
                         jsonResponse.getInt("id")
                 );
             }

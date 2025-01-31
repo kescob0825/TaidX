@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 
 import javax.swing.*;
 
 import memoranda.*;
+import memoranda.api.TaigaClient;
 import memoranda.util.Configuration;
 import memoranda.util.Context;
 import memoranda.util.Local;
@@ -329,15 +331,21 @@ public class AppFrame extends JFrame {
         // Calculate the center position
         int x = App.getFrame().getX() + (App.getFrame().getWidth() - taigaDlg.getWidth()) / 2;
         int y = App.getFrame().getY() + (App.getFrame().getHeight() - taigaDlg.getHeight()) / 2;
-
-        // Set the dialog position
         taigaDlg.setLocation(x, y);
         taigaDlg.setLocationRelativeTo(App.frame);
-        taigaDlg.setAlwaysOnTop(true);
-        taigaDlg.setVisible(true);
-    }
-    protected void jMenuTaigiLogout_actionPerformed(ActionEvent e){
 
+        SwingUtilities.invokeLater(() -> {
+            try {
+                taigaDlg.setAlwaysOnTop(true);
+                taigaDlg.setVisible(true);
+            } catch (Exception ex) {
+                new ExceptionDialog(ex);
+            }
+        });
+    }
+    protected void jMenuTaigiLogout_actionPerformed(ActionEvent e) {
+        TaigaClient taigaClient  = Start.getInjector().getInstance(TaigaClient.class);
+        taigaClient.logoutTaiga();
     }
     
     //File | Exit action performed
