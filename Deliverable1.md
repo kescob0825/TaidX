@@ -53,7 +53,9 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 | _1/24/2025_| _Noel Trujillo_        | _10 US, discuss US, tasks added. Layout design discussed and approved _             | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
 | _1/24/2025_|                        | _Status update, 3 task not assigned. Mohammed and Noel do not have tasks_           | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
 |            |                        | _Every member updated their progress, Mohammed and Noel will select tasks today_    |                                        |                                             |                       |
-|            |                        | _Three tasks left unnasigned, we might have to create more task or USs to meet req._|                                        |                                              |                       | 
+|            |                        | _Three tasks left unnasigned, we might have to create more task or USs to meet req._|                                        |                                             |                       | 
+|_1/27/2025_ | _Noel Trujillo_        | _US50 and US28 added_                                                               |                                        | _Pass/Fail_                                 |                       | 
+|_1/30/2025_ | _Noel Trujillo_        | _US7 has version 2 of the project, will be pushed during the second sprint._        | _On track/Behind/Ahead_                |                                             |                       |                                        
 | _Date_     | _Name(s)_              | _Brief notes_                                                                       | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
  
 
