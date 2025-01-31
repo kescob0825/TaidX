@@ -132,10 +132,10 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+  > _Your Answer_ I personally think I worked consistently and contributed enough for the project; I spent time trying to understand the logic of how the memoranda software works and consulted my team members about features/functions that we deemed not important towards our grand goal of implementing the Taiga API into the software. At first I attempted to fix the features to make it more usable but it seems that the logic is either faulty or there are issues with JavaFX that make it simply impossible to fit the functions we want. This led me to push for the removal of the resource tab as well as associated functions related to this feature allowing me to sift through the code and remove it without the introduction of any bugs or faults.
 
 - **What business value did you deliver personally?**
-  > _Your Answer_
+  > _Your Answer_ I believe that by removing files and features that aren't desired or needed anymore and taking the time to remove all aspects of it including pngs and calls makes troubleshooting in the future much easier since if we simply made it functional by disabling the feature instead of deleting it and an engineer were to do a code review over an unrelated bug/feature, then they would potentially waste tons of time sifting through useless code that should really be not be there in the first place.
 ### Team Member [Edwin]
 
 #### Consistency and Effort:
