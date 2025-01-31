@@ -32,13 +32,11 @@ public class TaigaPanel extends JPanel {
     JLabel pContactsH = new JLabel();
 
     GridBagConstraints gbc;
-    DailyItemsPanel parentPanel = null;
     TaigaClient client = Start.getInjector().getInstance(TaigaClient.class);
     JButton logIn = new JButton("Refresh");
 
-    public TaigaPanel(DailyItemsPanel _parentPanel) {
+    public TaigaPanel() {
         try {
-            parentPanel = _parentPanel;
             jbInit();
         }
         catch (Exception ex) {
@@ -135,7 +133,8 @@ public class TaigaPanel extends JPanel {
         profilePanel.add(infoPanel, BorderLayout.SOUTH);
     }
     void refreshPanel(ActionEvent e) {
-        try {
+
+        /*try {
             pUsernameH.setText("Username: " + client.getUsername());
             pRealNameH.setText("RealName: " + client.getName());
             pEmailH.setText("Email: " + client.getEmail());
@@ -143,6 +142,6 @@ public class TaigaPanel extends JPanel {
         }
         catch (IOException io) {
             io.fillInStackTrace();
-        }
+        }*/
     }
 }
