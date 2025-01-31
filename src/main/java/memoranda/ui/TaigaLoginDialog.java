@@ -159,15 +159,11 @@ public class TaigaLoginDialog extends JDialog {
                 Credentials creds = new Credentials();
                 client.authenticateClient(creds.getUsername(), creds.getPassword());
                 System.out.println("Authentication successful. Token: " + client.getAuthToken());
-                System.out.println("Authentication successful. Username: " + client.getUsername());
-                System.out.println("Authentication successful. Email: " + client.getEmail());
             }
             /// ///////////////////////////////////////////////////////////////////////////////////
             else {
                 client.authenticateClient(this.userNameField.getText(), this.passwordField.getText());
                 System.out.println("Authentication successful. Token: " + client.getAuthToken());
-                System.out.println("Authentication successful. Username: " + client.getUsername());
-                System.out.println("Authentication successful. Email: " + client.getEmail());
             }
             this.dispose();
         }
