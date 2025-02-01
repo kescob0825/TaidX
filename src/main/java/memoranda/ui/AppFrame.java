@@ -359,7 +359,6 @@ public class AppFrame extends JFrame {
     protected void jMenuTaigiLogin_actionPerformed(ActionEvent e) {
 
         TaigaClient client  = Start.getInjector().getInstance(TaigaClient.class);
-        UserProfile user = client.getUserProfile();
         try {
             if (client.isLoggedIn()) {
                 JOptionPane.showMessageDialog(this,
