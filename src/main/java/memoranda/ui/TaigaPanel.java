@@ -31,7 +31,6 @@ public class TaigaPanel extends JPanel {
 
     GridBagConstraints gbc;
     TaigaClient client = Start.getInjector().getInstance(TaigaClient.class);
-    JButton logIn = new JButton("Refresh");
 
     public TaigaPanel(LayoutManager layout) {
 
@@ -66,8 +65,6 @@ public class TaigaPanel extends JPanel {
 
         //pfpPanel.setBackground(Color.WHITE);
         pfpPanel.setPreferredSize(new Dimension(300, NULL_VAL));
-        pfpPanel.add(this.logIn);
-        this.logIn.addActionListener(this::refreshPanel);
         infoPanel.setLayout(new GridBagLayout());
         infoPanel.setPreferredSize(new Dimension(300, 150));
         //infoPanel.setBackground(Color.GREEN);
@@ -130,14 +127,6 @@ public class TaigaPanel extends JPanel {
         profilePanel.add(titlePanel, BorderLayout.NORTH);
         profilePanel.add(pfpPanel, BorderLayout.CENTER);
         profilePanel.add(infoPanel, BorderLayout.SOUTH);
-    }
-    void refreshPanel(ActionEvent e) {
-
-        UserProfile user = client.getUserProfile();
-
-        pUsernameH.setText("@" + user.getUsername());
-        pRealNameH.setText(user.getFullName());
-        pEmailH.setText(user.getEmail());
     }
     public void refreshPanel() {
 
