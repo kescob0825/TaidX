@@ -14,6 +14,7 @@ import javax.swing.*;
 
 import memoranda.*;
 import memoranda.api.TaigaClient;
+import memoranda.api.models.UserProfile;
 import memoranda.util.Configuration;
 import memoranda.util.Context;
 import memoranda.util.Local;
@@ -326,6 +327,7 @@ public class AppFrame extends JFrame {
     protected void jMenuTaigiLogin_actionPerformed(ActionEvent e) {
 
         TaigaClient client  = Start.getInjector().getInstance(TaigaClient.class);
+        UserProfile user = client.getUserProfile();
         try {
             if (client.isLoggedIn()) {
                 JOptionPane.showMessageDialog(this,
@@ -340,7 +342,7 @@ public class AppFrame extends JFrame {
         }
         TaigaLoginDialog taigaDlg = new TaigaLoginDialog(this);
         taigaDlg.pack();
-
+        workPanel.needsRefresh(true);
         // Calculate the center position
         int x = App.getFrame().getX() + (App.getFrame().getWidth() - taigaDlg.getWidth()) / 2;
         int y = App.getFrame().getY() + (App.getFrame().getHeight() - taigaDlg.getHeight()) / 2;
