@@ -55,6 +55,8 @@ public class WorkPanel extends JPanel {
 	public boolean isHomeExpanded = false;
 	public boolean isStatsExpanded = false;
 
+	private boolean needsRefresh = false;
+
 	/**
 	 * Buttons for the submenus
 	 */
@@ -360,66 +362,79 @@ public class WorkPanel extends JPanel {
 	 *
 	 */
 	public void homeOverview_actionPerformed (ActionEvent e){
+		refreshPanels();
 		homeCards.showCard(OVERVIEW_PANEL);
 		setCurrentButton(overviewButton);
 		Context.put("CURRENT_PANEL", OVERVIEW_PANEL);
 	}
 	public void homeProfile_actionPerformed (ActionEvent e){
+		refreshPanels();
 		homeCards.showCard(PROFILE_PANEL);
 		setCurrentButton(profileButton);
 		Context.put("CURRENT_PANEL", PROFILE_PANEL);
 	}
 	public void homeProjects_actionPerformed (ActionEvent e){
+		refreshPanels();
 		homeCards.showCard(PROJECTS_PANEL);
 		setCurrentButton(projectsButton);
 		Context.put("CURRENT_PANEL", PROJECTS_PANEL);
 	}
 	public void homeConfigure_actionPerformed (ActionEvent e){
+		refreshPanels();
 		homeCards.showCard(CONFIGURE_PANEL);
 		setCurrentButton(configureButton);
 		Context.put("CURRENT_PANEL", CONFIGURE_PANEL);
 	}
 	public void scrumSprint_actionPerformed (ActionEvent e){
+		refreshPanels();
 		scrumCards.showCard(SPRINT_PANEL);
 		setCurrentButton(sprintButton);
 		Context.put("CURRENT_PANEL", "SPRINT");
 	}
 	public void scrumBacklog_actionPerformed (ActionEvent e){
+		refreshPanels();
 		scrumCards.showCard(BACKLOG_PANEL);
 		setCurrentButton(backlogButton);
 		Context.put("CURRENT_PANEL", "BACKLOG");
 	}
 	public void scrumBoard_actionPerformed (ActionEvent e){
+		refreshPanels();
 		scrumCards.showCard(BOARD_PANEL);
 		setCurrentButton(boardButton);
 		Context.put("CURRENT_PANEL", "BOARD");
 	}
 	public void issuesOverview_actionPerformed (ActionEvent e){
+		refreshPanels();
 		issuesCards.showCard(ISSUE_OVERVIEW);
 		setCurrentButton(issuesOverviewButton);
 		Context.put("CURRENT_PANEL", "ISSUES_OVERVIEW");
 	}
 	public void issuesCreate_actionPerformed (ActionEvent e){
+		refreshPanels();
 		issuesCards.showCard(CREATE_ISSUE);
 		setCurrentButton(createIssueButton);
 		Context.put("CURRENT_PANEL", "CREATE_ISSUES");
 	}
 	public void issuesClose_actionPerformed (ActionEvent e){
+		refreshPanels();
 		issuesCards.showCard(CLOSE_ISSUE);
 		setCurrentButton(closeIssueButton);
 		Context.put("CURRENT_PANEL", "CLOSE_ISSUES");
 	}
 	public void statsOverview_actionPerformed (ActionEvent e){
+		refreshPanels();
 		statsCards.showCard(STATS_OVERVIEW);
 		setCurrentButton(statsOverviewButton);
 		Context.put("CURRENT_PANEL", "STATS_OVERVIEW");
 	}
 	public void statsIndividual_actionPerformed (ActionEvent e){
+		refreshPanels();
 		statsCards.showCard(IND_STATS);
 		setCurrentButton(individualStatsButton);
 		Context.put("CURRENT_PANEL", "IND_STATS");
 	}
 	public void statsTeam_actionPerformed (ActionEvent e){
+		refreshPanels();
 		statsCards.showCard(TEAM_STATS);
 		setCurrentButton(teamStatsButton);
 		Context.put("CURRENT_PANEL", "TEAM_STATS");
@@ -473,6 +488,21 @@ public class WorkPanel extends JPanel {
 				new ExceptionDialog(e);
 			}
 		});
+	}
+
+	public void needsRefresh(boolean need) {
+		needsRefresh = need;
+	}
+
+	private void refreshPanels() {
+
+		if (needsRefresh) {
+			homeCards.refreshPanels();
+			scrumCards.refreshPanels();
+			issuesCards.refreshPanels();
+			statsCards.refreshPanels();
+			needsRefresh(false);
+		}
 	}
 
 }

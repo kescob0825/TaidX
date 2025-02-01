@@ -95,5 +95,8 @@ public class IssuesToolBarCards extends JPanel{
         return panel;
     }
 
+    public void refreshPanels() {
+        //  TODO: JPanel.refreshPanel();
+    }
 
 }

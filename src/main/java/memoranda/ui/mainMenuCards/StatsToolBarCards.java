@@ -95,5 +95,7 @@ public class StatsToolBarCards extends JPanel{
         return panel;
     }
 
-
+    public void refreshPanels() {
+        //  TODO: JPanel.refreshPanel();
+    }
 }
