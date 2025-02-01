@@ -1,6 +1,6 @@
 package memoranda.ui.mainMenuCards;
 
-import memoranda.ui.TaigaPanel;
+import memoranda.ui.mainMenuCards.homeSubMenuCards.Profile;
 
 import javax.swing.*;
 import javax.swing.JLabel;
@@ -18,7 +18,7 @@ public class HomeToolBarCards extends JPanel{
     public static final String CONFIGURE_PANEL = "CONFIGURE";
 
     private JPanel centerWrapperOverview;
-    private TaigaPanel centerWrapperTaiga;
+    Profile profile;
     private JPanel centerWrapperProjects;
     private JPanel centerWrapperConfigure;
 
@@ -71,7 +71,7 @@ public class HomeToolBarCards extends JPanel{
     }
 
     private JPanel createProfileCard() {
-        centerWrapperTaiga = new TaigaPanel(new BorderLayout());
+        JPanel panel = new JPanel(new BorderLayout());
         JPanel subtitlePanel = new JPanel();
         JLabel subtitleLabel = new JLabel("Profile:");
         subtitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -80,12 +80,13 @@ public class HomeToolBarCards extends JPanel{
         JPanel centerWrapper = new JPanel(new GridBagLayout());
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-
+        profile = new Profile();
+        content.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
         centerWrapper.add(content);
 
-        centerWrapperTaiga.add(subtitlePanel, BorderLayout.NORTH);
-        centerWrapperTaiga.add(centerWrapper, BorderLayout.CENTER);
-        return centerWrapperTaiga;
+        panel.add(subtitlePanel, BorderLayout.NORTH);
+        panel.add(profile);
+        return panel;
     }
 
     private JPanel createProjectsCard() {
@@ -113,20 +114,20 @@ public class HomeToolBarCards extends JPanel{
         subtitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         subtitlePanel.add(subtitleLabel);
 
-        centerWrapperProjects = new JPanel(new GridBagLayout());
+        centerWrapperConfigure = new JPanel(new GridBagLayout());
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
-        centerWrapperProjects.add(content);
+        centerWrapperConfigure.add(content);
 
         panel.add(subtitlePanel, BorderLayout.NORTH);
-        panel.add(centerWrapperProjects, BorderLayout.CENTER);
+        panel.add(centerWrapperConfigure, BorderLayout.CENTER);
         return panel;
     }
 
     public void refreshPanels() {
         // TODO: centerWrapperOverview.refreshPanel();;
-        centerWrapperTaiga.refreshPanel();
+        profile.refreshPanel();
         //centerWrapperProjects.refreshPanel();
         //centerWrapperConfigure.refreshPanel();
     }
