@@ -50,6 +50,10 @@ public class TaigaClient {
         projects.getProjects(this.authenticator.getAuthToken(), this.authenticator.getUserProfile().getUid());
         userStory.getUserStories(this.authenticator.getAuthToken(), this.projects.getProjectData().get(0).getProjectID());
     }
+
+    public boolean isClientLoggedIn() throws IOException {
+        return authenticator.getAuthAndRefreshToken().isLoggedIn();
+    }
     /**
      * Retrieves the projects for the authenticated user.
      */

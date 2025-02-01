@@ -359,7 +359,7 @@ public class AppFrame extends JFrame {
 
         TaigaClient client  = Start.getInjector().getInstance(TaigaClient.class);
         try {
-            if (client.isLoggedIn()) {
+            if (client.isClientLoggedIn()) {
                 JOptionPane.showMessageDialog(this,
                         "You are already logged in.",
                         "Illegal Action",
