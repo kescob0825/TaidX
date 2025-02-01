@@ -129,10 +129,19 @@ public class Profile extends JPanel {
     }
     public void refreshPanel() {
         try {
-            TaigaClient client = Start.getInjector().getInstance(TaigaClient.class);
-            pUsernameH.setText("Username: " + client.getUserProfile().getUsername());
-            pRealNameH.setText("FullName: " + client.getUserProfile().getFullName());
-            pEmailH.setText("Email: " + client.getUserProfile().getEmail());
+            client = Start.getInjector().getInstance(TaigaClient.class);
+            if (!client.isClientLoggedIn()) {
+                this.revalidate();
+                this.repaint();
+                pUsernameH.setText("Username: ");
+                pRealNameH.setText("FullName: ");
+                pEmailH.setText("Email: ");
+            }
+            else {
+                pUsernameH.setText("Username: " + client.getUserProfile().getUsername());
+                pRealNameH.setText("FullName: " + client.getUserProfile().getFullName());
+                pEmailH.setText("Email: " + client.getUserProfile().getEmail());
+            }
         }
         catch (IOException io) {
             io.fillInStackTrace();

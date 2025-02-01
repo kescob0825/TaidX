@@ -392,6 +392,7 @@ public class AppFrame extends JFrame {
     }
     protected void jMenuTaigiLogout_actionPerformed(ActionEvent e) {
         client  = Start.getInjector().getInstance(TaigaClient.class);
+        workPanel.needsRefresh(true);
         client.logoutTaiga();
     }
     
