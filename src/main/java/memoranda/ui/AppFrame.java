@@ -97,6 +97,7 @@ public class AppFrame extends JFrame {
     JMenuItem JMenuApiCallTesting1 = new JMenuItem();
     JMenuItem JMenuApiCallTesting2 = new JMenuItem();
 
+    TaigaClient client;
     //Construct the frame
     public AppFrame() {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
@@ -358,7 +359,7 @@ public class AppFrame extends JFrame {
 
     protected void jMenuTaigiLogin_actionPerformed(ActionEvent e) {
 
-        TaigaClient client  = Start.getInjector().getInstance(TaigaClient.class);
+        client  = Start.getInjector().getInstance(TaigaClient.class);
         try {
             if (client.isClientLoggedIn()) {
                 JOptionPane.showMessageDialog(this,
@@ -390,8 +391,8 @@ public class AppFrame extends JFrame {
         });
     }
     protected void jMenuTaigiLogout_actionPerformed(ActionEvent e) {
-        TaigaClient taigaClient  = Start.getInjector().getInstance(TaigaClient.class);
-        taigaClient.logoutTaiga();
+        client  = Start.getInjector().getInstance(TaigaClient.class);
+        client.logoutTaiga();
     }
     
     //File | Exit action performed
