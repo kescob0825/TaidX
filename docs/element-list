@@ -1,0 +1,15 @@
+memoranda
+memoranda.api
+memoranda.api.models
+memoranda.api.modules
+memoranda.date
+memoranda.taiga
+memoranda.ui
+memoranda.ui.htmleditor
+memoranda.ui.htmleditor.filechooser
+memoranda.ui.htmleditor.util
+memoranda.ui.mainMenuCards
+memoranda.ui.mainMenuCards.homeSubMenuCards
+memoranda.ui.table
+memoranda.ui.treetable
+memoranda.util
