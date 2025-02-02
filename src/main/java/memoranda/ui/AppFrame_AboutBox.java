@@ -80,7 +80,7 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
         text += others[i]+"<br>"; 
     
     text += "</html>";
-    
+    //possible future update
     image = new ImageIcon(AppFrame_AboutBox.class.getResource("/ui/memoranda.png"));
     this.setTitle(Local.getString("About Memoranda"));
     setResizable(false);
