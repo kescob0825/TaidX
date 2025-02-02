@@ -298,7 +298,7 @@ public class AppFrame extends JFrame {
         try{
             if(Desktop.isDesktopSupported()){
                 Desktop desktop = Desktop.getDesktop();
-                URI uri = new URI("https://github.com/amehlhase316/Ruebezahl_spring25A/issues/new?template=Blank+issue");
+                URI uri = new URI("https://tree.taiga.io/project/amehlhase316-ruebezahl_spring25a/issues");
                 desktop.browse(uri);
             }
             else{

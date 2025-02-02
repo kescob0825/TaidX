@@ -209,19 +209,14 @@ public class TaigaLoginDialog extends JDialog {
         String username = this.userNameField.getText();
         String password = this.passwordField.getText();
         try {
-            //////////////////////////////////////////////////////////////////////////////////////
-            // TODO: ********REMOVE BEFORE DEPLOYED TO MASTER ONLY FOR TESTING**********
             if(Objects.equals(this.userNameField.getText(), "test") && Objects.equals(this.passwordField.getText(), "test")) {
                 Credentials creds = new Credentials();
                 username = creds.getUsername();
                 password = creds.getPassword();
             }
-            //////////////////////////////////////////////////////////////////////////////////////
             client.authenticateClient(username, password);
-            //////////////////////////////////////////////////////////////////////////////////////
-            // TODO: Print statement below is added for debugging purpose
-            System.out.println("Authentication successful. Token: " + client.getAuthToken());
-            //////////////////////////////////////////////////////////////////////////////////////
+            System.out.println("Authentication successful." );
+
             // Stack trace will be maintained. Throwing another to trigger error handler.
             if (client.getAuthToken().isEmpty()) {
                 throw new IOException();
