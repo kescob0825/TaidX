@@ -108,7 +108,6 @@ public class TaigaClient {
 
     /**
      * Returns the last response code.
-     * @return the last response code
      */
     public void setLastResponseCode(int lastResponseCode) {
         this.lastResponseCode = lastResponseCode;
