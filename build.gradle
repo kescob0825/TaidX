@@ -30,14 +30,18 @@ wrapper {
     }
 
 // Repository configuration
-allprojects{
     repositories {
         mavenCentral()
     }
-}
+
 
 // Dependencies
     dependencies {
+        // https://mvnrepository.com/artifact/com.formdev/flatlaf
+        implementation group: 'com.formdev', name: 'flatlaf', version: '3.5.4'
+        // https://mvnrepository.com/artifact/com.formdev/flatlaf-extras
+        implementation group: 'com.formdev', name: 'flatlaf-extras', version: '3.5.4'
+        implementation 'com.formdev:flatlaf-intellij-themes:3.5.4'
         // HTTP and JSON handling
         implementation 'com.squareup.okhttp3:okhttp:4.12.0'
         implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
@@ -51,7 +55,10 @@ allprojects{
         implementation('net.sourceforge.nekohtml:nekohtml:1.9.22') {
             exclude group: 'xml-apis', module: 'xml-apis'
         }
-        implementation project(':taiga-api')
+        // https://mvnrepository.com/artifact/com.google.inject/guice
+        implementation group: 'com.google.inject', name: 'guice', version: '7.0.0'
+        // https://mvnrepository.com/artifact/com.google.inject.extensions/guice-assistedinject
+        implementation group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '7.0.0'
         implementation 'org.apache.commons:commons-lang3:3.12.0'
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     }
@@ -62,7 +69,6 @@ allprojects{
     }*/
 
 tasks.register('runMain', JavaExec) {
-    dependsOn ':taiga-api:build'
     group = 'Application'
     description = 'Runs the main class'
     classpath = sourceSets.main.runtimeClasspath
@@ -80,7 +86,7 @@ tasks.register('fatJar', Jar) {
     manifest {
         attributes 'Main-Class': application.mainClass
     }
-    archiveBaseName.set('jdlafond_ruebezahl')
+    archiveBaseName.set('ruebezahl_spring25')
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
