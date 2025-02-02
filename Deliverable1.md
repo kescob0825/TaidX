@@ -21,12 +21,13 @@ Fill out your Sprint Planning here, based on the kickoff document and your team'
 - **Sprint Goal**: _Fix bugs, and enhance memoranda to get ready for Taiga API implementation in sprint 2._
 
 #### Product Backlog & Sprint Backlog:
-- **User Stories in Product Backlog**: _10_
-- **User Stories in Sprint Backlog**: _10_
+- **User Stories in Product Backlog**: _8_
+- **User Stories in Sprint Backlog**: _13_
 
 #### Sprint Planning Questions:
 - **Why did you select these User Stories for this Sprint?**
-    > _9 were provided and the one that was added was to create a functional user interface to be able interact with the API implemented in Sprint 2+._
+    > _9 were provided and the one that was added was to create a functional user interface to be able to interact with the API implemented in Sprint 2+._
+  > _Our team added three US's late in the Sprint due to our pace._
 
  #### Sprint Planning Questions:
 - **Why do you think you can complete them in this Sprint?**
@@ -69,13 +70,24 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 
 #### Sprint Review Questions:
 - **What value did you create during this Sprint?**
-    > _Your Answer_
+    > We established a link between the UI and the Taiga API. This creates value
+  > because the token allows a user to be able to request
+  > information on projects, US's, tasks, metadata on all of those, stats on
+  > on the Scrum, and other calls. 
 
 - **Do you feel you worked enough and met expectations?**
-    > _Your Answer_
+    > Everyone put in work on the sprint and tasks. There was a bit of a skill gap between some due to API's being novel, 
+  > but those who had worked with them produced resources to help others learn the basics and replicate these calls
+  > on postman or boomerang. We will work to close this gap as the expectations will be higher in sprint 2 being heavy
+  > in the API calls and parsing the JSON data.
 
 - **Did you meet the customers’ expectations? Why or why not?**
-    > _Your Answer_
+    > We met the minimum standard for out v1.0 release. We have kept our main release shelved until sprint 2. 
+  > We fixed all the bugs that were causing issues with functionality and introduced some new ones.
+  > Our US28 while finished, houses our v2.0. Having done a complete UI overhaul to better line up with the core
+  > functionality of the app we believe it was in the best interest of the customer to not release an incomplete
+  > implementation of the product. After we do our PR to master from our tested dev, we will force push US28 to dev
+  > and that will be our new dev branch.
 
 ---
 
@@ -86,7 +98,20 @@ Provide clear answers based on your team’s actual data and performance.
     > _Your Answer_
 
 - **Did you complete all User Stories in the Sprint Backlog?**
-    > _Yes/No and evidence_
+    > Yes, all ten original US's were complete in addition to the 3 added later in Sprint.
+> 1. US1 window closes when the "x" is pressed without the process continuing.
+> 2. US2 Splash screen has been changed.
+> 3. US3 window now minimizes to the taskbar without disappearing.
+> 4. US4 *****
+> 5. US5 Look and feel was deleted from preferences and added to top menu as "Theme"
+> 6. US6 UI has been overhauled. Useless classes were deleted.
+> 7. US7 Left side icons reflect functionality.
+> 8. US8 UML document drafted ****
+> 9. US9 All deprecation warnings fixed. A few xLint warnings still appear due to old libraries used with old gradle build.
+> 10. US28 Api implemented that pulls all data for the US's and prints to the console. Need to build UI to display information
+> 11. US34 Authenicate and TaigaLoginDialog classes implemented and operational.
+> 12. US47 use a singleton object to pass into UI components. Same instance used program wide.
+> 13. US50 upon signout auth and refresh tokens assigned to NULL. 
 
 - **If not, what went wrong?**
     > _Your Answer_
@@ -111,7 +136,7 @@ Provide clear answers based on your team’s actual data and performance.
 ### Burndown Chart (For Sprint 2 and 3):
 Please include a screenshot of your Burndown chart here, and provide a detailed analysis. 
 - **Analysis of Burndown**: _Why does it look like this? What would you improve?_
-
+  
 > _Your Answer_
 
 ---
@@ -124,18 +149,24 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-    > _Your Answer_
+    > Yes, I completed the most tasks, hosted meetings. Debugged and tested other peoples code.
+  > Was lead on overhauling the UI for the unreleased v2.0. Coordinated design talks and the standup meetings.
+  > Taught others how to make the api calls (WIP) Populated the Scrumboard, product backlog with additional
+  > US's, AC's, and tasks. 
 
 - **What business value did you deliver personally?**
-    > _Your Answer_
+    > I worked with Karl to create the initial api authorization token with Karl. He created the UI and I worked on 
+  > the backend implementation of the TaigaClient. I would later work on the API modules (Projects and User Story) and models which will be instrumental
+  > in the future sprints. I also worked on a UI overhaul that modernized the app and deleted the antiquated functionality of the
+  > app. This will be viewable on the dev branch. 
 ### Team Member [Jimmy]
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_ I personally think I worked consistently and contributed enough for the project; I spent time trying to understand the logic of how the memoranda software works and consulted my team members about features/functions that we deemed not important towards our grand goal of implementing the Taiga API into the software. At first I attempted to fix the features to make it more usable but it seems that the logic is either faulty or there are issues with JavaFX that make it simply impossible to fit the functions we want. This led me to push for the removal of the resource tab as well as associated functions related to this feature allowing me to sift through the code and remove it without the introduction of any bugs or faults.
+  > I personally think I worked consistently and contributed enough for the project; I spent time trying to understand the logic of how the memoranda software works and consulted my team members about features/functions that we deemed not important towards our grand goal of implementing the Taiga API into the software. At first I attempted to fix the features to make it more usable but it seems that the logic is either faulty or there are issues with JavaFX that make it simply impossible to fit the functions we want. This led me to push for the removal of the resource tab as well as associated functions related to this feature allowing me to sift through the code and remove it without the introduction of any bugs or faults.
 
 - **What business value did you deliver personally?**
-  > _Your Answer_ I believe that by removing files and features that aren't desired or needed anymore and taking the time to remove all aspects of it including pngs and calls makes troubleshooting in the future much easier since if we simply made it functional by disabling the feature instead of deleting it and an engineer were to do a code review over an unrelated bug/feature, then they would potentially waste tons of time sifting through useless code that should really be not be there in the first place.
+  > I believe that by removing files and features that aren't desired or needed anymore and taking the time to remove all aspects of it including pngs and calls makes troubleshooting in the future much easier since if we simply made it functional by disabling the feature instead of deleting it and an engineer were to do a code review over an unrelated bug/feature, then they would potentially waste tons of time sifting through useless code that should really be not be there in the first place.
 ### Team Member [Edwin]
 
 #### Consistency and Effort:
