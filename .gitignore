@@ -10,8 +10,4 @@
 .idea/
 build/
 .DS_Store
-<<<<<<< HEAD
 src/main/java/memoranda/api/Credentials.java
-=======
-src/main/java/memoranda/api/Credentials.java
->>>>>>> 6a32cb4d83596bf1b45113ddb90cf0774d9b9084
