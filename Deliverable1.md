@@ -109,11 +109,11 @@ _**Sprint Goal**: Fix bugs, and enhance memoranda to get ready for Taiga API imp
 > 1. US1 window closes when the "x" is pressed without the process continuing.
 > 2. US2 Splash screen has been changed.
 > 3. US3 window now minimizes to the taskbar without disappearing.
-> 4. US4  **TO DO**
+> 4. US4 resolved translation issues succcesfully. 
 > 5. US5 Look and feel was deleted from preferences and added to top menu as "Theme"
 > 6. US6 UI has been overhauled. Useless classes were deleted.
 > 7. US7 Left side icons reflect functionality.
-> 8. US8 UML document drafted  **TO DO**
+> 8. US8 UML document drafted for most important classes. 
 > 9. US9 All deprecation warnings fixed. A few xLint warnings still appear due to old libraries used with old gradle build.
 > 10. US28 Api implemented that pulls all data for the US's and prints to the console. Need to build UI to display information
 > 11. US34 Authenicate and TaigaLoginDialog classes implemented and operational.
@@ -194,10 +194,10 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+  > _Yes, I worked on the spanish to english translations as well as created the UML document for the most important classes. I consistenly contributed and was present during all meetings and communications. However, I also understand and recognize that some team members contributed more. To increase my contribution, I have been working towards understanding how to use other tools to implement APIs as well as how to correctly read and understand an API, so I can contribute more effectively to the group._
 
 - **What business value did you deliver personally?**
-  > _Your Answer_
+  > _At first, I resolved the translation issues, improving the code's readability and consistency. Additionally, I created UML diagrams to illustrate how each class interacts, enchancing overall understanding of the system's architecture._
 ### Team Member [Karl]
 
 #### Consistency and Effort:
