@@ -226,10 +226,17 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+  > My work involved designing the new app splash screen and updating the code to integrate it at launch.
+  > I also located and reviewed the existing app logo, making edits to adapt the logo screen image for potential
+  > future updates in the 'About' section. During that process, I noticed the code still referenced the old app
+  > name, logo, and the previous developers names. But considering these changes were outside the project scope,
+  > I still made the initiative to prepare a new logo for future updates, ensuring a smoother transition when
+  > its time to make those changes. 
 
 - **What business value did you deliver personally?**
-  > _Your Answer_
+  > The program's launch experience was completely revamped with a new splash screen ensuring users immediately
+  > recognize the significant changes made to the application. This update helps signal the trandstion from the
+  > previous version, prompting users to explore and familiarize themselves with the new potential functionality
 ### Team Member [Mohammed]
 
 #### Consistency and Effort:
