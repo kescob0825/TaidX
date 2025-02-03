@@ -85,12 +85,10 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
   > in the API calls and parsing the JSON data.
 
 - **Did you meet the customers’ expectations? Why or why not?**
-    > We met the minimum standard for out v1.0 release. We have kept our main release shelved until sprint 2. 
+    > We met the minimum standard for out v1.0 release. 
   > We fixed all the bugs that were causing issues with functionality and introduced some new ones.
-  > Our US28 while finished, houses our v2.0. Having done a complete UI overhaul to better line up with the core
-  > functionality of the app we believe it was in the best interest of the customer to not release an incomplete
-  > implementation of the product. After we do our PR to master from our tested dev, we will force push US28 to dev
-  > and that will be our new dev branch.
+  >  Having done a complete UI overhaul to better line up with the core
+  > functionality of the app, further development is needed. 
 
 ---
 
@@ -128,7 +126,7 @@ _**Sprint Goal**: Fix bugs, and enhance memoranda to get ready for Taiga API imp
 ![Screenshot 2025-02-01 at 22.36.32.png](LinearProgressionChartSprint1.png)
 - **Did you deliver business value and what was it?**
     > By being able to establish a connection via API the user will now be able to access
-  > a vast swath of information. The UI implementation to come in Sprint 2. Integrating 
+  > a vast swath of information. Further API implementation in the UI will be the focus for Sprint 2. Integrating 
   > API into a customer app gives the ability to tailor a custom experience that the Taiga
   > website interface can't replicate. There is much more data in the JSON responses than are
   > available through the web interface.
@@ -136,11 +134,11 @@ _**Sprint Goal**: Fix bugs, and enhance memoranda to get ready for Taiga API imp
 - **Did you follow the Scrum process (e.g., moving tasks, updating boards, etc.)?**
     > We did as best we could. There were a few tasks left in limbo due to a team member withdrawing
   > from the course that were worked on in different branches anticipating as much due to the lack of
-  > communication. Testing and CR's were a little light during this Sprint and for Sprint 2+ we plan on doing 
+  > communication. Testing and CR's were a light during this Sprint and for Sprint 2+ we plan on doing 
   > PR's and Cr's for all merges into dev after a US is finished. We will update the quality policy accordingly.
 
 - **Is there anything you could improve for the next Sprint? (For the last Sprint mention what you would do if you were to continue)**
-    > Squashing commits, increased CR's and PR's, adding BB and WB testing for the API calls, testing of
+    > Squashing and amending commits before pushing, increased CR's and PR's, adding BB and WB testing for the API calls, testing of
   > UI features, better design meetings, standup meetings that are more substantive, less sloppy management
   > of large changes in the app (force pushing to overwrite dev), develop a better way to track commits and progress
   > , and come up with a testing plan and expectations. Additionally, we need to add more of our important communication
@@ -250,22 +248,24 @@ Please provide the links to your key contributions on GitHub. Include **commits,
 
 - **GitHub Commits (Up to 5)**
     - [Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2/commits/702f21e5b719445754465ce9c783980ea2c66d77) - Addressed translation issues in the ExportSticker class at lines 72 and 77.  
-    - [Commit 2](link) - _Short description of what the commit is about_
-
+    - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/79f381537e6d980068423b46a9a8044ebf5960cb) - Overhaul the entire app to match topic functionality
+    - [Commit 3](link) - Brief description
+    - [Commit 4](link) - Brief description
+    - [Commit 5](link) - Brief description
 - **GitHub Pull Requests (Up to 3)**
-    - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2) -  This pull request merges updates from the jdlafond individual branch into the master branch. The updates address multiple areas including: fix translations 
-                                                                            issues, fix deprecated features, updated documentation and additional improvements accrosss memoranda. In total, 28 commmits were made, ensuring improved 
-                                                                            functionality, better maintainability, and code quality. 
-    - [PR 2](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/7) -  This pull request merges the lastest changes from the dev branch into master. It contains 182 commits with significant changes to code funtionality in which
-                                                                            341 fiels were modified to accomodate for the implementation of the Taiga API. This code is the final version completed after Sprint 1 with all features and
-                                                                            improvements delineated on the User Stories for this sprint. 
+    - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2) 
+      -  This pull request merges updates from the jdlafond individual branch into the master branch. The updates address multiple areas including: fix translations 
+                                                                                issues, fix deprecated features, updated documentation and additional improvements accrosss memoranda. In total, 28 commmits were made, ensuring improved 
+                                                                                functionality, better maintainability, and code quality. 
+    - [PR 2](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/7) 
+      -  This pull request merges the lastest changes from the dev branch into master. It contains 182 commits with significant changes to code funtionality in which
+                                                                                341 fiels were modified to accomodate for the implementation of the Taiga API. This code is the final version completed after Sprint 1 with all features and
+                                                                                improvements delineated on the User Stories for this sprint. 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
-    - [Test 1](link) - _Short description of the test_
-    - [Test 2](link) - _Short description of the test_
+   
 
 - **Code Reviews (Up to 3, start in Sprint 2)**
-    - [Review 1](link) - _Short description of the code review_
-    - [Review 2](link) - _Short description of the code review_
+   
 
 - **Static Analysis Contributions (Start in Sprint 3)**
     - [Static Analysis 1](link) - _Short description of the analysis contribution_
