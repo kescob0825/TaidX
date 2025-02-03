@@ -56,13 +56,13 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 | _1/24/2025_| _Noel Trujillo_        | _10 US, discuss US, tasks added. Layout design discussed and approved _             | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
 | _1/24/2025_|                        | _Status update, 3 task not assigned. Mohammed and Noel do not have tasks_           | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
 |            |                        | _Every member updated their progress, Mohammed and Noel will select tasks today_    |                                        |                                             |                       |
-|            |                        | _Three tasks left unnasigned, we might have to create more task or USs to meet req._|                                        |                                             |                       | 
+|            |                        | _Three tasks left unnasigned, we might have to create more task or USs to meet req. |                                        |                                             |                       | 
 |_1/27/2025_ | _Noel Trujillo_        | _US50 and US28 added_                                                               |                                        | _Pass/Fail_                                 |                       | 
-|_1/30/2025_ | _Noel Trujillo_        | _US7 has version 2 of the project, will be pushed during the second sprint._        | _On track/Behind/Ahead_                |                                             |                       |                                        
-| _Date_     | _Name(s)_              | _Brief notes_                                                                       | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
- 
-
----
+|_1/30/2025_ | _Noel Trujillo_        | _US7 has version 2 of the project, will be pushed during the second sprint.         | _On track/Behind/Ahead_                |                                             |                       |     |            |                        |                                                                                     |                                        |                                             |                       |
+|_2/02/2025_ |                        | Spoke about sprint retrospective and review. Jedi will be working on the video      | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
+|            |                        | All members have to update their contributions and notify Jedi for the video.       |                                        |                                             |                       |
+|            |                        | Next meeeting will be on 05FEB2024, pre-sprint meeting to discuss expectations.     |                                        |                                             |                       |
+|_Date_      |                        |                                                                                     | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
 
 ## 3: After the Sprint
 
@@ -109,11 +109,11 @@ _**Sprint Goal**: Fix bugs, and enhance memoranda to get ready for Taiga API imp
 > 1. US1 window closes when the "x" is pressed without the process continuing.
 > 2. US2 Splash screen has been changed.
 > 3. US3 window now minimizes to the taskbar without disappearing.
-> 4. US4 resolved translation issues successfully. 
+> 4. US4 resolved translation issues successfully. 4 commits in total that were implemented during PR2 https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2
 > 5. US5 Look and feel was deleted from preferences and added to top menu as "Theme"
 > 6. US6 UI has been overhauled. Useless classes were deleted.
 > 7. US7 Left side icons reflect functionality.
-> 8. US8 UML document drafted for most important classes. 
+> 8. US8 UML document drafted for most important classes. 1 commit total implemented. https://github.com/amehlhase316/Ruebezahl_spring25A/commit/95a614a2c1b26935149639ee5fa2c9c06a682b16
 > 9. US9 All deprecation warnings fixed. A few xLint warnings still appear due to old libraries used with old gradle build.
 > 10. US28 Api implemented that pulls all data for the US's and prints to the console. Need to build UI to display information
 > 11. US34 Authenticate and TaigaLoginDialog classes implemented and operational.
@@ -242,13 +242,16 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 Please provide the links to your key contributions on GitHub. Include **commits, pull requests**, and other important work items.
 
 - **GitHub Commits (Up to 5)**
-    - [Commit 1](link) - _Short description of what the commit is about_
+    - [Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2/commits/702f21e5b719445754465ce9c783980ea2c66d77) - Addressed translation issues in the ExportSticker class at lines 72 and 77.  
     - [Commit 2](link) - _Short description of what the commit is about_
 
 - **GitHub Pull Requests (Up to 3)**
-    - [PR 1](link) - _Short description of the PR_
-    - [PR 2](link) - _Short description of the PR_
-
+    - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2) -  This pull request merges updates from the jdlafond individual branch into the master branch. The updates address multiple areas including: fix translations 
+                                                                            issues, fix deprecated features, updated documentation and additional improvements accrosss memoranda. In total, 28 commmits were made, ensuring improved 
+                                                                            functionality, better maintainability, and code quality. 
+    - [PR 2](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/7) -  This pull request merges the lastest changes from the dev branch into master. It contains 182 commits with significant changes to code funtionality in which
+                                                                            341 fiels were modified to accomodate for the implementation of the Taiga API. This code is the final version completed after Sprint 1 with all features and
+                                                                            improvements delineated on the User Stories for this sprint. 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
     - [Test 1](link) - _Short description of the test_
     - [Test 2](link) - _Short description of the test_
@@ -275,7 +278,7 @@ Before submitting your Sprint deliverables, make sure to check the following ite
 - [ ] Quality Policies are up-to-date and accurate.
 - [ ] Individual Sprint Surveys have been submitted (one per team member).
   - [ ] Team member Jedi
-  - [ ] Team member Edwin
+  - [X] Team member Edwin
   - [ ] Team member Karl
   - [ ] Team member Jimmy
   - [ ] Team member Andrew
