@@ -104,19 +104,19 @@ _**Sprint Goal**: Fix bugs, and enhance memoranda to get ready for Taiga API imp
   
 - **Did you complete all User Stories in the Sprint Backlog?**
     > Yes, all ten original US's were complete in addition to the 3 added later in Sprint.
-> 1. US1 window closes when the "x" is pressed without the process continuing.
-> 2. US2 Splash screen has been changed.
-> 3. US3 window now minimizes to the taskbar without disappearing.
+> 1. US1 window closes when the "x" is pressed without the process continuing. [Commit]()
+> 2. US2 Splash screen has been changed.[Commit]()
+> 3. US3 window now minimizes to the taskbar without disappearing. [Commit]()
 > 4. US4 resolved translation issues successfully. 4 commits in total that were implemented during PR2 https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2
-> 5. US5 Look and feel was deleted from preferences and added to top menu as "Theme"
-> 6. US6 UI has been overhauled. Useless classes were deleted.
-> 7. US7 Left side icons reflect functionality.
+> 5. US5 Look and feel was deleted from preferences and added to top menu as "Theme" [Commit 20310ae](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/20310aea31f5f5d6195536957c840c61bd99c20e)
+> 6. US6 UI has been overhauled. Useless classes were deleted. [Commit 79f3815](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/79f381537e6d980068423b46a9a8044ebf5960cb)
+> 7. US7 Left side icons reflect functionality. [Commit]()
 > 8. US8 UML document drafted for most important classes. 1 commit total implemented. https://github.com/amehlhase316/Ruebezahl_spring25A/commit/95a614a2c1b26935149639ee5fa2c9c06a682b16
-> 9. US9 All deprecation warnings fixed. A few xLint warnings still appear due to old libraries used with old gradle build.
-> 10. US28 Api implemented that pulls all data for the US's and prints to the console. Need to build UI to display information
-> 11. US34 Authenticate and TaigaLoginDialog classes implemented and operational.
-> 12. US47 use a singleton object to pass into UI components. Same instance used program wide.
-> 13. US50 upon sign-out auth and refresh tokens assigned to NULL. 
+> 9. US9 All deprecation warnings fixed. A few xLint warnings still appear due to old libraries used with old gradle build. [Commit 1445dbf](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/1445dbf9f3001f69cbc02b74b69fa61a12a1e29f)
+> 10. US28 Api implemented that pulls all data for the US's and prints to the console. Need to build UI to display information[Commit 2ed9e41](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/2ed9e4161689d0a2323916f6695c9baec1eec356)
+> 11. US34 Authenticate and TaigaLoginDialog classes implemented and operational. [Commit f9b6cad](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/f9b6cad269cd8d1723ced8f10c96bb1cb196485b)
+> 12. US47 use a singleton object to pass into UI components. Same instance used program wide.[Commit 2127478](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/2127478993551f7a68c0c9a36ccdb7c60523f693)
+> 13. US50 upon sign-out auth and refresh tokens assigned to NULL. [Commit]()
 
 - **If not, what went wrong?**
     > All tasks and accompanying US's were completed from the sprint backlog.
@@ -263,7 +263,7 @@ Please provide the links to your key contributions on GitHub. Include **commits,
     - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/79f381537e6d980068423b46a9a8044ebf5960cb) - Overhaul the entire app to match topic functionality
     - [Commit 3](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/f44865dfd89b3152d6457dd9a1a79c53974bb764) – Changed left side panel icons.
     - [Commit 4](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/17edaa7c8ebccba6176c8f361c36193e841e6a54) - Updated logo and splash screen images that were included. Code change in later earlier commit
-    - [Commit 5](link) - Brief description
+    - [Commit 5](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/ddec0bf6e27bb3060082f23e13204dbc7c) - US28 Task52 add project api call to get project ID needed to pull US's    
 - **GitHub Pull Requests (Up to 3)**
     - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2) 
       -  This pull request merges updates from the jdlafond individual branch into the master branch. The updates address multiple areas including: fix translations 
