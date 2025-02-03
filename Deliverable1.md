@@ -262,7 +262,7 @@ Please provide the links to your key contributions on GitHub. Include **commits,
     - [Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2/commits/702f21e5b719445754465ce9c783980ea2c66d77) - Addressed translation issues in the ExportSticker class at lines 72 and 77.  
     - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/79f381537e6d980068423b46a9a8044ebf5960cb) - Overhaul the entire app to match topic functionality
     - [Commit 3](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/f44865dfd89b3152d6457dd9a1a79c53974bb764) – Changed left side panel icons.
-    - [Commit 4](link) - Brief description
+    - [Commit 4](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/17edaa7c8ebccba6176c8f361c36193e841e6a54) - Updated logo and splash screen images that were included. Code change in later earlier commit
     - [Commit 5](link) - Brief description
 - **GitHub Pull Requests (Up to 3)**
     - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2) 
