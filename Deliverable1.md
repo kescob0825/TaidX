@@ -263,7 +263,7 @@ Please provide the links to your key contributions on GitHub. Include **commits,
     - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/79f381537e6d980068423b46a9a8044ebf5960cb) - Overhaul the entire app to match topic functionality
     - [Commit 3](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/f44865dfd89b3152d6457dd9a1a79c53974bb764) – Changed left side panel icons.
     - [Commit 4](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/17edaa7c8ebccba6176c8f361c36193e841e6a54) - Updated logo and splash screen images that were included. Code change in later earlier commit
-    - [Commit 5](link) - Brief description
+    - [Commit 5](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/0f969f68e587fe86b7af1ecd0a40e910704ce134) - Removed Resource Button and all files that were related to this feature.
 - **GitHub Pull Requests (Up to 3)**
     - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2) 
       -  This pull request merges updates from the jdlafond individual branch into the master branch. The updates address multiple areas including: fix translations 
@@ -299,7 +299,7 @@ Before submitting your Sprint deliverables, make sure to check the following ite
   - [ ] Team member Jedi
   - [X] Team member Edwin
   - [ ] Team member Karl
-  - [ ] Team member Jimmy
+  - [X] Team member Jimmy
   - [ ] Team member Andrew
   - [X] Team member Mohammed
 - [ ] The original template has been copied for the next Sprint (except for the last Sprint).
