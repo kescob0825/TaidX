@@ -246,17 +246,22 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+  > I believe I worked consistently throughout the project. I ensured that the icon changes on the left side panel
+  > were implemented correctly and aligned with the functionality of the program. I paid close attention to detail,
+  > making sure that each icon represented its function, improving user navigation. Also, I worked with the team to
+  > get feedback and make necessary adjustments.
 
 - **What business value did you deliver personally?**
-  > _Your Answer_
+  > By updating the icons to match functionalities, I enhanced the user experience by making the navigation user
+  > friendly. This reduces confusion and increases efficiency for users interacting with the program. 
+
 #### GitHub Links to Work:
 Please provide the links to your key contributions on GitHub. Include **commits, pull requests**, and other important work items.
 
 - **GitHub Commits (Up to 5)**
     - [Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2/commits/702f21e5b719445754465ce9c783980ea2c66d77) - Addressed translation issues in the ExportSticker class at lines 72 and 77.  
     - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/79f381537e6d980068423b46a9a8044ebf5960cb) - Overhaul the entire app to match topic functionality
-    - [Commit 3](link) - Brief description
+    - [Commit 3](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/f44865dfd89b3152d6457dd9a1a79c53974bb764) – Changed left side panel icons.
     - [Commit 4](link) - Brief description
     - [Commit 5](link) - Brief description
 - **GitHub Pull Requests (Up to 3)**
@@ -296,7 +301,7 @@ Before submitting your Sprint deliverables, make sure to check the following ite
   - [ ] Team member Karl
   - [ ] Team member Jimmy
   - [ ] Team member Andrew
-  - [ ] Team member Mohammed
+  - [X] Team member Mohammed
 - [ ] The original template has been copied for the next Sprint (except for the last Sprint).
 - [ ] New User Stories for the next Sprint are added and well-defined.
 
