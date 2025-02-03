@@ -216,10 +216,17 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+  > Yes, in the early days of the sprint I fixed the pathing issues for the preference dialog box and the exit functionality.
+  > I worked with Jedi to implement the UI for the Taiga login and linked the backend and frontend, ensuring that both sides
+  > work correctly, in tandem. Additionally, I implemented the Taiga profile panel UI, linked it with the backend,
+  > and implemented some refresh functions to ensure that the user's information populates and auto-updates for when
+  > the users log-in, although, this is still a work in progress.
 
 - **What business value did you deliver personally?**
-  > _Your Answer_
+  > The application now exits correctly and the preference dialog box now opens without crashing the program. With the
+  > log-in dialog box implemented, users may now be able to log in to the application using their Taiga credentials.
+  > Finally, with the user profile panel implemented, users can now observe their Taiga information populate into their 
+  > profile panel with their full name, username, and email.
 ### Team Member [Andrew]
 
 #### Consistency and Effort:
