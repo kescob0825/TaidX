@@ -48,7 +48,7 @@ public class TaigaClient {
 
     public void initLoadProjectAndUserStoryData() throws IOException {
         projects.getProjects(this.authenticator.getAuthToken(), this.authenticator.getUserProfile().getUid());
-        userStory.getUserStories(this.authenticator.getAuthToken(), this.projects.getProjectData().get(0).getProjectID());
+        userStory.getUserStories(this.authenticator.getAuthToken(), this.projects.getProjectData().get(1).getProjectID());
     }
 
     public boolean isClientLoggedIn() throws IOException {

@@ -7,7 +7,7 @@ Make sure you refer to the [Kickoff Document](#) for additional details and guid
 
 ---
 
-## 1: Basic Information (To be completed before you start Sprint)
+## 1: Basic Information
 
 ### Project Information:
 - **Topic Chosen**: Topic 3
@@ -24,6 +24,21 @@ Fill out your Sprint Planning here, based on the kickoff document and your team'
 #### Product Backlog & Sprint Backlog:
 - **User Stories in Product Backlog**: 8
 - **User Stories in Sprint Backlog**: 13
+  > - US#1: As a user I want the program to exit correctly when I click on the "x" or Exit in the File menu so I can exit the program without it staying open in the background.
+  > - US#2: As a user I want the splash screen and the title of the program to show a new logo and name, so that I know which software is opened and what it is for.
+  > - US#3: As a user I want the program to minimize correctly so the program can be reopened without re-launching the entire program.
+  > - US#4: As a user I want the symbols/language (English) to display correctly so that I can understand the UI and it is consistent.
+  > - US#5: As a user I want Look and Feel in the preferences removed or changed so that it is not confusing and inconsistent anymore.
+  > - US#6: As a User I would like the UI to represent the system you chose better so I understand the functionality options better.
+  > - US#7: As a user I'd like for the icons on the left side panel to match what the program is supposed to do so that I can navigate the program better.
+  > - US#8: As a developer I want to reverse engineer Memoranda to better understand the dependencies
+  > - US#9: As a developer I want no warnings showing up when running Memoranda so that things run cleanly.
+  > - US#28 As a user I want to be able to access information about a sprint so that I can view # of US's, when they were moved to sprint, how many tasks where created, what got done and did not, were the tasks moved correctly, and who worked on which tasks.
+  > - US#34: As a user I want to be able to login to Taiga so that I can access its functions.
+  > - US#47: As a developer I want to be able to use the same client object in multiple classes so that I am using the same instance.
+  > - US#50: As a user I want to be able to sign out so that my token cannot be used.
+  
+**Go to [Taiga Backlog](https://tree.taiga.io/project/amehlhase316-ruebezahl_spring25a/backlog) to view the rest
 
 #### Sprint Planning Questions:
 - **Why did you select these User Stories for this Sprint?**
@@ -68,8 +83,7 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 
 ### Sprint Review (Answer as a team)
 #### Screen Cast Link:  
-- _Insert the link to your Sprint review screencast here._
--  **TO DO**
+[Youtube Screencast](https://youtu.be/NsqnT2WaA4Y)
 
 #### Sprint Review Questions:
 - **What value did you create during this Sprint?**
@@ -263,7 +277,7 @@ Please provide the links to your key contributions on GitHub. Include **commits,
     - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/79f381537e6d980068423b46a9a8044ebf5960cb) - Overhaul the entire app to match topic functionality
     - [Commit 3](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/f44865dfd89b3152d6457dd9a1a79c53974bb764) – Changed left side panel icons.
     - [Commit 4](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/17edaa7c8ebccba6176c8f361c36193e841e6a54) - Updated logo and splash screen images that were included. Code change in later earlier commit
-    - [Commit 5](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/ddec0bf6e27bb3060082f23e13204dbc7c) - US28 Task52 add project api call to get project ID needed to pull US's    
+    - [Commit 5](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/0f969f68e587fe86b7af1ecd0a40e910704ce134) - Removed Resource Button and all files that were related to this feature.
 - **GitHub Pull Requests (Up to 3)**
     - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/2) 
       -  This pull request merges updates from the jdlafond individual branch into the master branch. The updates address multiple areas including: fix translations 
