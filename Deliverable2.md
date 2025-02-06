@@ -1,8 +1,8 @@
 # Sprint Documentation Template
 
-> **Important:** Ensure all fields are filled out in a clear and structured manner. Please use the format as shown below. For questions, use **blockquotes** and provide detailed explanations where required. 
+> **Important:** Ensure all fields are filled out in a clear and structured manner. Please use the format as shown below. For questions, use **blockquotes** and provide detailed explanations where required.
 
-Make sure you refer to the [Kickoff Document](#) for additional details and guidelines. 
+Make sure you refer to the [Kickoff Document](#) for additional details and guidelines.
 
 ---
 
@@ -18,7 +18,7 @@ Make sure you refer to the [Kickoff Document](#) for additional details and guid
 Fill out your Sprint Planning here, based on the kickoff document and your team's discussions.
 
 #### Sprint Goal:
-- **Sprint Goal**: Further enhance and expand the types of API calls made and add UI enhancements. 
+- **Sprint Goal**: Further enhance and expand the types of API calls made and add UI enhancements.
 
 #### Product Backlog & Sprint Backlog:
 - **User Stories in Product Backlog**: 2
@@ -26,19 +26,19 @@ Fill out your Sprint Planning here, based on the kickoff document and your team'
 
 #### Sprint Planning Questions:
 - **Why did you select these User Stories for this Spring?**
-    > These were logically the next in development, Login and user information needed to be pulled in order to be 
- > able to call stats and other information.
+  > These were logically the next in development, Login and user information needed to be pulled in order to be
+> able to call stats and other information.
 
- #### Sprint Planning Questions:
+#### Sprint Planning Questions:
 - **Why do you think you can complete them in this Sprint?**
-    > We don't think we can complete the entire backlog of US's, but we wanted enough tasks with different skill sets to allow
+  > We don't think we can complete the entire backlog of US's, but we wanted enough tasks with different skill sets to allow
   > everyone a chance to contribute
 
 - **How do these User Stories align with the Sprint Goal?**
-    > They all enhance the UI and the API allow the client to call and gather all needed information
+  > They all enhance the UI and the API allow the client to call and gather all needed information
 
 - **Do you have a clear idea of the tasks needed to complete these User Stories? (If not, please notify via Slack.)**
-    > Yes and if things are not clear we will call a design meeting.
+  > Yes and if things are not clear we will call a design meeting.
 
 ---
 
