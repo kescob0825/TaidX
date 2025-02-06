@@ -145,6 +145,20 @@
   > - Include a checklist/question list which every reviewer will need to fill out/answer when conducting a ting a
   > review, this checklist (and the answers of course) need to be put into the Pull Request review.
 
+### Code Review Defect List:
+To track issues found during Code Review
+
+### Reviewer: []            GH Repo: []
+
+| **ID** | **Location** | **Problem Description**                                          | **Problem Category**| **Problem Severity** |
+|--------|--------------|------------------------------------------------------------------|---------------------|----------------------|
+| 001    |              |                                                                  |                     |                      |
+| 002    |              |                                                                  |                     |                      | 
+
+
+**Category: CS- Code Smell defect. CG- Violation of a coding guideline. Provide the guideline number. FD- Functional Defect. Code will not produce the expected result. MD- Miscellaneous defect, for all other defects.**
+**Severity: BR-Blocker, must be fixed ASAP. MJ- Major, of high importance, but not a Blocker. LOW- low.***
+
 **Static Analysis**  (online: start Sprint 3, campus: start Sprint 3)
   > Your Static Analysis policy   
 
