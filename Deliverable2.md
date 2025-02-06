@@ -51,7 +51,7 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 
 | **Date** | **Who Did Not Attend** | **Meeting Notes** | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes** |
 |----------|------------------------|-------------------|----------------------------------------|---------------------------------------------|----------------------|
-| _Date_   | _Name(s)_              | _Brief notes_     | _On track/Behind/Ahead_               | _Pass/Fail_                                 | _Other relevant info_ |
+| _2/5/2025_   | _Everyone Showed_              | _Sprint planning and creating tasks for User Stories_     | _On track/Behind/Ahead_               | _Pass/Fail_                                 | _Other relevant info_ |
 | _Date_   | _Name(s)_              | _Brief notes_     | _On track/Behind/Ahead_               | _Pass/Fail_                                 | _Other relevant info_ |
 
 ---
