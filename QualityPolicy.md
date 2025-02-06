@@ -148,13 +148,6 @@
  > Will use proper assert statements to check state
 
 **Code Review** (online: start Sprint 2, campus: start Sprint 2)
-  > - Describe your Code Review policy for on campus it is ok to have a less formal process in Sprint 2,
-  > should be updated in Sprint 3 though.
-  > - Include a checklist/questions list which every developer will need to fill out/answer when creating a
-  > - Pull Request to the Dev branch.
-  > - Include a checklist/question list which every reviewer will need to fill out/answer when conducting a ting a
-  > review, this checklist (and the answers of course) need to be put into the Pull Request review.
-
 ### Code Review Defect List:
 To track issues found during Code Review
 
