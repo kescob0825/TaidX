@@ -9,34 +9,36 @@ Make sure you refer to the [Kickoff Document](#) for additional details and guid
 ## 1: Basic Information (To be completed before you start Sprint)
 
 ### Project Information:
-- **Topic Chosen**: _Your chosen topic name_
-- **Sprint Number**: _Sprint number_
-- **Scrum Master**: _Name of Scrum Master_
-- **Git Master**: _Name of Git Master_
+- **Topic Chosen**: Topic 3 API
+- **Sprint Number**: 2
+- **Scrum Master**: Karl
+- **Git Master**: Jedi
 
 ### Sprint Planning (For Sprint 1-3):
 Fill out your Sprint Planning here, based on the kickoff document and your team's discussions.
 
 #### Sprint Goal:
-- **Sprint Goal**: _Clearly state the goal of the sprint._
+- **Sprint Goal**: Further enhance and expand the types of API calls made and add UI enhancements. 
 
 #### Product Backlog & Sprint Backlog:
-- **User Stories in Product Backlog**: _Number of User Stories added to the Product Backlog_
-- **User Stories in Sprint Backlog**: _Number of User Stories selected for this Sprint_
+- **User Stories in Product Backlog**: 2
+- **User Stories in Sprint Backlog**: 6
 
 #### Sprint Planning Questions:
 - **Why did you select these User Stories for this Spring?**
-    > _Your Answer_
+    > These were logically the next in development, Login and user information needed to be pulled in order to be 
+ > able to call stats and other information.
 
  #### Sprint Planning Questions:
 - **Why do you think you can complete them in this Sprint?**
-    > _Your Answer_
+    > We don't think we can complete the entire backlog of US's, but we wanted enough tasks with different skill sets to allow
+  > everyone a chance to contribute
 
 - **How do these User Stories align with the Sprint Goal?**
-    > _Your Answer_
+    > They all enhance the UI and the API allow the client to call and gather all needed information
 
 - **Do you have a clear idea of the tasks needed to complete these User Stories? (If not, please notify via Slack.)**
-    > _Your Answer_
+    > Yes and if things are not clear we will call a design meeting.
 
 ---
 
