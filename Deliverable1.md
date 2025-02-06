@@ -303,12 +303,12 @@ Please provide the links to your key contributions on GitHub. Include **commits,
 
 Before submitting your Sprint deliverables, make sure to check the following items:
 
-- [ ] This document is complete and well-formatted.
+- [X] This document is complete and well-formatted.
 - [X] Your software is on the master branch on GitHub, it is tested and compiles/runs.
-- [ ] Your document is on your GitHub repository.
-- [ ] Read the Kickoff Document again to ensure you followed all instructions.
-- [ ] User Stories that were not completed have been moved to the next Sprint’s backlog.
-- [ ] Quality Policies are up-to-date and accurate.
+- [X] Your document is on your GitHub repository.
+- [X] Read the Kickoff Document again to ensure you followed all instructions.
+- [X] User Stories that were not completed have been moved to the next Sprint’s backlog.
+- [ ] Quality Policies are up-to-date and accurate. **
 - [ ] Individual Sprint Surveys have been submitted (one per team member).
   - [ ] Team member Jedi
   - [X] Team member Edwin
