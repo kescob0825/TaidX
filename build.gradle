@@ -1,6 +1,6 @@
 plugins {
     // Uncomment and use these plugins if needed
-    id 'com.github.spotbugs' version '4.5.1'
+    id 'com.github.spotbugs' version '5.0.13'
     id 'checkstyle'
     id 'java'
     id 'application'
@@ -33,6 +33,7 @@ wrapper {
 // Repository configuration
     repositories {
         mavenCentral()
+        gradlePluginPortal()
     }
 
 
