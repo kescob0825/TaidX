@@ -468,11 +468,6 @@ public class WorkPanel extends JPanel {
 		currentB.setBackground(UIManager.getColor("control"));
 
 		if(cb == homeB || cb == scrumB || cb == issuesB || cb == statsB) {
-//			System.out.println("Home: "+isHomeExpanded);
-//			System.out.println("Scrum: "+isScrumExpanded);
-//			System.out.println("Issues: "+isIssuesExpanded);
-//			System.out.println("Stats: "+isStatsExpanded);
-//			System.out.println();
 			if(isHomeExpanded || isScrumExpanded || isIssuesExpanded || isStatsExpanded){
 				initState();
 			}
@@ -502,6 +497,11 @@ public class WorkPanel extends JPanel {
 			issuesCards.refreshPanels();
 			statsCards.refreshPanels();
 			needsRefresh(false);
+		} else {
+			homeCards.refreshPanels();
+			scrumCards.refreshPanels();
+			issuesCards.refreshPanels();
+			statsCards.refreshPanels();
 		}
 	}
 

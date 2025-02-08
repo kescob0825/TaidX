@@ -1,5 +1,7 @@
 package memoranda.api.modules;
 
+import memoranda.api.models.MilestoneData;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import memoranda.api.models.UserStoryNode;
 import okhttp3.OkHttpClient;
@@ -13,21 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TaigaUserStory {
-    private static final String USER_STORY_URL = "https://api.taiga.io/api/v1/userstories?project=";
+public class TaigaMilestone {
+    private static final String USER_STORY_URL = "https://api.taiga.io/api/v1/milestones?project=";
     private final OkHttpClient httpClient;
-    private UserStoryNode userStoryNode;
+    private MilestoneData sprintData;
+    private List<MilestoneData> sprintDataList;
     private List<UserStoryNode> userStoryNodes;
-
     private int lastResponseCode;
 
-    public TaigaUserStory(OkHttpClient httpClient, ObjectMapper objectMapper) {
+    public TaigaMilestone(OkHttpClient httpClient, ObjectMapper objectMapper) {
         this.httpClient = httpClient;
+        this.sprintDataList = new ArrayList<>();
         this.userStoryNodes = new ArrayList<>();
-
     }
 
-    public void getUserStories(String token, int uid) throws IOException {
+    public void getMilestones(String token, int uid) throws IOException {
         String id = "Bearer " + token;
         String uidStr = Integer.toString(uid);
         Request request = new Request.Builder()
@@ -42,7 +44,7 @@ public class TaigaUserStory {
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
                 if (responseBody.isEmpty()) {
-                    userStoryNodes = new ArrayList<>();
+                    sprintDataList = new ArrayList<>();
                     return;
                 }
                 Object json = new JSONTokener(responseBody).nextValue();
@@ -57,30 +59,25 @@ public class TaigaUserStory {
                 }
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonResponse = jsonArray.getJSONObject(i);
-                    JSONObject ownerObj = jsonResponse.getJSONObject("owner_extra_info");
-                    JSONObject statusObj = jsonResponse.getJSONObject("status_extra_info");
-                    JSONObject projectInfoObj = jsonResponse.getJSONObject("project_extra_info");
-
-                    //Create a new UserProfile object
-                    userStoryNode = new UserStoryNode(
-                            jsonResponse.optInt("ref"),
+                    JSONArray userStoriesArray = jsonResponse.getJSONArray("user_stories");
+                    int userStoriesCount = userStoriesArray.length();
+                    int total_points = jsonResponse.optInt("total_points", 0);
+                    int closed_points = jsonResponse.optInt("closed_points", 0);
+                    int points_left = total_points - closed_points;
+                    sprintData = new MilestoneData(
                             jsonResponse.optInt("id"),
-                            jsonResponse.optString("subject"),
+                            jsonResponse.optString("name"),
+                            jsonResponse.optInt("project"),
+                            userStoriesCount,
+                            jsonResponse.optString("estimated_start"),
+                            jsonResponse.optString("estimated_finish"),
                             jsonResponse.optInt("total_points", 0),
-                            jsonResponse.optString("created_date"),
-                            jsonResponse.optString("modified_date"),
-                            jsonResponse.optString("finish_date", "null"),
-                            statusObj.optBoolean("is_closed"),
-                            ownerObj.optInt("id"),
-                            ownerObj.optString("username"),
-                            statusObj.optString("name"),
-                            jsonResponse.getInt("project"),
-                            projectInfoObj.optString("name"),
-                            jsonResponse.optString("milestone_name", "product_backlog"),
-                            jsonResponse.optInt("milestone", 0),
-                            jsonResponse.optString("milestone_slug", "null")
+                            points_left,
+                            jsonResponse.optInt("closed_points", 0),
+                            jsonResponse.optBoolean("closed"),
+                            null
                     );
-                    userStoryNodes.add(userStoryNode);
+                    sprintDataList.add(sprintData);
                 }
             }
         } catch (Exception e) {
@@ -89,13 +86,14 @@ public class TaigaUserStory {
 
     }
 
-    public List<UserStoryNode> getUserStoryNodes() {
-        return userStoryNodes;
+    public List<MilestoneData> getSprintDataList() {
+        return sprintDataList;
     }
     public int getLastResponseCode() {
         return lastResponseCode;
     }
     public void clearUserStoryNodes() {
-        userStoryNodes.clear();
+        sprintDataList.clear();
     }
 }
+

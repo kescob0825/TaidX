@@ -19,6 +19,7 @@ import memoranda.api.TaigaClient;
 import memoranda.api.TaigaModule;
 import memoranda.ui.*;
 import memoranda.util.Configuration;
+import memoranda.util.TaigaJsonData;
 
 import javax.swing.*;
 
@@ -35,7 +36,7 @@ public class Start {
     
     static {
         String port = Configuration.get("PORT_NUMBER").toString().trim();
-        if (port.length() >0) {
+        if (port.length() > 0) {
             // The Portnumber must be between 1024 (in *nix all Port's < 1024
             // are privileged) and 65535 (the highest Portnumber everywhere)
             int i = Integer.parseInt(port);
@@ -58,6 +59,14 @@ public class Start {
     public static void main(String[] args) throws IOException {
         injector = Guice.createInjector(new TaigaModule());
         TaigaClient client = injector.getInstance(TaigaClient.class);
+        TaigaJsonData data = injector.getInstance(TaigaJsonData.class);
+        try{
+            data.loadAllConfigs();
+            client.loadDataOnOpen();
+        }catch(NullPointerException e){
+            e.addSuppressed(new NullPointerException("Error loading data from config file. " +
+                    "Please check if the config file is valid and try again."));
+        }
 
         if (checkIfAlreadyStartet) {
             try {
@@ -80,8 +89,6 @@ public class Start {
         else {
             app = new App(false);
         }
-
-
 
     }
 }

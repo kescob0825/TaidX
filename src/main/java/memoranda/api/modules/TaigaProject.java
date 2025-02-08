@@ -2,26 +2,24 @@ package memoranda.api.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import memoranda.api.models.ProjectData;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class TaigaProject {
     private static final String PROJECTS_URL = "https://api.taiga.io/api/v1/projects?member=";
     private final OkHttpClient httpClient;
     private ProjectData projectData;
-    private List<ProjectData> projectDataList = new ArrayList<>();;
+    private List<ProjectData> projectDataList;
     private int lastResponseCode;
 
     public TaigaProject(OkHttpClient httpClient, ObjectMapper objectMapper) {
         this.httpClient = httpClient;
+        this.projectDataList = new ArrayList<>();
     }
 
     public void getProjects(String token, int uid) {
@@ -39,20 +37,34 @@ public class TaigaProject {
             System.out.println("Response code: " + lastResponseCode);
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
-                JSONArray jsonArray = new JSONArray(responseBody);
+                if (responseBody.isEmpty()) {
+                    projectDataList = new ArrayList<>();
+                    return;
+                }
+                Object json = new JSONTokener(responseBody).nextValue();
+                JSONArray jsonArray;
+                if (json instanceof JSONObject) {
+                    jsonArray = new JSONArray();
+                    jsonArray.put(json);
+                } else if (json instanceof JSONArray) {
+                    jsonArray = (JSONArray) json;
+                } else {
+                    throw new IllegalStateException("Unexpected response type: " + json.getClass());
+                }
                 projectDataList.clear();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonResponse = jsonArray.getJSONObject(i);
                     JSONObject ownerObj = jsonResponse.getJSONObject("owner");
                     projectData = new ProjectData(
-                            jsonResponse.getString("name"),
-                            jsonResponse.getString("description"),
-                            jsonResponse.getString("created_date"),
-                            ownerObj.getString("username"),
+                            jsonResponse.optString("name"),
+                            jsonResponse.optString("description"),
+                            jsonResponse.optString("created_date"),
+                            ownerObj.optString("username"),
                             jsonResponse.getJSONArray("members").toList().stream().mapToInt(j -> (int) j).toArray(),
-                            jsonResponse.getInt("total_activity"),
-                            jsonResponse.getInt("id"),
-                            jsonResponse.getString("slug")
+                            jsonResponse.optInt("total_activity"),
+                            jsonResponse.optInt("id"),
+                            jsonResponse.optBoolean("is_private"),
+                            jsonResponse.optString("slug")
                     );
                     projectDataList.add(projectData);
                 }
@@ -62,7 +74,7 @@ public class TaigaProject {
         }
     }
 
-    public List<ProjectData> getProjectData() {
+    public List<ProjectData> getProjectsData() {
         return projectDataList;
     }
 

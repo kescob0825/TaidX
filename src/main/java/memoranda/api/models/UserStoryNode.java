@@ -1,160 +1,190 @@
 package memoranda.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.Date;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserStoryNode {
-    private int id;
-    private int ref; //US#
-    private String subject;
-    private int totalPoints;
-    private String createdDate;
-    private String modifiedDate;
-    private String finishDate;
-    private boolean isClosed;
-    private int ownerID;
-    private String ownerUserName;
+    private int user_story_id;
+    private int ref_number; // US#
+    private String user_story_subject;
+    private int total_user_story_points;
+    private String created_date;
+    private String modified_date;
+    private String finish_date;
+    private boolean is_closed;
+    private int owner_id;
+    private String owner_user_name;
     private String status;
-    private int projectID;
-    private String projectName;
-    private String mileStoneName;
+    private int project_id;
+    private String project_name;
+    private String milestone_name;
+    private String milestone_slug;
+    private int milestone_id;
+    private List<TaskNode> user_story_task_list;
 
-    public UserStoryNode(int id, int ref, String subject,
-                         int totalPoints, String createdDate,
-                         String modifiedDate, String finishDate,
-                         boolean isClosed, int ownerID,
-                         String ownerUserName, String status,
-                         int projectID, String projectName,
-                         String mileStoneName) {
-        this.id = id;
-        this.ref = ref;
-        this.subject = subject;
-        this.totalPoints = totalPoints;
-        this.createdDate = createdDate;
-        this.modifiedDate = modifiedDate;
-        this.finishDate = finishDate;
-        this.isClosed = isClosed;
-        this.ownerID = ownerID;
-        this.ownerUserName = ownerUserName;
+    public UserStoryNode(int ref_number, int user_story_id, String user_story_subject,
+                         int total_user_story_points, String created_date,
+                         String modified_date, String finish_date,
+                         boolean is_closed, int owner_id,
+                         String owner_user_name, String status,
+                         int project_id, String project_name,
+                         String milestone_name, int milestone_id, String milestone_slug) {
+        this.user_story_id = user_story_id;
+        this.ref_number = ref_number;
+        this.user_story_subject = user_story_subject;
+        this.total_user_story_points = total_user_story_points;
+        this.created_date = created_date;
+        this.modified_date = modified_date;
+        this.finish_date = finish_date;
+        this.is_closed = is_closed;
+        this.owner_id = owner_id;
+        this.owner_user_name = owner_user_name;
         this.status = status;
-        this.projectID = projectID;
-        this.projectName = projectName;
-        this.mileStoneName = mileStoneName;
+        this.project_id = project_id;
+        this.project_name = project_name;
+        this.milestone_name = milestone_name;
+        this.milestone_slug = milestone_slug;
+        this.milestone_id = milestone_id;
+        this.user_story_task_list = new ArrayList<>();
     }
-    public int getId() {
-        return id;
+
+    public int getUserStoryId() {
+        return user_story_id;
     }
-    public void setId(int id) {
-        this.id = id;
+
+    public void setUserStoryId(int user_story_id) {
+        this.user_story_id = user_story_id;
     }
-    public int getRef() {
-        return ref;
+
+    public int getRefNumber() {
+        return ref_number;
     }
-    public void setRef(int ref) {
-        this.ref = ref;
+
+    public void setRefNumber(int ref_number) {
+        this.ref_number = ref_number;
     }
-    public String getSubject() {
-        return subject;
+
+    public String getUserStorySubject() {
+        return user_story_subject;
     }
-    public void setSubject(String subject) {
-        this.subject = subject;
+
+    public void setUserStorySubject(String user_story_subject) {
+        this.user_story_subject = user_story_subject;
     }
+
     public int getTotalPoints() {
-        return totalPoints;
+        return total_user_story_points;
     }
-    public void setTotalPoints(int totalPoints) {
-        this.totalPoints = totalPoints;
+
+    public void setTotalPoints(int total_user_story_points) {
+        this.total_user_story_points = total_user_story_points;
     }
+
     public String getCreatedDate() {
-        if(createdDate == null) {
-            return "null";
-        }
-        return createdDate;
+        return (created_date == null) ? "null" : created_date;
     }
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
+
+    public void setCreatedDate(String created_date) {
+        this.created_date = created_date;
     }
+
     public String getModifiedDate() {
-        if(modifiedDate == null) {
-            return "null";
-        }
-        return modifiedDate;
+        return (modified_date == null) ? "null" : modified_date;
     }
-    public void setModifiedDate(String modifiedDate) {
-        this.modifiedDate = modifiedDate;
+
+    public void setModifiedDate(String modified_date) {
+        this.modified_date = modified_date;
     }
+
     public String getFinishDate() {
-        if(finishDate == null) {
-            return "null";
-        }
-        return finishDate;
+        return (finish_date == null) ? "null" : finish_date;
     }
-    public void setFinishDate(String finishDate) {
-        this.finishDate = finishDate;
+
+    public void setFinishDate(String finish_date) {
+        this.finish_date = finish_date;
     }
+
     public boolean isClosed() {
-        return isClosed;
+        return is_closed;
     }
-    public void setClosed(boolean closed) {
-        isClosed = closed;
+
+    public void setClosed(boolean is_closed) {
+        this.is_closed = is_closed;
     }
-    public int getOwnerID() {
-        return ownerID;
+
+    public int getOwnerId() {
+        return owner_id;
     }
-    public void setOwnerID(int ownerID) {
-        this.ownerID = ownerID;
+
+    public void setOwnerId(int owner_id) {
+        this.owner_id = owner_id;
     }
+
     public String getOwnerUserName() {
-        return ownerUserName;
+        return owner_user_name;
     }
-    public void setOwnerUserName(String ownerUserName) {
-        this.ownerUserName = ownerUserName;
+
+    public void setOwnerUserName(String owner_user_name) {
+        this.owner_user_name = owner_user_name;
     }
+
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
-    public int getProjectID() {
-        return projectID;
+
+    public int getProjectId() {
+        return project_id;
     }
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
+
+    public void setProjectId(int project_id) {
+        this.project_id = project_id;
     }
+
     public String getProjectName() {
-        return projectName;
-    }
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-    public String getMileStoneName() {
-        return mileStoneName;
-    }
-    public void setMileStoneName(String mileStoneName) {
-        this.mileStoneName = mileStoneName;
-    }
-    @Override
-    public String toString() {
-        return "UserStory{\n" +
-                " \tid=" + getId() +
-                ",\n \tref=" + getRef() +
-                ",\n \tsubject='" + getSubject() + "'" +
-                ",\n \ttotalPoints=" + getTotalPoints() +
-                ",\n \tcreatedDate=" + getCreatedDate() +
-                ",\n \tmodifiedDate=" + getModifiedDate() +
-                ",\n \tfinishDate=" + getFinishDate() +
-                ",\n \tisClosed=" + isClosed() +
-                ",\n \townerID=" + getOwnerID() +
-                ",\n \townerUserName='" + getOwnerUserName() + "'" +
-                ",\n \tstatus=" + getStatus() +
-                ",\n \tprojectID=" + getProjectID() +
-                ",\n \tprojectName='" + getProjectName() + "'" +
-                ",\n \tmileStoneName='" + getMileStoneName() + "'" +
-                "\n}\n";
+        return project_name;
     }
 
+    public void setProjectName(String project_name) {
+        this.project_name = project_name;
+    }
 
+    public String getMilestoneName() {
+        return milestone_name;
+    }
+
+    public void setMilestoneName(String milestone_name) {
+        this.milestone_name = milestone_name;
+    }
+
+    public String getMilestoneSlug() {
+        return milestone_slug;
+    }
+
+    public void setMilestoneSlug(String milestone_slug) {
+        this.milestone_slug = milestone_slug;
+    }
+    public int getMilestoneId() {
+        return milestone_id;
+    }
+    public void setMilestoneId(int milestone_id) {
+        this.milestone_id = milestone_id;
+    }
+
+    public List<TaskNode> getUserStoryTaskList() {
+        return user_story_task_list;
+    }
+
+    public void setUserStoryTaskList(List<TaskNode> user_story_task_list) {
+        this.user_story_task_list = user_story_task_list;
+    }
+
+    public void addTask(TaskNode task) {
+        this.user_story_task_list.add(task);
+    }
 }

@@ -4,10 +4,13 @@ import memoranda.Start;
 import memoranda.ui.mainMenuCards.HomeToolBarCards;
 
 import memoranda.api.TaigaClient;
+import memoranda.util.TaigaJsonData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.nio.file.Files;
 
 
 public class Profile extends JPanel {
@@ -96,48 +99,16 @@ public class Profile extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         infoPanel.add(pEmailH, gbc);
 
-        pProjectsH.setText("Number of Projects:");
-        gbc = new GridBagConstraints();
-        gbc.insets = new Insets(2, 2, 2, 2);
-        gbc.gridwidth = 20;
-        gbc.gridx = 0; gbc.gridy = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.WEST;
-        infoPanel.add(pProjectsH, gbc);
-
-        pClosedUSH.setText("Closed US:");
-        gbc = new GridBagConstraints();
-        gbc.insets = new Insets(2, 2, 2, 2);
-        gbc.gridwidth = 20;
-        gbc.gridx = 0; gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.WEST;
-        infoPanel.add(pClosedUSH, gbc);
-
-        pContactsH.setText("Contacts:");
-        gbc = new GridBagConstraints();
-        gbc.insets = new Insets(2, 2, 2, 2);
-        gbc.gridwidth = 20;
-        gbc.gridx = 0; gbc.gridy = 5;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.WEST;
-        infoPanel.add(pContactsH, gbc);
-
         profilePanel.add(titlePanel, BorderLayout.NORTH);
         profilePanel.add(pfpPanel, BorderLayout.CENTER);
         profilePanel.add(infoPanel, BorderLayout.SOUTH);
     }
     public void refreshPanel() {
         try {
-            client = Start.getInjector().getInstance(TaigaClient.class);
-            if (!client.isClientLoggedIn()) {
+            TaigaJsonData jsonData = Start.getInjector().getInstance(TaigaJsonData.class);
+            if (Files.exists(jsonData.getUserPath())){
                 this.revalidate();
                 this.repaint();
-                pUsernameH.setText("Username: ");
-                pRealNameH.setText("FullName: ");
-                pEmailH.setText("Email: ");
-            }
-            else {
                 pUsernameH.setText("Username: " + client.getUserProfile().getUsername());
                 pRealNameH.setText("FullName: " + client.getUserProfile().getFullName());
                 pEmailH.setText("Email: " + client.getUserProfile().getEmail());

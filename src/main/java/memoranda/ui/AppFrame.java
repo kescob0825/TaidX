@@ -18,6 +18,7 @@ import memoranda.api.models.UserProfile;
 import memoranda.util.Configuration;
 import memoranda.util.Context;
 import memoranda.util.Local;
+import memoranda.util.TaigaJsonData;
 
 /**
  * 
@@ -253,7 +254,7 @@ public class AppFrame extends JFrame {
         }
         else
             this.setSize(new Dimension(800, 500));
-            //this.setExtendedState(Frame.MAXIMIZED_BOTH);
+        //this.setExtendedState(Frame.MAXIMIZED_BOTH);
 
         Object xo = Context.get("FRAME_XPOS");
         Object yo = Context.get("FRAME_YPOS");
@@ -407,13 +408,19 @@ public class AppFrame extends JFrame {
                         dlg.setVisible(true);
                         if(dlg.CANCELLED) return;
         }
-
-        Context.put("FRAME_WIDTH", Integer.valueOf(this.getWidth()));
-        Context.put("FRAME_HEIGHT", Integer.valueOf(this.getHeight()));
-        Context.put("FRAME_XPOS", Integer.valueOf(this.getLocation().x));
-        Context.put("FRAME_YPOS", Integer.valueOf(this.getLocation().y));
-        exitNotify();
-        App.closeWindow();
+        try{
+            TaigaJsonData  data = Start.getInjector().getInstance(TaigaJsonData.class);
+            data.saveAllConfigs();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally{
+            Context.put("FRAME_WIDTH", Integer.valueOf(this.getWidth()));
+            Context.put("FRAME_HEIGHT", Integer.valueOf(this.getHeight()));
+            Context.put("FRAME_XPOS", Integer.valueOf(this.getLocation().x));
+            Context.put("FRAME_YPOS", Integer.valueOf(this.getLocation().y));
+            exitNotify();
+            App.closeWindow();
+        }
     }
 
     public void doMinimize() {

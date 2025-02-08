@@ -1,8 +1,10 @@
 package memoranda.api.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import memoranda.Start;
 import memoranda.api.models.AuthAndRefreshToken;
 import memoranda.api.models.UserProfile;
+import memoranda.util.TaigaJsonData;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -16,9 +18,9 @@ public class TaigaAuthenticate {
     private static final String AUTH_REFRESH_URL = "https://api.taiga.io/api/v1/auth/refresh";
     private final OkHttpClient httpClient;
     private UserProfile userProfile;
-
     private AuthAndRefreshToken authAndRefreshToken;
     private int lastResponseCode;
+
 
     public TaigaAuthenticate(OkHttpClient httpClient, ObjectMapper objectMapper) {
         this.httpClient = httpClient;
@@ -53,12 +55,12 @@ public class TaigaAuthenticate {
                 }
                 //Create a new UserProfile object
                 userProfile = new UserProfile(
-                        jsonResponse.getString("full_name"),
-                        jsonResponse.getString("username"),
-                        jsonResponse.getString("email"),
-                        jsonResponse.getString("lang"),
-                        jsonResponse.getString("timezone"),
-                        jsonResponse.getString("bio"),
+                        jsonResponse.optString("full_name_display", jsonResponse.getString("username")),
+                        jsonResponse.optString("username"),
+                        jsonResponse.optString("email"),
+                        jsonResponse.optString("lang", "N/A"),
+                        jsonResponse.optString("timezone", "N/A"),
+                        jsonResponse.optString("bio", "N/A"),
                         jsonResponse.getJSONArray("roles")
                                 .toList().stream().map(Object::toString).toList(),
                         jsonResponse.getInt("id")
@@ -71,6 +73,9 @@ public class TaigaAuthenticate {
 
     public UserProfile getUserProfile() {
         return userProfile;
+    }
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
     public void refreshAuth() throws IOException {
         MediaType mediaType = MediaType.get("application/json");
