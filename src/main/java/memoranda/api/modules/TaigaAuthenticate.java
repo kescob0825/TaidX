@@ -1,10 +1,8 @@
 package memoranda.api.modules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import memoranda.Start;
 import memoranda.api.models.AuthAndRefreshToken;
 import memoranda.api.models.UserProfile;
-import memoranda.util.TaigaJsonData;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

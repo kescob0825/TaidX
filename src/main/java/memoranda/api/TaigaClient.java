@@ -7,6 +7,9 @@ import memoranda.api.modules.*;
 import memoranda.util.TaigaJsonData;
 import okhttp3.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
+
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +26,7 @@ public class TaigaClient {
     private final TaigaMilestone taigaSprintModule;
     private final TaigaUserStory userStory;
     private final TaigaTasks tasks;
+    private final TaigaCreateProject createProject;
     private final TaigaJsonData jsonData;
     protected int lastResponseCode;
     public static Map<Integer, List<UserStoryNode>> allUserStories = new HashMap<>();
@@ -40,6 +44,7 @@ public class TaigaClient {
         this.userStory = new TaigaUserStory(httpClient, objectMapper);
         this.tasks = new TaigaTasks(httpClient, objectMapper);
         this.taigaSprintModule = new TaigaMilestone(httpClient, objectMapper);
+        this.createProject = new TaigaCreateProject(httpClient, objectMapper);
         try{
             jsonData = Start.getInjector().getInstance(TaigaJsonData.class);
         } catch (Exception e) {
@@ -146,8 +151,15 @@ public class TaigaClient {
 
     }
 
+    public void createNewProject(JSONObject newProjectDataBody) throws IOException {
+        if (!this.isClientLoggedIn()) {
+            JOptionPane.showMessageDialog(null, "Login to create a project.");
+            return;
+        }
+        createProject.createProject(this.authenticator.getAuthToken(), newProjectDataBody);
+    }
     public boolean isClientLoggedIn() throws IOException {
-        return authenticator.getAuthAndRefreshToken().isLoggedIn();
+        return AuthAndRefreshToken.isLoggedIn;
     }
     /**
      * Retrieves the projects for the authenticated user.

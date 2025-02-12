@@ -95,7 +95,7 @@ public class App {
 				Integer.valueOf((String)Context.get("FRAME_YPOS")) : 0;
 		frame.setSize(width, height);
 		frame.setLocation(xPos, yPos);
-
+		frame.setMinimumSize(new Dimension(1100, 800));
 		frame.setVisible(true);
 		frame.toFront();
 		frame.requestFocus();

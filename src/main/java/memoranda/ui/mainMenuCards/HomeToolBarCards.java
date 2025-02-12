@@ -1,11 +1,13 @@
 package memoranda.ui.mainMenuCards;
 
+import memoranda.ui.mainMenuCards.homeSubMenuCards.ConfigureProject;
 import memoranda.ui.mainMenuCards.homeSubMenuCards.Profile;
 
 import javax.swing.*;
 import javax.swing.JLabel;
 import java.awt.*;
 import java.awt.Color;
+import java.awt.Dimension;
 
 public class HomeToolBarCards extends JPanel{
     public CardLayout cardLayout;
@@ -18,7 +20,8 @@ public class HomeToolBarCards extends JPanel{
     public static final String CONFIGURE_PANEL = "CONFIGURE";
 
     private JPanel centerWrapperOverview;
-    Profile profile;
+    Profile profile = new Profile();
+    ConfigureProject  configureProject = new ConfigureProject();
     private JPanel centerWrapperProjects;
     private JPanel centerWrapperConfigure;
 
@@ -80,7 +83,6 @@ public class HomeToolBarCards extends JPanel{
         JPanel centerWrapper = new JPanel(new GridBagLayout());
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-        profile = new Profile();
         content.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
         centerWrapper.add(content);
 
@@ -109,6 +111,7 @@ public class HomeToolBarCards extends JPanel{
 
     private JPanel createConfigureCard() {
         JPanel panel = new JPanel(new BorderLayout());
+        panel.setPreferredSize(new Dimension(800, 600));
         JPanel subtitlePanel = new JPanel();
         JLabel subtitleLabel = new JLabel("Configure Projects:");
         subtitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -117,11 +120,12 @@ public class HomeToolBarCards extends JPanel{
         centerWrapperConfigure = new JPanel(new GridBagLayout());
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-
+        content.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
         centerWrapperConfigure.add(content);
 
         panel.add(subtitlePanel, BorderLayout.NORTH);
-        panel.add(centerWrapperConfigure, BorderLayout.CENTER);
+        panel.add(configureProject, BorderLayout.CENTER);
+
         return panel;
     }
 
