@@ -57,7 +57,14 @@ public class TaigaUserStory {
                 }
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonResponse = jsonArray.getJSONObject(i);
-                    JSONObject ownerObj = jsonResponse.getJSONObject("owner_extra_info");
+                    JSONObject ownerObj = new JSONObject();
+                    if (!jsonResponse.isNull("owner_extra_info")) {
+                        ownerObj = jsonResponse.getJSONObject("owner_extra_info");;
+                    }
+                    else {
+                        ownerObj.put("id", 0);
+                        ownerObj.put("username", "default");
+                    }
                     JSONObject statusObj = jsonResponse.getJSONObject("status_extra_info");
                     JSONObject projectInfoObj = jsonResponse.getJSONObject("project_extra_info");
 

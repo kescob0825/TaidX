@@ -110,7 +110,7 @@ public class Profile extends JPanel {
                 this.revalidate();
                 this.repaint();
                 pUsernameH.setText("Username: " + client.getUserProfile().getUsername());
-                pRealNameH.setText("FullName: " + client.getUserProfile().getFullName());
+                pRealNameH.setText("Name: " + client.getUserProfile().getFullName());
                 pEmailH.setText("Email: " + client.getUserProfile().getEmail());
             }
         }

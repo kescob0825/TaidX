@@ -23,19 +23,19 @@ public class HomeToolBarCards extends JPanel{
     Profile profile = new Profile();
     ConfigureProject  configureProject = new ConfigureProject();
     private JPanel centerWrapperProjects;
+    private JPanel centerWrapperProfile;
     private JPanel centerWrapperConfigure;
-
+    public static JLabel homeTitleLabel = new JLabel("Home");
     public HomeToolBarCards(CardLayout newCardLayout, JPanel newCardPanel){
         cardLayout = newCardLayout;
         cardPanel = new JPanel(cardLayout);
 
         homeTitle = new JPanel(new BorderLayout());
-        JLabel titleLabel = new JLabel("Home");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
-        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        homeTitleLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        homeTitleLabel.setHorizontalAlignment(JLabel.CENTER);
         // Add padding around the title
         homeTitle.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, UIManager.getColor("Button.darkShadow")));
-        homeTitle.add(titleLabel, BorderLayout.CENTER);
+        homeTitle.add(homeTitleLabel, BorderLayout.CENTER);
 
         cardPanel.add(createOverviewCard(), OVERVIEW_PANEL);
         cardPanel.add(createProfileCard(), PROFILE_PANEL);
@@ -57,73 +57,48 @@ public class HomeToolBarCards extends JPanel{
 
     private JPanel createOverviewCard() {
         JPanel panel = new JPanel(new BorderLayout());
-        JPanel subtitlePanel = new JPanel();
-        JLabel subtitleLabel = new JLabel("Overview:");
-        subtitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        subtitlePanel.add(subtitleLabel);
-
-        centerWrapperOverview = new JPanel(new GridBagLayout());
         JPanel content = new JPanel();
+        centerWrapperOverview = new JPanel(new GridBagLayout());
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-
+        centerWrapperOverview = new JPanel(new GridBagLayout());
         centerWrapperOverview.add(content);
 
-        panel.add(subtitlePanel, BorderLayout.NORTH);
         panel.add(centerWrapperOverview, BorderLayout.CENTER);
         return panel;
     }
 
     private JPanel createProfileCard() {
         JPanel panel = new JPanel(new BorderLayout());
-        JPanel subtitlePanel = new JPanel();
-        JLabel subtitleLabel = new JLabel("Profile:");
-        subtitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        subtitlePanel.add(subtitleLabel);
-
-        JPanel centerWrapper = new JPanel(new GridBagLayout());
+        centerWrapperProfile = new JPanel(new GridBagLayout());
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
         content.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
-        centerWrapper.add(content);
+        centerWrapperProfile.add(content);
 
-        panel.add(subtitlePanel, BorderLayout.NORTH);
-        panel.add(profile);
+        panel.add(profile, BorderLayout.WEST);
         return panel;
     }
 
     private JPanel createProjectsCard() {
         JPanel panel = new JPanel(new BorderLayout());
-        JPanel subtitlePanel = new JPanel();
-        JLabel subtitleLabel = new JLabel("Projects: ");
-        subtitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        subtitlePanel.add(subtitleLabel);
-
         centerWrapperProjects = new JPanel(new GridBagLayout());
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-
         centerWrapperProjects.add(content);
 
-        panel.add(subtitlePanel, BorderLayout.NORTH);
         panel.add(centerWrapperProjects, BorderLayout.CENTER);
         return panel;
     }
 
     private JPanel createConfigureCard() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setPreferredSize(new Dimension(800, 600));
         JPanel subtitlePanel = new JPanel();
-        JLabel subtitleLabel = new JLabel("Configure Projects:");
-        subtitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        subtitlePanel.add(subtitleLabel);
-
         centerWrapperConfigure = new JPanel(new GridBagLayout());
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
         content.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
         centerWrapperConfigure.add(content);
 
-        panel.add(subtitlePanel, BorderLayout.NORTH);
         panel.add(configureProject, BorderLayout.CENTER);
 
         return panel;

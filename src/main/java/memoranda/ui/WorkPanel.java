@@ -365,24 +365,28 @@ public class WorkPanel extends JPanel {
 		refreshPanels();
 		homeCards.showCard(OVERVIEW_PANEL);
 		setCurrentButton(overviewButton);
+		HomeToolBarCards.homeTitleLabel.setText("Overview");
 		Context.put("CURRENT_PANEL", OVERVIEW_PANEL);
 	}
 	public void homeProfile_actionPerformed (ActionEvent e){
 		refreshPanels();
 		homeCards.showCard(PROFILE_PANEL);
 		setCurrentButton(profileButton);
+		HomeToolBarCards.homeTitleLabel.setText("Profile");
 		Context.put("CURRENT_PANEL", PROFILE_PANEL);
 	}
 	public void homeProjects_actionPerformed (ActionEvent e){
 		refreshPanels();
 		homeCards.showCard(PROJECTS_PANEL);
 		setCurrentButton(projectsButton);
+		HomeToolBarCards.homeTitleLabel.setText("Projects");
 		Context.put("CURRENT_PANEL", PROJECTS_PANEL);
 	}
 	public void homeConfigure_actionPerformed (ActionEvent e){
 		refreshPanels();
 		homeCards.showCard(CONFIGURE_PANEL);
 		setCurrentButton(configureButton);
+		HomeToolBarCards.homeTitleLabel.setText("Configure Projects");
 		Context.put("CURRENT_PANEL", CONFIGURE_PANEL);
 	}
 	public void scrumSprint_actionPerformed (ActionEvent e){

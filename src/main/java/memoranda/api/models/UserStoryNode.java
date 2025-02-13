@@ -14,8 +14,8 @@ public class UserStoryNode {
     private String modified_date;
     private String finish_date;
     private boolean is_closed;
-    private int owner_id;
-    private String owner_user_name;
+    private int assigned_to_id;
+    private String assigned_to_user_name;
     private String status;
     private int project_id;
     private String project_name;
@@ -27,8 +27,8 @@ public class UserStoryNode {
     public UserStoryNode(int ref_number, int user_story_id, String user_story_subject,
                          int total_user_story_points, String created_date,
                          String modified_date, String finish_date,
-                         boolean is_closed, int owner_id,
-                         String owner_user_name, String status,
+                         boolean is_closed, int assigned_to_id,
+                         String assigned_to_user_name, String status,
                          int project_id, String project_name,
                          String milestone_name, int milestone_id, String milestone_slug) {
         this.user_story_id = user_story_id;
@@ -39,8 +39,8 @@ public class UserStoryNode {
         this.modified_date = modified_date;
         this.finish_date = finish_date;
         this.is_closed = is_closed;
-        this.owner_id = owner_id;
-        this.owner_user_name = owner_user_name;
+        this.assigned_to_id = assigned_to_id;
+        this.assigned_to_user_name = assigned_to_user_name;
         this.status = status;
         this.project_id = project_id;
         this.project_name = project_name;
@@ -115,19 +115,19 @@ public class UserStoryNode {
     }
 
     public int getOwnerId() {
-        return owner_id;
+        return assigned_to_id;
     }
 
     public void setOwnerId(int owner_id) {
-        this.owner_id = owner_id;
+        this.assigned_to_id = owner_id;
     }
 
     public String getOwnerUserName() {
-        return owner_user_name;
+        return assigned_to_user_name;
     }
 
     public void setOwnerUserName(String owner_user_name) {
-        this.owner_user_name = owner_user_name;
+        this.assigned_to_user_name = owner_user_name;
     }
 
     public String getStatus() {

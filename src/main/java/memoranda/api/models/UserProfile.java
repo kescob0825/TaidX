@@ -17,6 +17,10 @@ public class UserProfile {
     private int uid;
     private List<ProjectData> projectsList;
 
+    public UserProfile() {
+        this.roles = new ArrayList<>();
+        this.projectsList = new ArrayList<>();
+    }
     public UserProfile(String fullName, String username, String email,
                        String lang, String timezone, String bio, List<String> roles, int uid) {
         this.fullName = fullName;

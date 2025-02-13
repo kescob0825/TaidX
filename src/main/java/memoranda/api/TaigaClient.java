@@ -32,7 +32,11 @@ public class TaigaClient {
     public static Map<Integer, List<UserStoryNode>> allUserStories = new HashMap<>();
     public static Map<Integer, List<TaskNode>> allTasks = new HashMap<>();
     public static Map<Integer, List<MilestoneData>> milestoneNodes = new HashMap<>();
-
+    //Use for searching data
+    public static Map<Integer, List<ProjectData>> projectsData = new HashMap<>();
+    public static Map<Integer, List<UserStoryNode>> userStoryData = new HashMap<>();
+    public static Map<Integer, List<TaskNode>> tasksData = new HashMap<>();
+    public static Map<Integer, List<MilestoneData>> milestoneData = new HashMap<>();
     @Inject
     public TaigaClient() {
         this.httpClient = new OkHttpClient();
@@ -66,11 +70,12 @@ public class TaigaClient {
     }
 
     public void initLoadProjectAndUserStoryData() throws IOException {
-        projects.getProjects(this.authenticator.getAuthToken(), this.authenticator.getUserProfile().getUid());
+        this.projects.getProjects(this.authenticator.getAuthToken(), this.authenticator.getUserProfile().getUid());
         this.authenticator.getUserProfile().addProjects(projects.getProjectsData());
-
+        ;
         for (ProjectData project : this.authenticator.getUserProfile().getProjectsList()) {
-            userStory.getUserStories(this.authenticator.getAuthToken(), project.getProjectId());
+            this.userStory.getUserStories(this.authenticator.getAuthToken(), project.getProjectId());
+            this.projects.getProjectsRoles(this.authenticator.getAuthToken(), project.getProjectId());
             List<UserStoryNode> userStoryNodes = userStory.getUserStoryNodes();
             if (userStoryNodes == null || userStoryNodes.isEmpty()) {
                 continue;
@@ -98,9 +103,10 @@ public class TaigaClient {
                     if (story.getMilestoneId() == sprint.getMilestone_id()) {
                         sprint.getUserStories().add(story);
                     }
-                    if (story.isClosed()) {
+                    if (story.isClosed() && story.getMilestoneId() == sprint.getMilestone_id()) {
                         sprint.setNumUserStoriesComplete(sprint.getNumUserStoriesComplete() + 1);
-                    }else{
+                    }
+                    else if (!story.isClosed() && story.getMilestoneId() == sprint.getMilestone_id()){
                         sprint.setNumUserStoriesNotComplete(sprint.getNumUserStoriesNotComplete() + 1);
                     }
                     for (TaskNode task : tasks.getTaskNodes()) {
@@ -121,12 +127,6 @@ public class TaigaClient {
     public void loadDataOnOpen() throws IOException {
         UserProfile userData = jsonData.getUserData(UserProfile.class);
         this.authenticator.setUserProfile(userData);
-
-        Map<Integer, List<ProjectData>> projectsData = new HashMap<>();
-        Map<Integer, List<UserStoryNode>> userStoryData = new HashMap<>();
-        Map<Integer, List<TaskNode>> tasksData = new HashMap<>();
-        Map<Integer, List<MilestoneData>> milestoneData = new HashMap<>();
-
         for (ProjectData project : userData.getProjectsList()) {
             projectsData.put(project.getProjectId(), new ArrayList<>(List.of(project)));
             List<UserStoryNode> userStoryNodes = project.getProjectUserStoryList();
@@ -138,9 +138,10 @@ public class TaigaClient {
                 for (UserStoryNode story : userStoryNodes) {
                     if (story.getMilestoneId() == sprint.getMilestone_id()) {
                         sprint.getUserStories().add(story);
-                        if (story.isClosed()) {
+                        if (story.isClosed() && story.getMilestoneId() == sprint.getMilestone_id()) {
                             sprint.setNumUserStoriesComplete(sprint.getNumUserStoriesComplete() + 1);
-                        } else {
+                        }
+                        else if (!story.isClosed() && story.getMilestoneId() == sprint.getMilestone_id()){
                             sprint.setNumUserStoriesNotComplete(sprint.getNumUserStoriesNotComplete() + 1);
                         }
                     }
@@ -148,7 +149,6 @@ public class TaigaClient {
             }
             milestoneData.put(project.getProjectId(), new ArrayList<>(sprintDataList));
         }
-
     }
 
     public void createNewProject(JSONObject newProjectDataBody) throws IOException {
@@ -165,7 +165,7 @@ public class TaigaClient {
      * Retrieves the projects for the authenticated user.
      */
     public List<ProjectData> getProjectsList() throws IOException {
-        return projects.getProjectsData();
+        return this.authenticator.getUserProfile().getProjectsList();
     }
 
     /**

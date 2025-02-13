@@ -57,7 +57,14 @@ public class TaigaTasks {
                 }
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonResponse = jsonArray.getJSONObject(i);
-                    JSONObject ownerExtraInfoObj = jsonResponse.getJSONObject("owner_extra_info");
+                    JSONObject assignedToExtraInfoObj = new JSONObject();
+                    if (!jsonResponse.isNull("assigned_to_extra_info")){
+                        assignedToExtraInfoObj = jsonResponse.getJSONObject("assigned_to_extra_info");
+                    }
+                    else{
+                        assignedToExtraInfoObj.put("id", 0);
+                        assignedToExtraInfoObj.put("username", "default");
+                    }
                     JSONObject statusObj = jsonResponse.getJSONObject("status_extra_info");
                     JSONObject projectInfoObj = jsonResponse.getJSONObject("project_extra_info");
                     JSONObject userStoryInfoObj = jsonResponse.getJSONObject("user_story_extra_info");
@@ -74,8 +81,8 @@ public class TaigaTasks {
                             userStoryInfoObj.optInt("id", 0),
                             userStoryInfoObj.optString("subject", "null"),
                             userStoryInfoObj.optInt("ref", 0),
-                            ownerExtraInfoObj.optString("username", "null"),
-                            ownerExtraInfoObj.optInt("id", 0),
+                            assignedToExtraInfoObj.optString("username", "null"),
+                            assignedToExtraInfoObj.optInt("id", 0),
                             statusObj.optString("name", "null")
                     );
                     taskNodes.add(taskNode);

@@ -15,10 +15,9 @@ public class TaigaAuthenticate {
     private static final String AUTH_URL = "https://api.taiga.io/api/v1/auth";
     private static final String AUTH_REFRESH_URL = "https://api.taiga.io/api/v1/auth/refresh";
     private final OkHttpClient httpClient;
-    private UserProfile userProfile;
     private AuthAndRefreshToken authAndRefreshToken;
     private int lastResponseCode;
-
+    private UserProfile userProfile;
 
     public TaigaAuthenticate(OkHttpClient httpClient, ObjectMapper objectMapper) {
         this.httpClient = httpClient;

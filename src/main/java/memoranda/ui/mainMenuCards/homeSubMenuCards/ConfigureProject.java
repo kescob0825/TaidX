@@ -2,6 +2,9 @@ package memoranda.ui.mainMenuCards.homeSubMenuCards;
 
 import memoranda.Start;
 import memoranda.api.TaigaClient;
+import memoranda.api.models.ProjectData;
+import memoranda.api.models.ProjectRolesData;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -14,32 +17,68 @@ import javax.swing.SwingConstants;
 import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ConfigureProject extends JPanel{
-    JLabel subtitle = new JLabel("Project Name and Description are required fields. All others are optional.");
-    JPanel panel1 = new JPanel();
-    GridLayout addProjectGrid = new GridLayout(14,3,100,30);
-    JLabel creationTemplate = new JLabel("Creation Template #: ");
-    JComboBox comboBox1;
-    JLabel projectName = new JLabel("Project Name: (Required)");
-    JTextField projectNameTextField = new JTextField();
-    JLabel projectDescription = new JLabel("Project Description: (Required)");
-    JTextField projectDescriptionTextField = new JTextField();
-    JLabel backlogActivated = new JLabel("Backlog Activated: ");
-    JLabel issuesActivated = new JLabel("Issues Activated: ");
-    JLabel kanbanActivated = new JLabel("Kanban Activated: ");
-    JLabel isPrivate = new JLabel("Is Private: \n*(Private projects are only\n viewable and searchable\n with the project id.");
-    JLabel wikiActivated = new JLabel("Wiki Activated: ");
-    JLabel totalMilestones = new JLabel("Total Milestones: ");
-    JSpinner spinner1;
-    JLabel totalStoryPoints = new JLabel("Total Story Points: ");
-    JSpinner spinner2;
-    JLabel vtcLabel = new JLabel("Video Conference: ");
-    JTextField videoConferenceTextField = new JTextField();
-    JLabel vtcURLLabel = new JLabel("Video Conference URL: ");
-    JTextField videoConferenceURLTextField = new JTextField();
-    JButton createButton = new JButton("Create");
-    JButton clearFormButton = new JButton("Clear Form");
+    /**
+     * Create Project Form
+     * @throws Exception if an error occurs during the creation of the form
+     */
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    public JTabbedPane tabbedPane = new JTabbedPane();
+    private JPanel panel1 = new JPanel();
+    private GridLayout addProjectGrid = new GridLayout(14,3,100,30);
+    private JLabel creationTemplate = new JLabel("Creation Template #: ");
+    private JComboBox comboBox1;
+    private JLabel projectName = new JLabel("Project Name: (Required)");
+    private JTextField projectNameTextField = new JTextField();
+    private JLabel projectDescription = new JLabel("Project Description: (Required)");
+    private JTextField projectDescriptionTextField = new JTextField();
+    private JLabel backlogActivated = new JLabel("Backlog Activated: ");
+    private JLabel issuesActivated = new JLabel("Issues Activated: ");
+    private JLabel kanbanActivated = new JLabel("Kanban Activated: ");
+    private JLabel isPrivate = new JLabel("Is Private: ");
+    private JLabel wikiActivated = new JLabel("Wiki Activated: ");
+    private JLabel totalMilestones = new JLabel("Total Milestones: ");
+    private JSpinner spinner1;
+    private JLabel totalStoryPoints = new JLabel("Total Story Points: ");
+    private JSpinner spinner2;
+    private JLabel vtcLabel = new JLabel("Video Conference: ");
+    private JTextField videoConferenceTextField = new JTextField();
+    private JLabel vtcURLLabel = new JLabel("Video Conference URL: ");
+    private JTextField videoConferenceURLTextField = new JTextField();
+    private JButton createButton = new JButton("Create");
+    private JButton clearFormButton = new JButton("Clear Form");
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private GridLayout createRolesGrid = new GridLayout(5, 2);
+    private JPanel createRolesPanel = new JPanel();
+    private TextField roleNameTextField = new TextField();
+    private JComboBox comboBoxRolesProjects;
+    private JSpinner orderSpinner;
+    private JComboBox comboBoxPermissions;
+    private JButton createButtonRoles = new JButton("Create");
+    private JButton clearFormButtonRoles = new JButton("Clear Form");
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private JSONArray bulkCreateRoles = new JSONArray();
+    private GridLayout bulkInviteGrid = new GridLayout(5, 2);
+    private JPanel bulkMemberInvite = new JPanel();
+    private JComboBox  comboBoxBulkInviteProjects;
+    private TextField bulkInviteTextField = new TextField();
+    private JComboBox comboBoxBulkRolesList;
+    private JButton addBulkInviteButton = new JButton("Add");
+    private JButton removeBulkInviteButton = new JButton("Remove Last");
+    private JButton createButtonBulkInvite = new JButton("Create");
+    private JButton clearFormButtonBulkInvite = new JButton("Clear Form");
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private GridLayout singleInviteGrid = new GridLayout(4, 2);
+    private JPanel singleMemberInvite = new JPanel();
+    private JComboBox comboBoxSingleInviteProjects;
+    private JComboBox comboBoxSingleInviteRoles;
+    private TextField singleInviteTextField = new TextField();
+    private JButton singleInviteButton = new JButton("Invite");
+    private JButton clearFormButtonSingleInvite = new JButton("Clear Form");
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public ConfigureProject(){
         try {
             projectInit();
@@ -50,19 +89,69 @@ public class ConfigureProject extends JPanel{
     }
     void projectInit() throws Exception {
         this.setLayout(new BorderLayout());
-        subtitle.setHorizontalAlignment(SwingConstants.CENTER);
-        this.add(subtitle, BorderLayout.NORTH);
         panel1.setLayout(addProjectGrid);
-        panel1.setPreferredSize(new Dimension(800, 600));
-        this.add(panel1, BorderLayout.CENTER);
         JRadioButton[] radioButtons = createRadioButtons();
         ButtonGroup[] buttonGroups = createButtonGroups(radioButtons);
         JLabel[] labels =  jLabels();
         spinner1 = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
-        spinner2 = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
+        spinner2 = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100.0, 1));
         String[] comboBox1Items = {"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
         comboBox1 = new JComboBox(comboBox1Items);
-
+        addItemsToPanel(creationTemplate, comboBox1, new JLabel(""));
+        addItemsToPanel(projectName, projectNameTextField, new JLabel(""));
+        addItemsToPanel(projectDescription, projectDescriptionTextField, new JLabel(""));
+        for (int i = 0; i < 5; i++) {
+            addItemsToPanel(labels[i],radioButtons[i*2],radioButtons[(i*2)+1]);
+        }
+        addItemsToPanel(totalMilestones, spinner1, new JLabel(""));
+        addItemsToPanel(totalStoryPoints, spinner2, new JLabel(""));
+        addItemsToPanel(vtcLabel, videoConferenceTextField, new JLabel(""));
+        addItemsToPanel(vtcURLLabel, videoConferenceURLTextField, new JLabel(""));
+        addItemsToPanel(new JLabel(""), createButton, clearFormButton);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //create roles
+        createRolesPanel.setLayout(createRolesGrid);
+        comboBoxRolesProjects = comboBoxSelectProject();
+        orderSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
+        String[] comboBoxPermissionsItems = {"", "Edit", "View"};
+        comboBoxPermissions = new JComboBox(comboBoxPermissionsItems);
+        createButtonRoles.setSize(new Dimension(100, 30));
+        addItemsToPanel(createRolesPanel, createLabel("Role Name: (Required)"), roleNameTextField);
+        addItemsToPanel(createRolesPanel, createLabel("Order: "), orderSpinner);
+        addItemsToPanel(createRolesPanel, createLabel("Select Project: "), comboBoxRolesProjects);
+        addItemsToPanel(createRolesPanel, createLabel("Permissions: "), comboBoxPermissions);
+        addItemsToPanel(createRolesPanel, createButtonRoles, clearFormButtonRoles);
+        //Bulk create
+        bulkMemberInvite.setLayout(bulkInviteGrid);
+        comboBoxBulkInviteProjects = comboBoxSelectProject();
+        comboBoxBulkRolesList = createComboBoxRoles();
+        createButtonBulkInvite.setSize(new Dimension(100, 30));
+        addItemsToPanel(bulkMemberInvite, createLabel("Select Project: (Required)"), comboBoxBulkInviteProjects);
+        addItemsToPanel(bulkMemberInvite, createLabel("Select Role: (Required)"), comboBoxBulkRolesList);
+        addItemsToPanel(bulkMemberInvite, createLabel("Username or Email: (Required)"), bulkInviteTextField);
+        addItemsToPanel(bulkMemberInvite, addBulkInviteButton, removeBulkInviteButton);
+        addItemsToPanel(bulkMemberInvite, createButtonBulkInvite, clearFormButtonBulkInvite);
+        //Single create
+        singleMemberInvite.setLayout(singleInviteGrid);
+        comboBoxSingleInviteProjects = comboBoxSelectProject();
+        comboBoxSingleInviteRoles = createComboBoxRoles();
+        singleInviteButton.setSize(new Dimension(100, 30));
+        clearFormButtonSingleInvite.setMaximumSize(new Dimension(100, 30));
+        addItemsToPanel(singleMemberInvite,
+                createLabel("Select Project: (Required)"), comboBoxSingleInviteProjects);
+        addItemsToPanel(singleMemberInvite,
+                createLabel("Select Role: (Required)"), comboBoxSingleInviteRoles);
+        addItemsToPanel(singleMemberInvite,
+                createLabel("Username or Email: (Required)"), singleInviteTextField);
+        addItemsToPanel(singleMemberInvite,
+                singleInviteButton, clearFormButtonSingleInvite);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        tabbedPane.add("Create Project", panel1);
+        tabbedPane.add("Create Roles", createRolesPanel);
+        tabbedPane.add("Bulk Invite", bulkMemberInvite);
+        tabbedPane.add("Single Invite", singleMemberInvite);
+        this.add(tabbedPane, BorderLayout.CENTER);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         createButton.addActionListener(e -> {
             try {
                 if (projectNameTextField.getText().isEmpty() || projectDescriptionTextField.getText().isEmpty()) {
@@ -123,19 +212,41 @@ public class ConfigureProject extends JPanel{
                 ex.printStackTrace();
             }
         });
+        clearFormButton.addActionListener(e -> {
+            projectNameTextField.setText("");
+            projectDescriptionTextField.setText("");
+            for (int i = 0; i < 10; i++) {
+                radioButtons[i].setSelected(false);
+            }
+            spinner1.setValue(0);
+            spinner2.setValue(0);
+            videoConferenceTextField.setText("");
+            videoConferenceURLTextField.setText("");
+            comboBox1.setSelectedIndex(0);
+        });
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        createButtonRoles.addActionListener(e -> {
 
+        });
+        clearFormButtonRoles.addActionListener(e -> {
 
-        addItemsToPanel(creationTemplate, comboBox1, new JLabel(""));
-        addItemsToPanel(projectName, projectNameTextField, new JLabel(""));
-        addItemsToPanel(projectDescription, projectDescriptionTextField, new JLabel(""));
-        for (int i = 0; i < 5; i++) {
-            addItemsToPanel(labels[i],radioButtons[i*2],radioButtons[(i*2)+1]);
-        }
-        addItemsToPanel(totalMilestones, spinner1, new JLabel(""));
-        addItemsToPanel(totalStoryPoints, spinner2, new JLabel(""));
-        addItemsToPanel(vtcLabel, videoConferenceTextField, new JLabel(""));
-        addItemsToPanel(vtcURLLabel, videoConferenceURLTextField, new JLabel(""));
-        addItemsToPanel(new JLabel(""), createButton, clearFormButton);
+        });
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        addBulkInviteButton.addActionListener(e -> {
+
+        });
+        removeBulkInviteButton.addActionListener(e -> {
+
+        });
+        createButtonBulkInvite.addActionListener(e -> {
+
+        });
+        clearFormButtonBulkInvite.addActionListener(e -> {
+
+        });
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        singleInviteButton.addActionListener(e -> {});
+        clearFormButtonSingleInvite.addActionListener(e -> {});
     }
 
     private JRadioButton[] createRadioButtons() {
@@ -182,4 +293,51 @@ public class ConfigureProject extends JPanel{
         panel1.add(col2);
     }
 
+    private void addItemsToPanel(JPanel panel, Component col0, Component col1) {
+        JPanel smallPanel1 = placeCenter(col0);
+        JPanel smallPanel2 = placeCenter(col1);
+        col0.setPreferredSize(new Dimension(300, 50));
+        col1.setPreferredSize(new Dimension(150, 50));
+        col0.setMaximumSize(new Dimension(300, 50));
+        col1.setMaximumSize(new Dimension(150, 50));
+        panel.add(smallPanel1);
+        panel.add(smallPanel2);
+    }
+
+    private JLabel createLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setPreferredSize(new Dimension(300, 75));
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        return label;
+    }
+
+    private JComboBox<String> comboBoxSelectProject() throws IOException {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        for (ProjectData projectData : Start.getInjector().getInstance(TaigaClient.class).getProjectsList()) {
+            String project = projectData.getProjectName() + "\t #:" + projectData.getProjectId();
+            model.addElement(project);
+        }
+        JComboBox<String> comboBox = new JComboBox<>(model);
+        comboBox.setPreferredSize(new Dimension(100, 50));
+        return comboBox;
+    }
+
+    public JComboBox<String> createComboBoxRoles() throws IOException {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        for (ProjectData projectData : Start.getInjector().getInstance(TaigaClient.class).getProjectsList()) {
+            for (ProjectRolesData projectRolesData : projectData.getProjectRolesList()) {
+                model.addElement(projectData.getProjectName() + "/ #:" +
+                        projectData.getProjectId()+ "\tRole: " + projectRolesData.get_role_name() + "/ #:" +
+                        projectRolesData.get_role_id());
+            }
+        }
+        return new JComboBox<>(model);
+    }
+
+    public JPanel placeCenter(Component comp) {
+        JPanel  centerPanel = new JPanel(new FlowLayout());
+        centerPanel.add(comp, FlowLayout.LEFT);
+        centerPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return centerPanel;
+    }
 }
