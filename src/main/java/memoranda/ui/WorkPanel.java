@@ -44,7 +44,6 @@ public class WorkPanel extends JPanel {
 	public JButton statsB = createMenuButton("Stats", "/ui/icons/stats.png");
 
 	private JButton currentB = null;
-	private JButton lastB = null;
 	JPanel homeSubToolBar;
 	JPanel scrumSubToolBar;
 	JPanel issuesSubToolBar;
@@ -61,7 +60,7 @@ public class WorkPanel extends JPanel {
 	 * Buttons for the submenus
 	 */
 	//Home
-	JButton overviewButton = createSubmenuButton("Overview");
+
 	JButton profileButton = createSubmenuButton("Profile");
 	JButton projectsButton = createSubmenuButton("Projects");
 	JButton configureButton = createSubmenuButton("Configure Projects");
@@ -183,12 +182,10 @@ public class WorkPanel extends JPanel {
 		submenu.setLayout(new BoxLayout(submenu, BoxLayout.Y_AXIS));
 		submenu.setOpaque(true);
 
-		overviewButton.addActionListener(this::homeOverview_actionPerformed);
 		profileButton.addActionListener(this::homeProfile_actionPerformed);
 		projectsButton.addActionListener(this::homeProjects_actionPerformed);
 		configureButton.addActionListener(this::homeConfigure_actionPerformed);
-		
-		submenu.add(overviewButton);
+
 		submenu.add(profileButton);
 		submenu.add(projectsButton);
 		submenu.add(configureButton);
@@ -361,13 +358,6 @@ public class WorkPanel extends JPanel {
 	 * SubMenu Actions
 	 *
 	 */
-	public void homeOverview_actionPerformed (ActionEvent e){
-		refreshPanels();
-		homeCards.showCard(OVERVIEW_PANEL);
-		setCurrentButton(overviewButton);
-		HomeToolBarCards.homeTitleLabel.setText("Overview");
-		Context.put("CURRENT_PANEL", OVERVIEW_PANEL);
-	}
 	public void homeProfile_actionPerformed (ActionEvent e){
 		refreshPanels();
 		homeCards.showCard(PROFILE_PANEL);

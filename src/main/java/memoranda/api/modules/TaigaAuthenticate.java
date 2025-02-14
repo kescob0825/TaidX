@@ -9,6 +9,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import org.json.JSONObject;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class TaigaAuthenticate {
@@ -63,6 +64,9 @@ public class TaigaAuthenticate {
                         jsonResponse.getInt("id")
                 );
             }
+            else {
+                System.out.println("Authentication failed. Response code: " + lastResponseCode);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,6 +100,9 @@ public class TaigaAuthenticate {
                 String refreshToken = jsonResponse.getString("refresh");
                 getAuthAndRefreshToken().setAuthToken(token);
                 getAuthAndRefreshToken().setRefreshToken(refreshToken);
+            }
+            else {
+                System.out.println("Refresh failed. Response code: " + lastResponseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();

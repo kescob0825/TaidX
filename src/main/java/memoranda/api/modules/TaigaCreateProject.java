@@ -2,17 +2,12 @@ package memoranda.api.modules;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import memoranda.api.models.AuthAndRefreshToken;
-import memoranda.api.models.ProjectData;
-import memoranda.api.models.UserProfile;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.swing.*;
 import java.io.IOException;
 
 
@@ -44,10 +39,15 @@ public class TaigaCreateProject {
                 String responseBody = response.body().string();
                 JSONObject jsonResponse = new JSONObject(responseBody);
                 String project_name = jsonResponse.getString("name");
-                JOptionPane.showMessageDialog(null, project_name + " created successfully.");
+            }
+            else {
+                System.out.println("Create Project Failed. Response code: " + lastResponseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public int getLastResponseCode() {
+        return lastResponseCode;
     }
 }

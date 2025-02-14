@@ -63,4 +63,7 @@ public class UserProfile {
     public void addProjects(List<ProjectData> projects) {
         projectsList.addAll(projects);
     }
+    public void clearProjects() {
+        projectsList.clear();
+    }
 }

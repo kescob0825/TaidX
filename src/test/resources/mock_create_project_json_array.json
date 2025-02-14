@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Basic Project",
+    "description": "A basic test project",
+    "is_backlog_activated": true,
+    "is_issues_activated": false,
+    "is_kanban_activated": true,
+    "is_private": false,
+    "is_wiki_activated": true
+  },
+  {
+    "name": "Full Suite",
+    "description": "Full featured project",
+    "creation_template": "Scrum",
+    "is_backlog_activated": true,
+    "is_issues_activated": true,
+    "is_kanban_activated": true,
+    "is_private": true,
+    "is_wiki_activated": true,
+    "total_milestones": 5,
+    "total_story_points": 100.0,
+    "videoconferencing": "zoom",
+    "videoconferencing_url": "https://zoom.us/meeting"
+  },
+  {
+    "description": "Essential features only",
+    "is_backlog_activated": false,
+    "is_issues_activated": false,
+    "is_kanban_activated": false,
+    "is_private": true,
+    "is_wiki_activated": false
+  }
+]

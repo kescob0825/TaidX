@@ -16,10 +16,6 @@ public class TaigaInvite {
     private static final String INVITE_URL = "https://api.taiga.io/api/v1/memberships";
     private static final String BULK_INVITE_URL = "https://api.taiga.io/api/v1/memberships/bulk_create";
     private final OkHttpClient httpClient;
-    private ProjectData projectData;
-    private List<ProjectData> projectDataList;
-    private ProjectRolesData projectRoleData;
-    private List<ProjectRolesData> projectRolesDataList;
     private int lastResponseCode;
 
     public TaigaInvite(OkHttpClient httpClient) {
@@ -47,7 +43,7 @@ public class TaigaInvite {
                 JOptionPane.showMessageDialog(null,  "Role added Successfully.");
             }
             else {
-                JOptionPane.showMessageDialog(null, "Failed to add role.");
+                System.out.println("Invite Member Failed. Response code: " + lastResponseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,19 +62,23 @@ public class TaigaInvite {
                 .addHeader("Authorization", id)
                 .addHeader("Content-Type", "application/json")
                 .build();
+
         try (okhttp3.Response response = httpClient.newCall(request).execute()) {
             lastResponseCode = response.code();
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
                 JSONObject jsonResponse = new JSONObject(responseBody);
-                String project_name = jsonResponse.getString("name");
                 JOptionPane.showMessageDialog(null,  "Role added Successfully.");
             }
             else {
-                JOptionPane.showMessageDialog(null, "Failed to add role.");
+                System.out.println("Bulk Invite Members Failed. Response code: " + lastResponseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public int getLastResponseCode() {
+        return lastResponseCode;
     }
 }

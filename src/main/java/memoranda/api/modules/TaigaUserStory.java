@@ -90,6 +90,9 @@ public class TaigaUserStory {
                     userStoryNodes.add(userStoryNode);
                 }
             }
+            else {
+                System.out.println("Get User Stories Failed. Response code: " + lastResponseCode);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

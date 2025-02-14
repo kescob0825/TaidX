@@ -152,12 +152,6 @@ public class AppFrame extends JFrame {
         jMenuThemeDark.addActionListener(this::jMenuThemeDark_actionPerformed);
         jMenuThemeLight.addActionListener(this::jMenuThemeLight_actionPerformed);
 
-        JMenuApiCallTesting.setText("Api Testing");
-        JMenuApiCallTesting1.setText("Projects");
-        JMenuApiCallTesting2.setText("User Stories");
-        JMenuApiCallTesting1.addActionListener(this::JMenuApiCallTesting1_actionPerformed);
-        JMenuApiCallTesting2.addActionListener(this::JMenuApiCallTesting2_actionPerformed);
-
         containerPanel.setLayout(new BorderLayout());
         int staticWidth = 200;
         workPanel.setPreferredSize(new Dimension(staticWidth, 0));
@@ -207,9 +201,6 @@ public class AppFrame extends JFrame {
         jMenuTheme.add(jMenuThemeLight);
         jMenuTheme.add(jMenuThemeDark);
 
-        JMenuApiCallTesting.add(JMenuApiCallTesting1);
-        JMenuApiCallTesting.add(JMenuApiCallTesting2);
-
         menuBar.add(jMenuFile);
         menuBar.add(jMenuEdit);
         menuBar.add(jMenuInsert);
@@ -218,7 +209,6 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuHelp);
         menuBar.add(jMenuLogin);
         menuBar.add(jMenuTheme);
-        menuBar.add(JMenuApiCallTesting);
 
         this.setJMenuBar(menuBar);
 
@@ -262,24 +252,6 @@ public class AppFrame extends JFrame {
             int x = Integer.parseInt((String) xo);
             int y = Integer.parseInt((String) yo);
             this.setLocation(x, y);
-        }
-    }
-
-    private void JMenuApiCallTesting2_actionPerformed(ActionEvent actionEvent) {
-        try {
-            TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
-            System.out.println(taigaClient.getUserStories().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void JMenuApiCallTesting1_actionPerformed(ActionEvent actionEvent) {
-        try {
-            TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
-            System.out.println(taigaClient.getProjectsList().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

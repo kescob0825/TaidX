@@ -46,7 +46,7 @@ public class TaigaProject {
 
         try (okhttp3.Response response = httpClient.newCall(request).execute()) {
             lastResponseCode = response.code();
-            System.out.println("Response code: " + lastResponseCode);
+            System.out.println("getProject() Response code: " + lastResponseCode);
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
                 if (responseBody.isEmpty()) {
@@ -82,6 +82,9 @@ public class TaigaProject {
                     projectDataList.add(projectData);
                 }
             }
+            else {
+                System.out.println("Get Projects Failed. Response code: " + lastResponseCode);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,7 +102,6 @@ public class TaigaProject {
 
         try (okhttp3.Response response = httpClient.newCall(request).execute()) {
             lastResponseCode = response.code();
-            System.out.println("Response code: " + lastResponseCode);
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
                 if (responseBody.isEmpty()) {
@@ -137,6 +139,9 @@ public class TaigaProject {
                     }
                 }
             }
+            else {
+                System.out.println("Get Projects Roles Failed. Response code: " + lastResponseCode);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,19 +164,26 @@ public class TaigaProject {
             if (response.isSuccessful() && response.body() != null) {
                 String responseBody = response.body().string();
                 JSONObject jsonResponse = new JSONObject(responseBody);
-                String project_name = jsonResponse.getString("name");
-                JOptionPane.showMessageDialog(null,  "Role added Successfully.");
+                System.out.println("Set Project Roles Success");
             }
             else {
-                JOptionPane.showMessageDialog(null, "Failed to add role.");
+                System.out.println("Set Projects Roles Failed. Response code: " + lastResponseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public List<ProjectData> getProjectsData() {
+    public List<ProjectData> getProjectsData() throws IOException {
         return projectDataList;
+    }
+
+    public List<ProjectRolesData> getProjectsRolesData() throws IOException {
+        return projectRolesDataList;
+    }
+
+    public void setProjectsData(List<ProjectData> newProjectDataList) {
+        this.projectDataList = newProjectDataList;
     }
 
     public int getLastResponseCode() {

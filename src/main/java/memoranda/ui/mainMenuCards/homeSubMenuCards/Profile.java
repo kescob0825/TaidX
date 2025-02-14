@@ -8,6 +8,7 @@ import memoranda.util.TaigaJsonData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,9 +32,7 @@ public class Profile extends JPanel {
     JLabel pRealNameH = new JLabel();
     JLabel pUsernameH = new JLabel();
     JLabel pEmailH = new JLabel();
-    JLabel pProjectsH = new JLabel();
-    JLabel pClosedUSH = new JLabel();
-    JLabel pContactsH = new JLabel();
+
 
     GridBagConstraints gbc;
 
@@ -48,7 +47,9 @@ public class Profile extends JPanel {
         }
     }
     void jbInit() throws Exception {
-
+        pRealNameH.setFont(new Font("Arial", Font.BOLD, 16));
+        pUsernameH.setFont(new Font("Arial", Font.BOLD, 16));
+        pEmailH.setFont(new Font("Arial", Font.BOLD, 16));
         // Parent panel
         this.setLayout(new BorderLayout());
         // Left side panel

@@ -13,12 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
 import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class ConfigureProject extends JPanel{
     /**
@@ -31,9 +30,9 @@ public class ConfigureProject extends JPanel{
     private GridLayout addProjectGrid = new GridLayout(14,3,100,30);
     private JLabel creationTemplate = new JLabel("Creation Template #: ");
     private JComboBox comboBox1;
-    private JLabel projectName = new JLabel("Project Name: (Required)");
+    private JLabel projectName = new JLabel("*Project Name: ");
     private JTextField projectNameTextField = new JTextField();
-    private JLabel projectDescription = new JLabel("Project Description: (Required)");
+    private JLabel projectDescription = new JLabel("*Description: ");
     private JTextField projectDescriptionTextField = new JTextField();
     private JLabel backlogActivated = new JLabel("Backlog Activated: ");
     private JLabel issuesActivated = new JLabel("Issues Activated: ");
@@ -48,6 +47,7 @@ public class ConfigureProject extends JPanel{
     private JTextField videoConferenceTextField = new JTextField();
     private JLabel vtcURLLabel = new JLabel("Video Conference URL: ");
     private JTextField videoConferenceURLTextField = new JTextField();
+    private JRadioButton[] radioButtons;
     private JButton createButton = new JButton("Create");
     private JButton clearFormButton = new JButton("Clear Form");
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ public class ConfigureProject extends JPanel{
     private JButton createButtonRoles = new JButton("Create");
     private JButton clearFormButtonRoles = new JButton("Clear Form");
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private JSONArray bulkCreateRoles = new JSONArray();
+    private JSONArray bulkCreateRolesJSONArray = new JSONArray();
     private GridLayout bulkInviteGrid = new GridLayout(5, 2);
     private JPanel bulkMemberInvite = new JPanel();
     private JComboBox  comboBoxBulkInviteProjects;
@@ -79,6 +79,7 @@ public class ConfigureProject extends JPanel{
     private JButton singleInviteButton = new JButton("Invite");
     private JButton clearFormButtonSingleInvite = new JButton("Clear Form");
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
     public ConfigureProject(){
         try {
             projectInit();
@@ -90,7 +91,7 @@ public class ConfigureProject extends JPanel{
     void projectInit() throws Exception {
         this.setLayout(new BorderLayout());
         panel1.setLayout(addProjectGrid);
-        JRadioButton[] radioButtons = createRadioButtons();
+        radioButtons = createRadioButtons();
         ButtonGroup[] buttonGroups = createButtonGroups(radioButtons);
         JLabel[] labels =  jLabels();
         spinner1 = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
@@ -112,23 +113,23 @@ public class ConfigureProject extends JPanel{
         //create roles
         createRolesPanel.setLayout(createRolesGrid);
         comboBoxRolesProjects = comboBoxSelectProject();
-        orderSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
+        orderSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 10));
         String[] comboBoxPermissionsItems = {"", "Edit", "View"};
         comboBoxPermissions = new JComboBox(comboBoxPermissionsItems);
         createButtonRoles.setSize(new Dimension(100, 30));
         addItemsToPanel(createRolesPanel, createLabel("Role Name: (Required)"), roleNameTextField);
         addItemsToPanel(createRolesPanel, createLabel("Order: "), orderSpinner);
         addItemsToPanel(createRolesPanel, createLabel("Select Project: "), comboBoxRolesProjects);
-        addItemsToPanel(createRolesPanel, createLabel("Permissions: "), comboBoxPermissions);
+        addItemsToPanel(createRolesPanel, createLabel("Permissions: (Required)"), comboBoxPermissions);
         addItemsToPanel(createRolesPanel, createButtonRoles, clearFormButtonRoles);
         //Bulk create
         bulkMemberInvite.setLayout(bulkInviteGrid);
         comboBoxBulkInviteProjects = comboBoxSelectProject();
         comboBoxBulkRolesList = createComboBoxRoles();
         createButtonBulkInvite.setSize(new Dimension(100, 30));
-        addItemsToPanel(bulkMemberInvite, createLabel("Select Project: (Required)"), comboBoxBulkInviteProjects);
-        addItemsToPanel(bulkMemberInvite, createLabel("Select Role: (Required)"), comboBoxBulkRolesList);
-        addItemsToPanel(bulkMemberInvite, createLabel("Username or Email: (Required)"), bulkInviteTextField);
+        addItemsToPanel(bulkMemberInvite, createLabel("*Select Project: "), comboBoxBulkInviteProjects);
+        addItemsToPanel(bulkMemberInvite, createLabel("*Select Role: "), comboBoxBulkRolesList);
+        addItemsToPanel(bulkMemberInvite, createLabel("*Username or Email: "), bulkInviteTextField);
         addItemsToPanel(bulkMemberInvite, addBulkInviteButton, removeBulkInviteButton);
         addItemsToPanel(bulkMemberInvite, createButtonBulkInvite, clearFormButtonBulkInvite);
         //Single create
@@ -138,11 +139,11 @@ public class ConfigureProject extends JPanel{
         singleInviteButton.setSize(new Dimension(100, 30));
         clearFormButtonSingleInvite.setMaximumSize(new Dimension(100, 30));
         addItemsToPanel(singleMemberInvite,
-                createLabel("Select Project: (Required)"), comboBoxSingleInviteProjects);
+                createLabel("*Select Project: "), comboBoxSingleInviteProjects);
         addItemsToPanel(singleMemberInvite,
-                createLabel("Select Role: (Required)"), comboBoxSingleInviteRoles);
+                createLabel("*Select Role: "), comboBoxSingleInviteRoles);
         addItemsToPanel(singleMemberInvite,
-                createLabel("Username or Email: (Required)"), singleInviteTextField);
+                createLabel("*Username or Email: "), singleInviteTextField);
         addItemsToPanel(singleMemberInvite,
                 singleInviteButton, clearFormButtonSingleInvite);
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -206,47 +207,145 @@ public class ConfigureProject extends JPanel{
                 if (!videoConferenceURLTextField.getText().isEmpty()) {
                     newProjectData.put("videoconferencing_url", videoConferenceURLTextField.getText());
                 }
-                TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
+                resetCreateProject();
                 taigaClient.createNewProject(newProjectData);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
         clearFormButton.addActionListener(e -> {
-            projectNameTextField.setText("");
-            projectDescriptionTextField.setText("");
-            for (int i = 0; i < 10; i++) {
-                radioButtons[i].setSelected(false);
-            }
-            spinner1.setValue(0);
-            spinner2.setValue(0);
-            videoConferenceTextField.setText("");
-            videoConferenceURLTextField.setText("");
-            comboBox1.setSelectedIndex(0);
+            resetCreateProject();
         });
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         createButtonRoles.addActionListener(e -> {
-
+            try{
+                if (roleNameTextField.getText().isEmpty() || Objects.requireNonNull(comboBoxRolesProjects.getSelectedItem()).toString().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Required Fields Missing.");
+                    return;
+                }
+                JSONObject newProjectRolesData = new JSONObject();
+                newProjectRolesData.put("name", roleNameTextField.getText());
+                for (int i = 0; i < comboBoxRolesProjects.getItemCount(); i++){
+                    if (comboBoxRolesProjects.getSelectedItem().equals(comboBoxRolesProjects.getItemAt(i))){
+                        newProjectRolesData.put("project", taigaClient.getProjectsList().get(i).getProjectId());
+                    }
+                }
+                if (Integer.parseInt(orderSpinner.getValue().toString()) != 0){
+                    newProjectRolesData.put("order", Integer.parseInt(orderSpinner.getValue().toString()));
+                }
+                if (comboBoxPermissions.getSelectedItem().equals("Edit")){
+                    newProjectRolesData.put("permissions", ProjectRolesData.edit_permission);
+                }
+                else if (comboBoxPermissions.getSelectedItem().equals("View")){
+                    newProjectRolesData.put("permissions", ProjectRolesData.view_permission);
+                }
+                resetCreateProjectRoles();
+                taigaClient.setProjectRolesClient(newProjectRolesData);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
         clearFormButtonRoles.addActionListener(e -> {
-
+            resetCreateProjectRoles();
         });
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         addBulkInviteButton.addActionListener(e -> {
-
+            try{
+                JSONObject bulkAddData = new JSONObject();
+                if (bulkInviteTextField.getText().isEmpty()
+                        || Objects.requireNonNull(comboBoxBulkRolesList.getSelectedItem()).toString().isEmpty()
+                        || comboBoxBulkRolesList == null
+                        || Objects.requireNonNull(comboBoxBulkInviteProjects.getSelectedItem()).toString().isEmpty()
+                        || comboBoxBulkInviteProjects == null
+                ){
+                    JOptionPane.showMessageDialog(null, "Required Fields Missing.");
+                    return;
+                }
+                for (ProjectData projectData : taigaClient.getProjectsList()) {
+                    for (ProjectRolesData projectRolesData : projectData.getProjectRolesList()) {
+                        if (comboBoxSingleInviteRoles.getSelectedItem().equals(projectData.getProjectName() + "/ #:" +
+                                projectData.getProjectId()+ "\tRole: " + projectRolesData.get_role_name() + "/ #:" +
+                                projectRolesData.get_role_id())){
+                            bulkAddData.put("role", projectRolesData.get_role_id());
+                        }
+                    }
+                }
+                bulkAddData.put("username", bulkInviteTextField.getText());
+                bulkCreateRolesJSONArray.put(bulkAddData);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
         removeBulkInviteButton.addActionListener(e -> {
-
+            if (bulkCreateRolesJSONArray.isEmpty()){
+                JOptionPane.showMessageDialog(null, "No Roles to Remove.");
+                return;
+            }
+            bulkCreateRolesJSONArray.remove(bulkCreateRolesJSONArray.length() - 1);
         });
         createButtonBulkInvite.addActionListener(e -> {
+            try{
+                JSONObject bulkAddData = new JSONObject();
+                if (bulkCreateRolesJSONArray.isEmpty()
+                        || Objects.requireNonNull(comboBoxBulkInviteProjects.getSelectedItem()).toString().isEmpty()
+                        || comboBoxBulkInviteProjects == null
 
+                ){
+                    JOptionPane.showMessageDialog(null, "Required Fields Missing.");
+                    return;
+                }
+                bulkAddData.put("bulk_memberships", bulkCreateRolesJSONArray);
+                for (int i = 0; i < comboBoxBulkInviteProjects.getItemCount(); i++){
+                    if (comboBoxBulkInviteProjects.getSelectedItem().equals(comboBoxBulkInviteProjects.getItemAt(i))){
+                        bulkAddData.put("project", taigaClient.getProjectsList().get(i).getProjectId());
+                    }
+                }
+                resetBulkInvite();
+                taigaClient.sendBulkInvite(bulkAddData);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
         clearFormButtonBulkInvite.addActionListener(e -> {
-
+            resetBulkInvite();
         });
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        singleInviteButton.addActionListener(e -> {});
-        clearFormButtonSingleInvite.addActionListener(e -> {});
+        singleInviteButton.addActionListener(e -> {
+            try{
+                JSONObject singleInviteData = new JSONObject();
+                if (singleInviteTextField.getText().isEmpty()
+                        || Objects.requireNonNull(comboBoxSingleInviteProjects.getSelectedItem()).toString().isEmpty()
+                        || comboBoxSingleInviteProjects == null
+                        || Objects.requireNonNull(comboBoxSingleInviteRoles.getSelectedItem()).toString().isEmpty()
+                        || comboBoxSingleInviteRoles == null
+                ){
+                    JOptionPane.showMessageDialog(null, "Required Fields Missing.");
+                    return;
+                }
+                for (int i = 0; i < comboBoxSingleInviteProjects.getItemCount(); i++){
+                    if (comboBoxSingleInviteProjects.getSelectedItem().equals(comboBoxSingleInviteProjects.getItemAt(i))){
+                        singleInviteData.put("project", taigaClient.getProjectsList().get(i).getProjectId());
+                    }
+                }
+                for (ProjectData projectData : taigaClient.getProjectsList()) {
+                    for (ProjectRolesData projectRolesData : projectData.getProjectRolesList()) {
+                        if (comboBoxSingleInviteRoles.getSelectedItem().equals(projectData.getProjectName() + "/ #:" +
+                                projectData.getProjectId()+ "\tRole: " + projectRolesData.get_role_name() + "/ #:" +
+                                projectRolesData.get_role_id())){
+                            singleInviteData.put("role", projectRolesData.get_role_id());
+                        }
+                    }
+                }
+                singleInviteData.put("username", singleInviteTextField.getText());
+                resetSingleInvite();
+                taigaClient.sendInvite(singleInviteData);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+        clearFormButtonSingleInvite.addActionListener(e -> {
+            resetSingleInvite();
+        });
     }
 
     private JRadioButton[] createRadioButtons() {
@@ -340,4 +439,48 @@ public class ConfigureProject extends JPanel{
         centerPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         return centerPanel;
     }
+
+    public void resetCreateProject() {
+        projectNameTextField.setText("");
+        projectDescriptionTextField.setText("");
+        for (int i = 0; i < 10; i++) {
+            radioButtons[i].setSelected(false);
+        }
+        spinner1.setValue(0);
+        spinner2.setValue(0);
+        videoConferenceTextField.setText("");
+        videoConferenceURLTextField.setText("");
+        comboBox1.setSelectedIndex(0);
+    }
+    public void resetCreateProjectRoles() {
+        roleNameTextField.setText("");
+        orderSpinner.setValue(0);
+        if (comboBoxRolesProjects != null ) {
+            comboBoxRolesProjects.setSelectedIndex(0);
+        }
+        if (comboBoxPermissions != null) {
+            comboBoxPermissions.setSelectedIndex(0);
+        }
+    }
+
+    public void resetBulkInvite() {
+        if (bulkCreateRolesJSONArray.isEmpty()){
+            bulkInviteTextField.setText("");
+            return;
+        }
+        if (comboBoxBulkInviteProjects != null || comboBoxBulkRolesList != null) {
+            bulkInviteTextField.setText("");
+            comboBoxBulkInviteProjects.setSelectedIndex(0);
+            comboBoxBulkRolesList.setSelectedIndex(0);
+        }
+    }
+
+    public void resetSingleInvite() {
+        singleInviteTextField.setText("");
+        if (comboBoxSingleInviteProjects != null || comboBoxSingleInviteRoles != null) {
+            comboBoxSingleInviteProjects.setSelectedIndex(0);
+            comboBoxSingleInviteRoles.setSelectedIndex(0);
+        }
+    }
+
 }

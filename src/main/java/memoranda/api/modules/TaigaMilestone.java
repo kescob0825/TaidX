@@ -80,6 +80,9 @@ public class TaigaMilestone {
                     sprintDataList.add(sprintData);
                 }
             }
+            else {
+                System.out.println("Get Milestones Failed. Response code: " + lastResponseCode);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

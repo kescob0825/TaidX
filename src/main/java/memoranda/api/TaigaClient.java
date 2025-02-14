@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import memoranda.Start;
 import memoranda.api.models.*;
 import memoranda.api.modules.*;
+import memoranda.ui.ExceptionDialog;
+import memoranda.ui.mainMenuCards.HomeToolBarCards;
 import memoranda.util.TaigaJsonData;
 import okhttp3.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,28 +17,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 public class TaigaClient {
     private static final String BASE_URL = "https://api.taiga.io/api/v1/";
     private final OkHttpClient httpClient;
     private final ObjectMapper objectMapper;
-    private final TaigaAuthenticate authenticator;
-    private final TaigaProject projects;
-    private final TaigaMilestone taigaSprintModule;
-    private final TaigaUserStory userStory;
-    private final TaigaTasks tasks;
-    private final TaigaCreateProject createProject;
+    protected final TaigaAuthenticate authenticator;
+    protected final TaigaProject projects;
+    protected final TaigaMilestone taigaSprintModule;
+    protected final TaigaUserStory userStory;
+    protected final TaigaTasks tasks;
+    protected final TaigaCreateProject createProject;
+    protected final TaigaInvite taigaInvite;
     private final TaigaJsonData jsonData;
     protected int lastResponseCode;
+    //Use for searching data
     public static Map<Integer, List<UserStoryNode>> allUserStories = new HashMap<>();
     public static Map<Integer, List<TaskNode>> allTasks = new HashMap<>();
     public static Map<Integer, List<MilestoneData>> milestoneNodes = new HashMap<>();
-    //Use for searching data
+
     public static Map<Integer, List<ProjectData>> projectsData = new HashMap<>();
     public static Map<Integer, List<UserStoryNode>> userStoryData = new HashMap<>();
     public static Map<Integer, List<TaskNode>> tasksData = new HashMap<>();
     public static Map<Integer, List<MilestoneData>> milestoneData = new HashMap<>();
+    private SwingWorker<List<String>, String>  backgroundReload;
+
     @Inject
     public TaigaClient() {
         this.httpClient = new OkHttpClient();
@@ -49,8 +56,9 @@ public class TaigaClient {
         this.tasks = new TaigaTasks(httpClient, objectMapper);
         this.taigaSprintModule = new TaigaMilestone(httpClient, objectMapper);
         this.createProject = new TaigaCreateProject(httpClient, objectMapper);
+        this.taigaInvite = new TaigaInvite(httpClient);
         try{
-            jsonData = Start.getInjector().getInstance(TaigaJsonData.class);
+            this.jsonData = Start.getInjector().getInstance(TaigaJsonData.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -65,14 +73,14 @@ public class TaigaClient {
     public void authenticateClient(String username, String password) throws IOException {
         authenticator.authenticate(username, password);
         jsonData.setUserData(authenticator.getUserProfile());
-        setLastResponseCode(authenticator.getLastResponseCode());
-        initLoadProjectAndUserStoryData();
+        reloadData();
     }
 
     public void initLoadProjectAndUserStoryData() throws IOException {
+        //Ensure it is empty or the same tasks can be loaded in.
+        this.authenticator.getUserProfile().clearProjects();
         this.projects.getProjects(this.authenticator.getAuthToken(), this.authenticator.getUserProfile().getUid());
         this.authenticator.getUserProfile().addProjects(projects.getProjectsData());
-        ;
         for (ProjectData project : this.authenticator.getUserProfile().getProjectsList()) {
             this.userStory.getUserStories(this.authenticator.getAuthToken(), project.getProjectId());
             this.projects.getProjectsRoles(this.authenticator.getAuthToken(), project.getProjectId());
@@ -122,6 +130,7 @@ public class TaigaClient {
             tasks.clearTaskNodes();
         }
         jsonData.saveAllConfigs();
+        System.out.println("Finished Initial Load");
     }
 
     public void loadDataOnOpen() throws IOException {
@@ -149,6 +158,78 @@ public class TaigaClient {
             }
             milestoneData.put(project.getProjectId(), new ArrayList<>(sprintDataList));
         }
+        System.out.println("Local Data Loaded");
+    }
+
+    public void reloadData() {
+        JDialog status =  new JDialog();
+        JLabel  statusLabel = new JLabel("Reloading Data...");
+        status.setTitle("Reloading Data...");
+        status.add(statusLabel);
+        status.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+        backgroundReload = new SwingWorker<List<String>, String> () {
+            @Override
+            protected List<String> doInBackground() throws Exception {
+                List<String> list = new ArrayList<>();
+                try{
+                    publish("Reloading Data...");
+                    initLoadProjectAndUserStoryData();
+                    publish("Data Reloaded Successfully.");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                return list;
+            }
+            @Override
+            protected void process(List<String> chunks) {
+                for (String chunk : chunks) {
+                    statusLabel.setText(chunk);
+                }
+            }
+            @Override
+            protected void done() {
+                try {
+                    get();
+                    jsonData.loadAllConfigs();
+                    loadDataOnOpen();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    e.printStackTrace();
+                } catch (ExecutionException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        backgroundReload.execute();
+    }
+
+    public void setProjectRolesClient(JSONObject setRolesData) throws IOException {
+        if (!this.isClientLoggedIn()) {
+            JOptionPane.showMessageDialog(null, "Login to create a project.");
+            return;
+        }
+        this.projects.setProjectRoles(this.authenticator.getAuthToken(), setRolesData);
+        if (projects.getLastResponseCode() <= 201){
+            reloadData();
+        }
+    }
+
+    public void sendBulkInvite(JSONObject bulkInviteData) throws IOException {
+        if (!this.isClientLoggedIn()) {
+            JOptionPane.showMessageDialog(null, "Login to create a project.");
+            return;
+        }
+        this.taigaInvite.bulkInviteMembers(this.authenticator.getAuthToken(), bulkInviteData);
+    }
+
+    public void sendInvite(JSONObject inviteData) throws IOException {
+        if (!this.isClientLoggedIn()) {
+            JOptionPane.showMessageDialog(null, "Login to create a project.");
+            return;
+        }
+        this.taigaInvite.inviteMember(this.authenticator.getAuthToken(), inviteData);
     }
 
     public void createNewProject(JSONObject newProjectDataBody) throws IOException {
@@ -157,6 +238,9 @@ public class TaigaClient {
             return;
         }
         createProject.createProject(this.authenticator.getAuthToken(), newProjectDataBody);
+        if (createProject.getLastResponseCode() <= 201){
+            reloadData();
+        }
     }
     public boolean isClientLoggedIn() throws IOException {
         return AuthAndRefreshToken.isLoggedIn;
