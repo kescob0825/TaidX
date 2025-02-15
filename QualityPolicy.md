@@ -5,7 +5,8 @@
 > Board to ensure it is updated before signing off. Team members are expected to be transparent about progress. 
 > Team members are expected to make incremental progress and complete ~2 CR's w/ meaningful comments and checklist per sprint,
 > ~500 lines of code per sprint, 5 tasks per sprint, no more than 1-2 tasks at once, update taiga SB witch progress,
-> and communicate with the team. Team will adhere to a rigid tree structure for managing the remote repo.
+> and communicate with the team. Team will adhere to a rigid tree structure for managing the remote repo. Team members
+> will test their own code before PR with UI testing and unit testing.
 
 ## PR Checklist:
 ### 1. Code Quality
@@ -132,18 +133,34 @@
 
 
 **Unit Tests Blackbox** (start Sprint 2)
-  > Describe your Blackbox testing policy 
+  > Blackbox testing will test API module main methods for good JSON format.
+  > Team member will ensure information is properly stored in models.
+  > Team members will ensure client can access these fields.
+  > Team member will construct mock objects with Mockito to ensure
+  > Will use proper assert statements to check state
 
  **Unit Tests Whitebox** (online: start Sprint 2, campus: start Sprint 3)
-  > Describe your Whitebox testing policy 
+ > BVA and 80% node coverage, 60% branch coverage
+ > Whitebox testing will test API module main methods for good JSON format.
+ > Team member will ensure information is properly stored in models.
+ > Team members will ensure client can access these fields.
+ > Team member will construct mock objects with Mockito to ensure
+ > Will use proper assert statements to check state
 
 **Code Review** (online: start Sprint 2, campus: start Sprint 2)
-  > - Describe your Code Review policy for on campus it is ok to have a less formal process in Sprint 2,
-  > should be updated in Sprint 3 though.
-  > - Include a checklist/questions list which every developer will need to fill out/answer when creating a
-  > - Pull Request to the Dev branch.
-  > - Include a checklist/question list which every reviewer will need to fill out/answer when conducting a ting a
-  > review, this checklist (and the answers of course) need to be put into the Pull Request review.
+### Code Review Defect List:
+To track issues found during Code Review
+
+### Reviewer: []            GH Repo: []
+
+| **ID** | **Location** | **Problem Description**                                          | **Problem Category**| **Problem Severity** |
+|--------|--------------|------------------------------------------------------------------|---------------------|----------------------|
+| 001    |              |                                                                  |                     |                      |
+| 002    |              |                                                                  |                     |                      | 
+
+**View coding standards doc for definitions**
+**Category: CS- Code Smell defect. CG- Violation of a coding guideline. Provide the guideline number. FD- Functional Defect. Code will not produce the expected result. MD- Miscellaneous defect, for all other defects.**
+**Severity: BR-Blocker, must be fixed ASAP. MJ- Major, of high importance, but not a Blocker. LOW- low.***
 
 **Static Analysis**  (online: start Sprint 3, campus: start Sprint 3)
   > Your Static Analysis policy   

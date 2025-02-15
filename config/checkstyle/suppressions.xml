@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+    <suppress files=".*Test.java" checks="FinalParameters"/>
+    <suppress files=".*Game.java" checks="FinalParameters"/>
+    <suppress files=".*Test.java" checks="LineLength"/>
+    <suppress files=".*Test.java" checks="MethodName"/>
+    <suppress files=".*Test.java" checks="MagicNumber"/>
+    <suppress files=".*Test.java" checks="UnusedImports"/>
+    <suppress files=".*Test.java" checks="JavadocMethod"/>
+    <suppress files=".*Test.java" checks="JavadocType"/>
+    <suppress files=".*Test.java" checks="VisibilityModifier"/>
+    <suppress files=".*" checks="StaticVariableName"/>
+    <suppress files=".*Test.java" checks="EmptyCatchBlock"/>
+</suppressions>

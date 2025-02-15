@@ -2,6 +2,7 @@ package memoranda.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,7 +15,12 @@ public class UserProfile {
     private String timezone;
     private String bio;
     private int uid;
+    private List<ProjectData> projectsList;
 
+    public UserProfile() {
+        this.roles = new ArrayList<>();
+        this.projectsList = new ArrayList<>();
+    }
     public UserProfile(String fullName, String username, String email,
                        String lang, String timezone, String bio, List<String> roles, int uid) {
         this.fullName = fullName;
@@ -25,6 +31,7 @@ public class UserProfile {
         this.bio = bio;
         this.roles = roles;
         this.uid = uid;
+        this.projectsList = new ArrayList<>();
     }
     public List<String> getRoles() {
         return roles;
@@ -49,5 +56,14 @@ public class UserProfile {
     }
     public int getUid() {
         return uid;
+    }
+    public List<ProjectData> getProjectsList() {
+        return projectsList;
+    }
+    public void addProjects(List<ProjectData> projects) {
+        projectsList.addAll(projects);
+    }
+    public void clearProjects() {
+        projectsList.clear();
     }
 }

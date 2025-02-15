@@ -18,6 +18,7 @@ import memoranda.api.models.UserProfile;
 import memoranda.util.Configuration;
 import memoranda.util.Context;
 import memoranda.util.Local;
+import memoranda.util.TaigaJsonData;
 
 /**
  * 
@@ -151,12 +152,6 @@ public class AppFrame extends JFrame {
         jMenuThemeDark.addActionListener(this::jMenuThemeDark_actionPerformed);
         jMenuThemeLight.addActionListener(this::jMenuThemeLight_actionPerformed);
 
-        JMenuApiCallTesting.setText("Api Testing");
-        JMenuApiCallTesting1.setText("Projects");
-        JMenuApiCallTesting2.setText("User Stories");
-        JMenuApiCallTesting1.addActionListener(this::JMenuApiCallTesting1_actionPerformed);
-        JMenuApiCallTesting2.addActionListener(this::JMenuApiCallTesting2_actionPerformed);
-
         containerPanel.setLayout(new BorderLayout());
         int staticWidth = 200;
         workPanel.setPreferredSize(new Dimension(staticWidth, 0));
@@ -206,9 +201,6 @@ public class AppFrame extends JFrame {
         jMenuTheme.add(jMenuThemeLight);
         jMenuTheme.add(jMenuThemeDark);
 
-        JMenuApiCallTesting.add(JMenuApiCallTesting1);
-        JMenuApiCallTesting.add(JMenuApiCallTesting2);
-
         menuBar.add(jMenuFile);
         menuBar.add(jMenuEdit);
         menuBar.add(jMenuInsert);
@@ -217,7 +209,6 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuHelp);
         menuBar.add(jMenuLogin);
         menuBar.add(jMenuTheme);
-        menuBar.add(JMenuApiCallTesting);
 
         this.setJMenuBar(menuBar);
 
@@ -253,7 +244,7 @@ public class AppFrame extends JFrame {
         }
         else
             this.setSize(new Dimension(800, 500));
-            //this.setExtendedState(Frame.MAXIMIZED_BOTH);
+        //this.setExtendedState(Frame.MAXIMIZED_BOTH);
 
         Object xo = Context.get("FRAME_XPOS");
         Object yo = Context.get("FRAME_YPOS");
@@ -261,24 +252,6 @@ public class AppFrame extends JFrame {
             int x = Integer.parseInt((String) xo);
             int y = Integer.parseInt((String) yo);
             this.setLocation(x, y);
-        }
-    }
-
-    private void JMenuApiCallTesting2_actionPerformed(ActionEvent actionEvent) {
-        try {
-            TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
-            System.out.println(taigaClient.getUserStories().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void JMenuApiCallTesting1_actionPerformed(ActionEvent actionEvent) {
-        try {
-            TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
-            System.out.println(taigaClient.getProjectsList().toString());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -407,13 +380,19 @@ public class AppFrame extends JFrame {
                         dlg.setVisible(true);
                         if(dlg.CANCELLED) return;
         }
-
-        Context.put("FRAME_WIDTH", Integer.valueOf(this.getWidth()));
-        Context.put("FRAME_HEIGHT", Integer.valueOf(this.getHeight()));
-        Context.put("FRAME_XPOS", Integer.valueOf(this.getLocation().x));
-        Context.put("FRAME_YPOS", Integer.valueOf(this.getLocation().y));
-        exitNotify();
-        App.closeWindow();
+        try{
+            TaigaJsonData  data = Start.getInjector().getInstance(TaigaJsonData.class);
+            data.saveAllConfigs();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally{
+            Context.put("FRAME_WIDTH", Integer.valueOf(this.getWidth()));
+            Context.put("FRAME_HEIGHT", Integer.valueOf(this.getHeight()));
+            Context.put("FRAME_XPOS", Integer.valueOf(this.getLocation().x));
+            Context.put("FRAME_YPOS", Integer.valueOf(this.getLocation().y));
+            exitNotify();
+            App.closeWindow();
+        }
     }
 
     public void doMinimize() {

@@ -1,9 +1,10 @@
 plugins {
     // Uncomment and use these plugins if needed
-    // id 'com.github.spotbugs' version '4.5.1'
-    // id 'checkstyle'
+    id 'com.github.spotbugs' version '5.0.13'
+    id 'checkstyle'
     id 'java'
     id 'application'
+    id "jacoco"
 }
 
 // Basic project configuration
@@ -32,6 +33,7 @@ wrapper {
 // Repository configuration
     repositories {
         mavenCentral()
+        gradlePluginPortal()
     }
 
 
@@ -46,6 +48,7 @@ wrapper {
         implementation 'com.squareup.okhttp3:okhttp:4.12.0'
         implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
         implementation 'org.json:json:20250107'
+        implementation 'com.google.code.gson:gson:2.12.1'
 
         // XML handling
         implementation 'xom:xom:1.3.9'
@@ -60,13 +63,53 @@ wrapper {
         // https://mvnrepository.com/artifact/com.google.inject.extensions/guice-assistedinject
         implementation group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '7.0.0'
         implementation 'org.apache.commons:commons-lang3:3.12.0'
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+
+        //Testing Section
+        implementation 'com.puppycrawl.tools:checkstyle:10.20.0'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+        // https://mvnrepository.com/artifact/org.mockito/mockito-core
+        testImplementation 'org.mockito:mockito-core:5.15.2'
+        // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
+        testImplementation 'org.mockito:mockito-junit-jupiter:5.15.2'
+
+
     }
 
 // Test configuration
-    /*test {
-        useJUnitPlatform()
-    }*/
+test {
+    useJUnitPlatform()
+    include '**/*Test.class'
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    // Exclude getters and setters
+                    '**/**/get*',
+                    '**/**/set*',
+                    '**/**/is*',
+                    //Exclude classes we are not implementing
+                    '**/model/**',
+                    '**/util/**',
+                    '**/ui/**',
+                    '**/date/**'
+            ])
+        }))
+    }
+}
+jacoco {
+    toolVersion = "0.8.8"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+jacocoTestReport {
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
 
 tasks.register('runMain', JavaExec) {
     group = 'Application'
@@ -94,45 +137,42 @@ tasks.register('fatJar', Jar) {
     with jar
 }
 
+checkstyle {
+    // Keep checkstyle a little quieter
+    ignoreFailures = true
+    showViolations = false
+    toolVersion = "10.20.0"
+    configFile = file("config/checkstyle/sun_checks.xml")
+    configProperties = [
+            "checkstyle.suppressions.file" : file("config/checkstyle/suppressions.xml")
+    ]
+}
 
 ///////////////////////////////////////////////////////////////////////
 // Configure Checkstyle
-/////////////////////////////////////////////////////////////////////
-// apply plugin: 'checkstyle'
-// checkstyle {
-//   // Keep checkstyle a little quieter
-//   ignoreFailures = true
-//   showViolations = false
-// }
-
-// tasks.withType(Checkstyle) {
-  
-//   reports {
-//     html.enabled = true
-//     xml.enabled = false
-//   }
-//   // include '**/*.java'
-//   include '**/ui/App.java'
-//  }
-
-// checkstyle {
-//     toolVersion = "8.8"
-// }
+///////////////////////////////////////////////////////////////////////
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required.set(false)
+        html.required.set(true)
+        html.outputLocation.set(project.layout.buildDirectory.file("reports/checkstyle/${name}.html"))
+    }
+}
 
 
 ///////////////////////////////////////////////////////////////////////
 // Configure SpotBugs
 ///////////////////////////////////////////////////////////////////////
 // To generate an HTML report instead of XML
-// spotbugsMain {
-//     reports {
-//         xml.enabled = false
-//         html.enabled = true
-//     }
-// }
-// spotbugs {
-//     toolVersion = '4.2.2'
-//     ignoreFailures = true
-//     showProgress = true
-//     effort = 'max'
-// }
+spotbugs {
+    toolVersion = '4.8.4'
+    ignoreFailures = true
+    effort = 'max'        // min, default, or max
+    reportLevel = 'medium' // low, medium, or high
+}
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+    reports{
+        html.required.set(true)
+        html.outputLocation.set(project.layout.buildDirectory.file("reports/spotbugs/${name}.html"))
+    }
+}
