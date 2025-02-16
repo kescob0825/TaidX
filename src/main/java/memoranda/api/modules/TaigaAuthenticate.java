@@ -9,16 +9,16 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import org.json.JSONObject;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class TaigaAuthenticate {
     private static final String AUTH_URL = "https://api.taiga.io/api/v1/auth";
     private static final String AUTH_REFRESH_URL = "https://api.taiga.io/api/v1/auth/refresh";
     private final OkHttpClient httpClient;
+    private UserProfile userProfile;
+
     private AuthAndRefreshToken authAndRefreshToken;
     private int lastResponseCode;
-    private UserProfile userProfile;
 
     public TaigaAuthenticate(OkHttpClient httpClient, ObjectMapper objectMapper) {
         this.httpClient = httpClient;
@@ -53,19 +53,16 @@ public class TaigaAuthenticate {
                 }
                 //Create a new UserProfile object
                 userProfile = new UserProfile(
-                        jsonResponse.optString("full_name_display", jsonResponse.getString("username")),
-                        jsonResponse.optString("username"),
-                        jsonResponse.optString("email"),
-                        jsonResponse.optString("lang", "N/A"),
-                        jsonResponse.optString("timezone", "N/A"),
-                        jsonResponse.optString("bio", "N/A"),
+                        jsonResponse.getString("full_name"),
+                        jsonResponse.getString("username"),
+                        jsonResponse.getString("email"),
+                        jsonResponse.getString("lang"),
+                        jsonResponse.getString("timezone"),
+                        jsonResponse.getString("bio"),
                         jsonResponse.getJSONArray("roles")
                                 .toList().stream().map(Object::toString).toList(),
                         jsonResponse.getInt("id")
                 );
-            }
-            else {
-                System.out.println("Authentication failed. Response code: " + lastResponseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,9 +71,6 @@ public class TaigaAuthenticate {
 
     public UserProfile getUserProfile() {
         return userProfile;
-    }
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
     }
     public void refreshAuth() throws IOException {
         MediaType mediaType = MediaType.get("application/json");
@@ -100,9 +94,6 @@ public class TaigaAuthenticate {
                 String refreshToken = jsonResponse.getString("refresh");
                 getAuthAndRefreshToken().setAuthToken(token);
                 getAuthAndRefreshToken().setRefreshToken(refreshToken);
-            }
-            else {
-                System.out.println("Refresh failed. Response code: " + lastResponseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();

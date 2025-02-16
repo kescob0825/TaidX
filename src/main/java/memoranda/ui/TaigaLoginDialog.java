@@ -1,7 +1,7 @@
 package memoranda.ui;
 
 import memoranda.Start;
-//import memoranda.api.Credentials;
+import memoranda.api.Credentials;
 import memoranda.api.TaigaClient;
 
 import java.awt.*;
@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
+import com.google.inject.assistedinject.Assisted;
 import com.google.inject.Inject;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -208,11 +209,11 @@ public class TaigaLoginDialog extends JDialog {
         String username = this.userNameField.getText();
         String password = this.passwordField.getText();
         try {
-//            if(Objects.equals(this.userNameField.getText(), "test") && Objects.equals(this.passwordField.getText(), "test")) {
-//                Credentials creds = new Credentials();
-//                username = creds.getUsername();
-//                password = creds.getPassword();
-//            }
+            if(Objects.equals(this.userNameField.getText(), "test") && Objects.equals(this.passwordField.getText(), "test")) {
+                Credentials creds = new Credentials();
+                username = creds.getUsername();
+                password = creds.getPassword();
+            }
             client.authenticateClient(username, password);
             System.out.println("Authentication successful." );
 

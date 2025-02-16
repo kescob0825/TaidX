@@ -44,6 +44,7 @@ public class WorkPanel extends JPanel {
 	public JButton statsB = createMenuButton("Stats", "/ui/icons/stats.png");
 
 	private JButton currentB = null;
+	private JButton lastB = null;
 	JPanel homeSubToolBar;
 	JPanel scrumSubToolBar;
 	JPanel issuesSubToolBar;
@@ -60,7 +61,7 @@ public class WorkPanel extends JPanel {
 	 * Buttons for the submenus
 	 */
 	//Home
-
+	JButton overviewButton = createSubmenuButton("Overview");
 	JButton profileButton = createSubmenuButton("Profile");
 	JButton projectsButton = createSubmenuButton("Projects");
 	JButton configureButton = createSubmenuButton("Configure Projects");
@@ -182,10 +183,12 @@ public class WorkPanel extends JPanel {
 		submenu.setLayout(new BoxLayout(submenu, BoxLayout.Y_AXIS));
 		submenu.setOpaque(true);
 
+		overviewButton.addActionListener(this::homeOverview_actionPerformed);
 		profileButton.addActionListener(this::homeProfile_actionPerformed);
 		projectsButton.addActionListener(this::homeProjects_actionPerformed);
 		configureButton.addActionListener(this::homeConfigure_actionPerformed);
-
+		
+		submenu.add(overviewButton);
 		submenu.add(profileButton);
 		submenu.add(projectsButton);
 		submenu.add(configureButton);
@@ -358,25 +361,28 @@ public class WorkPanel extends JPanel {
 	 * SubMenu Actions
 	 *
 	 */
+	public void homeOverview_actionPerformed (ActionEvent e){
+		refreshPanels();
+		homeCards.showCard(OVERVIEW_PANEL);
+		setCurrentButton(overviewButton);
+		Context.put("CURRENT_PANEL", OVERVIEW_PANEL);
+	}
 	public void homeProfile_actionPerformed (ActionEvent e){
 		refreshPanels();
 		homeCards.showCard(PROFILE_PANEL);
 		setCurrentButton(profileButton);
-		HomeToolBarCards.homeTitleLabel.setText("Profile");
 		Context.put("CURRENT_PANEL", PROFILE_PANEL);
 	}
 	public void homeProjects_actionPerformed (ActionEvent e){
 		refreshPanels();
 		homeCards.showCard(PROJECTS_PANEL);
 		setCurrentButton(projectsButton);
-		HomeToolBarCards.homeTitleLabel.setText("Projects");
 		Context.put("CURRENT_PANEL", PROJECTS_PANEL);
 	}
 	public void homeConfigure_actionPerformed (ActionEvent e){
 		refreshPanels();
 		homeCards.showCard(CONFIGURE_PANEL);
 		setCurrentButton(configureButton);
-		HomeToolBarCards.homeTitleLabel.setText("Configure Projects");
 		Context.put("CURRENT_PANEL", CONFIGURE_PANEL);
 	}
 	public void scrumSprint_actionPerformed (ActionEvent e){
@@ -462,6 +468,11 @@ public class WorkPanel extends JPanel {
 		currentB.setBackground(UIManager.getColor("control"));
 
 		if(cb == homeB || cb == scrumB || cb == issuesB || cb == statsB) {
+//			System.out.println("Home: "+isHomeExpanded);
+//			System.out.println("Scrum: "+isScrumExpanded);
+//			System.out.println("Issues: "+isIssuesExpanded);
+//			System.out.println("Stats: "+isStatsExpanded);
+//			System.out.println();
 			if(isHomeExpanded || isScrumExpanded || isIssuesExpanded || isStatsExpanded){
 				initState();
 			}
@@ -491,11 +502,6 @@ public class WorkPanel extends JPanel {
 			issuesCards.refreshPanels();
 			statsCards.refreshPanels();
 			needsRefresh(false);
-		} else {
-			homeCards.refreshPanels();
-			scrumCards.refreshPanels();
-			issuesCards.refreshPanels();
-			statsCards.refreshPanels();
 		}
 	}
 

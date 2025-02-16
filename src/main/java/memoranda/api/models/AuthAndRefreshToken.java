@@ -3,9 +3,10 @@ package memoranda.api.models;
 public class AuthAndRefreshToken {
     private String authToken;
     private String refreshToken;
-    public static boolean isLoggedIn = false;
+    private boolean isLoggedIn;
 
     public AuthAndRefreshToken(String authToken, String refreshToken) {
+        this.isLoggedIn = false;
         this.authToken = authToken;
         this.refreshToken = refreshToken;
     }
