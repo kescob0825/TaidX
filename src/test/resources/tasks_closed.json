@@ -1,0 +1,140 @@
+[
+    {
+        "due_date": null,
+        "due_date_reason": "",
+        "due_date_status": "not_set",
+        "total_comments": 0,
+        "tags": [],
+        "attachments": [],
+        "project": 1626157,
+        "project_extra_info": {
+            "name": "Ruebezahl_spring25A",
+            "slug": "amehlhase316-ruebezahl_spring25a",
+            "logo_small_url": null,
+            "id": 1626157
+        },
+        "status": 8109381,
+        "status_extra_info": {
+            "name": "Closed",
+            "color": "#A8E440",
+            "is_closed": true
+        },
+        "assigned_to": 738718,
+        "assigned_to_extra_info": {
+            "username": "jdlafond",
+            "full_name_display": "jdlafond",
+            "photo": null,
+            "big_photo": null,
+            "gravatar_id": "989f517c7ae17f01523d3debfef9f637",
+            "is_active": true,
+            "id": 738718
+        },
+        "owner": 738718,
+        "owner_extra_info": {
+            "username": "jdlafond",
+            "full_name_display": "jdlafond",
+            "photo": null,
+            "big_photo": null,
+            "gravatar_id": "989f517c7ae17f01523d3debfef9f637",
+            "is_active": true,
+            "id": 738718
+        },
+        "is_watcher": false,
+        "total_watchers": 0,
+        "is_voter": false,
+        "total_voters": 0,
+        "id": 7339772,
+        "user_story": 7251488,
+        "ref": 10,
+        "milestone": 425879,
+        "milestone_slug": "sprint-1-21967",
+        "created_date": "2025-01-20T21:53:11.358Z",
+        "modified_date": "2025-01-23T00:36:22.126Z",
+        "finished_date": "2025-01-23T00:36:22.127Z",
+        "subject": "Fix Terminate",
+        "us_order": 1737409991345,
+        "taskboard_order": 1,
+        "is_iocaine": false,
+        "external_reference": null,
+        "version": 7,
+        "watchers": [],
+        "is_blocked": false,
+        "blocked_note": "",
+        "is_closed": true,
+        "user_story_extra_info": {
+            "id": 7251488,
+            "ref": 1,
+            "subject": "As a user I want the program to exit correctly when I click on the \"x\" or Exit in the File menu so I can exit the program without it staying open in the background.",
+            "epics": null
+        }
+    },
+    {
+        "due_date": null,
+        "due_date_reason": "",
+        "due_date_status": "not_set",
+        "total_comments": 0,
+        "tags": [],
+        "attachments": [],
+        "project": 1626157,
+        "project_extra_info": {
+            "name": "Ruebezahl_spring25A",
+            "slug": "amehlhase316-ruebezahl_spring25a",
+            "logo_small_url": null,
+            "id": 1626157
+        },
+        "status": 8109381,
+        "status_extra_info": {
+            "name": "Closed",
+            "color": "#A8E440",
+            "is_closed": true
+        },
+        "assigned_to": 738718,
+        "assigned_to_extra_info": {
+            "username": "jdlafond",
+            "full_name_display": "jdlafond",
+            "photo": null,
+            "big_photo": null,
+            "gravatar_id": "989f517c7ae17f01523d3debfef9f637",
+            "is_active": true,
+            "id": 738718
+        },
+        "owner": 738718,
+        "owner_extra_info": {
+            "username": "jdlafond",
+            "full_name_display": "jdlafond",
+            "photo": null,
+            "big_photo": null,
+            "gravatar_id": "989f517c7ae17f01523d3debfef9f637",
+            "is_active": true,
+            "id": 738718
+        },
+        "is_watcher": false,
+        "total_watchers": 0,
+        "is_voter": false,
+        "total_voters": 0,
+        "id": 7339773,
+        "user_story": 7251488,
+        "ref": 11,
+        "milestone": 425879,
+        "milestone_slug": "sprint-1-21967",
+        "created_date": "2025-01-20T21:53:45.425Z",
+        "modified_date": "2025-01-23T00:36:20.491Z",
+        "finished_date": "2025-01-23T00:36:20.493Z",
+        "subject": "Find where the terminate is located",
+        "us_order": 1737410025413,
+        "taskboard_order": 0,
+        "is_iocaine": false,
+        "external_reference": null,
+        "version": 8,
+        "watchers": [],
+        "is_blocked": false,
+        "blocked_note": "",
+        "is_closed": true,
+        "user_story_extra_info": {
+            "id": 7251488,
+            "ref": 1,
+            "subject": "As a user I want the program to exit correctly when I click on the \"x\" or Exit in the File menu so I can exit the program without it staying open in the background.",
+            "epics": null
+        }
+    }
+]
