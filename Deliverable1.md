@@ -67,13 +67,13 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 
 | **Date**   | **Who Did Not Attend** | **Meeting Notes**                                                                   | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes**|
 |------------|------------------------|-------------------------------------------------------------------------------------|----------------------------------------|---------------------------------------------|----------------------|
-| _1/20/2025_| _Noel Trujillo_        | _Discuss group assignment, vote for Scrum and Git Master, vote for topic_           | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
-| _1/24/2025_| _Noel Trujillo_        | _10 US, discuss US, tasks added. Layout design discussed and approved _             | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
-| _1/24/2025_|                        | _Status update, 3 task not assigned. Mohammed and Noel do not have tasks_           | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
-|            |                        | _Every member updated their progress, Mohammed and Noel will select tasks today_    |                                        |                                             |                       |
-|            |                        | _Three tasks left unnasigned, we might have to create more task or USs to meet req. |                                        |                                             |                       | 
-|_1/27/2025_ | _Noel Trujillo_        | _US50 and US28 added_                                                               |                                        | _Pass/Fail_                                 |                       | 
-|_1/30/2025_ | _Noel Trujillo_        | _US7 has version 2 of the project, will be pushed during the second sprint.         | _On track/Behind/Ahead_                |                                             |                       |     |            |                        |                                                                                     |                                        |                                             |                       |
+| _1/20/2025_| Noel Trujillo          | Discuss group assignment, vote for Scrum and Git Master, vote for topic             | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
+| _1/24/2025_| Noel Trujillo          | 10 US, discuss US, tasks added. Layout design discussed and approved                | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
+| _1/24/2025_|                        | Status update, 3 task not assigned. Mohammed and Noel do not have tasks             | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
+|            |                        | Every member updated their progress, Mohammed and Noel will select tasks today      |                                        |                                             |                       |
+|            |                        | Three tasks left unnasigned, we might have to create more task or USs to meet req.  |                                        |                                             |                       | 
+|_1/27/2025_ | Noel Trujillo          | US50 and US28 added_                                                                |                                        | _Pass/Fail_                                 |                       | 
+|_1/30/2025_ | Noel Trujillo          | US7 has version 2 of the project, will be pushed during the second sprint.          | _On track/Behind/Ahead_                |                                             |                       |    |            |                        |                                                                                     |                                        |                                             |                       |
 |_2/02/2025_ |                        | Spoke about sprint retrospective and review. Jedi will be working on the video      | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
 |            |                        | All members have to update their contributions and notify Jedi for the video.       |                                        |                                             |                       |
 |            |                        | Next meeeting will be on 05FEB2024, pre-sprint meeting to discuss expectations.     |                                        |                                             |                       |
@@ -307,7 +307,7 @@ Before submitting your Sprint deliverables, make sure to check the following ite
 - [X] Your software is on the master branch on GitHub, it is tested and compiles/runs.
 - [X] Your document is on your GitHub repository.
 - [X] Read the Kickoff Document again to ensure you followed all instructions.
-- [X] User Stories that were not completed have been moved to the next Sprint’s backlog.
+- [X] User Stories that were not completed have been moved to the next Sprint’s backlog.(not needed)
 - [X] Quality Policies are up-to-date and accurate.
 - [X] Individual Sprint Surveys have been submitted (one per team member).
   - [X] Team member Jedi
