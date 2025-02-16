@@ -2,10 +2,11 @@
 > To ensure quality is adhered to, team members will meet 3 times a week in a standup. If unable to attend a detailed
 > message on progress will be sent to the Scrum Master in the _standup channel. During the brief standup meeting, team
 > members will let the SM know of progress, impediments, and an estimated completion time. SM will go over the Scrum
-> Board to ensure it is updated before signing off. Team members are expected to be transparent about progress. 
+> Board to ensure it is updated before signing off. Team members are expected to be transparent about progress.
 > Team members are expected to make incremental progress and complete ~2 CR's w/ meaningful comments and checklist per sprint,
 > ~500 lines of code per sprint, 5 tasks per sprint, no more than 1-2 tasks at once, update taiga SB witch progress,
-> and communicate with the team. Team will adhere to a rigid tree structure for managing the remote repo.
+> and communicate with the team. Team will adhere to a rigid tree structure for managing the remote repo. Team members
+> will test their own code before PR with UI testing and unit testing.
 
 ## PR Checklist:
 ### 1. Code Quality
@@ -95,7 +96,7 @@
 
 ### 9. Git Practices
 - [ ] Are commits well-structured and meaningful?
- have detailed comments explaining what changes are taking place?
+  have detailed comments explaining what changes are taking place?
 - [ ] Is the branch rebased correctly and free of merge conflicts?
 - [ ] Is the PR scoped appropriately (not too broad or too narrow)?
 
@@ -107,46 +108,62 @@
 - [ ] Approve or request changes based on the review.
 
 **GitHub Workflow** (start Sprint 1)
-  > 1. Team member will review Sprint backlog US's.
-  > 2. Team member will choose task and then move it to "In-Progress".
-  > 3. Team member will fetch latest master and navigate to the US# branch.
-  > 4. If no task branch exists for their task number they will checkout and create one.
-  > 5. Team member will work on task to completion, and commit the changes with the proper subject line. "US# Task# description"
-  > 6. Upon completion, they will rebase their code with the US# they are working on and resolve conflicts.
-  > 7. Before merging with the US# they will ensure it compiles and passes Unit Tests. Update Scrum Board.
-  > 8. Team member will switch to the US# branch and merge the task with the US# branch and ensure it compiles. 
-  > 9. Team member will assign someone to do a CR if applicable and update the _git channel on slack of progress.
-  > 10. If all tasks are complete and AC's are fulfilled a PR will be made to merge the US# with the dev branch. Update Scrum Board. (git rebase -i to squash commits)
-  > 11. Another team member will review changes on the protected dev branch and leave a detailed CR.
-  > 12. Process will repeat until sprint ends or all US's are finished. Whichever happens first.
-  > 13. Team member will update the Deliverable1.md document as needed.
-  > 14. Upon Sprint completion Git Master and Scrum Master will merge the dev and doc to the master.
+> 1. Team member will review Sprint backlog US's.
+> 2. Team member will choose task and then move it to "In-Progress".
+> 3. Team member will fetch latest master and navigate to the US# branch.
+> 4. If no task branch exists for their task number they will checkout and create one.
+> 5. Team member will work on task to completion, and commit the changes with the proper subject line. "US# Task# description"
+> 6. Upon completion, they will rebase their code with the US# they are working on and resolve conflicts.
+> 7. Before merging with the US# they will ensure it compiles and passes Unit Tests. Update Scrum Board.
+> 8. Team member will switch to the US# branch and merge the task with the US# branch and ensure it compiles.
+> 9. Team member will assign someone to do a CR if applicable and update the _git channel on slack of progress.
+> 10. If all tasks are complete and AC's are fulfilled a PR will be made to merge the US# with the dev branch. Update Scrum Board. (git rebase -i to squash commits)
+> 11. Another team member will review changes on the protected dev branch and leave a detailed CR.
+> 12. Process will repeat until sprint ends or all US's are finished. Whichever happens first.
+> 13. Team member will update the Deliverable1.md document as needed.
+> 14. Upon Sprint completion Git Master and Scrum Master will merge the dev and doc to the master.
 
 ## Collaboration Policy: (TBD)
 > In the event 2 or more team members are working on features that interact with each other
-  > 1. Team members will notify the Scrum Master (SM) and the team in Discord when their tasks involve interacting features. 
-  > 2. A brief discussion will be held during the standup or planning session to outline dependencies, shared responsibilities, and integration points(IE: Person A is reworking a feature that has dependencies and should expect certain features to not work until the task is finished.
-  > 3. If 2 or more members are working on a feature, both members should communicate and coordinate commits and merges to ensure smooth changes and prevent and conflicts before merging.
-  > 4. If a conflict occurs during a commit, both team members will need to coordinate and resolve conflicts collaboratively to ensure application functionality.
-  > 5. Once dependent features are done and no conflicts exist, notify the Scrum Master to complete the tasks.
+> 1. Team members will notify the Scrum Master (SM) and the team in Discord when their tasks involve interacting features.
+> 2. A brief discussion will be held during the standup or planning session to outline dependencies, shared responsibilities, and integration points(IE: Person A is reworking a feature that has dependencies and should expect certain features to not work until the task is finished.
+> 3. If 2 or more members are working on a feature, both members should communicate and coordinate commits and merges to ensure smooth changes and prevent and conflicts before merging.
+> 4. If a conflict occurs during a commit, both team members will need to coordinate and resolve conflicts collaboratively to ensure application functionality.
+> 5. Once dependent features are done and no conflicts exist, notify the Scrum Master to complete the tasks.
 
 
 **Unit Tests Blackbox** (start Sprint 2)
-  > Describe your Blackbox testing policy 
+> Blackbox testing will test API module main methods for good JSON format.
+> Team member will ensure information is properly stored in models.
+> Team members will ensure client can access these fields.
+> Team member will construct mock objects with Mockito to ensure
+> Will use proper assert statements to check state
 
- **Unit Tests Whitebox** (online: start Sprint 2, campus: start Sprint 3)
-  > Describe your Whitebox testing policy 
+**Unit Tests Whitebox** (online: start Sprint 2, campus: start Sprint 3)
+> BVA and 80% node coverage, 60% branch coverage
+> Whitebox testing will test API module main methods for good JSON format.
+> Team member will ensure information is properly stored in models.
+> Team members will ensure client can access these fields.
+> Team member will construct mock objects with Mockito to ensure
+> Will use proper assert statements to check state
 
 **Code Review** (online: start Sprint 2, campus: start Sprint 2)
-  > - Describe your Code Review policy for on campus it is ok to have a less formal process in Sprint 2,
-  > should be updated in Sprint 3 though.
-  > - Include a checklist/questions list which every developer will need to fill out/answer when creating a
-  > - Pull Request to the Dev branch.
-  > - Include a checklist/question list which every reviewer will need to fill out/answer when conducting a ting a
-  > review, this checklist (and the answers of course) need to be put into the Pull Request review.
+### Code Review Defect List:
+To track issues found during Code Review
+
+### Reviewer: []            GH Repo: []
+
+| **ID** | **Location** | **Problem Description**                                          | **Problem Category**| **Problem Severity** |
+|--------|--------------|------------------------------------------------------------------|---------------------|----------------------|
+| 001    |              |                                                                  |                     |                      |
+| 002    |              |                                                                  |                     |                      | 
+
+**View coding standards doc for definitions**
+**Category: CS- Code Smell defect. CG- Violation of a coding guideline. Provide the guideline number. FD- Functional Defect. Code will not produce the expected result. MD- Miscellaneous defect, for all other defects.**
+**Severity: BR-Blocker, must be fixed ASAP. MJ- Major, of high importance, but not a Blocker. LOW- low.***
 
 **Static Analysis**  (online: start Sprint 3, campus: start Sprint 3)
-  > Your Static Analysis policy   
+> Your Static Analysis policy
 
 **Continuous Integration**  (start Sprint 3, campus: start Sprint 3)
-  > Your Continuous Integration policy
+> Your Continuous Integration policy
