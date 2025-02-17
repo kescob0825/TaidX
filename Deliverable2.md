@@ -21,18 +21,16 @@ Fill out your Sprint Planning here, based on the kickoff document and your team'
 - **Sprint Goal**: Further enhance and expand the types of API calls made and add UI enhancements.
 
 #### Product Backlog & Sprint Backlog:
-- **User Stories in Product Backlog**: 2
-- **User Stories in Sprint Backlog**: 6
+- **User Stories in Product Backlog**: 3
+- **User Stories in Sprint Backlog**: 5
 
 #### Sprint Planning Questions:
 - **Why did you select these User Stories for this Spring?**
-  > These were logically the next in development, Login and user information needed to be pulled in order to be
-> able to call stats and other information.
+  > These were logically the next in development, Login and user information needed to be pulled in order to be able to call stats and other information.
 
 #### Sprint Planning Questions:
 - **Why do you think you can complete them in this Sprint?**
-  > We don't think we can complete the entire backlog of US's, but we wanted enough tasks with different skill sets to allow
-  > everyone a chance to contribute
+  > We don't think we can complete the entire backlog of US's, but we wanted enough tasks with different skill sets to allow everyone a chance to contribute
 
 - **How do these User Stories align with the Sprint Goal?**
   > They all enhance the UI and the API allow the client to call and gather all needed information
@@ -64,13 +62,18 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 
 #### Sprint Review Questions:
 - **What value did you create during this Sprint?**
-    > _Your Answer_
+    > For this sprint, we implemented the UI for multiple aspects of the Memoranda project to align with 
+      the Taiga website. We successfully integrated data from Taiga into several UI components, ensuring 
+      that the displayed information accurately reflects the data from the API. Overall, we met our sprint 
+      goal by expanding the variety of API calls used and enhancing the UI for better user experience.
 
 - **Do you feel you worked enough and met expectations?**
-    > _Your Answer_
+    > Yes, as a group, we collaborated effectively to ensure that all user stories and tasks were Completed.
+      We also verified that each component functioned as intended, meeting expectations for this sprint.
 
 - **Did you meet the customers’ expectations? Why or why not?**
-    > _Your Answer_
+    > Yes, we believe we met the customers’ expectations for this sprint. Our goal was to further implement 
+      and enhance the necessary API calls and UI components, which we successfully completed.
 
 ---
 
@@ -78,36 +81,41 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 Provide clear answers based on your team’s actual data and performance.
 
 - **Did you meet your Sprint Goal?**
-    > _Your Answer_
+    > Yes, we met our sprint goal by expanding the variety of API calls used and enhancing the UI for better user experience.
 
 - **Did you complete all User Stories in the Sprint Backlog?**
-    > _Yes/No and evidence_
+    > No, there are still 3 User Stories in the Sprint Backlog that we were unable to complete.
 
 - **If not, what went wrong?**
-    > _Your Answer_
+    > We underestimated the time required to implement the UI and expand the API calls. Despite this, 
+      we successfully completed 5 User Stories, totaling 23 tasks, which allowed us to meet our Sprint Goal 
+      even with the remaining items in the backlog.
 
 - **Did you work at a consistent rate or velocity?**
-    > _Your Answer_ (Provide evidence: task completion rate, Git commit rate, etc.)
+    > Yes, we worked consistently, pushing commits almost every day and ensuring that each modification 
+      did not impact on the functionality of other components.
 
 - **Did you deliver business value and what was it?**
-    > _Your Answer_
+    > Yes, we successfully implemented a UI with API calls that accurately retrieve and display data from Taiga,enhanching the project's functionality and user experience.
 
 - **Did you follow the Scrum process (e.g., moving tasks, updating boards, etc.)?**
-    > _Your Answer_
+    > Yes, we followed the Scrum process by consistently updating the Scrum board and maintaining clear 
+      communication within the team. This helped us avoid conflicts when merging changes across different 
+      User Stories and Pull Requests.
 
 - **Is there anything you could improve for the next Sprint? (For the last Sprint mention what you would do if you were to continue)**
-    > _Your Answer_
+    > Yes, we could implement additional API calls to retrieve more data for the other UIs we developed. Additionally, we could improve test coverage by creating more test cases for both the UI implementations and API calls.
 
 - **How do you feel about the Sprint? (Team optimism pulse)**
-    > _Your Answer_
+    > Overall, this Sprint was both challenging and ambitious, but we successfully completed the User Stories to the best of our abilities. We delivered a product that effectively demonstrates our vision for the project: integrating Taiga’s API to display data accurately.
 
 ---
 
 ### Burndown Chart (For Sprint 2 and 3):
-Please include a screenshot of your Burndown chart here, and provide a detailed analysis. 
+![alt text](image.png) 
 - **Analysis of Burndown**: _Why does it look like this? What would you improve?_
 
-> _Your Answer_
+> As mentioned in our Sprint Retrospective, we underestimated the time required to implement the UIs and    expand the API calls. To improve this in future sprints, we should break tasks down into smaller, more manageable units. For example, one sprint could focus solely on UI implementation and data presentation, while a subsequent sprint could focus on integrating Taiga’s API into the UIs. This approach would help us better define each User Story and task, leading to a more accurate estimation of the time required for each.
 
 ---
 
@@ -115,7 +123,54 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 > This section should be filled out by each team member. Below is the structure for how each team member will describe their contributions. You may copy and paste the template below for each person.
 
-### Team Member [Name]
+### Team Member [Andrew]
+
+#### Consistency and Effort: 
+- **Did you work consistently and contribute enough to the project?**
+    > _Your Answer_
+
+- **What buisiness value did you deliver personally?**
+    > _Your Answer_
+
+### Team Member [Edwin]
+
+#### Consistency and Effort: 
+- **Did you work consistently and contribute enough to the project?**
+    > Yes, I consistently pushed commits related to US27 (previously known as US33) and ensured that
+    changes were merged correctly without overriding functionality implemneted by others. 
+
+- **What buisiness value did you deliver personally?**
+    >I developed the UI for the Scrum Board, and with the help of Jedi, we successfully integrated data
+    from Taiga to display User Stories and tasks. 
+
+### Team Member [Jedi]
+
+#### Consistency and Effort:
+- **Did you work consistently and contribute enough to the project?**
+    > _Your Answer_
+
+- **What buisiness value did you deliver personally?**
+    > _Your Answer_
+
+### Team Member [Jimmy]
+
+#### Consistency and Effort:
+- **Did you work consistently and contribute enough to the project?**
+    > _Your Answer_
+
+- **What buisiness value did you deliver personally?**
+    > _Your Answer_
+
+### Team Member [Karl]
+
+#### Consistency and Effort:
+- **Did you work consistently and contribute enough to the project?**
+    > _Your Answer_
+
+- **What buisiness value did you deliver personally?**
+    > _Your Answer_
+
+### Team Member [Mohammed]
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
@@ -128,20 +183,29 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 Please provide the links to your key contributions on GitHub. Include **commits, pull requests**, and other important work items.
 
 - **GitHub Commits (Up to 5)**
-    - [Commit 1](link) - _Short description of what the commit is about_
+    - [Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/8f30861ff097487511be5794d17b6a2c896e8dc4) - Last commit made to complete US27. We cleaned the code in multiple clases to delet tabs that were not being used and added functionlity for the 'Needs Info' tab to correctly populate.
     - [Commit 2](link) - _Short description of what the commit is about_
+    - [Commit 3](link) - _Short description of what the commit is about_
+    - [Commit 4](link) - _Short description of what the commit is about_
+    - [Commit 5](link) - _Short description of what the commit is about_
 
 - **GitHub Pull Requests (Up to 3)**
-    - [PR 1](link) - _Short description of the PR_
-    - [PR 2](link) - _Short description of the PR_
+    - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/16) - PR to merge changes from US27 into Dev. This PR has multiple changes made accross three USs due to the team working together to solve
+    future merging conflicts. 
+    - [PR 2](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/21) - Last PR to merge our dev branch into main. We had to create a new branch called reset-master to solve conflicts and being able to merge succesfully.  
 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
-    - [Test 1](link) - _Short description of the test_
-    - [Test 2](link) - _Short description of the test_
+    - [Test 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13359598134) - Last test with CI with Gradle made when merging into main. Build and dependency-submissions passed. 
+    - [Test 2](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13351049792) - Commit to US27 to fix a build problem on the previous commit due to missing some files. This commit fixed it and passed bot Build and dependency sumissions in CI with Gradle. 
+    - [Test 3](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13350078859) - This was a PR from US31 into main, succesfully passed both build and dependency submision in CI with gradle. 
+
 
 - **Code Reviews (Up to 3, start in Sprint 2)**
-    - [Review 1](link) - _Short description of the code review_
-    - [Review 2](link) - _Short description of the code review_
+    - [Review 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/16) - Code Review provided by Karl to merge US27 into Dev. 
+    - [Review 2](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/13) - Code Review provided by Edwin to merge US31 into Dev. 
+    - [Review 3](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/12) - Code Review provided to merge US25 into dev. Mistakenly, this was pushed to master and later on was reverted to ensure we could
+    merge properly into dev. 
+
 
 - **Static Analysis Contributions (Start in Sprint 3)**
     - [Static Analysis 1](link) - _Short description of the analysis contribution_
