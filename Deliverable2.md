@@ -112,7 +112,7 @@ Provide clear answers based on your team’s actual data and performance.
 ---
 
 ### Burndown Chart (For Sprint 2 and 3):
-![alt text](image.png) 
+![Screenshot 2025-02-01 at 22.36.32.png](LinearProgressionChartSprint2.png) 
 - **Analysis of Burndown**: _Why does it look like this? What would you improve?_
 
 > As mentioned in our Sprint Retrospective, we underestimated the time required to implement the UIs and    expand the API calls. To improve this in future sprints, we should break tasks down into smaller, more manageable units. For example, one sprint could focus solely on UI implementation and data presentation, while a subsequent sprint could focus on integrating Taiga’s API into the UIs. This approach would help us better define each User Story and task, leading to a more accurate estimation of the time required for each.
