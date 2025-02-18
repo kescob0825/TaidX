@@ -138,10 +138,15 @@ Provide clear answers based on your team’s actual data and performance.
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+  > Yes, however I need to get better at pushing commits related to my US instead of just updating and working directly 
+  > within my local branch. While I finished my task related to my US27 (previously assigned to US33),I added extra 
+  > fields to build out and provide more substance than the minimum requirement. I was also able to push my update 
+  > without any conflicts with others also on that same branch. 
 
-- **What buisiness value did you deliver personally?**
-  > _Your Answer_
+- **What business value did you deliver personally?**
+  > I added the individual stats page that is currently just setup for baseline data points (hardcoded values that will
+  > need updated for dynamic use in later sprints) but also provides the framework to build out what can later 
+  > be implemented. 
 
 ### Team Member [Edwin]
 
@@ -213,7 +218,7 @@ Provide clear answers based on your team’s actual data and performance.
     - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/f7964211360cf8fcc5d016b1ae0b302b6a5eab84) - Last commit made to provide the API implementation logic of pulling milestone information and displaying it on the table.
     - [Commit 3](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/feb4ee3e788f7b312ecb929ec8d34745c564c1f1) - Last commit made to complete US31 to display Team Stats, after bug fixes and edge case re-factorization.
     - [Commit 4](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/85abfcfce89e5570249b204e622e85b17872cc6a) - Finish front and backend implementation of US25
-    - [Commit 5](link) - _Short description of what the commit is about_
+    - [Commit 5](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/95e8907785cabcf26328df44dbf9258dffbf2487) - Individual stats page related to US27
 
 - **GitHub Pull Requests (Up to 3)**
     - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/16) - PR to merge changes from US27 into Dev. This PR has multiple changes made across three USs due to the team working together to solve
