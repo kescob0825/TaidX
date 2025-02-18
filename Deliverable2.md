@@ -52,6 +52,7 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 | _2/5/2025_  | _Everyone Showed_                      | _Sprint planning and creating tasks for User Stories_         | _On track_               | _Pass/Fail_                                 | _Other relevant info_ |
 | _2/10/2025_ | _Mohammad didn't show but gave status_ | _Further spring planning and deleting a US due to redundency_ | _On track_               | _Pass/Fail_                                 | _Other relevant info_ |
 | _2/12/2025_ | _Mohammad didn't show up_              | _Checking up on everyone's progress_                          | _On track_               | _Pass/Fail_                                 | _Other relevant info_ |
+| _2/16/2025_ | _Everyone showed_                      | _Finishing US and tasks_                                      | _On track_               | _Pass/Fail_                                 | _Other relevant info_ |
 ---
 
 ## 3: After the Sprint
@@ -139,7 +140,7 @@ Provide clear answers based on your team’s actual data and performance.
     > Yes, I consistently pushed commits related to US27 (previously known as US33) and ensured that
     changes were merged correctly without overriding functionality implemneted by others. 
 
-- **What buisiness value did you deliver personally?**
+- **What business value did you deliver personally?**
     >I developed the UI for the Scrum Board, and with the help of Jedi, we successfully integrated data
     from Taiga to display User Stories and tasks. 
 
@@ -149,17 +150,21 @@ Provide clear answers based on your team’s actual data and performance.
 - **Did you work consistently and contribute enough to the project?**
     > _Your Answer_
 
-- **What buisiness value did you deliver personally?**
+- **What business value did you deliver personally?**
     > _Your Answer_
 
 ### Team Member [Jimmy]
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-    > _Your Answer_
+    > _Yes I did, I commited consistently for every 2-3 days on US27 and ensured that my tables/UI elements were functional
+        the values didn't contain the API implementation yet._
 
-- **What buisiness value did you deliver personally?**
-    > _Your Answer_
+- **What business value did you deliver personally?**
+    > _I helped develop UI elements for the Scrum Board and Product Backlog. While a majority of these tables don't
+    have API logic implemented yet, I believe that helping team members and potential stakeholders in a real life
+    setting allows for them to see what types of plans are developing behind the scenes as well as show them what they
+    can expect once the product is nearing completion._
 
 ### Team Member [Karl]
 
@@ -176,7 +181,7 @@ Provide clear answers based on your team’s actual data and performance.
 - **Did you work consistently and contribute enough to the project?**
     > _Your Answer_
 
-- **What buisiness value did you deliver personally?**
+- **What business value did you deliver personally?**
     > _Your Answer_
 
 #### GitHub Links to Work:
@@ -184,7 +189,7 @@ Please provide the links to your key contributions on GitHub. Include **commits,
 
 - **GitHub Commits (Up to 5)**
     - [Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/8f30861ff097487511be5794d17b6a2c896e8dc4) - Last commit made to complete US27. We cleaned the code in multiple clases to delet tabs that were not being used and added functionlity for the 'Needs Info' tab to correctly populate.
-    - [Commit 2](link) - _Short description of what the commit is about_
+    - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/f7964211360cf8fcc5d016b1ae0b302b6a5eab84) - _Last commit made to provide the API implementation logic of pulling milestone information and displaying it on the table_
     - [Commit 3](link) - _Short description of what the commit is about_
     - [Commit 4](link) - _Short description of what the commit is about_
     - [Commit 5](link) - _Short description of what the commit is about_
