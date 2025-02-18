@@ -170,10 +170,17 @@ Provide clear answers based on your team’s actual data and performance.
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-    > _Your Answer_
+    > _Yes, I consistently committed new additions to the UI in Team Stats page under US31 throughout the 
+    entire sprint. Furthermore, I've completely redone the left hand panel of the Profile Page to be more 
+    presentable. Lastly, Bugs which were spotted by Jedi were updated to ensure that we deliver a functional
+    software._
 
-- **What buisiness value did you deliver personally?**
-    > _Your Answer_
+- **What business value did you deliver personally?**
+    > _I developed the UI display of the Team Stats page, and redid the entire left-hand panel of the profile page.
+       While the logic behind the Team Stats page has not been fully implemented yet, the UI is ready to display
+       the correct data with the correct calculation to define each member's contribution. In addition, the Profile
+       Page UI now displays the user's roles, number of closed US, number of projects, and number of contacts, along
+       with its backend implementation to retrieve the user's stats from Taiga API_
 
 ### Team Member [Mohammed]
 
@@ -188,9 +195,9 @@ Provide clear answers based on your team’s actual data and performance.
 Please provide the links to your key contributions on GitHub. Include **commits, pull requests**, and other important work items.
 
 - **GitHub Commits (Up to 5)**
-    - [Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/8f30861ff097487511be5794d17b6a2c896e8dc4) - Last commit made to complete US27. We cleaned the code in multiple clases to delet tabs that were not being used and added functionlity for the 'Needs Info' tab to correctly populate.
-    - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/f7964211360cf8fcc5d016b1ae0b302b6a5eab84) - _Last commit made to provide the API implementation logic of pulling milestone information and displaying it on the table_
-    - [Commit 3](link) - _Short description of what the commit is about_
+    - [Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/8f30861ff097487511be5794d17b6a2c896e8dc4) - Last commit made to complete US27. We cleaned the code in multiple classes to delete tabs that were not being used and added functionality for the 'Needs Info' tab to correctly populate.
+    - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/f7964211360cf8fcc5d016b1ae0b302b6a5eab84) - _Last commit made to provide the API implementation logic of pulling milestone information and displaying it on the table._
+    - [Commit 3](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/feb4ee3e788f7b312ecb929ec8d34745c564c1f1) - _Last commit made to complete US31 to display Team Stats, after bug fixes and edge case re-factorization._
     - [Commit 4](link) - _Short description of what the commit is about_
     - [Commit 5](link) - _Short description of what the commit is about_
 
