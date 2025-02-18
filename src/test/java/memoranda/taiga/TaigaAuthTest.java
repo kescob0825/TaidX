@@ -22,8 +22,14 @@ import java.nio.file.Paths;
 public class TaigaAuthTest {
     private static JSONObject authResponse;
     private static JSONObject emptyResponseBody;
+    /**
+     * Mock object for OkHttpClient.
+     */
     @Mock
     private OkHttpClient mockClient;
+    /**
+     * Mock object for ObjectMapper.
+     */
     @Mock
     private ObjectMapper mockMapper;
 

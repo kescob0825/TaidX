@@ -22,12 +22,21 @@ import static org.mockito.Mockito.when;
 public class InviteTest {
     private static JSONArray mockInviteData;
     private static JSONObject emptyResponseBody;
-
+    /**
+     * Mock object for OkHttpClient.
+     */
     @Mock
     private OkHttpClient mockClient;
+    /**
+     * Mock object for ObjectMapper.
+     */
     @Mock
     private ObjectMapper mockMapper;
 
+    /**
+     * Set up method to initialize mock data and objects.
+     * @throws IOException if an I/O error occurs
+     */
     @BeforeAll
     public static void setUp() throws IOException {
         mockInviteData = new JSONArray(new String(
@@ -35,6 +44,10 @@ public class InviteTest {
         emptyResponseBody = new JSONObject();
     }
 
+    /**
+     * Test case for successful member invitation.
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void inviteMemberPass() throws IOException {
         String token = "Dummy token";
@@ -68,6 +81,10 @@ public class InviteTest {
         assertEquals(200, inviteMember.getLastResponseCode());
     }
 
+    /**
+     * Test case for failed member invitation.
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void inviteMemberFail() throws IOException {
         String token = "Dummy token";
@@ -100,6 +117,10 @@ public class InviteTest {
         assertEquals(400, inviteMember.getLastResponseCode());
     }
 
+    /**
+     * Test case for successful members invitation.
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void inviteMembersPass() throws IOException {
         String token = "Dummy token";
@@ -132,6 +153,10 @@ public class InviteTest {
         assertEquals(200, inviteMember.getLastResponseCode());
     }
 
+    /**
+     * Test case for failed members invitation.
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void inviteMembersFail() throws IOException {
         String token = "Dummy token";

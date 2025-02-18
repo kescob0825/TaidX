@@ -21,11 +21,22 @@ public class MilestoneTest {
     private static JSONArray milestonesResponse;
     private static JSONObject singleMilestoneResponse;
     private static JSONObject emptyResponseBody;
+
+    /**
+     * Mock object for OkHttpClient.
+     */
     @Mock
     private OkHttpClient mockClient;
+    /**
+     * Mock object for ObjectMapper.
+     */
     @Mock
     private ObjectMapper mockMapper;
 
+    /**
+     * Set up method to initialize mock data and objects.
+     * @throws IOException if an I/O error occurs
+     */
     @BeforeAll
     public static void setUp() throws IOException {
         milestonesResponse = new JSONArray(new String(
@@ -35,6 +46,10 @@ public class MilestoneTest {
         emptyResponseBody = new JSONObject();
     }
 
+    /**
+     * Test case to verify getting the Milestones
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testGetMilestones() throws IOException {
         String token = "Dummy token";
@@ -66,6 +81,10 @@ public class MilestoneTest {
         assertEquals(200, milestone.getLastResponseCode());
     }
 
+    /**
+     * Test case to verify getting the Milestones
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testGetMilestone() throws IOException {
         String token = "Dummy token";
@@ -95,7 +114,10 @@ public class MilestoneTest {
         assertEquals("Sprint 2", milestone.getSprintDataList().get(0).getSprintName());
         assertEquals(200, milestone.getLastResponseCode());
     }
-
+    /**
+     * Test case to verify getting the Milestones fail
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testGetMilestoneFail() throws IOException {
         String token = "Dummy token";

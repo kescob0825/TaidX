@@ -27,8 +27,14 @@ public class TasksTest {
     private static JSONObject singleOpenTaskResponse;
     private static JSONArray tasksClosedResponse;
     private static JSONObject emptyResponseBody;
+    /**
+     * Mock object for OkHttpClient.
+     */
     @Mock
     private OkHttpClient mockClient;
+    /**
+     * Mock object for ObjectMapper.
+     */
     @Mock
     private ObjectMapper mockMapper;
 
