@@ -205,10 +205,12 @@ Provide clear answers based on your team’s actual data and performance.
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+  > Yes, I consistently contributed by implementing multiple Scrum boards, merging my changes, and 
+  > participating in team meeetings and accepted feedback.
 
 - **What business value did you deliver personally?**
-  > _Your Answer_
+  > I add business value by developing the UI for multiple Scrum boards, allowing the team to track
+  > User Stories and tasks efficiently, improving overall productivity.
 
 #### GitHub Links to Work:
 **Please provide the links to your key contributions, on GitHub. Include **commits, pull requests**, and other important work items.**
