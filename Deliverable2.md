@@ -59,7 +59,7 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 
 ### Sprint Review (Answer as a team)
 #### Screen Cast Link:  
-- _Insert the link to your Sprint review screencast here._
+[YouTube Screencast](https://www.youtube.com/watch?v=cf3RAHO-_Bk)
 
 #### Sprint Review Questions:
 - **What value did you create during this Sprint?**
@@ -248,17 +248,21 @@ Provide clear answers based on your team’s actual data and performance.
 
 Before submitting your Sprint deliverables, make sure to check the following items:
 
-- [ ] This document is complete and well-formatted.
-- [ ] Your software is on the master branch on GitHub, it is tested and compiles/runs.
-- [ ] Your document is on your GitHub repository.
-- [ ] Read the Kickoff Document again to ensure you followed all instructions.
-- [ ] User Stories that were not completed have been moved to the next Sprint’s backlog.
-- [ ] Quality Policies are up-to-date and accurate.
-- [ ] Individual Sprint Surveys have been submitted (one per team member).
-    - [ ] Team member 1
-    - [ ] Team member 2
-- [ ] The original template has been copied for the next Sprint (except for the last Sprint).
-- [ ] New User Stories for the next Sprint are added and well-defined.
+- [X] This document is complete and well-formatted.
+- [X] Your software is on the master branch on GitHub, it is tested and compiles/runs.
+- [X] Your document is on your GitHub repository.
+- [X] Read the Kickoff Document again to ensure you followed all instructions.
+- [X] User Stories that were not completed have been moved to the next Sprint’s backlog.
+- [X] Quality Policies are up-to-date and accurate.
+- [X] Individual Sprint Surveys have been submitted (one per team member).
+    - [X] Team member Jedi
+    - [X] Team member Edwin
+    - [X] Team member Karl
+    - [X] Team member Jimmy
+    - [X] Team member Andrew
+    - [X] Team member Mohammed
+- [X] The original template has been copied for the next Sprint (except for the last Sprint).
+- [X] New User Stories for the next Sprint are added and well-defined.
 
 #### For the next Sprint:
 - [ ] New User Stories have acceptance tests and initial tasks.
