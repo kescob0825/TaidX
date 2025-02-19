@@ -1,0 +1,24 @@
+[
+  {
+    "project": 1,
+    "role": 3,
+    "username": "test-user@email-test.com"
+  },
+  {
+    "project": 1,
+    "username": "test-user@email-test.com"
+  },
+  {
+    "bulk_memberships": [
+      {
+        "role_id": 3,
+        "username": "test@test.com"
+      },
+      {
+        "role_id": 4,
+        "username": "john@doe.com"
+      }
+    ],
+    "project_id": 1
+  }
+]
