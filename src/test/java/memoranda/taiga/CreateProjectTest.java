@@ -24,11 +24,22 @@ public class CreateProjectTest {
     private static JSONArray mockCreateProjectJSONObjects;
     private static JSONObject emptyResponseBody;
 
+    /**
+     * Mock object for OkHttpClient.
+     */
     @Mock
     private OkHttpClient mockClient;
+
+    /**
+     * Mock object for ObjectMapper.
+     */
     @Mock
     private ObjectMapper mockMapper;
 
+    /**
+     * Set up method to initialize mock data and objects.
+     * @throws IOException if an I/O error occurs
+     */
     @BeforeAll
     public static void setUp() throws IOException {
         mockCreateProjectJSONObjects = new JSONArray(new String(
@@ -36,6 +47,11 @@ public class CreateProjectTest {
         emptyResponseBody = new JSONObject();
     }
 
+    /**
+     * Test case for creating a project with a valid token and JSON object.
+     * Verifies that the HTTP request method is POST and the response code is 200 (OK).
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testCreateProjects0() throws IOException {
         String token = "Dummy token";
@@ -69,6 +85,11 @@ public class CreateProjectTest {
         assertEquals(200, createProject.getLastResponseCode());
     }
 
+    /**
+     * Test case for creating a project with a valid token and JSON object.
+     * Verifies that the HTTP request method is POST and the response code is 200 (OK).
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testCreateProjects1() throws IOException {
         String token = "Dummy token";
@@ -102,6 +123,11 @@ public class CreateProjectTest {
         assertEquals(200, createProject.getLastResponseCode());
     }
 
+    /**
+     * Test case for creating a project with a valid token and JSON object.
+     * Verifies that the HTTP request method is POST and the response code is 400 (Bad Request).
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testCreateProjects2() throws IOException {
         String token = "Dummy token";

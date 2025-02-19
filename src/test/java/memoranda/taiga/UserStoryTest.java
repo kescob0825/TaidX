@@ -20,8 +20,15 @@ public class UserStoryTest {
     private static JSONArray userStoriesResponse;
     private static JSONObject singleUserStoryResponse;
     private static JSONObject emptyResponseBody;
+
+    /**
+     * Mock object for OkHttpClient.
+     */
     @Mock
     private OkHttpClient mockClient;
+    /**
+     * Mock object for ObjectMapper.
+     */
     @Mock
     private ObjectMapper mockMapper;
 

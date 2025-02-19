@@ -29,8 +29,14 @@ public class ProjectsTest {
     private static JSONObject emptyResponseBody;
     private static JSONArray projectRolesResponse;
 
+    /**
+     * Mock object for OkHttpClient.
+     */
     @Mock
     private OkHttpClient mockClient;
+    /**
+     * Mock object for ObjectMapper.
+     */
     @Mock
     private ObjectMapper mockMapper;
 
@@ -50,6 +56,14 @@ public class ProjectsTest {
         emptyResponseBody = new JSONObject();
     }
 
+    /**
+     * Test method for getProjects
+     * This method tests the getProjects method of the TaigaClient class
+     * It mocks the OkHttpClient and ObjectMapper objects
+     * It also mocks the Call and Response objects
+     * It then tests the getProjects method with a valid and invalid token
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testGetProjectsPass() throws IOException {
         String token = "Dummy token";
@@ -79,6 +93,14 @@ public class ProjectsTest {
 
     }
 
+    /**
+     * Test method for getProjects Failure
+     * This method tests the getProjects method of the TaigaClient class
+     * It mocks the OkHttpClient and ObjectMapper objects
+     * It also mocks the Call and Response objects
+     * It then tests the getProjects method with a valid and invalid token
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testGetProjectsFail() throws IOException {
         String token = "Dummy token";
@@ -108,6 +130,14 @@ public class ProjectsTest {
 
     }
 
+    /**
+     * Test method for getProjects Roles Pass
+     * This method tests the getProjects method of the TaigaClient class
+     * It mocks the OkHttpClient and ObjectMapper objects
+     * It also mocks the Call and Response objects
+     * It then tests the getProjects method with a valid and invalid token
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testGetProjectsSinglePass() throws IOException {
         String token = "Dummy token";
@@ -136,6 +166,15 @@ public class ProjectsTest {
         assertEquals(200, taigaProject.getLastResponseCode());
 
     }
+
+    /**
+     * Test method for getProjects Single Failure
+     * This method tests the getProjects method of the TaigaClient class
+     * It mocks the OkHttpClient and ObjectMapper objects
+     * It also mocks the Call and Response objects
+     * It then tests the getProjects method with a valid and invalid token
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testGetProjectsSingleFail() throws IOException {
         String token = "Dummy token";
@@ -165,6 +204,14 @@ public class ProjectsTest {
 
     }
 
+    /**
+     * Test method for getProjects Roles Pass
+     * This method tests the getProjects method of the TaigaClient class
+     * It mocks the OkHttpClient and ObjectMapper objects
+     * It also mocks the Call and Response objects
+     * It then tests the getProjects method with a valid and invalid token
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testGetProjectsRolesPass() throws IOException {
         String token = "Dummy token";
@@ -193,6 +240,15 @@ public class ProjectsTest {
         assertEquals(200, taigaProject.getLastResponseCode());
 
     }
+
+    /**
+     * Test method for getProjects Roles Failure
+     * This method tests the getProjects method of the TaigaClient class
+     * It mocks the OkHttpClient and ObjectMapper objects
+     * It also mocks the Call and Response objects
+     * It then tests the getProjects method with a valid and invalid token
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testGetProjectsRolesFail() throws IOException {
         String token = "Dummy token";
@@ -222,6 +278,14 @@ public class ProjectsTest {
 
     }
 
+    /**
+     * Test method for getProjects Roles Pass
+     * This method tests the getProjects method of the TaigaClient class
+     * It mocks the OkHttpClient and ObjectMapper objects
+     * It also mocks the Call and Response objects
+     * It then tests the getProjects method with a valid and invalid token
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testSetProjectsRolesPass() throws IOException {
         String token = "Dummy token";
@@ -249,6 +313,14 @@ public class ProjectsTest {
         assertEquals(200, taigaProject.getLastResponseCode());
     }
 
+    /**
+     * Test method for getProjects Roles Failure
+     * This method tests the getProjects method of the TaigaClient class
+     * It mocks the OkHttpClient and ObjectMapper objects
+     * It also mocks the Call and Response objects
+     * It then tests the getProjects method with a valid and invalid token
+     * @throws IOException if an I/O error occurs
+     */
     @Test
     public void testSetProjectsRolesFail() throws IOException {
         String token = "Dummy token";
