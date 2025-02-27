@@ -139,17 +139,21 @@ public class ScrumToolBarCards extends JPanel{
         TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
         List<ProjectData> projects = taigaClient.getProjectsList();
 
-        ProjectData project = projects.get(0);
+        try {
+            ProjectData project = projects.get(0); 
 
-        for (UserStoryNode userStory : project.getProjectUserStoryList()) {
-            if (userStory.getMilestoneId() == 0 && project.getProjectId() == 1626157) {
-                data.add(new Object[]{
-                    "\u22EE", project.getProjectName(), project.getProjectId(),
-                    "#" + userStory.getRefNumber() + " " + userStory.getUserStorySubject(),
-                    userStory.getStatus(),
-                    "\u2056" 
-                });
+            for (UserStoryNode userStory : project.getProjectUserStoryList()) {
+                if (userStory.getMilestoneId() == 0 && project.getProjectId() == 1626157) {
+                    data.add(new Object[]{
+                        "\u22EE", project.getProjectName(), project.getProjectId(),
+                        "#" + userStory.getRefNumber() + " " + userStory.getUserStorySubject(),
+                        userStory.getStatus(),
+                        "\u2056" 
+                    });
+                }
             }
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
         }
 
         return data;
