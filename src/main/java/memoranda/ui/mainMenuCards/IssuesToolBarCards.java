@@ -1,5 +1,7 @@
 package memoranda.ui.mainMenuCards;
 
+import memoranda.ui.mainMenuCards.issueSubMenuCards.Overview;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -43,48 +45,8 @@ public class IssuesToolBarCards extends JPanel{
     }
 
     private JPanel createSPCard() {
-        JPanel panel = new JPanel(new BorderLayout());
 
-        // Top Panel for Filters, Search, and New Issue Button
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
-        topPanel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Add some padding
-
-        // Filters Button
-        JButton filtersButton = new JButton("Filters");
-        topPanel.add(filtersButton);
-        topPanel.add(Box.createHorizontalStrut(5)); // Add some space
-
-        // Search Bar
-        JTextField searchField = new JTextField();
-        searchField.setPreferredSize(new Dimension(200, searchField.getPreferredSize().height));
-        topPanel.add(searchField);
-        topPanel.add(Box.createHorizontalStrut(5)); // Add some space
-
-        // Tags Toggle
-        JToggleButton tagsButton = new JToggleButton("Tags");
-        topPanel.add(tagsButton);
-        topPanel.add(Box.createHorizontalStrut(5)); // Add some space
-
-        // New Issue Button
-        JButton newIssueButton = new JButton("+ New Issue");
-        topPanel.add(Box.createHorizontalGlue()); // Push button to the right
-        topPanel.add(newIssueButton);
-
-        panel.add(topPanel, BorderLayout.NORTH);
-
-        // Center Panel for Issue List (Placeholder)
-        JPanel centerPanel = new JPanel(new BorderLayout());
-        JTextArea issueList = new JTextArea("There are no issues to report!");
-        issueList.setEditable(false);
-        issueList.setAlignmentX(CENTER_ALIGNMENT);
-        centerPanel.add(issueList, BorderLayout.CENTER);
-
-        // Add a scroll pane for the issue list
-        JScrollPane scrollPane = new JScrollPane(issueList);
-        centerPanel.add(scrollPane, BorderLayout.CENTER);
-
-        panel.add(centerPanel, BorderLayout.CENTER);
+        Overview panel = new Overview();
 
         return panel;
     }

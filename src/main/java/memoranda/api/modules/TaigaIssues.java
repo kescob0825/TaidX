@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaigaIssues {
-    private static final String USER_STORY_URL = "https://api.taiga.io/api/v1/issues?project=";
+    private static final String ISSUES_URL = "https://api.taiga.io/api/v1/issues?project=";
     private final OkHttpClient httpClient;
     private IssuesData projectIssue;
     private List<IssuesData> projectIssueList;
@@ -29,7 +29,7 @@ public class TaigaIssues {
         String id = "Bearer " + token;
         String uidStr = Integer.toString(uid);
         Request request = new Request.Builder()
-                .url(USER_STORY_URL+uidStr)
+                .url(ISSUES_URL+uidStr)
                 .get()
                 .addHeader("Authorization", id)
                 .addHeader("Content-Type", "application/json")
@@ -55,31 +55,21 @@ public class TaigaIssues {
                 }
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonResponse = jsonArray.getJSONObject(i);
+                    // TODO: ownerObj can be deleted if not used
                     JSONObject ownerObj = new JSONObject();
                     if (!jsonResponse.isNull("owner_extra_info")) {
                         ownerObj = jsonResponse.getJSONObject("owner_extra_info");;
                     }
                     JSONObject statusObj = jsonResponse.getJSONObject("status_extra_info");
-                    JSONObject projectInfoObj = jsonResponse.getJSONObject("project_extra_info");
+                    JSONObject assignedToObj = jsonResponse.getJSONObject("assigned_to_extra_info");
 
                     //Create a new UserProfile object
                     projectIssue = new IssuesData(
-                            jsonResponse.optString("subject")
-                            /*jsonResponse.optInt("id"),
                             jsonResponse.optString("subject"),
-                            jsonResponse.optInt("total_points", 0),
-                            jsonResponse.optString("created_date"),
-                            jsonResponse.optString("modified_date"),
-                            jsonResponse.optString("finish_date", "null"),
-                            statusObj.optBoolean("is_closed"),
-                            ownerObj.optInt("id"),
-                            ownerObj.optString("username"),
                             statusObj.optString("name"),
-                            jsonResponse.getInt("project"),
-                            projectInfoObj.optString("name"),
-                            jsonResponse.optString("milestone_name", "product_backlog"),
-                            jsonResponse.optInt("milestone", 0),
-                            jsonResponse.optString("milestone_slug", "null")*/
+                            jsonResponse.optBoolean("is_closed"),
+                            assignedToObj.optString("full_name_display"),
+                            jsonResponse.optInt("project")
                     );
                     projectIssueList.add(projectIssue);
                 }
