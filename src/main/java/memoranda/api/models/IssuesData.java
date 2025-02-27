@@ -2,19 +2,19 @@ package memoranda.api.models;
 
 public class IssuesData {
 
+    String project_name;
     String subject;
     boolean is_closed;
     String status;
-    String assigned_to;
-    int project;
+    int project_id;
 
-    public IssuesData(String subject, String status, boolean is_closed,
-                      String assigned_to, int project) {
+    public IssuesData(String project_name, String subject, String status
+            , boolean is_closed, int project_id) {
+        this.project_name = project_name;
         this.subject = subject;
         this.status = status;
         this.is_closed = is_closed;
-        this.assigned_to = assigned_to;
-        this.project = project;
+        this.project_id = project_id;
     }
 
     public String getSubject() {
@@ -25,12 +25,8 @@ public class IssuesData {
         this.subject = subject;
     }
 
-    public boolean isIs_closed() {
+    public boolean isClosed() {
         return is_closed;
-    }
-
-    public void setIs_closed(boolean is_closed) {
-        this.is_closed = is_closed;
     }
 
     public String getStatus() {
@@ -41,19 +37,19 @@ public class IssuesData {
         this.status = status;
     }
 
-    public String getAssigned_to() {
-        return assigned_to;
+    public String getProject_name() {
+        return project_name;
     }
 
-    public void setAssigned_to(String assigned_to) {
-        this.assigned_to = assigned_to;
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
     }
 
-    public int getProject() {
-        return project;
+    public int getProject_id() {
+        return project_id;
     }
 
-    public void setProject(int project) {
-        this.project = project;
+    public void setProject_id(int project_id) {
+        this.project_id = project_id;
     }
 }

@@ -1,15 +1,12 @@
 package memoranda.api.modules;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import memoranda.api.models.IssuesData;
-import memoranda.api.models.UserStoryNode;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,19 +53,21 @@ public class TaigaIssues {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonResponse = jsonArray.getJSONObject(i);
                     // TODO: ownerObj can be deleted if not used
-                    JSONObject ownerObj = new JSONObject();
+                    /*JSONObject ownerObj = new JSONObject();
                     if (!jsonResponse.isNull("owner_extra_info")) {
                         ownerObj = jsonResponse.getJSONObject("owner_extra_info");;
-                    }
+                    }*/
+                    JSONObject projectInfoObj = jsonResponse.getJSONObject("project_extra_info");
                     JSONObject statusObj = jsonResponse.getJSONObject("status_extra_info");
-                    JSONObject assignedToObj = jsonResponse.getJSONObject("assigned_to_extra_info");
+                    // Assigned to is coming back as null
+                    // JSONObject assignedToObj = jsonResponse.getJSONObject("assigned_to_extra_info");
 
                     //Create a new UserProfile object
                     projectIssue = new IssuesData(
+                            projectInfoObj.optString("name"),
                             jsonResponse.optString("subject"),
                             statusObj.optString("name"),
                             jsonResponse.optBoolean("is_closed"),
-                            assignedToObj.optString("full_name_display"),
                             jsonResponse.optInt("project")
                     );
                     projectIssueList.add(projectIssue);
