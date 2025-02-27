@@ -4,9 +4,9 @@ import com.google.inject.Inject;
 import memoranda.Start;
 import memoranda.api.models.*;
 import memoranda.api.modules.*;
-import memoranda.ui.ExceptionDialog;
-import memoranda.ui.mainMenuCards.HomeToolBarCards;
 import memoranda.util.TaigaJsonData;
+import memoranda.util.subscriber.Publisher;
+import memoranda.util.subscriber.Subscriber;
 import okhttp3.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
@@ -17,10 +17,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 
-public class TaigaClient {
+public class TaigaClient implements Publisher {
     private static final String BASE_URL = "https://api.taiga.io/api/v1/";
     private final OkHttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -34,6 +33,7 @@ public class TaigaClient {
     protected final TaigaInvite taigaInvite;
     private final TaigaJsonData jsonData;
     protected int lastResponseCode;
+
     //Use for searching data
     public static Map<Integer, List<UserStoryNode>> allUserStories = new HashMap<>();
     public static Map<Integer, List<TaskNode>> allTasks = new HashMap<>();
@@ -43,7 +43,8 @@ public class TaigaClient {
     public static Map<Integer, List<UserStoryNode>> userStoryData = new HashMap<>();
     public static Map<Integer, List<TaskNode>> tasksData = new HashMap<>();
     public static Map<Integer, List<MilestoneData>> milestoneData = new HashMap<>();
-    private SwingWorker<List<String>, String>  backgroundReload;
+    private List<Subscriber> subscribers;
+    SwingWorker <Void, Void> worker;
 
     @Inject
     public TaigaClient() {
@@ -59,6 +60,18 @@ public class TaigaClient {
         this.taigaSprintModule = new TaigaMilestone(httpClient, objectMapper);
         this.createProject = new TaigaCreateProject(httpClient, objectMapper);
         this.taigaInvite = new TaigaInvite(httpClient);
+        this.subscribers = new ArrayList<>();
+        worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                Thread.sleep(30000); //wait 30 seconds for the changes to post on Taiga then pull them and update
+                initLoadProjectAndUserStoryData();
+                loadDataOnOpen();
+                notifySubscribers();
+                return null;
+            }
+        };
+
         try{
             this.jsonData = Start.getInjector().getInstance(TaigaJsonData.class);
         } catch (Exception e) {
@@ -78,7 +91,8 @@ public class TaigaClient {
         setLastResponseCode(authenticator.getLastResponseCode());
         initLoadProjectAndUserStoryData();
         initUserStatsData();
-        reloadData();
+        loadDataOnOpen();
+        notifySubscribers();
     }
 
     public void initLoadProjectAndUserStoryData() throws IOException {
@@ -135,7 +149,6 @@ public class TaigaClient {
             tasks.clearTaskNodes();
         }
         jsonData.saveAllConfigs();
-        System.out.println("Finished Initial Load");
     }
 
     public void loadDataOnOpen() throws IOException {
@@ -163,61 +176,16 @@ public class TaigaClient {
             }
             milestoneData.put(project.getProjectId(), new ArrayList<>(sprintDataList));
         }
-        System.out.println("Local Data Loaded");
     }
 
-    public void reloadData() {
-        JDialog status =  new JDialog();
-        JLabel  statusLabel = new JLabel("Reloading Data...");
-        status.setTitle("Reloading Data...");
-        status.add(statusLabel);
-        status.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
-        backgroundReload = new SwingWorker<List<String>, String> () {
-            @Override
-            protected List<String> doInBackground() throws Exception {
-                List<String> list = new ArrayList<>();
-                try{
-                    publish("Reloading Data...");
-                    initLoadProjectAndUserStoryData();
-                    publish("Data Reloaded Successfully.");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                return list;
-            }
-            @Override
-            protected void process(List<String> chunks) {
-                for (String chunk : chunks) {
-                    statusLabel.setText(chunk);
-                }
-            }
-            @Override
-            protected void done() {
-                try {
-                    get();
-                    jsonData.loadAllConfigs();
-                    loadDataOnOpen();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    e.printStackTrace();
-                } catch (ExecutionException | IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        backgroundReload.execute();
-    }
-
-    public void setProjectRolesClient(JSONObject setRolesData) throws IOException {
+    public void setProjectRolesClient(JSONObject setRolesData) throws IOException, InterruptedException {
         if (!this.isClientLoggedIn()) {
             JOptionPane.showMessageDialog(null, "Login to create a project.");
             return;
         }
         this.projects.setProjectRoles(this.authenticator.getAuthToken(), setRolesData);
         if (projects.getLastResponseCode() <= 201){
-            reloadData();
+            worker.execute();
         }
     }
 
@@ -237,14 +205,14 @@ public class TaigaClient {
         this.taigaInvite.inviteMember(this.authenticator.getAuthToken(), inviteData);
     }
 
-    public void createNewProject(JSONObject newProjectDataBody) throws IOException {
+    public void createNewProject(JSONObject newProjectDataBody) throws IOException, InterruptedException {
         if (!this.isClientLoggedIn()) {
             JOptionPane.showMessageDialog(null, "Login to create a project.");
             return;
         }
         createProject.createProject(this.authenticator.getAuthToken(), newProjectDataBody);
         if (createProject.getLastResponseCode() <= 201){
-            reloadData();
+            worker.execute();
         }
     }
     public boolean isClientLoggedIn() throws IOException {
@@ -333,4 +301,21 @@ public class TaigaClient {
         return authenticator.getUserProfile();
     }
 
+    @Override
+    public void register(Subscriber subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    @Override
+    public void unregister(Subscriber subscriber) {
+        subscribers.remove(subscriber);
+    }
+
+    // TODO pushes update after successful API call
+    @Override
+    public void notifySubscribers() throws IOException {
+        for (Subscriber subscriber : subscribers) {
+            subscriber.update();
+        }
+    }
 }

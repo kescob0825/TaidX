@@ -29,6 +29,7 @@ public class WorkPanel extends JPanel {
 	BorderLayout borderLayout1 = new BorderLayout();
 	JToolBar toolBar = new JToolBar();
 	JPanel panel = new JPanel();
+	private static WorkPanel instance;
 
 	CardLayout cardLayout;
 	CardLayout mainCardLayout;
@@ -60,7 +61,6 @@ public class WorkPanel extends JPanel {
 	 * Buttons for the submenus
 	 */
 	//Home
-
 	JButton profileButton = createSubmenuButton("Profile");
 	JButton projectsButton = createSubmenuButton("Projects");
 	JButton configureButton = createSubmenuButton("Configure Projects");
@@ -77,7 +77,14 @@ public class WorkPanel extends JPanel {
 	JButton individualStatsButton = createSubmenuButton("Individual Stats");
 	JButton teamStatsButton = createSubmenuButton("Team Stats");
 
-	public WorkPanel() {
+	public synchronized static WorkPanel getInstance() {
+		if (instance == null) {
+			instance = new WorkPanel();
+		}
+		return instance;
+	}
+
+	private WorkPanel() {
 		try {
 			jbInit();
 		} catch (Exception ex) {
@@ -362,21 +369,18 @@ public class WorkPanel extends JPanel {
 	 *
 	 */
 	public void homeProfile_actionPerformed (ActionEvent e){
-		refreshPanels();
 		homeCards.showCard(PROFILE_PANEL);
 		setCurrentButton(profileButton);
 		HomeToolBarCards.homeTitleLabel.setText("Profile");
 		Context.put("CURRENT_PANEL", PROFILE_PANEL);
 	}
 	public void homeProjects_actionPerformed (ActionEvent e){
-		refreshPanels();
 		homeCards.showCard(PROJECTS_PANEL);
 		setCurrentButton(projectsButton);
 		HomeToolBarCards.homeTitleLabel.setText("Projects");
 		Context.put("CURRENT_PANEL", PROJECTS_PANEL);
 	}
 	public void homeConfigure_actionPerformed (ActionEvent e){
-		refreshPanels();
 		homeCards.showCard(CONFIGURE_PANEL);
 		setCurrentButton(configureButton);
 		HomeToolBarCards.homeTitleLabel.setText("Configure Projects");
@@ -389,49 +393,41 @@ public class WorkPanel extends JPanel {
 	// 	Context.put("CURRENT_PANEL", "SPRINT");
 	// }
 	public void scrumBacklog_actionPerformed (ActionEvent e){
-		refreshPanels();
 		scrumCards.showCard(BACKLOG_PANEL);
 		setCurrentButton(backlogButton);
 		Context.put("CURRENT_PANEL", "BACKLOG");
 	}
 	public void scrumBoard_actionPerformed (ActionEvent e){
-		refreshPanels();
 		scrumCards.showCard(BOARD_PANEL);
 		setCurrentButton(boardButton);
 		Context.put("CURRENT_PANEL", "BOARD");
 	}
 	public void issuesOverview_actionPerformed (ActionEvent e){
-		refreshPanels();
 		issuesCards.showCard(ISSUE_OVERVIEW);
 		setCurrentButton(issuesOverviewButton);
 		Context.put("CURRENT_PANEL", "ISSUES_OVERVIEW");
 	}
 	public void issuesCreate_actionPerformed (ActionEvent e){
-		refreshPanels();
 		issuesCards.showCard(CREATE_ISSUE);
 		setCurrentButton(createIssueButton);
 		Context.put("CURRENT_PANEL", "CREATE_ISSUES");
 	}
 	public void issuesClose_actionPerformed (ActionEvent e){
-		refreshPanels();
 		issuesCards.showCard(CLOSE_ISSUE);
 		setCurrentButton(closeIssueButton);
 		Context.put("CURRENT_PANEL", "CLOSE_ISSUES");
 	}
 	public void statsOverview_actionPerformed (ActionEvent e){
-		refreshPanels();
 		statsCards.showCard(STATS_OVERVIEW);
 		setCurrentButton(statsOverviewButton);
 		Context.put("CURRENT_PANEL", "STATS_OVERVIEW");
 	}
 	public void statsIndividual_actionPerformed (ActionEvent e){
-		refreshPanels();
 		statsCards.showCard(IND_STATS);
 		setCurrentButton(individualStatsButton);
 		Context.put("CURRENT_PANEL", "IND_STATS");
 	}
 	public void statsTeam_actionPerformed (ActionEvent e){
-		refreshPanels();
 		statsCards.showCard(TEAM_STATS);
 		setCurrentButton(teamStatsButton);
 		Context.put("CURRENT_PANEL", "TEAM_STATS");
@@ -480,26 +476,6 @@ public class WorkPanel extends JPanel {
 				new ExceptionDialog(e);
 			}
 		});
-	}
-
-	public void needsRefresh(boolean need) {
-		needsRefresh = need;
-	}
-
-	private void refreshPanels() {
-
-		if (needsRefresh) {
-			homeCards.refreshPanels();
-			scrumCards.refreshPanels();
-			issuesCards.refreshPanels();
-			statsCards.refreshPanels();
-			needsRefresh(false);
-		} else {
-			homeCards.refreshPanels();
-			scrumCards.refreshPanels();
-			issuesCards.refreshPanels();
-			statsCards.refreshPanels();
-		}
 	}
 
 }

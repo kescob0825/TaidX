@@ -14,7 +14,6 @@ public class HomeToolBarCards extends JPanel{
     public JPanel cardPanel;
     public JPanel homeTitle;
 
-    public static final String OVERVIEW_PANEL = "HOME_OVERVIEW";
     public static final String PROFILE_PANEL = "PROFILE";
     public static final String PROJECTS_PANEL = "PROJECTS";
     public static final String CONFIGURE_PANEL = "CONFIGURE";
@@ -23,11 +22,12 @@ public class HomeToolBarCards extends JPanel{
     private Projects projects = new Projects();
     private ConfigureProject  configureProject = new ConfigureProject();
 
-    private JPanel overviewPanel;
     private JPanel projectsPanel;
     private JPanel userProfilePanel;
     private JPanel configureProjectsPanel;
     public static JLabel homeTitleLabel = new JLabel("Welcome to Taidx!");
+
+
     @Inject
     public HomeToolBarCards(CardLayout newCardLayout, JPanel newCardPanel){
         cardLayout = newCardLayout;
@@ -77,10 +77,4 @@ public class HomeToolBarCards extends JPanel{
         return panel;
     }
 
-    public void refreshPanels() {
-        // TODO: centerWrapperOverview.refreshPanel();;
-        profile.refreshPanel();
-        //centerWrapperProjects.refreshPanel();
-        //centerWrapperConfigure.refreshPanel();
-    }
 }

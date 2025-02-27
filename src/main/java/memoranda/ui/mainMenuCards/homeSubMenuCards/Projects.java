@@ -6,41 +6,56 @@ import memoranda.api.models.MilestoneData;
 import memoranda.api.models.ProjectData;
 import memoranda.api.models.TaskNode;
 import memoranda.api.models.UserStoryNode;
+import memoranda.ui.ExceptionDialog;
+import memoranda.util.subscriber.Subscriber;
 
 
 import javax.swing.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-public class Projects extends JPanel{
-    public JTabbedPane tabbedPane = new JTabbedPane();
+public class Projects extends JPanel implements Subscriber {
+    public static JTabbedPane tabbedPaneProjects;
     private final int FONT_SIZE = 16;
+    private final TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
+    private JPanel panels[];
     public Projects() {
         try {
+            panels = new JPanel[taigaClient.getProjectsList().size()];
             projectInit();
+            taigaClient.register(this);
         }
         catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    void projectInit() throws IOException, IOException {
-        TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
+    public synchronized void projectInit() throws IOException {
         if (taigaClient.getUserProfile() != null) {
             List<ProjectData> projects = taigaClient.getUserProfile().getProjectsList();
-            for (ProjectData project : projects) {
-                tabbedPane.addTab(project.getProjectName(), createProjectsCard(project));
+            if (tabbedPaneProjects != null) {
+                for (JPanel panel : panels) {
+                    tabbedPaneProjects.remove(panel);
+                }
+            } else {
+                tabbedPaneProjects = new JTabbedPane();
+            }
+            for (int i = 0; i < taigaClient.getProjectsList().size(); i++) {
+                ProjectData project = projects.get(i);
+                panels[i] = createProjectsCard(project);
+                tabbedPaneProjects.addTab(project.getProjectName(), panels[i]);
             }
         }
-        this.add(tabbedPane, BorderLayout.CENTER);
+        this.add(tabbedPaneProjects, BorderLayout.CENTER);
     }
 
     private JPanel createProjectsCard(ProjectData projectData) {
-        JPanel panel = new JPanel(new GridLayout(10,1, 0,0));
+        JPanel panel = new JPanel(new GridLayout(10, 1));
         panel.add(createPanel(projectData.getProjectName(), "", 36, 1));
         panel.add(createPanel("Project ID: ",
                 String.valueOf(projectData.getProjectId()), FONT_SIZE, 2));
@@ -104,5 +119,24 @@ public class Projects extends JPanel{
         panel.add(label);
         panel.add(textArea);
         return panel;
+    }
+
+    @Override
+    public void update() throws IOException {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                projectInit();
+                for (JPanel panel : panels) {
+                    panel.revalidate();
+                    panel.repaint();
+                }
+                tabbedPaneProjects.revalidate();
+                tabbedPaneProjects.repaint();
+                this.revalidate();
+                this.repaint();
+            } catch (Exception e) {
+                new ExceptionDialog(e);
+            }
+        });
     }
 }
