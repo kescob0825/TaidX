@@ -1,5 +1,6 @@
 package memoranda.ui.mainMenuCards;
 
+import memoranda.ui.mainMenuCards.issueSubMenuCards.CreateIssue;
 import memoranda.ui.mainMenuCards.issueSubMenuCards.Overview;
 
 import javax.swing.*;
@@ -45,27 +46,16 @@ public class IssuesToolBarCards extends JPanel{
     }
 
     private JPanel createSPCard() {
-
-        Overview panel = new Overview();
-
+        JPanel panel = new JPanel(new BorderLayout());
+        Overview overviewPanel = new Overview();
+        panel.add(overviewPanel, BorderLayout.CENTER);
         return panel;
     }
 
     private JPanel createPBCard() {
         JPanel panel = new JPanel(new BorderLayout());
-        JPanel subtitlePanel = new JPanel();
-        JLabel subtitleLabel = new JLabel("Create Issue:");
-        subtitleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        subtitlePanel.add(subtitleLabel);
-
-        JPanel centerWrapper = new JPanel(new GridBagLayout());
-        JPanel content = new JPanel();
-        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-
-        centerWrapper.add(content);
-
-        panel.add(subtitlePanel, BorderLayout.NORTH);
-        panel.add(centerWrapper, BorderLayout.CENTER);
+        CreateIssue centerPanel = new CreateIssue();
+        panel.add(centerPanel, BorderLayout.CENTER);
         return panel;
     }
 
