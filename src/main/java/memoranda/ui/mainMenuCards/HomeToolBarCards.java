@@ -18,9 +18,9 @@ public class HomeToolBarCards extends JPanel{
     public static final String PROJECTS_PANEL = "PROJECTS";
     public static final String CONFIGURE_PANEL = "CONFIGURE";
 
-    private Profile profile = new Profile();
-    private Projects projects = new Projects();
-    private ConfigureProject  configureProject = new ConfigureProject();
+    private Profile profile;
+    private Projects projects;
+    private ConfigureProject configureProject;
 
     private JPanel projectsPanel;
     private JPanel userProfilePanel;
@@ -29,7 +29,10 @@ public class HomeToolBarCards extends JPanel{
 
 
     @Inject
-    public HomeToolBarCards(CardLayout newCardLayout, JPanel newCardPanel){
+    public HomeToolBarCards(CardLayout newCardLayout, JPanel newCardPanel) {
+        profile = new Profile();
+        projects = new Projects();
+        configureProject = new ConfigureProject();
         cardLayout = newCardLayout;
         cardPanel = new JPanel(cardLayout);
 
@@ -40,7 +43,6 @@ public class HomeToolBarCards extends JPanel{
         homeTitle.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, UIManager.getColor("Button.darkShadow")));
         homeTitle.add(homeTitleLabel, BorderLayout.CENTER);
 
-
         userProfilePanel = createProfileCard();
         projectsPanel =createProjectsCard();
         configureProjectsPanel = createConfigureCard();
@@ -48,7 +50,6 @@ public class HomeToolBarCards extends JPanel{
         cardPanel.add(userProfilePanel, PROFILE_PANEL);
         cardPanel.add(projectsPanel, PROJECTS_PANEL);
         cardPanel.add(configureProjectsPanel, CONFIGURE_PANEL);
-
 
         setLayout(new BorderLayout());
         add(homeTitle, BorderLayout.NORTH);

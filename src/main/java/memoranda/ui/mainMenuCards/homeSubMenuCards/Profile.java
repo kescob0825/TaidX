@@ -53,28 +53,25 @@ public class Profile extends JPanel implements Subscriber {
     public final int LEFT_PANEL_WIDTH = 450;
 
     public Profile() {
-        try {
-            user = client.getUserProfile();
-            stats = client.getUserStatsData();
-            setLayout(new BorderLayout());
 
-            leftPanel = leftPanel();
-        }
-        catch (IOException ioe) {
-            ioe.fillInStackTrace();
-        }
+        leftPanel = leftPanel();
         setLayout(new BorderLayout());
         add(leftPanel, BorderLayout.WEST);
         client.register(this);
+
     }
 
     @Override
     public void update() throws IOException {
         SwingUtilities.invokeLater(() -> {
             try {
-                leftPanel();
+                leftPanel.setVisible(false);
+                this.remove(leftPanel);
+                leftPanel = leftPanel();
+                this.add(leftPanel);
                 leftPanel.revalidate();
                 leftPanel.repaint();
+                leftPanel.setVisible(true);
                 this.revalidate();
                 this.repaint();
             } catch (Exception e) {
@@ -83,19 +80,32 @@ public class Profile extends JPanel implements Subscriber {
         });
     }
 
-    private JPanel leftPanel() {
-        if (TaigaJsonData.doesConfigFileExists()) {
-            leftPanel = new JPanel(new BorderLayout());
-            fullNameH = new JLabel((user.getFullName() == null || user.getFullName().isEmpty()
-                    ? "name" : "Name: " + user.getFullName()));
-            userNameH = new JLabel("Username: @" + (user.getUsername() == null || user.getUsername().isEmpty()
-                    ? "username" : user.getUsername()));
-            emailH = new JLabel(user.getEmail() == null || user.getEmail().isBlank()
-                    ? "email" : "Email: " + user.getEmail());
-            rolesTitleL = new JLabel(user.getRoles() == null || user.getRoles().isEmpty()
-                    ? "No Roles" : "<html><body style='width: 200px'>Roles: " + user.getRoles().toString() + "</body></html>");
+    public void setInfo() {
+        fullNameH.setText((user.getFullName() == null || user.getFullName().isEmpty()
+                ? "name" : "Name: " + user.getFullName()));
+        userNameH.setText("Username: @" + (user.getUsername() == null || user.getUsername().isEmpty()
+                ? "username" : user.getUsername()));
+        emailH.setText(user.getEmail() == null || user.getEmail().isBlank()
+                ? "email" : "Email: " + user.getEmail());
+        rolesTitleL.setText(user.getRoles() == null || user.getRoles().isEmpty()
+                ? "No Roles" : "<html><body style='width: 200px'>Roles: " + user.getRoles().toString() + "</body></html>");
+    }
 
-
+    private synchronized JPanel leftPanel() {
+        leftPanel = new JPanel(new BorderLayout());
+        fullNameH = new JLabel("Name: ");
+        userNameH = new JLabel("UserName: @");
+        emailH = new JLabel("Email: ");
+        rolesTitleL = new JLabel("Roles: ");
+        if (client.getUserProfile() != null) {
+            user = client.getUserProfile();
+            stats = client.getUserStatsData();
+            setInfo();
+        }
+        else {
+            JLabel noDataLabel = new JLabel("No data available. Login, close the program and reopen to view project. ");
+            add(noDataLabel);
+        }
             leftPanel.setPreferredSize(new Dimension(LEFT_PANEL_WIDTH, NULL_VAL));
 
             topPanel = new JPanel(new BorderLayout());
@@ -110,7 +120,6 @@ public class Profile extends JPanel implements Subscriber {
             topCenterWP = new JPanel(new GridLayout(2, 1));
             topCenterWP.setPreferredSize(new Dimension(LEFT_PANEL_WIDTH, 50));
             topCenterWP.setBorder(new EmptyBorder(0, 20, 0, 0));
-
 
             userNameH.setFont(new Font("Arial", Font.PLAIN, 20));
             userNameP = new JPanel(new BorderLayout());
@@ -141,12 +150,6 @@ public class Profile extends JPanel implements Subscriber {
             projectsP.add(projectsL);
             topBottomWP.add(projectsP);
 
-            closedUSL.setFont(new Font("Arial", Font.PLAIN, 18));
-            closedUSP = new JPanel();
-            closedUSP.setBorder(new EmptyBorder(10, 0, 0, 0));
-            closedUSP.add(closedUSL);
-            topBottomWP.add(closedUSP);
-
             contactsL.setFont(new Font("Arial", Font.PLAIN, 18));
             contactsP = new JPanel();
             contactsP.setBorder(new EmptyBorder(10, 0, 0, 0));
@@ -164,9 +167,8 @@ public class Profile extends JPanel implements Subscriber {
             rolesListP.setBorder(new EmptyBorder(0, 30, 0, 0));
 
             if (stats != null) {
-                projectsL.setText(String.format("<html>\t%d<br/>Projects</html>", stats.getNumProjects()));
-                closedUSL.setText(String.format("<html>\t%d<br/>Closed US</html>", stats.getClosedStories()));
-                contactsL.setText(String.format("<html>\t%d<br/>Contacts</html>", stats.getNumContacts()));
+                projectsL.setText("Projects: " + stats.getNumProjects());
+                contactsL.setText("Contacts: " + stats.getNumContacts());
                 List<String> roles = stats.getRoles();
                 for (String role : roles) {
                     JLabel roleH = new JLabel(role);
@@ -176,24 +178,16 @@ public class Profile extends JPanel implements Subscriber {
                     rolesListP.add(roleP);
                 }
             }
-
             centerPanel.add(rolesTitleP, BorderLayout.NORTH);
             centerPanel.add(rolesListP, BorderLayout.CENTER);
 
             bottomPanel = new JPanel();
             bottomPanel.setPreferredSize(new Dimension(LEFT_PANEL_WIDTH, 400));
-            //bottomPanel.setBackground(Color.BLUE);
 
             leftPanel.add(topPanel, BorderLayout.NORTH);
             leftPanel.add(centerPanel, BorderLayout.CENTER);
             leftPanel.add(bottomPanel, BorderLayout.SOUTH);
             return leftPanel;
-        }
-        else {
-            JLabel noDataLabel = new JLabel("No data available. Login, close the program and reopen to view project. ");
-            add(noDataLabel);
-        }
-        return new JPanel();
     }
 
 }

@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import memoranda.Start;
 import memoranda.api.TaigaClient;
 import memoranda.api.models.*;
+import memoranda.ui.ExceptionDialog;
+import memoranda.util.subscriber.Subscriber;
 // import org.checkerframework.common.returnsreceiver.qual.This;
 // import memoranda.api.modules.TaigaProject;
 // import memoranda.ui.App;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ScrumToolBarCards extends JPanel{
+public class ScrumToolBarCards extends JPanel implements Subscriber {
     public CardLayout cardLayout;
     public JPanel cardPanel;
     public JPanel homeTitle;
@@ -32,16 +34,20 @@ public class ScrumToolBarCards extends JPanel{
 
     public static final String BACKLOG_PANEL = "BACKLOG";
     public static final String BOARD_PANEL = "BOARD";
+    private JTabbedPane  tabbedPane;
+    private JScrollPane scrollPane;
+    private JPanel panel;
 
     public ScrumToolBarCards(CardLayout newCardLayout, JPanel newCardPanel) throws IOException {
         taigaClient = Start.getInjector().getInstance(TaigaClient.class);
         cardLayout = newCardLayout;
         cardPanel = new JPanel(cardLayout);
-
+        tabbedPane =  new JTabbedPane();
         homeTitle = new JPanel(new BorderLayout());
         JLabel titleLabel = new JLabel("Scrum");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel = new JPanel(new BorderLayout());
         // Add padding around the title
         homeTitle.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, UIManager.getColor("Button.darkShadow")));
         homeTitle.add(titleLabel, BorderLayout.CENTER);
@@ -52,6 +58,7 @@ public class ScrumToolBarCards extends JPanel{
         setLayout(new BorderLayout());
         add(homeTitle, BorderLayout.NORTH);
         add(cardPanel, BorderLayout.CENTER);
+        taigaClient.register(this);
     }
 
     public void showCard(String cardName) {
@@ -148,13 +155,15 @@ public class ScrumToolBarCards extends JPanel{
      * @return panel
      */
     private JScrollPane createSBCard() throws IOException {
-        JPanel panel = new JPanel(new BorderLayout());
-        JTabbedPane  tabbedPane = new JTabbedPane();
+        if (tabbedPane.getTabCount() > 0) {
+            tabbedPane.removeAll();
+            panel.removeAll();
+        }
         for (ProjectData project : taigaClient.getProjectsList()) {
             tabbedPane.addTab(project.getProjectName(), createScrumBoard(project));
         }
         panel.add(tabbedPane, BorderLayout.CENTER);
-        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane = new JScrollPane(panel);
         return scrollPane;
     }
 
@@ -174,7 +183,6 @@ public class ScrumToolBarCards extends JPanel{
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.BOTH;
         boardPanel.add(createMilestoneTableCard(), gbc);
-        
 
         //This portion deals with the size for the Scrum Board panel 
         gbc.insets = new Insets(20,5,5,5);
@@ -495,14 +503,35 @@ public class ScrumToolBarCards extends JPanel{
                 milestones.addAll(project.getProjectSprints());
             }
             return milestones;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace(); // Or handle the exception as appropriate
             return new ArrayList<>(); // Return an empty list or null
         }
     }
 
-    public void refreshPanels() {
-        //  TODO: JPanel.refreshPanel();
-    }
 
+    @Override
+    public void update() throws IOException {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                cardPanel.remove(scrollPane);
+                cardPanel.setVisible(false);
+                scrollPane = createSBCard();
+                scrollPane.revalidate();
+                scrollPane.repaint();
+                tabbedPane.revalidate();
+                tabbedPane.repaint();
+                panel.revalidate();
+                panel.repaint();
+                cardPanel.add(scrollPane, BOARD_PANEL);
+                cardPanel.revalidate();
+                cardPanel.repaint();
+                cardPanel.setVisible(true);
+                this.revalidate();
+                this.repaint();
+            } catch (Exception e) {
+                new ExceptionDialog(e);
+            }
+        });
+    }
 }

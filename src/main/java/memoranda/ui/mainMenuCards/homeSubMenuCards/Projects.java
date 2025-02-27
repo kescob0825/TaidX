@@ -7,6 +7,7 @@ import memoranda.api.models.ProjectData;
 import memoranda.api.models.TaskNode;
 import memoranda.api.models.UserStoryNode;
 import memoranda.ui.ExceptionDialog;
+import memoranda.util.TaigaJsonData;
 import memoranda.util.subscriber.Subscriber;
 
 
@@ -25,8 +26,8 @@ public class Projects extends JPanel implements Subscriber {
     private final TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
     private JPanel panels[];
     public Projects() {
+
         try {
-            panels = new JPanel[taigaClient.getProjectsList().size()];
             projectInit();
             taigaClient.register(this);
         }
@@ -35,23 +36,30 @@ public class Projects extends JPanel implements Subscriber {
         }
     }
 
-    public synchronized void projectInit() throws IOException {
-        if (taigaClient.getUserProfile() != null) {
-            List<ProjectData> projects = taigaClient.getUserProfile().getProjectsList();
-            if (tabbedPaneProjects != null) {
-                for (JPanel panel : panels) {
-                    tabbedPaneProjects.remove(panel);
+    public synchronized void projectInit() {
+        if (TaigaJsonData.doesConfigFileExists()) {
+            if (panels == null) {
+                panels = new JPanel[taigaClient.getProjectsList().size()];
+            }
+            if (taigaClient.getUserProfile() != null) {
+                List<ProjectData> projects = taigaClient.getUserProfile().getProjectsList();
+                if (tabbedPaneProjects != null) {
+                    for (JPanel panel : panels) {
+                        panel.setVisible(false);
+                        tabbedPaneProjects.remove(panel);
+                    }
+                } else {
+                    tabbedPaneProjects = new JTabbedPane();
                 }
-            } else {
-                tabbedPaneProjects = new JTabbedPane();
+                for (int i = 0; i < taigaClient.getProjectsList().size(); i++) {
+                    ProjectData project = projects.get(i);
+                    panels[i] = createProjectsCard(project);
+                    panels[i].setVisible(true);
+                    tabbedPaneProjects.addTab(project.getProjectName(), panels[i]);
+                }
             }
-            for (int i = 0; i < taigaClient.getProjectsList().size(); i++) {
-                ProjectData project = projects.get(i);
-                panels[i] = createProjectsCard(project);
-                tabbedPaneProjects.addTab(project.getProjectName(), panels[i]);
-            }
+            this.add(tabbedPaneProjects, BorderLayout.CENTER);
         }
-        this.add(tabbedPaneProjects, BorderLayout.CENTER);
     }
 
     private JPanel createProjectsCard(ProjectData projectData) {
@@ -135,7 +143,7 @@ public class Projects extends JPanel implements Subscriber {
                 this.revalidate();
                 this.repaint();
             } catch (Exception e) {
-                new ExceptionDialog(e);
+                 e.printStackTrace();
             }
         });
     }

@@ -45,6 +45,7 @@ public class TaigaClient implements Publisher {
     public static Map<Integer, List<MilestoneData>> milestoneData = new HashMap<>();
     private List<Subscriber> subscribers;
     SwingWorker <Void, Void> worker;
+    SwingWorker <Void, Void> loginWorker;
 
     @Inject
     public TaigaClient() {
@@ -71,7 +72,14 @@ public class TaigaClient implements Publisher {
                 return null;
             }
         };
-
+        loginWorker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                Thread.sleep(1000); //wait 1 seconds for the changes to post on Taiga then pull them and update
+                notifySubscribers();
+                return null;
+            }
+        };
         try{
             this.jsonData = Start.getInjector().getInstance(TaigaJsonData.class);
         } catch (Exception e) {
@@ -92,7 +100,7 @@ public class TaigaClient implements Publisher {
         initLoadProjectAndUserStoryData();
         initUserStatsData();
         loadDataOnOpen();
-        notifySubscribers();
+        loginWorker.execute();
     }
 
     public void initLoadProjectAndUserStoryData() throws IOException {
@@ -212,6 +220,7 @@ public class TaigaClient implements Publisher {
         }
         createProject.createProject(this.authenticator.getAuthToken(), newProjectDataBody);
         if (createProject.getLastResponseCode() <= 201){
+            //Background thread
             worker.execute();
         }
     }
@@ -221,7 +230,7 @@ public class TaigaClient implements Publisher {
     /**
      * Retrieves the projects for the authenticated user.
      */
-    public List<ProjectData> getProjectsList() throws IOException {
+    public List<ProjectData> getProjectsList() {
         if (this.authenticator.getUserProfile() == null) {
             return new ArrayList<>();
         }
@@ -297,7 +306,7 @@ public class TaigaClient implements Publisher {
         return lastResponseCode;
     }
 
-    public UserProfile getUserProfile() throws IOException {
+    public UserProfile getUserProfile() {
         return authenticator.getUserProfile();
     }
 
