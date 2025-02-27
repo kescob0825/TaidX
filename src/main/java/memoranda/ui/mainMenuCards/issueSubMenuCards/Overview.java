@@ -2,26 +2,28 @@ package memoranda.ui.mainMenuCards.issueSubMenuCards;
 
 import memoranda.Start;
 import memoranda.api.TaigaClient;
+import memoranda.api.models.IssuesData;
 import memoranda.api.models.ProjectData;
 import memoranda.util.TaigaJsonData;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class Overview extends JPanel {
 
     private final TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
-    public static JTabbedPane tabbedProjectPanel;
+    private final List<ProjectData> projects;
     public JPanel mainCenterPanel;
-    private JPanel projectPanel[];
 
     public Overview() {
 
-        setLayout(new BorderLayout());
-        initProjectPanel();
         mainCenterPanel = new JPanel(new BorderLayout());
+        projects = taigaClient.getProjectsList();
+
+        setLayout(new BorderLayout());
         // Top Panel for Filters, Search, and New Issue Button
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
@@ -40,6 +42,7 @@ public class Overview extends JPanel {
 
         // Tags Toggle
         JToggleButton tagsButton = new JToggleButton("Tags");
+        tagsButton.addActionListener(this::tagsButton);
         topPanel.add(tagsButton);
         topPanel.add(Box.createHorizontalStrut(5)); // Add some space
 
@@ -65,29 +68,24 @@ public class Overview extends JPanel {
         add(mainCenterPanel, BorderLayout.CENTER);
     }
 
-    public synchronized void initProjectPanel() {
-        if (TaigaJsonData.doesConfigFileExists()) {
-            if (projectPanel == null) {
-                projectPanel = new JPanel[taigaClient.getProjectsList().size()];
+    private void tagsButton(ActionEvent e) {
+
+        for (ProjectData project:projects) {
+
+            System.out.println("ProjectName: " + project.getProjectName());
+            List<IssuesData> issues = project.getProjectIssuesList();
+
+            if (issues == null || issues.isEmpty()) {
+                break;
             }
-            if (taigaClient.getUserProfile() != null) {
-                List<ProjectData> projects = taigaClient.getUserProfile().getProjectsList();
-                if (tabbedProjectPanel != null) {
-                    for (JPanel panel : projectPanel) {
-                        panel.setVisible(false);
-                        tabbedProjectPanel.remove(panel);
-                    }
-                } else {
-                    tabbedProjectPanel = new JTabbedPane();
-                }
-                for (int i = 0; i < taigaClient.getProjectsList().size(); i++) {
-                    ProjectData project = projects.get(i);
-                    //projectPanel[i] = createProjectsCard(project);
-                    //projectPanel[i].setVisible(true);
-                    tabbedProjectPanel.addTab(project.getProjectName(), projectPanel[i]);
-                }
+
+            int i = 0;
+            for (IssuesData issue: issues) {
+                System.out.println("Issue Name " + i + ": " + issue.getSubject());
+                System.out.println("Status: " + issue.getStatus());
+                System.out.println("Is Closed: " + issue.isClosed());
+                i++;
             }
-            this.add(tabbedProjectPanel, BorderLayout.NORTH);
         }
     }
 }
