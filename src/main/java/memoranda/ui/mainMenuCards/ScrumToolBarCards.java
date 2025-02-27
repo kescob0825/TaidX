@@ -20,6 +20,7 @@ import java.awt.*;
 // import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -67,8 +68,9 @@ public class ScrumToolBarCards extends JPanel{
     /**
      * This method creates the panel for the product backlog.
      * @return panel
-     */
-    private JPanel createPBCard() {
+          * @throws IOException 
+          */
+         private JPanel createPBCard() throws IOException {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(5, 5, 5, 5)); // Add a small border for padding
 
@@ -101,7 +103,7 @@ public class ScrumToolBarCards extends JPanel{
 
         // Table Panel
         JPanel tablePanel = new JPanel(new BorderLayout());
-        String[] columnNames = {"", "USER STORY", "STATUS", "POINTS", ""}; // Added columns and empty columns for spacing/icons
+        String[] columnNames = {"","PROJECT", "ID", "USER STORY", "STATUS", ""}; // Added columns and empty columns for spacing/icons
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -130,13 +132,26 @@ public class ScrumToolBarCards extends JPanel{
         return panel;
     }
 
-    //dumby implementation for the backlog chard needs implementation
-    private List<Object[]> getBacklogData() {
+    
+    private List<Object[]> getBacklogData() throws IOException {
         List<Object[]> data = new ArrayList<>();
-        data.add(new Object[]{"\u22EE",
-                "#30 As a user I want an sprint interface that displays information so that I can know if things have been done right or wrong", "New", 4, "\u2056"}); // Using unicode characters for vertical ellipsis
-        data.add(new Object[]{"\u22EE",
-                "#32 As a user I want to know if the progress was linear or ahead of schedule so that I can know if the team started the sprint too late", "New", 6, "\u2056"});
+
+        TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
+        List<ProjectData> projects = taigaClient.getProjectsList();
+
+        ProjectData project = projects.get(0);
+
+        for (UserStoryNode userStory : project.getProjectUserStoryList()) {
+            if (userStory.getMilestoneId() == 0 && project.getProjectId() == 1626157) {
+                data.add(new Object[]{
+                    "\u22EE", project.getProjectName(), project.getProjectId(),
+                    "#" + userStory.getRefNumber() + " " + userStory.getUserStorySubject(),
+                    userStory.getStatus(),
+                    "\u2056" 
+                });
+            }
+        }
+
         return data;
     }
 
