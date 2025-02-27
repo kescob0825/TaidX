@@ -32,6 +32,7 @@ public class TaigaClient implements Publisher {
     protected final TaigaCreateProject createProject;
     protected final TaigaInvite taigaInvite;
     private final TaigaJsonData jsonData;
+    private final TaigaIssues issues;
     protected int lastResponseCode;
 
     //Use for searching data
@@ -61,6 +62,8 @@ public class TaigaClient implements Publisher {
         this.taigaSprintModule = new TaigaMilestone(httpClient, objectMapper);
         this.createProject = new TaigaCreateProject(httpClient, objectMapper);
         this.taigaInvite = new TaigaInvite(httpClient);
+        this.issues = new TaigaIssues(httpClient);
+
         this.subscribers = new ArrayList<>();
         worker = new SwingWorker<>() {
             @Override
@@ -111,11 +114,14 @@ public class TaigaClient implements Publisher {
         for (ProjectData project : this.authenticator.getUserProfile().getProjectsList()) {
             this.userStory.getUserStories(this.authenticator.getAuthToken(), project.getProjectId());
             this.projects.getProjectsRoles(this.authenticator.getAuthToken(), project.getProjectId());
+            this.issues.getProjectIssues(this.authenticator.getAuthToken(), project.getProjectId());
             List<UserStoryNode> userStoryNodes = userStory.getUserStoryNodes();
             if (userStoryNodes == null || userStoryNodes.isEmpty()) {
                 continue;
             }
             project.addProjectUserStoryList(userStoryNodes);
+            List<IssuesData> projectIssues = issues.getProjectIssueList();
+            project.addProjectIssues(projectIssues);
             allUserStories.put(userStory.getUserStoryNodes().get(0).getProjectId(), new ArrayList<>(userStoryNodes));
 
             tasks.getAllTasks(this.authenticator.getAuthToken(), project.getProjectId());
@@ -155,6 +161,7 @@ public class TaigaClient implements Publisher {
             sprintDataList.clear();
             userStory.clearUserStoryNodes();
             tasks.clearTaskNodes();
+            issues.clearProjectIssueList();
         }
         jsonData.saveAllConfigs();
     }

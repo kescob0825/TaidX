@@ -18,6 +18,7 @@ public class ProjectData {
     private List<MilestoneData> project_sprint_list;
     private boolean is_private;
     private List<ProjectRolesData> project_roles_list;
+    private List<IssuesData> project_issues_list;
 
     public ProjectData(String project_name, String project_description, String date_created,
                        String project_owner, int[] member_ids, int total_activity,
@@ -35,6 +36,7 @@ public class ProjectData {
         this.project_task_list = new ArrayList<>();
         this.project_sprint_list = new ArrayList<>();
         this.project_roles_list = new ArrayList<>();
+        this.project_issues_list = new ArrayList<>();
     }
 
     public String getProjectName() {
@@ -75,6 +77,12 @@ public class ProjectData {
 
     public void addProjectUserStory(UserStoryNode user_story_node) {
         this.project_user_story_list.add(user_story_node);
+    }
+    public void addProjectIssues(List<IssuesData> issuesDataList) {
+        this.project_issues_list.addAll(issuesDataList);
+    }
+    public List<IssuesData> getProjectIssuesList() {
+        return project_issues_list;
     }
 
     public void addProjectUserStoryList(List<UserStoryNode> user_story_node_list) {

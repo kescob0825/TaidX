@@ -25,7 +25,7 @@ public class TaigaIssues {
         this.projectIssueList = new ArrayList<>();
     }
 
-    public void getProjectIssues(String token, int uid) throws IOException {
+    public void getProjectIssues(String token, int uid) {
         String id = "Bearer " + token;
         String uidStr = Integer.toString(uid);
         Request request = new Request.Builder()
@@ -59,10 +59,6 @@ public class TaigaIssues {
                     if (!jsonResponse.isNull("owner_extra_info")) {
                         ownerObj = jsonResponse.getJSONObject("owner_extra_info");;
                     }
-                    else {
-                        ownerObj.put("id", 0);
-                        ownerObj.put("username", "default");
-                    }
                     JSONObject statusObj = jsonResponse.getJSONObject("status_extra_info");
                     JSONObject projectInfoObj = jsonResponse.getJSONObject("project_extra_info");
 
@@ -94,6 +90,17 @@ public class TaigaIssues {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public List<IssuesData> getProjectIssueList() {
+        return projectIssueList;
+    }
+
+    public void clearProjectIssueList() {
+        projectIssueList.clear();
+    }
+
+    public int getLastResponseCode() {
+        return lastResponseCode;
     }
 }
