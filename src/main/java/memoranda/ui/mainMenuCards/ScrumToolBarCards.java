@@ -116,7 +116,6 @@ public class ScrumToolBarCards extends JPanel{
         backlogTable.setShowGrid(false); // Hide grid lines
         backlogTable.setRowHeight(30); // Set a comfortable row height
 
-        // Populate table with dummy data (replace with your actual data)
         List<Object[]> data = getBacklogData();
         for (Object[] row : data) {
             model.addRow(row);
@@ -140,16 +139,16 @@ public class ScrumToolBarCards extends JPanel{
         List<ProjectData> projects = taigaClient.getProjectsList();
 
         try {
-            ProjectData project = projects.get(0); 
-
-            for (UserStoryNode userStory : project.getProjectUserStoryList()) {
-                if (userStory.getMilestoneId() == 0 && project.getProjectId() == 1626157) {
-                    data.add(new Object[]{
-                        "\u22EE", project.getProjectName(), project.getProjectId(),
-                        "#" + userStory.getRefNumber() + " " + userStory.getUserStorySubject(),
-                        userStory.getStatus(),
-                        "\u2056" 
-                    });
+            for (ProjectData project : projects) {
+                for (UserStoryNode userStory : project.getProjectUserStoryList()) {
+                    if (userStory.getMilestoneId() == 0) {
+                        data.add(new Object[]{
+                            "\u22EE", project.getProjectName(), project.getProjectId(),
+                            "#" + userStory.getRefNumber() + " " + userStory.getUserStorySubject(),
+                            userStory.getStatus(),
+                            "\u2056"
+                        });
+                    }
                 }
             }
         } catch (Exception e) {
