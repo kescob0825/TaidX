@@ -163,7 +163,28 @@ To track issues found during Code Review
 **Severity: BR-Blocker, must be fixed ASAP. MJ- Major, of high importance, but not a Blocker. LOW- low.***
 
 **Static Analysis**  (online: start Sprint 3, campus: start Sprint 3)
-> Your Static Analysis policy
+> Our Static Analysis policy is implemented through GitHub Actions.  Upon each Pull Request (PR) to the `dev` or `master` branch, automated checks will be performed using [Choose a Tool: SonarQube, Checkstyle, ESLint, PMD, etc.].
+>
+> *   **Tool Configuration:**  The chosen static analysis tool will be configured with project-specific rulesets to enforce coding standards, identify potential bugs, and highlight security vulnerabilities.  Configuration files (e.g., `.eslintrc.js`, `sonar-project.properties`) will be stored in the repository root.
+> *   **Action Definition:** A GitHub Actions workflow file (e.g., `.github/workflows/static-analysis.yml`) will define the steps to run the static analysis tool on the code in the PR.  This workflow will typically include:
+      >     *   Checkout of the code.
+>     *   Setup of the necessary environment (e.g., Java, Node.js).
+>     *   Execution of the static analysis tool.
+>     *   Reporting of any findings as annotations on the PR.
+> *   **Failure Handling:**  The workflow will be configured to fail the PR build if any static analysis violations are found that exceed a defined threshold (e.g., "blocker" or "major" severity issues).  This prevents code with critical issues from being merged.
+> *   **Baseline:** Initially, the team will establish a baseline by addressing existing static analysis violations.  New code should not introduce new violations.
+> *   **Exemptions:**  In rare cases, exemptions to specific static analysis rules may be granted with proper justification and approval from the technical lead.  These exemptions will be documented.
 
 **Continuous Integration**  (start Sprint 3, campus: start Sprint 3)
-> Your Continuous Integration policy
+> Our Continuous Integration (CI) policy ensures that every code change is automatically built, tested, and validated. This is achieved through GitHub Actions.
+>
+> *   **Workflow Trigger:** A CI workflow (e.g., `.github/workflows/ci.yml`) is triggered on every push to a branch and every pull request.
+> *   **Build Process:** The workflow performs the following steps:
+      >     *   Checkout the code.
+>     *   Sets up the required environment (e.g., JDK, Node.js, Python).
+>     *   Installs dependencies.
+>     *   Compiles the code.
+> *   **Testing:**  Runs all unit tests, integration tests, and end-to-end tests. Test results are automatically reported.
+> *   **Reporting:** The CI workflow provides feedback on the build and test status directly within the GitHub interface.  Notifications are sent to the team via Slack [or preferred communication channel] on build failures.
+> *   **Artifact Storage:**  Successfully built artifacts (e.g., JAR files, Docker images) are stored for deployment.
+> *   **Integration with Code Coverage:**  Code coverage reports are generated and tracked to ensure adequate test coverage.  Tools like Codecov or SonarQube can be integrated to visualize coverage trends.
