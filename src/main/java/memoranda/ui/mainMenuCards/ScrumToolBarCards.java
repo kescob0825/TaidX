@@ -20,9 +20,15 @@ import java.awt.*;
 // import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class ScrumToolBarCards extends JPanel{
     public CardLayout cardLayout;
@@ -63,14 +69,13 @@ public class ScrumToolBarCards extends JPanel{
         return cardLayout;
     }
 
-    // ************** The methods below work on the product Backlog tab *************** // 
+    // ************** The methods below work on the product Backlog tab *************** //
 
     /**
      * This method creates the panel for the product backlog.
      * @return panel
-          * @throws IOException 
-          */
-         private JPanel createPBCard() throws IOException {
+     */
+    private JPanel createPBCard() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(5, 5, 5, 5)); // Add a small border for padding
 
@@ -103,7 +108,7 @@ public class ScrumToolBarCards extends JPanel{
 
         // Table Panel
         JPanel tablePanel = new JPanel(new BorderLayout());
-        String[] columnNames = {"","PROJECT", "ID", "USER STORY", "STATUS", ""}; // Added columns and empty columns for spacing/icons
+        String[] columnNames = {"", "USER STORY", "STATUS", "POINTS", ""}; // Added columns and empty columns for spacing/icons
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -116,6 +121,7 @@ public class ScrumToolBarCards extends JPanel{
         backlogTable.setShowGrid(false); // Hide grid lines
         backlogTable.setRowHeight(30); // Set a comfortable row height
 
+        // Populate table with dummy data (replace with your actual data)
         List<Object[]> data = getBacklogData();
         for (Object[] row : data) {
             model.addRow(row);
@@ -131,30 +137,13 @@ public class ScrumToolBarCards extends JPanel{
         return panel;
     }
 
-    
-    private List<Object[]> getBacklogData() throws IOException {
+    //dumby implementation for the backlog chard needs implementation
+    private List<Object[]> getBacklogData() {
         List<Object[]> data = new ArrayList<>();
-
-        TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
-        List<ProjectData> projects = taigaClient.getProjectsList();
-
-        try {
-            for (ProjectData project : projects) {
-                for (UserStoryNode userStory : project.getProjectUserStoryList()) {
-                    if (userStory.getMilestoneId() == 0) {
-                        data.add(new Object[]{
-                            "\u22EE", project.getProjectName(), project.getProjectId(),
-                            "#" + userStory.getRefNumber() + " " + userStory.getUserStorySubject(),
-                            userStory.getStatus(),
-                            "\u2056"
-                        });
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-        }
-
+        data.add(new Object[]{"\u22EE",
+                "#30 As a user I want an sprint interface that displays information so that I can know if things have been done right or wrong", "New", 4, "\u2056"}); // Using unicode characters for vertical ellipsis
+        data.add(new Object[]{"\u22EE",
+                "#32 As a user I want to know if the progress was linear or ahead of schedule so that I can know if the team started the sprint too late", "New", 6, "\u2056"});
         return data;
     }
 
@@ -192,9 +181,9 @@ public class ScrumToolBarCards extends JPanel{
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.BOTH;
         boardPanel.add(createMilestoneTableCard(), gbc);
-        
 
-        //This portion deals with the size for the Scrum Board panel 
+
+        //This portion deals with the size for the Scrum Board panel
         gbc.insets = new Insets(20,5,5,5);
         gbc.gridy = 1;
         gbc.weightx = 0.2;
@@ -226,11 +215,11 @@ public class ScrumToolBarCards extends JPanel{
         mainScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         return mainScrollPane;
     }
-        
+
     /**
-    * This method works with the column for User Stories only.
-    * @return userStoryPanel 
-    */
+     * This method works with the column for User Stories only.
+     * @return userStoryPanel
+     */
     private JPanel createUserStoryColumn(ProjectData project){
         JPanel userStoryPanel = new JPanel();
         userStoryPanel.setLayout(new BoxLayout(userStoryPanel, BoxLayout.Y_AXIS));
@@ -258,11 +247,11 @@ public class ScrumToolBarCards extends JPanel{
         userStoryPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         return userStoryPanel;
     }
-        
+
     /**
-    * This method works with the columns for the tasks
-    * @return panel
-    */
+     * This method works with the columns for the tasks
+     * @return panel
+     */
     private JPanel createColumPanel(ProjectData project, String title){
         addedTasks.clear();
         JPanel panel = new JPanel();
@@ -376,12 +365,12 @@ public class ScrumToolBarCards extends JPanel{
         card.add(text, BorderLayout.CENTER);
         return card;
     }
-        
+
     /**
-    * This method works with the click and drag functionality for tasks columns.
-    * Still requires better implementation.
-    * @return card
-    */
+     * This method works with the click and drag functionality for tasks columns.
+     * Still requires better implementation.
+     * @return card
+     */
     private JPanel createTaskCard(TaskNode task) {
 
         JPanel card = new JPanel(new BorderLayout());
@@ -406,7 +395,7 @@ public class ScrumToolBarCards extends JPanel{
         subtaskPanel.add(ownerText, BorderLayout.SOUTH);
 
         card.add(subtaskPanel, BorderLayout.CENTER);
-        
+
         return card;
     }
 
@@ -419,16 +408,16 @@ public class ScrumToolBarCards extends JPanel{
      */
     private JPanel createEmptyTaskCard() {
         JPanel card = new JPanel(new BorderLayout());
-        card.setBackground(new Color(0, 0, 0, 0)); 
+        card.setBackground(new Color(0, 0, 0, 0));
         card.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-        card.setPreferredSize(new Dimension(160, 80)); 
+        card.setPreferredSize(new Dimension(160, 80));
         return card;
     }
-    
+
     /**
      * This method creates the Milestone Data panel
      * @return panel
-    */
+     */
     private static JPanel createMilestoneTableCard() throws IOException {
         JPanel panel = new JPanel(new BorderLayout());
         JPanel subtitlePanel = new JPanel();
@@ -440,16 +429,23 @@ public class ScrumToolBarCards extends JPanel{
         JTable milestoneTable = createMilestoneTable();
         JScrollPane scrollPane = new JScrollPane(milestoneTable); // Add scroll pane
         scrollPane.setPreferredSize(new Dimension(600, 80));
+
+        // Create the chart
+        JFreeChart chart = createMilestoneChart();
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(600, 200)); // Adjust size as needed
+
+
         panel.add(subtitlePanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER); // Add scrollable table
-        
+        panel.add(chartPanel, BorderLayout.SOUTH); // Add chart below the table
         return panel;
     }
-    
+
     /**
-     * this method creates the table inside the Milestone data panel and populates it. 
+     * this method creates the table inside the Milestone data panel and populates it.
      * @return table
-    */
+     */
     private static JTable createMilestoneTable() throws IOException {
         // Define column names
         String[] columnNames = {"ID", "Sprint", "Project ID", "User Stories", "Complete","Not Complete", "Points Complete", "Points Not Complete", "Total Points","Start", "Finish", "Closed"};
@@ -497,12 +493,12 @@ public class ScrumToolBarCards extends JPanel{
 
         return table;
     }
-            
+
 
     /**
      * This method works with the logic to pull the data for the milestone data from taiga
-     * @return milestones 
-    */
+     * @return milestones
+     */
     private static List<MilestoneData> getMilestoneData() throws IOException {
         try {
             TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
@@ -518,6 +514,49 @@ public class ScrumToolBarCards extends JPanel{
             return new ArrayList<>(); // Return an empty list or null
         }
     }
+
+    /**
+     * This method creates a chart and displays it on the ScrumToolBarCard
+     * @return JFreeChart
+     */
+    private static JFreeChart createMilestoneChart() throws IOException {
+        // Create a dataset for the chart
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        // Get the milestone data
+        List<MilestoneData> milestoneDataList = getMilestoneData();
+
+        // Populate the dataset with data from the milestones
+        if (milestoneDataList != null) {
+            for (MilestoneData data : milestoneDataList) {
+                //  Add "Points Complete" and "Points Not Complete" user stories
+                dataset.addValue(data.getTotal_points_complete(), "Points Complete", data.getSprintName());
+                dataset.addValue(data.getTotalPointsNotCompleted(), "Points Not Complete", data.getSprintName());
+            }
+        }
+
+        //create charts comments include basic legend if we decide to make more charts
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Milestone Progress", // Chart title
+                "Sprint",             // Category axis label
+                "Points",     // Value axis label
+                dataset,            // Dataset
+                PlotOrientation.VERTICAL, // Plot orientation
+                true,               // Include legend
+                true,               // Tooltips
+                false               // URLs
+        );
+        //  CHANGE BAR COLORS HERE
+        CategoryPlot plot = chart.getCategoryPlot();
+
+        // Set the color for "Points Complete"
+        plot.getRenderer().setSeriesPaint(0, new Color(0, 153, 51));
+
+        // Set the color for "Points Not Complete"
+        plot.getRenderer().setSeriesPaint(1, new Color(204, 0, 0));
+        return chart;
+    }
+
 
     public void refreshPanels() {
         //  TODO: JPanel.refreshPanel();
