@@ -4,13 +4,18 @@ import memoranda.Start;
 import memoranda.api.TaigaClient;
 import memoranda.api.models.IssuesData;
 import memoranda.api.models.ProjectData;
-import memoranda.util.TaigaJsonData;
+import memoranda.api.models.issueattributes.IssuePriority;
+import memoranda.api.models.issueattributes.IssueSeverity;
+import memoranda.api.models.issueattributes.IssueStatus;
+import memoranda.api.models.issueattributes.IssueType;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.table.DefaultTableModel;
 
 public class Overview extends JPanel {
 
@@ -55,13 +60,40 @@ public class Overview extends JPanel {
 
         // Center Panel for Issue List (Placeholder)
         JPanel centerPanel = new JPanel(new BorderLayout());
-        JTextArea issueList = new JTextArea("There are no issues to report!");
-        issueList.setEditable(false);
-        issueList.setAlignmentX(CENTER_ALIGNMENT);
-        centerPanel.add(issueList, BorderLayout.CENTER);
+        DefaultTableModel tableModel = new DefaultTableModel() {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        String[] columnNames = {"Subject", "Assigned To", "Status"};
+        tableModel.setColumnIdentifiers(columnNames);
 
-        // Add a scroll pane for the issue list
-        JScrollPane scrollPane = new JScrollPane(issueList);
+        try {
+            List<IssuesData> allIssues = projects.stream()
+                    .flatMap(p -> p.getProjectIssuesList().stream())
+                    .collect(Collectors.toList());
+
+            if (allIssues.isEmpty()) {
+                tableModel.addRow(new Object[]{"There are no issues to report!", "", ""});
+            } else {
+                for (IssuesData issue : allIssues) {
+                    tableModel.addRow(new Object[]{
+                        issue.getSubject(),
+                        issue.getProjectName(),
+                        issue.getStatus()
+                    });
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            tableModel.addRow(new Object[]{"Error loading issues: " + e.getMessage(), "", ""});
+        }
+
+        JTable issueTable = new JTable(tableModel);
+        issueTable.setAutoCreateRowSorter(true); 
+        issueTable.setFillsViewportHeight(true);
+
+        JScrollPane scrollPane = new JScrollPane(issueTable);
         centerPanel.add(scrollPane, BorderLayout.CENTER);
 
         mainCenterPanel.add(centerPanel, BorderLayout.CENTER);
@@ -83,9 +115,13 @@ public class Overview extends JPanel {
             for (IssuesData issue: issues) {
                 System.out.println("Issue Name " + i + ": " + issue.getSubject());
                 System.out.println("Status: " + issue.getStatus());
-                System.out.println("Is Closed: " + issue.isClosed());
+                System.out.println("Priority: " + issue.getPriority());
+                System.out.println("Severity: " + issue.getSeverity());
+                System.out.println("Type: " + issue.getType());
                 i++;
             }
+
+
         }
     }
 }

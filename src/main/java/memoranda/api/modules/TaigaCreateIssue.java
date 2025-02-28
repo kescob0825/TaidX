@@ -9,17 +9,18 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+
 public class TaigaCreateIssue {
-    private static final String PROJECTS_URL = "https://api.taiga.io/api/v1/projects";
+    private static final String PROJECTS_URL = "https://api.taiga.io/api/v1/issues";
     private final OkHttpClient httpClient;
     private int lastResponseCode;
 
-    public TaigaCreateIssue(OkHttpClient httpClient, ObjectMapper objectMapper) {
+    public TaigaCreateIssue(OkHttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
     //post
-    public void createProject(String token, JSONObject newProjectBody) throws IOException {
+    public void createIssue(String token, JSONObject newProjectBody) throws IOException {
         MediaType mediaType = MediaType.get("application/json");
         String id = "Bearer " + token;
         String jsonBody = newProjectBody.toString();
@@ -33,13 +34,8 @@ public class TaigaCreateIssue {
                 .build();
         try (okhttp3.Response response = httpClient.newCall(request).execute()) {
             lastResponseCode = response.code();
-            if (response.isSuccessful() && response.body() != null) {
-                String responseBody = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responseBody);
-                String project_name = jsonResponse.getString("name");
-            }
-            else {
-                System.out.println("Create Project Failed. Response code: " + lastResponseCode);
+            if (!response.isSuccessful() && response.body() == null) {
+                System.out.println("Create Issue Failed. Response code: " + lastResponseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();

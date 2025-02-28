@@ -1,5 +1,10 @@
 package memoranda.api.models;
 
+import memoranda.api.models.issueattributes.IssuePriority;
+import memoranda.api.models.issueattributes.IssueSeverity;
+import memoranda.api.models.issueattributes.IssueStatus;
+import memoranda.api.models.issueattributes.IssueType;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +24,10 @@ public class ProjectData {
     private boolean is_private;
     private List<ProjectRolesData> project_roles_list;
     private List<IssuesData> project_issues_list;
+    private List<IssuePriority> issue_priority_list;
+    private List<IssueSeverity> issue_severity_list;
+    private List<IssueStatus> issue_status_list;
+    private List<IssueType> issue_type_list;
 
     public ProjectData(String project_name, String project_description, String date_created,
                        String project_owner, int[] member_ids, int total_activity,
@@ -37,6 +46,10 @@ public class ProjectData {
         this.project_sprint_list = new ArrayList<>();
         this.project_roles_list = new ArrayList<>();
         this.project_issues_list = new ArrayList<>();
+        this.issue_priority_list = new ArrayList<>();
+        this.issue_severity_list = new ArrayList<>();
+        this.issue_status_list = new ArrayList<>();
+        this.issue_type_list = new ArrayList<>();
     }
 
     public String getProjectName() {
@@ -84,6 +97,38 @@ public class ProjectData {
     public List<IssuesData> getProjectIssuesList() {
         return project_issues_list;
     }
+
+    public void addIssuesPriority(List<IssuePriority> issuesPriorityList) {
+        this.issue_priority_list.addAll(issuesPriorityList);
+    }
+    public List<IssuePriority> getIssuePriorityList() {
+        return issue_priority_list;
+    }
+
+    public void addIssueSeverity(List<IssueSeverity> issuesSeverityList) {
+        this.issue_severity_list.addAll(issuesSeverityList);
+    }
+    public List<IssueSeverity> getIssueSeverityList() {
+        return this.issue_severity_list;
+    }
+
+    public void addIssueStatus(List<IssueStatus> issuesStatusList) {
+        this.issue_status_list.addAll(issuesStatusList);
+    }
+    public List<IssueStatus> getIssueStatusList() {
+        return issue_status_list;
+    }
+
+    public void addIssueType(List<IssueType> issuesTypeList) {
+        this.issue_type_list.addAll(issuesTypeList);
+    }
+    public List<IssueType> getIssueTypeList() {
+        return this.issue_type_list;
+    }
+
+
+
+
 
     public void addProjectUserStoryList(List<UserStoryNode> user_story_node_list) {
         this.project_user_story_list.addAll(user_story_node_list);

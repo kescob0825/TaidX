@@ -3,6 +3,10 @@ package memoranda.api;
 import com.google.inject.Inject;
 import memoranda.Start;
 import memoranda.api.models.*;
+import memoranda.api.models.issueattributes.IssuePriority;
+import memoranda.api.models.issueattributes.IssueSeverity;
+import memoranda.api.models.issueattributes.IssueStatus;
+import memoranda.api.models.issueattributes.IssueType;
 import memoranda.api.modules.*;
 import memoranda.util.TaigaJsonData;
 import memoranda.util.subscriber.Publisher;
@@ -30,6 +34,7 @@ public class TaigaClient implements Publisher {
     protected final TaigaUserStory userStory;
     protected final TaigaTasks tasks;
     protected final TaigaCreateProject createProject;
+    protected final TaigaCreateIssue createIssue;
     protected final TaigaInvite taigaInvite;
     private final TaigaJsonData jsonData;
     private final TaigaIssues issues;
@@ -61,6 +66,7 @@ public class TaigaClient implements Publisher {
         this.tasks = new TaigaTasks(httpClient, objectMapper);
         this.taigaSprintModule = new TaigaMilestone(httpClient, objectMapper);
         this.createProject = new TaigaCreateProject(httpClient, objectMapper);
+        this.createIssue = new TaigaCreateIssue(httpClient);
         this.taigaInvite = new TaigaInvite(httpClient);
         this.issues = new TaigaIssues(httpClient);
 
@@ -114,15 +120,29 @@ public class TaigaClient implements Publisher {
         for (ProjectData project : this.authenticator.getUserProfile().getProjectsList()) {
             this.userStory.getUserStories(this.authenticator.getAuthToken(), project.getProjectId());
             this.projects.getProjectsRoles(this.authenticator.getAuthToken(), project.getProjectId());
+            this.issues.getIssueAttributes(this.authenticator.getAuthToken(), project.getProjectId());
             this.issues.getProjectIssues(this.authenticator.getAuthToken(), project.getProjectId());
             List<UserStoryNode> userStoryNodes = userStory.getUserStoryNodes();
             if (userStoryNodes == null || userStoryNodes.isEmpty()) {
                 continue;
             }
             project.addProjectUserStoryList(userStoryNodes);
+            allUserStories.put(userStory.getUserStoryNodes().get(0).getProjectId(), new ArrayList<>(userStoryNodes));
+
             List<IssuesData> projectIssues = issues.getProjectIssueList();
             project.addProjectIssues(projectIssues);
-            allUserStories.put(userStory.getUserStoryNodes().get(0).getProjectId(), new ArrayList<>(userStoryNodes));
+
+            List<IssuePriority> projectIssuePriorities = issues.getIssuePriorityList();
+            project.addIssuesPriority(projectIssuePriorities);
+
+            List<IssueSeverity> projectIssueSeverities = issues.getIssueSeverityList();
+            project.addIssueSeverity(projectIssueSeverities);
+
+            List<IssueStatus> projectIssueStatuses = issues.getIssueStatusList();
+            project.addIssueStatus(projectIssueStatuses);
+
+            List<IssueType> projectIssueTypes = issues.getIssueTypeList();
+            project.addIssueType(projectIssueTypes);
 
             tasks.getAllTasks(this.authenticator.getAuthToken(), project.getProjectId());
             List<TaskNode> taskNodes = tasks.getTaskNodes();
@@ -231,6 +251,19 @@ public class TaigaClient implements Publisher {
             worker.execute();
         }
     }
+
+    public void createNewIssue(JSONObject newProjectDataBody) throws IOException, InterruptedException {
+        if (!this.isClientLoggedIn()) {
+            JOptionPane.showMessageDialog(null, "Login to create a issues.");
+            return;
+        }
+        createIssue.createIssue(this.authenticator.getAuthToken(), newProjectDataBody);
+        if (createProject.getLastResponseCode() <= 201){
+            //Background thread
+            worker.execute();
+        }
+    }
+
     public boolean isClientLoggedIn() throws IOException {
         return AuthAndRefreshToken.isLoggedIn;
     }
