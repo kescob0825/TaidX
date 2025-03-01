@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -91,18 +92,18 @@ public class CreateIssue extends JPanel {
         blockedNoteLabel.setVisible(false);
 
         // Create combo boxes for dropdowns
-        JComboBox<String> priorityComboBox = new JComboBox<>(new String[]{"Low", "Medium", "High"});
-        JComboBox<Integer> severityComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5});
-        JComboBox<Integer> statusComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5, 6, 7});
+        JComboBox<String> priorityComboBox = new JComboBox<>(new String[]{"", "Low", "Medium", "High"});
+        JComboBox<Integer> severityComboBox = new JComboBox<>(new Integer[]{0, 1, 2, 3, 4, 5});
+        JComboBox<Integer> statusComboBox = new JComboBox<>(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7});
         JTextField subjectField = new JTextField();
         JTextField tagsField = new JTextField(); // Comma-separated tags
-        JComboBox<Integer> typeComboBox = new JComboBox<>(new Integer[]{1, 2, 3});
+        JComboBox<Integer> typeComboBox = new JComboBox<>(new Integer[]{0, 1, 2, 3});
 
         // Create a button to submit the form
         JButton submitButton = new JButton("Submit");
 
         // Create labels and set their font
-        JLabel subjectLabel = new JLabel("Subject:");
+        JLabel subjectLabel = new JLabel("*Subject:");
         subjectLabel.setFont(labelFont);
         JLabel descriptionLabel = new JLabel("Description:");
         descriptionLabel.setFont(labelFont);
@@ -169,8 +170,8 @@ public class CreateIssue extends JPanel {
             // Show confirmation dialog
             int response = JOptionPane.showConfirmDialog(
                     panel,
-                    "Are you sure you want to create this project?",
-                    "Confirm Project Creation",
+                    "Are you sure you want to create this issue?",
+                    "Confirm issue Creation",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
             );
@@ -188,51 +189,58 @@ public class CreateIssue extends JPanel {
                 int type = (Integer) typeComboBox.getSelectedItem();
 
                 String priorityString = (String) priorityComboBox.getSelectedItem();
-                int priority = 0;
-                switch (Objects.requireNonNull(priorityString)) {
-                    case "Medium":
-                        priority = 3;
-                        break;
-                    case "High":
-                        priority = 5;
-                        break;
-                    default:
-                        priority = 1;
-                        break;
-                }
+                int priority = switch (Objects.requireNonNull(priorityString)) {
+                    case "Medium" -> 3;
+                    case "High" -> 5;
+                    case "Low" -> 1;
+                    default -> 0;
+                };
 
                 // Create a JSON object
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("project", projectData.getProjectId());
                 jsonObject.put("subject", subject);
-                jsonObject.put("description", description);
-                jsonObject.put("blocked_note", blockedNote);
-                jsonObject.put("is_blocked", isBlocked);
+                if (!description.isEmpty()) {
+                    jsonObject.put("description", description);
+                }
+                if (isBlocked) {
+                    jsonObject.put("is_blocked", true);
+                    jsonObject.put("blocked_note", blockedNote);
+                }
+
                 jsonObject.put("is_closed", isClosed);
-                if (priorities != null && !priorities.isEmpty()) {
+                if (priorities != null && !priorities.isEmpty() && priority != 0) {
                     jsonObject.put("priority", setPriorityID(priority));
                 }
-                if (severities != null && !severities.isEmpty()) {
+                if (severities != null && !severities.isEmpty() && severity != 0) {
                     jsonObject.put("severity", setSeverityID(severity));
                 }
-                if (priorities != null && !priorities.isEmpty()) {
+                if (statuses != null && !statuses.isEmpty() && status != 0) {
                     jsonObject.put("status", setStatusID(status));
                 }
-                if (priorities != null && !priorities.isEmpty()) {
+                if (types != null && !types.isEmpty() && type != 0) {
                     jsonObject.put("subject", setTypeID(type));
                 }
                 // Add tags as a JSON array
                 JSONArray jsonTags = new JSONArray();
                 JSONArray jsonWatchers = new JSONArray();
-                for (String tag : tags) {
-                    jsonTags.put(tag.trim());
-                    //System.out.println(tag.trim());
+                if (tags.length > 0) {
+                    for (String tag : tags) {
+                        if (tag.trim().isEmpty()) {
+                            continue;
+                        }
+                        jsonTags.put(tag.trim());
+                        //System.out.println(tag.trim());
+                    }
+                    if (!Arrays.toString(tags).trim().isEmpty()) {
+                        jsonObject.put("tags", jsonTags);
+                    }
                 }
-                jsonObject.put("tags", jsonTags);
-                jsonObject.put("watchers", jsonWatchers);
-
+                if (!jsonWatchers.isEmpty()) {
+                    jsonObject.put("watchers", jsonWatchers);
+                }
                 // Print the JSON object
-                System.out.println(jsonObject.toString());
+                System.out.println(jsonObject);
 
                 // Send Json Body to taiga client
                 try {

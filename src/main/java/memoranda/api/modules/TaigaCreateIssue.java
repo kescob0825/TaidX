@@ -34,8 +34,9 @@ public class TaigaCreateIssue {
                 .build();
         try (okhttp3.Response response = httpClient.newCall(request).execute()) {
             lastResponseCode = response.code();
-            if (!response.isSuccessful() && response.body() == null) {
+            if (!response.isSuccessful() && response.body() != null) {
                 System.out.println("Create Issue Failed. Response code: " + lastResponseCode);
+                System.out.println(response.body().string());
             }
         } catch (Exception e) {
             e.printStackTrace();

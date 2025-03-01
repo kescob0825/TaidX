@@ -258,9 +258,8 @@ public class TaigaClient implements Publisher {
             return;
         }
         createIssue.createIssue(this.authenticator.getAuthToken(), newProjectDataBody);
-        if (createProject.getLastResponseCode() <= 201){
-            //Background thread
-            worker.execute();
+        if (createIssue.getLastResponseCode() <= 201){
+            System.out.println("Create Issue Response Code: " + createIssue.getLastResponseCode());
         }
     }
 
@@ -360,7 +359,6 @@ public class TaigaClient implements Publisher {
         subscribers.remove(subscriber);
     }
 
-    // TODO pushes update after successful API call
     @Override
     public void notifySubscribers() throws IOException {
         for (Subscriber subscriber : subscribers) {
