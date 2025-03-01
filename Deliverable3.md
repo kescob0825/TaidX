@@ -49,10 +49,10 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 
 | **Date**     | **Who Did Not Attend** | **Meeting Notes**                                     | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes**  |
 |--------------|------------------------|-------------------------------------------------------|----------------------------------------|---------------------------------------------|-----------------------|
-| _02/19/2025_ | _Everyone was present_ | _Sprint planning and creating tasks for User Stories_ | _On track_               | _Pass/Fail_                                 | _10 minutes_          |
-| _02/24/2025_ | _Everyone was present_              | _Daily Scrum Meeting_                                 | _On track_               | _Pass/Fail_                                 | _10 minutes_          |
-| _Date_       | _Name(s)_              | _Brief notes_                                         | _On track/Behind/Ahead_               | _Pass/Fail_                                 | _Other relevant info_ |
-
+| _02/19/2025_ | _Everyone was present_ | _Sprint planning and creating tasks for User Stories_ | _On track_                             | _Pass/Fail_                                 | _10 minutes_          |
+| _02/24/2025_ | _Everyone was present_ | _Scrum Meeting_                                       | _On track_                             | _Pass/Fail_                                 | _10 minutes_          |
+| _02/28/2025_ | _Mohammed_             | _Scrum Meeting_                                       | _On track_                             | _Pass/Fail_                                 | _10 minutes_          |
+| _Date_       | _Name(s)_              | _Brief notes_                                         | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
 ---
 
 ## 3: After the Sprint
@@ -112,7 +112,8 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 ## 4: Contributions (Document each team member’s contributions for the Sprint)
 
-> This section should be filled out by each team member. Below is the structure for how each team member will describe their contributions. You may copy and paste the template below for each person.
+> This section should be filled out by each team member. Below is the structure for how each team member 
+> will describe their contributions. You may copy and paste the template below for each person.
 
 ### Team Member [Andrew]
 
@@ -171,6 +172,7 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 #### GitHub Links to Work:
 Please provide the links to your key contributions on GitHub. Include **commits, pull requests**, and other important work items.
 
+### Team Member [Andrew]
 - **GitHub Commits (Up to 5)**
     - [Commit 1](link) - _Short description of what the commit is about_
     - [Commit 2](link) - _Short description of what the commit is about_
@@ -192,6 +194,115 @@ Please provide the links to your key contributions on GitHub. Include **commits,
     - [Static Analysis 1](link) - _Short description of the analysis contribution_
     - [Static Analysis 2](link) - _Short description of the analysis contribution_
 
+### Team Member [Edwin]
+- **GitHub Commits (Up to 5)**
+  - [Commit 1](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+
+- **GitHub Pull Requests (Up to 3)**
+  - [PR 1](link) - _Short description of the PR_
+  - [PR 2](link) - _Short description of the PR_
+
+- **GitHub Unit Tests (Up to 3, start in Sprint 2)**
+  - [Test 1](link) - _Short description of the test_
+  - [Test 2](link) - _Short description of the test_
+
+- **Code Reviews (Up to 3, start in Sprint 2)**
+  - [Review 1](link) - _Short description of the code review_
+  - [Review 2](link) - _Short description of the code review_
+
+- **Static Analysis Contributions (Start in Sprint 3)**
+  - [Static Analysis 1](link) - _Short description of the analysis contribution_
+  - [Static Analysis 2](link) - _Short description of the analysis contribution_
+
+### Team Member [Jedi]
+- **GitHub Commits (Up to 5)**
+  - [Commit 1](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+
+- **GitHub Pull Requests (Up to 3)**
+  - [PR 1](link) - _Short description of the PR_
+  - [PR 2](link) - _Short description of the PR_
+
+- **GitHub Unit Tests (Up to 3, start in Sprint 2)**
+  - [Test 1](link) - _Short description of the test_
+  - [Test 2](link) - _Short description of the test_
+
+- **Code Reviews (Up to 3, start in Sprint 2)**
+  - [Review 1](link) - _Short description of the code review_
+  - [Review 2](link) - _Short description of the code review_
+
+- **Static Analysis Contributions (Start in Sprint 3)**
+  - [Static Analysis 1](link) - _Short description of the analysis contribution_
+  - [Static Analysis 2](link) - _Short description of the analysis contribution_
+
+### Team Member [Jimmy]
+- **GitHub Commits (Up to 5)**
+  - [Commit 1](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+
+- **GitHub Pull Requests (Up to 3)**
+  - [PR 1](link) - _Short description of the PR_
+  - [PR 2](link) - _Short description of the PR_
+
+- **GitHub Unit Tests (Up to 3, start in Sprint 2)**
+  - [Test 1](link) - _Short description of the test_
+  - [Test 2](link) - _Short description of the test_
+
+- **Code Reviews (Up to 3, start in Sprint 2)**
+  - [Review 1](link) - _Short description of the code review_
+  - [Review 2](link) - _Short description of the code review_
+
+- **Static Analysis Contributions (Start in Sprint 3)**
+  - [Static Analysis 1](link) - _Short description of the analysis contribution_
+  - [Static Analysis 2](link) - _Short description of the analysis contribution_
+
+### Team Member [Karl]
+- **GitHub Commits (Up to 5)**
+  - [Commit 1](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+
+- **GitHub Pull Requests (Up to 3)**
+  - [PR 1](link) - _Short description of the PR_
+  - [PR 2](link) - _Short description of the PR_
+
+- **GitHub Unit Tests (Up to 3, start in Sprint 2)**
+  - [Test 1](link) - _Short description of the test_
+  - [Test 2](link) - _Short description of the test_
+
+- **Code Reviews (Up to 3, start in Sprint 2)**
+  - [Review 1](link) - _Short description of the code review_
+  - [Review 2](link) - _Short description of the code review_
+
+- **Static Analysis Contributions (Start in Sprint 3)**
+  - [Static Analysis 1](link) - _Short description of the analysis contribution_
+  - [Static Analysis 2](link) - _Short description of the analysis contribution_
+
+### Team Member [Mohammed]
+- **GitHub Commits (Up to 5)**
+  - [Commit 1](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+
+- **GitHub Pull Requests (Up to 3)**
+  - [PR 1](link) - _Short description of the PR_
+  - [PR 2](link) - _Short description of the PR_
+
+- **GitHub Unit Tests (Up to 3, start in Sprint 2)**
+  - [Test 1](link) - _Short description of the test_
+  - [Test 2](link) - _Short description of the test_
+
+- **Code Reviews (Up to 3, start in Sprint 2)**
+  - [Review 1](link) - _Short description of the code review_
+  - [Review 2](link) - _Short description of the code review_
+
+- **Static Analysis Contributions (Start in Sprint 3)**
+  - [Static Analysis 1](link) - _Short description of the analysis contribution_
+  - [Static Analysis 2](link) - _Short description of the analysis contribution_
 ---
 
 ## 5: Sprint Completion Checklist (optional)
