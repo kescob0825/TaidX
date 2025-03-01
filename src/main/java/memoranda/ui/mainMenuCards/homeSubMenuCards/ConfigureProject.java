@@ -223,14 +223,14 @@ public class ConfigureProject extends JPanel implements Subscriber {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         createButtonRoles.addActionListener(e -> {
             try{
-                if (roleNameTextField.getText().isEmpty() || Objects.requireNonNull(comboBoxRoles[CREATE_ROLES].getSelectedItem()).toString().isEmpty()){
+                if (roleNameTextField.getText().isEmpty() || Objects.requireNonNull(comboBoxProjects[CREATE_ROLES].getSelectedItem()).toString().isEmpty()){
                     JOptionPane.showMessageDialog(null, "Required Fields Missing.");
                     return;
                 }
                 JSONObject newProjectRolesData = new JSONObject();
                 newProjectRolesData.put("name", roleNameTextField.getText());
-                for (int i = 0; i < comboBoxRoles[CREATE_ROLES].getItemCount(); i++){
-                    if (comboBoxRoles[CREATE_ROLES].getSelectedItem().equals(comboBoxRoles[CREATE_ROLES].getItemAt(i))){
+                for (int i = 0; i < comboBoxProjects[CREATE_ROLES].getItemCount(); i++){
+                    if (comboBoxProjects[CREATE_ROLES].getSelectedItem().equals(comboBoxProjects[CREATE_ROLES].getItemAt(i))){
                         newProjectRolesData.put("project", taigaClient.getProjectsList().get(i).getProjectId());
                     }
                 }
@@ -467,8 +467,8 @@ public class ConfigureProject extends JPanel implements Subscriber {
     public void resetCreateProjectRoles() {
         roleNameTextField.setText("");
         orderSpinner.setValue(0);
-        if (comboBoxRoles[CREATE_ROLES] != null ) {
-            comboBoxRoles[CREATE_ROLES].setSelectedIndex(0);
+        if (comboBoxProjects[CREATE_ROLES] != null ) {
+            comboBoxProjects[CREATE_ROLES].setSelectedIndex(0);
         }
         if (comboBoxPermissions != null) {
             comboBoxPermissions.setSelectedIndex(0);

@@ -169,14 +169,6 @@ public class Profile extends JPanel implements Subscriber {
             if (stats != null) {
                 projectsL.setText("Projects: " + stats.getNumProjects());
                 contactsL.setText("Contacts: " + stats.getNumContacts());
-                List<String> roles = stats.getRoles();
-                for (String role : roles) {
-                    JLabel roleH = new JLabel(role);
-                    roleH.setFont(new Font("Arial", Font.PLAIN, 20));
-                    JPanel roleP = new JPanel(new BorderLayout());
-                    roleP.add(roleH, BorderLayout.WEST);
-                    rolesListP.add(roleP);
-                }
             }
             centerPanel.add(rolesTitleP, BorderLayout.NORTH);
             centerPanel.add(rolesListP, BorderLayout.CENTER);

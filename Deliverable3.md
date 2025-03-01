@@ -47,11 +47,11 @@ Fill out your Sprint Planning here, based on the kickoff document and your team'
 ### Meeting Minutes (Daily Scrum):
 Track meeting notes and progress. Fill in the table below during each Daily Scrum meeting.
 
-| **Date**     | **Who Did Not Attend** | **Meeting Notes**                                     | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes**  |
-|--------------|------------------------|-------------------------------------------------------|----------------------------------------|---------------------------------------------|-----------------------|
-| _02/19/2025_ | _Everyone was present_ | _Sprint planning and creating tasks for User Stories_ | _On track_               | _Pass/Fail_                                 | _10 minutes_          |
-| _02/24/2025_ | _Everyone was present_              | _Daily Scrum Meeting_                                 | _On track_               | _Pass/Fail_                                 | _10 minutes_          |
-| _Date_       | _Name(s)_              | _Brief notes_                                         | _On track/Behind/Ahead_               | _Pass/Fail_                                 | _Other relevant info_ |
+| **Date**   | **Who Did Not Attend** | **Meeting Notes**                                    | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes** |
+|------------|------------------------|------------------------------------------------------|----------------------------------------|----------------------------------------------|----------------------|
+| 02/19/2025 | Everyone was present   | Sprint planning and creating tasks for User Stories  | On track                               | Pass                                         | 10 minutes           |
+| 02/24/2025 | Everyone was present   | Daily Scrum Meeting                                  | On track                               | Fail                                         | 10 minutes           |
+| _Date_     | _Name(s)_              | _Brief notes_                                        | On track                               | Fail                                         | Other relevant info  |
 
 ---
 
@@ -59,7 +59,7 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 
 ### Sprint Review (Answer as a team)
 #### Screen Cast Link:  
-- _Insert the link to your Sprint review screencast here._
+- [Youtube Link] (url here) - 
 
 #### Sprint Review Questions:
 - **What value did you create during this Sprint?**
@@ -120,7 +120,7 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 - **Did you work consistently and contribute enough to the project?**
     > _Your Answer_
 
-- **What buisiness value did you deliver personally?**
+- **What business value did you deliver personally?**
     > _Your Answer_
 
 ### Team Member [Edwin]
@@ -129,17 +129,22 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 - **Did you work consistently and contribute enough to the project?**
   > _Your Answer_
 
-- **What buisiness value did you deliver personally?**
+- **What business value did you deliver personally?**
   > _Your Answer_
 
 ### Team Member [Jedi]
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+  > I worked in bursts due to time constraints from other classes and childcare. I stayed on pace linearly if averaged out 
+  > over the sprint.
 
-- **What buisiness value did you deliver personally?**
-  > _Your Answer_
+- **What business value did you deliver personally?**
+  > I set up an observer design pattern to update UI after logging in and also after certain API calls that would alter 
+  > state. This proved somewhat successful. I tried adding a worker thread to update the UI in the background but the 
+  > Taiga API was so slow that I put a 60 second thread sleep() before the API call to update was made and the data it 
+  > received was still not updated on the server side despite a 201 response. The state would update eventually, but it 
+  > would not provide good business value if the API was that slow. That is server side and out of my control.
 
 ### Team Member [Jimmy]
 
@@ -147,7 +152,7 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 - **Did you work consistently and contribute enough to the project?**
   > _Your Answer_
 
-- **What buisiness value did you deliver personally?**
+- **What business value did you deliver personally?**
   > _Your Answer_
 
 ### Team Member [Karl]
@@ -156,7 +161,7 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 - **Did you work consistently and contribute enough to the project?**
   > _Your Answer_
 
-- **What buisiness value did you deliver personally?**
+- **What business value did you deliver personally?**
   > _Your Answer_
 
 ### Team Member [Mohammed]
@@ -165,14 +170,14 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 - **Did you work consistently and contribute enough to the project?**
   > _Your Answer_
 
-- **What buisiness value did you deliver personally?**
+- **What business value did you deliver personally?**
   > _Your Answer_
 
 #### GitHub Links to Work:
 Please provide the links to your key contributions on GitHub. Include **commits, pull requests**, and other important work items.
 
 - **GitHub Commits (Up to 5)**
-    - [Commit 1](link) - _Short description of what the commit is about_
+    - [US85 - Observer](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/2c32bf5f26afb6872718525b0e2b1e1016f22e07) - This added a observer design pattern to update UI on login so the user doesn't have to cycle the app.
     - [Commit 2](link) - _Short description of what the commit is about_
     - [Commit 2](link) - _Short description of what the commit is about_
 
@@ -181,7 +186,7 @@ Please provide the links to your key contributions on GitHub. Include **commits,
     - [PR 2](link) - _Short description of the PR_
 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
-    - [Test 1](link) - _Short description of the test_
+    - [Test 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13461165560) - CI/SA with JUnit test integration
     - [Test 2](link) - _Short description of the test_
 
 - **Code Reviews (Up to 3, start in Sprint 2)**
@@ -189,7 +194,7 @@ Please provide the links to your key contributions on GitHub. Include **commits,
     - [Review 2](link) - _Short description of the code review_
 
 - **Static Analysis Contributions (Start in Sprint 3)**
-    - [Static Analysis 1](link) - _Short description of the analysis contribution_
+    - [Static Analysis 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13461165560) - The last CI/SA before it began to fail.
     - [Static Analysis 2](link) - _Short description of the analysis contribution_
 
 ---
