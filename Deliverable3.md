@@ -18,25 +18,28 @@ Make sure you refer to the [Kickoff Document](#) for additional details and guid
 Fill out your Sprint Planning here, based on the kickoff document and your team's discussions.
 
 #### Sprint Goal:
-- **Sprint Goal**: _Clearly state the goal of the sprint._
+- **Sprint Goal**: 
+> Clear the rest of the US's out of the backlog and add design patterns to make the app dynamic.
 
 #### Product Backlog & Sprint Backlog:
-- **User Stories in Product Backlog**: _Number of User Stories added to the Product Backlog_
-- **User Stories in Sprint Backlog**: _Number of User Stories selected for this Sprint_
+- **User Stories in Product Backlog**: 0
+- **User Stories in Sprint Backlog**: 4
 
 #### Sprint Planning Questions:
-- **Why did you select these User Stories for this Spring?**
-    > _Your Answer_
+- **Why did you select these User Stories for this Sprint?**
+    > To add last touches on the UI and these were the last US's leftover in the product backlog.
 
  #### Sprint Planning Questions:
 - **Why do you think you can complete them in this Sprint?**
-    > _Your Answer_
+    > Yes, the bulk of the work was completed in the former sprints. This sprint was mainly to polish UI and add 
+  > functionality to the issues section.
 
 - **How do these User Stories align with the Sprint Goal?**
-    > _Your Answer_
+    > Adding an observer allows the app to be dynamic and update the state while using the app. Adding the sprint 
+  > interface, see and manage issues.
 
 - **Do you have a clear idea of the tasks needed to complete these User Stories? (If not, please notify via Slack.)**
-    > _Your Answer_
+    > Yes. We are creating a beta app that mirrors the functionality of the Taiga website.
 
 ---
 
@@ -47,29 +50,32 @@ Fill out your Sprint Planning here, based on the kickoff document and your team'
 ### Meeting Minutes (Daily Scrum):
 Track meeting notes and progress. Fill in the table below during each Daily Scrum meeting.
 
-| **Date**     | **Who Did Not Attend** | **Meeting Notes**                                     | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes**  |
-|--------------|------------------------|-------------------------------------------------------|----------------------------------------|---------------------------------------------|-----------------------|
-| _02/19/2025_ | _Everyone was present_ | _Sprint planning and creating tasks for User Stories_ | _On track_                             | _Pass/Fail_                                 | _10 minutes_          |
-| _02/24/2025_ | _Everyone was present_ | _Scrum Meeting_                                       | _On track_                             | _Pass/Fail_                                 | _10 minutes_          |
-| _02/28/2025_ | _Mohammed_             | _Scrum Meeting_                                       | _On track_                             | _Pass/Fail_                                 | _10 minutes_          |
-| _Date_       | _Name(s)_              | _Brief notes_                                         | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
+| **Date**   | **Who Did Not Attend** | **Meeting Notes**                                    | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes**  |
+|------------|------------------------|------------------------------------------------------|----------------------------------------|----------------------------------------------|-----------------------|
+| 02/19/2025 | Everyone was present   | Sprint planning and creating tasks for User Stories_ | On track                               | Pass/Fail                                    | 10 minutes            |
+| 02/24/2025 | Everyone was present   | Scrum Meeting                                        | On track                               | Pass/Fail                                    | 10 minutes            |
+| 02/28/2025 | Mohammed               | Scrum Meeting                                        | On track                               | Pass/Fail                                    | 10 minutes            |
+| _Date_     | _Name(s)_              | _Brief notes_                                        | _On track/Behind/Ahead_                | _Pass/Fail_                                  | _Other relevant info_ |
 ---
 
 ## 3: After the Sprint
 
 ### Sprint Review (Answer as a team)
 #### Screen Cast Link:  
-- _Insert the link to your Sprint review screencast here._
+- [Youtube Link] (Link here)
 
 #### Sprint Review Questions:
 - **What value did you create during this Sprint?**
-    > _Your Answer_
+    > We made the application dynamic, added support for the burndown chart, created a sprint interface and an issues
+    > interface to allow the end user to interact with the application.
 
 - **Do you feel you worked enough and met expectations?**
-    > _Your Answer_
+    > Yes, we met the sprint goal and created an application that looks and feels nothing like the original memoranda app.
+    > it has completely evolved into a usable application.
 
 - **Did you meet the customers’ expectations? Why or why not?**
-    > _Your Answer_
+    > If the customer wanted an application to work on team planning and sprint related tasks, then yes. For one scrum round,
+    > our team accomplished just that. Given more time the application could be refined but this is a beta ready application.
 
 ---
 
@@ -77,28 +83,29 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 Provide clear answers based on your team’s actual data and performance.
 
 - **Did you meet your Sprint Goal?**
-    > _Your Answer_
+    > Sprint goal: Clear the rest of the US's out of the backlog and add design patterns to make the app dynamic.
+    > Yes, we cleared out the backlog and got the application ready for a beta launch.
 
 - **Did you complete all User Stories in the Sprint Backlog?**
-    > _Yes/No and evidence_
+    > Yes, see burndown chart and product backlog.
 
 - **If not, what went wrong?**
-    > _Your Answer_
+    > We completed our goal but the unit testing and CR's were lacking.
 
 - **Did you work at a consistent rate or velocity?**
-    > _Your Answer_ (Provide evidence: task completion rate, Git commit rate, etc.)
-
+    > 27 tasks (25 completed, 2 remaining) 27 and counting commits for sprint 3.
+  ![Screenshot 2025-02-01 at 22.36.32.png](LinearProgressionChartSprint3.png)
 - **Did you deliver business value and what was it?**
-    > _Your Answer_
+    > The application is beta ready for a soft launch. We tested as much as we could. Now it is ready for the end user to use it and provide feedback.
 
 - **Did you follow the Scrum process (e.g., moving tasks, updating boards, etc.)?**
-    > _Your Answer_
+    > Yes, boards were reviewed and updated each meeting. The team talked about obstacles and plans to overcome them. Collaboration was ample for those that attended meetings.
 
 - **Is there anything you could improve for the next Sprint? (For the last Sprint mention what you would do if you were to continue)**
-    > _Your Answer_
+    > Soft launch the app and get user/customer feedback. Use that to plan the next course of action.
 
 - **How do you feel about the Sprint? (Team optimism pulse)**
-    > _Your Answer_
+    > Glad this is the last sprint. 
 
 ---
 
@@ -170,7 +177,7 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
   > _Your Answer_
 
 #### GitHub Links to Work:
-Please provide the links to your key contributions on GitHub. Include **commits, pull requests**, and other important work items.
+Please provide the links to your key contributions, on GitHub. Include **commits, pull requests**, and other important work items.
 
 ### Team Member [Andrew]
 - **GitHub Commits (Up to 5)**
@@ -223,7 +230,7 @@ Please provide the links to your key contributions on GitHub. Include **commits,
   - [US81](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/1432733908854a9a332b99669e0bf5aa09629890) - US81 refactoring help
 
 - **GitHub Pull Requests (Up to 3)**
-  - [PR 1](link) - _Short description of the PR_
+  - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/23/commits) - _Short description of the PR_
   - [PR 2](link) - _Short description of the PR_
 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
@@ -231,7 +238,7 @@ Please provide the links to your key contributions on GitHub. Include **commits,
   - [Test 2](https://github.com/amehlhase316/Ruebezahl_spring25A/blob/dev/src/test/java/memoranda/taiga/InviteTest.java) - InviteTest class
 
 - **Code Reviews (Up to 3, start in Sprint 2)**
-  - [Review 1](link) - _Short description of the code review_
+  - [Review 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/bf69d839a9be8774710b4e29766f16459385be95#diff-150e47fdd13c63587d97b59676c4fe48f3866b65570b7062d6c101a80dc4a4be) - Code Review on US81 tested and refactored UI
   - [Review 2](link) - _Short description of the code review_
 
 - **Static Analysis Contributions (Start in Sprint 3)**
