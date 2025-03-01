@@ -3,10 +3,14 @@ package memoranda.api;
 import com.google.inject.Inject;
 import memoranda.Start;
 import memoranda.api.models.*;
+import memoranda.api.models.issueattributes.IssuePriority;
+import memoranda.api.models.issueattributes.IssueSeverity;
+import memoranda.api.models.issueattributes.IssueStatus;
+import memoranda.api.models.issueattributes.IssueType;
 import memoranda.api.modules.*;
-import memoranda.ui.ExceptionDialog;
-import memoranda.ui.mainMenuCards.HomeToolBarCards;
 import memoranda.util.TaigaJsonData;
+import memoranda.util.subscriber.Publisher;
+import memoranda.util.subscriber.Subscriber;
 import okhttp3.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
@@ -17,10 +21,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 
-public class TaigaClient {
+public class TaigaClient implements Publisher {
     private static final String BASE_URL = "https://api.taiga.io/api/v1/";
     private final OkHttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -31,9 +34,12 @@ public class TaigaClient {
     protected final TaigaUserStory userStory;
     protected final TaigaTasks tasks;
     protected final TaigaCreateProject createProject;
+    protected final TaigaCreateIssue createIssue;
     protected final TaigaInvite taigaInvite;
     private final TaigaJsonData jsonData;
+    private final TaigaIssues issues;
     protected int lastResponseCode;
+
     //Use for searching data
     public static Map<Integer, List<UserStoryNode>> allUserStories = new HashMap<>();
     public static Map<Integer, List<TaskNode>> allTasks = new HashMap<>();
@@ -43,7 +49,9 @@ public class TaigaClient {
     public static Map<Integer, List<UserStoryNode>> userStoryData = new HashMap<>();
     public static Map<Integer, List<TaskNode>> tasksData = new HashMap<>();
     public static Map<Integer, List<MilestoneData>> milestoneData = new HashMap<>();
-    private SwingWorker<List<String>, String>  backgroundReload;
+    private List<Subscriber> subscribers;
+    SwingWorker <Void, Void> worker;
+    SwingWorker <Void, Void> loginWorker;
 
     @Inject
     public TaigaClient() {
@@ -58,7 +66,29 @@ public class TaigaClient {
         this.tasks = new TaigaTasks(httpClient, objectMapper);
         this.taigaSprintModule = new TaigaMilestone(httpClient, objectMapper);
         this.createProject = new TaigaCreateProject(httpClient, objectMapper);
+        this.createIssue = new TaigaCreateIssue(httpClient);
         this.taigaInvite = new TaigaInvite(httpClient);
+        this.issues = new TaigaIssues(httpClient);
+
+        this.subscribers = new ArrayList<>();
+        worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                Thread.sleep(30000); //wait 30 seconds for the changes to post on Taiga then pull them and update
+                initLoadProjectAndUserStoryData();
+                loadDataOnOpen();
+                notifySubscribers();
+                return null;
+            }
+        };
+        loginWorker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                Thread.sleep(1000); //wait 1 seconds for the changes to post on Taiga then pull them and update
+                notifySubscribers();
+                return null;
+            }
+        };
         try{
             this.jsonData = Start.getInjector().getInstance(TaigaJsonData.class);
         } catch (Exception e) {
@@ -78,7 +108,8 @@ public class TaigaClient {
         setLastResponseCode(authenticator.getLastResponseCode());
         initLoadProjectAndUserStoryData();
         initUserStatsData();
-        reloadData();
+        loadDataOnOpen();
+        loginWorker.execute();
     }
 
     public void initLoadProjectAndUserStoryData() throws IOException {
@@ -89,12 +120,29 @@ public class TaigaClient {
         for (ProjectData project : this.authenticator.getUserProfile().getProjectsList()) {
             this.userStory.getUserStories(this.authenticator.getAuthToken(), project.getProjectId());
             this.projects.getProjectsRoles(this.authenticator.getAuthToken(), project.getProjectId());
+            this.issues.getIssueAttributes(this.authenticator.getAuthToken(), project.getProjectId());
+            this.issues.getProjectIssues(this.authenticator.getAuthToken(), project.getProjectId());
             List<UserStoryNode> userStoryNodes = userStory.getUserStoryNodes();
             if (userStoryNodes == null || userStoryNodes.isEmpty()) {
                 continue;
             }
             project.addProjectUserStoryList(userStoryNodes);
             allUserStories.put(userStory.getUserStoryNodes().get(0).getProjectId(), new ArrayList<>(userStoryNodes));
+
+            List<IssuesData> projectIssues = issues.getProjectIssueList();
+            project.addProjectIssues(projectIssues);
+
+            List<IssuePriority> projectIssuePriorities = issues.getIssuePriorityList();
+            project.addIssuesPriority(projectIssuePriorities);
+
+            List<IssueSeverity> projectIssueSeverities = issues.getIssueSeverityList();
+            project.addIssueSeverity(projectIssueSeverities);
+
+            List<IssueStatus> projectIssueStatuses = issues.getIssueStatusList();
+            project.addIssueStatus(projectIssueStatuses);
+
+            List<IssueType> projectIssueTypes = issues.getIssueTypeList();
+            project.addIssueType(projectIssueTypes);
 
             tasks.getAllTasks(this.authenticator.getAuthToken(), project.getProjectId());
             List<TaskNode> taskNodes = tasks.getTaskNodes();
@@ -133,9 +181,9 @@ public class TaigaClient {
             sprintDataList.clear();
             userStory.clearUserStoryNodes();
             tasks.clearTaskNodes();
+            issues.clearProjectIssueList();
         }
         jsonData.saveAllConfigs();
-        System.out.println("Finished Initial Load");
     }
 
     public void loadDataOnOpen() throws IOException {
@@ -163,61 +211,16 @@ public class TaigaClient {
             }
             milestoneData.put(project.getProjectId(), new ArrayList<>(sprintDataList));
         }
-        System.out.println("Local Data Loaded");
     }
 
-    public void reloadData() {
-        JDialog status =  new JDialog();
-        JLabel  statusLabel = new JLabel("Reloading Data...");
-        status.setTitle("Reloading Data...");
-        status.add(statusLabel);
-        status.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
-        backgroundReload = new SwingWorker<List<String>, String> () {
-            @Override
-            protected List<String> doInBackground() throws Exception {
-                List<String> list = new ArrayList<>();
-                try{
-                    publish("Reloading Data...");
-                    initLoadProjectAndUserStoryData();
-                    publish("Data Reloaded Successfully.");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                return list;
-            }
-            @Override
-            protected void process(List<String> chunks) {
-                for (String chunk : chunks) {
-                    statusLabel.setText(chunk);
-                }
-            }
-            @Override
-            protected void done() {
-                try {
-                    get();
-                    jsonData.loadAllConfigs();
-                    loadDataOnOpen();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    e.printStackTrace();
-                } catch (ExecutionException | IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        backgroundReload.execute();
-    }
-
-    public void setProjectRolesClient(JSONObject setRolesData) throws IOException {
+    public void setProjectRolesClient(JSONObject setRolesData) throws IOException, InterruptedException {
         if (!this.isClientLoggedIn()) {
             JOptionPane.showMessageDialog(null, "Login to create a project.");
             return;
         }
         this.projects.setProjectRoles(this.authenticator.getAuthToken(), setRolesData);
         if (projects.getLastResponseCode() <= 201){
-            reloadData();
+            worker.execute();
         }
     }
 
@@ -237,23 +240,36 @@ public class TaigaClient {
         this.taigaInvite.inviteMember(this.authenticator.getAuthToken(), inviteData);
     }
 
-    public void createNewProject(JSONObject newProjectDataBody) throws IOException {
+    public void createNewProject(JSONObject newProjectDataBody) throws IOException, InterruptedException {
         if (!this.isClientLoggedIn()) {
             JOptionPane.showMessageDialog(null, "Login to create a project.");
             return;
         }
         createProject.createProject(this.authenticator.getAuthToken(), newProjectDataBody);
         if (createProject.getLastResponseCode() <= 201){
-            reloadData();
+            //Background thread
+            worker.execute();
         }
     }
+
+    public void createNewIssue(JSONObject newProjectDataBody) throws IOException, InterruptedException {
+        if (!this.isClientLoggedIn()) {
+            JOptionPane.showMessageDialog(null, "Login to create a issues.");
+            return;
+        }
+        createIssue.createIssue(this.authenticator.getAuthToken(), newProjectDataBody);
+        if (createIssue.getLastResponseCode() <= 201){
+            System.out.println("Create Issue Response Code: " + createIssue.getLastResponseCode());
+        }
+    }
+
     public boolean isClientLoggedIn() throws IOException {
         return AuthAndRefreshToken.isLoggedIn;
     }
     /**
      * Retrieves the projects for the authenticated user.
      */
-    public List<ProjectData> getProjectsList() throws IOException {
+    public List<ProjectData> getProjectsList() {
         if (this.authenticator.getUserProfile() == null) {
             return new ArrayList<>();
         }
@@ -329,8 +345,24 @@ public class TaigaClient {
         return lastResponseCode;
     }
 
-    public UserProfile getUserProfile() throws IOException {
+    public UserProfile getUserProfile() {
         return authenticator.getUserProfile();
     }
 
+    @Override
+    public void register(Subscriber subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    @Override
+    public void unregister(Subscriber subscriber) {
+        subscribers.remove(subscriber);
+    }
+
+    @Override
+    public void notifySubscribers() throws IOException {
+        for (Subscriber subscriber : subscribers) {
+            subscriber.update();
+        }
+    }
 }

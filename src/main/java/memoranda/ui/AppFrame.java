@@ -45,7 +45,7 @@ public class AppFrame extends JFrame {
     JMenu jMenuFormat = new JMenu();
     JMenu jMenuInsert = new JMenu();
 
-    public WorkPanel workPanel = new WorkPanel();
+    public WorkPanel workPanel = WorkPanel.getInstance();
     public static JPanel rightPanel = new JPanel();
 
     static Vector exitListeners = new Vector();
@@ -347,7 +347,6 @@ public class AppFrame extends JFrame {
         }
         TaigaLoginDialog taigaDlg = new TaigaLoginDialog(this);
         taigaDlg.pack();
-        workPanel.needsRefresh(true);
         // Calculate the center position
         int x = App.getFrame().getX() + (App.getFrame().getWidth() - taigaDlg.getWidth()) / 2;
         int y = App.getFrame().getY() + (App.getFrame().getHeight() - taigaDlg.getHeight()) / 2;
@@ -365,7 +364,6 @@ public class AppFrame extends JFrame {
     }
     protected void jMenuTaigiLogout_actionPerformed(ActionEvent e) {
         client  = Start.getInjector().getInstance(TaigaClient.class);
-        workPanel.needsRefresh(true);
         client.logoutTaiga();
     }
     
