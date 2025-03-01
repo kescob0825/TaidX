@@ -4,6 +4,8 @@ import memoranda.Start;
 import memoranda.api.TaigaClient;
 import memoranda.api.models.ProjectData;
 import memoranda.api.models.ProjectRolesData;
+import memoranda.ui.ExceptionDialog;
+import memoranda.util.subscriber.Subscriber;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,9 +19,10 @@ import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.*;
+import java.util.List;
 
-public class ConfigureProject extends JPanel{
+public class ConfigureProject extends JPanel implements Subscriber {
     /**
      * Create Project Form
      * @throws Exception if an error occurs during the creation of the form
@@ -54,7 +57,7 @@ public class ConfigureProject extends JPanel{
     private GridLayout createRolesGrid = new GridLayout(5, 2);
     private JPanel createRolesPanel = new JPanel();
     private TextField roleNameTextField = new TextField();
-    private JComboBox comboBoxRolesProjects;
+
     private JSpinner orderSpinner;
     private JComboBox comboBoxPermissions;
     private JButton createButtonRoles = new JButton("Create");
@@ -63,9 +66,9 @@ public class ConfigureProject extends JPanel{
     private JSONArray bulkCreateRolesJSONArray = new JSONArray();
     private GridLayout bulkInviteGrid = new GridLayout(5, 2);
     private JPanel bulkMemberInvite = new JPanel();
-    private JComboBox  comboBoxBulkInviteProjects;
+
     private TextField bulkInviteTextField = new TextField();
-    private JComboBox comboBoxBulkRolesList;
+
     private JButton addBulkInviteButton = new JButton("Add");
     private JButton removeBulkInviteButton = new JButton("Remove Last");
     private JButton createButtonBulkInvite = new JButton("Create");
@@ -73,12 +76,16 @@ public class ConfigureProject extends JPanel{
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private GridLayout singleInviteGrid = new GridLayout(4, 2);
     private JPanel singleMemberInvite = new JPanel();
-    private JComboBox comboBoxSingleInviteProjects;
-    private JComboBox comboBoxSingleInviteRoles;
+
     private TextField singleInviteTextField = new TextField();
     private JButton singleInviteButton = new JButton("Invite");
     private JButton clearFormButtonSingleInvite = new JButton("Clear Form");
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private JComboBox<String>[] comboBoxRoles = new JComboBox[2];
+    private JComboBox<String>[] comboBoxProjects = new JComboBox[3];
+    private final int BULK_INVITE = 0;
+    private final int SINGLE_INVITE = 1;
+    private final int CREATE_ROLES = 2;
     TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
     public ConfigureProject(){
         try {
@@ -112,36 +119,33 @@ public class ConfigureProject extends JPanel{
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //create roles
         createRolesPanel.setLayout(createRolesGrid);
-        comboBoxRolesProjects = comboBoxSelectProject();
+        comboBoxSelectProject();
+        createComboBoxRoles();
         orderSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 10));
         String[] comboBoxPermissionsItems = {"", "Edit", "View"};
         comboBoxPermissions = new JComboBox(comboBoxPermissionsItems);
         createButtonRoles.setSize(new Dimension(100, 30));
         addItemsToPanel(createRolesPanel, createLabel("Role Name: (Required)"), roleNameTextField);
         addItemsToPanel(createRolesPanel, createLabel("Order: "), orderSpinner);
-        addItemsToPanel(createRolesPanel, createLabel("Select Project: "), comboBoxRolesProjects);
+        addItemsToPanel(createRolesPanel, createLabel("Select Project: "), comboBoxProjects[CREATE_ROLES]);
         addItemsToPanel(createRolesPanel, createLabel("Permissions: (Required)"), comboBoxPermissions);
         addItemsToPanel(createRolesPanel, createButtonRoles, clearFormButtonRoles);
         //Bulk create
         bulkMemberInvite.setLayout(bulkInviteGrid);
-        comboBoxBulkInviteProjects = comboBoxSelectProject();
-        comboBoxBulkRolesList = createComboBoxRoles();
         createButtonBulkInvite.setSize(new Dimension(100, 30));
-        addItemsToPanel(bulkMemberInvite, createLabel("*Select Project: "), comboBoxBulkInviteProjects);
-        addItemsToPanel(bulkMemberInvite, createLabel("*Select Role: "), comboBoxBulkRolesList);
+        addItemsToPanel(bulkMemberInvite, createLabel("*Select Project: "), comboBoxProjects[BULK_INVITE]);
+        addItemsToPanel(bulkMemberInvite, createLabel("*Select Role: "), comboBoxRoles[BULK_INVITE]);
         addItemsToPanel(bulkMemberInvite, createLabel("*Username or Email: "), bulkInviteTextField);
         addItemsToPanel(bulkMemberInvite, addBulkInviteButton, removeBulkInviteButton);
         addItemsToPanel(bulkMemberInvite, createButtonBulkInvite, clearFormButtonBulkInvite);
         //Single create
         singleMemberInvite.setLayout(singleInviteGrid);
-        comboBoxSingleInviteProjects = comboBoxSelectProject();
-        comboBoxSingleInviteRoles = createComboBoxRoles();
         singleInviteButton.setSize(new Dimension(100, 30));
         clearFormButtonSingleInvite.setMaximumSize(new Dimension(100, 30));
         addItemsToPanel(singleMemberInvite,
-                createLabel("*Select Project: "), comboBoxSingleInviteProjects);
+                createLabel("*Select Project: "), comboBoxProjects[SINGLE_INVITE]);
         addItemsToPanel(singleMemberInvite,
-                createLabel("*Select Role: "), comboBoxSingleInviteRoles);
+                createLabel("*Select Role: "), comboBoxRoles[SINGLE_INVITE]);
         addItemsToPanel(singleMemberInvite,
                 createLabel("*Username or Email: "), singleInviteTextField);
         addItemsToPanel(singleMemberInvite,
@@ -198,8 +202,8 @@ public class ConfigureProject extends JPanel{
                 if (Integer.parseInt(spinner1.getValue().toString()) != 0) {
                     newProjectData.put("total_milestones", Integer.parseInt(spinner1.getValue().toString()));
                 }
-                if (Integer.parseInt(spinner2.getValue().toString()) != 0) {
-                    newProjectData.put("total_story_points", (double)Integer.parseInt(spinner2.getValue().toString()));
+                if (Double.parseDouble(spinner2.getValue().toString()) != 0) {
+                    newProjectData.put("total_story_points", Double.parseDouble(spinner2.getValue().toString()));
                 }
                 if (!videoConferenceTextField.getText().isEmpty()) {
                     newProjectData.put("videoconferencing", videoConferenceTextField.getText());
@@ -219,14 +223,14 @@ public class ConfigureProject extends JPanel{
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         createButtonRoles.addActionListener(e -> {
             try{
-                if (roleNameTextField.getText().isEmpty() || Objects.requireNonNull(comboBoxRolesProjects.getSelectedItem()).toString().isEmpty()){
+                if (roleNameTextField.getText().isEmpty() || Objects.requireNonNull(comboBoxRoles[CREATE_ROLES].getSelectedItem()).toString().isEmpty()){
                     JOptionPane.showMessageDialog(null, "Required Fields Missing.");
                     return;
                 }
                 JSONObject newProjectRolesData = new JSONObject();
                 newProjectRolesData.put("name", roleNameTextField.getText());
-                for (int i = 0; i < comboBoxRolesProjects.getItemCount(); i++){
-                    if (comboBoxRolesProjects.getSelectedItem().equals(comboBoxRolesProjects.getItemAt(i))){
+                for (int i = 0; i < comboBoxRoles[CREATE_ROLES].getItemCount(); i++){
+                    if (comboBoxRoles[CREATE_ROLES].getSelectedItem().equals(comboBoxRoles[CREATE_ROLES].getItemAt(i))){
                         newProjectRolesData.put("project", taigaClient.getProjectsList().get(i).getProjectId());
                     }
                 }
@@ -253,17 +257,17 @@ public class ConfigureProject extends JPanel{
             try{
                 JSONObject bulkAddData = new JSONObject();
                 if (bulkInviteTextField.getText().isEmpty()
-                        || Objects.requireNonNull(comboBoxBulkRolesList.getSelectedItem()).toString().isEmpty()
-                        || comboBoxBulkRolesList == null
-                        || Objects.requireNonNull(comboBoxBulkInviteProjects.getSelectedItem()).toString().isEmpty()
-                        || comboBoxBulkInviteProjects == null
+                        || Objects.requireNonNull(comboBoxRoles[BULK_INVITE].getSelectedItem()).toString().isEmpty()
+                        || comboBoxRoles[BULK_INVITE] == null
+                        || Objects.requireNonNull(comboBoxProjects[BULK_INVITE].getSelectedItem()).toString().isEmpty()
+                        || comboBoxProjects[BULK_INVITE] == null
                 ){
                     JOptionPane.showMessageDialog(null, "Required Fields Missing.");
                     return;
                 }
                 for (ProjectData projectData : taigaClient.getProjectsList()) {
                     for (ProjectRolesData projectRolesData : projectData.getProjectRolesList()) {
-                        if (comboBoxSingleInviteRoles.getSelectedItem().equals(projectData.getProjectName() + "/ #:" +
+                        if (comboBoxRoles[SINGLE_INVITE].getSelectedItem().equals(projectData.getProjectName() + "/ #:" +
                                 projectData.getProjectId()+ "\tRole: " + projectRolesData.get_role_name() + "/ #:" +
                                 projectRolesData.get_role_id())){
                             bulkAddData.put("role", projectRolesData.get_role_id());
@@ -287,16 +291,16 @@ public class ConfigureProject extends JPanel{
             try{
                 JSONObject bulkAddData = new JSONObject();
                 if (bulkCreateRolesJSONArray.isEmpty()
-                        || Objects.requireNonNull(comboBoxBulkInviteProjects.getSelectedItem()).toString().isEmpty()
-                        || comboBoxBulkInviteProjects == null
+                        || Objects.requireNonNull(comboBoxProjects[BULK_INVITE].getSelectedItem()).toString().isEmpty()
+                        || comboBoxProjects[BULK_INVITE] == null
 
                 ){
                     JOptionPane.showMessageDialog(null, "Required Fields Missing.");
                     return;
                 }
                 bulkAddData.put("bulk_memberships", bulkCreateRolesJSONArray);
-                for (int i = 0; i < comboBoxBulkInviteProjects.getItemCount(); i++){
-                    if (comboBoxBulkInviteProjects.getSelectedItem().equals(comboBoxBulkInviteProjects.getItemAt(i))){
+                for (int i = 0; i < comboBoxProjects[BULK_INVITE].getItemCount(); i++){
+                    if (comboBoxProjects[BULK_INVITE].getSelectedItem().equals(comboBoxProjects[BULK_INVITE].getItemAt(i))){
                         bulkAddData.put("project", taigaClient.getProjectsList().get(i).getProjectId());
                     }
                 }
@@ -314,22 +318,22 @@ public class ConfigureProject extends JPanel{
             try{
                 JSONObject singleInviteData = new JSONObject();
                 if (singleInviteTextField.getText().isEmpty()
-                        || Objects.requireNonNull(comboBoxSingleInviteProjects.getSelectedItem()).toString().isEmpty()
-                        || comboBoxSingleInviteProjects == null
-                        || Objects.requireNonNull(comboBoxSingleInviteRoles.getSelectedItem()).toString().isEmpty()
-                        || comboBoxSingleInviteRoles == null
+                        || Objects.requireNonNull(comboBoxProjects[SINGLE_INVITE].getSelectedItem()).toString().isEmpty()
+                        || comboBoxProjects[SINGLE_INVITE] == null
+                        || Objects.requireNonNull(comboBoxRoles[SINGLE_INVITE].getSelectedItem()).toString().isEmpty()
+                        || comboBoxRoles[SINGLE_INVITE] == null
                 ){
                     JOptionPane.showMessageDialog(null, "Required Fields Missing.");
                     return;
                 }
-                for (int i = 0; i < comboBoxSingleInviteProjects.getItemCount(); i++){
-                    if (comboBoxSingleInviteProjects.getSelectedItem().equals(comboBoxSingleInviteProjects.getItemAt(i))){
+                for (int i = 0; i < comboBoxProjects[SINGLE_INVITE].getItemCount(); i++){
+                    if (comboBoxProjects[SINGLE_INVITE].getSelectedItem().equals(comboBoxProjects[SINGLE_INVITE].getItemAt(i))){
                         singleInviteData.put("project", taigaClient.getProjectsList().get(i).getProjectId());
                     }
                 }
                 for (ProjectData projectData : taigaClient.getProjectsList()) {
                     for (ProjectRolesData projectRolesData : projectData.getProjectRolesList()) {
-                        if (comboBoxSingleInviteRoles.getSelectedItem().equals(projectData.getProjectName() + "/ #:" +
+                        if (comboBoxRoles[SINGLE_INVITE].getSelectedItem().equals(projectData.getProjectName() + "/ #:" +
                                 projectData.getProjectId()+ "\tRole: " + projectRolesData.get_role_name() + "/ #:" +
                                 projectRolesData.get_role_id())){
                             singleInviteData.put("role", projectRolesData.get_role_id());
@@ -346,6 +350,7 @@ public class ConfigureProject extends JPanel{
         clearFormButtonSingleInvite.addActionListener(e -> {
             resetSingleInvite();
         });
+        taigaClient.register(this);
     }
 
     private JRadioButton[] createRadioButtons() {
@@ -410,27 +415,34 @@ public class ConfigureProject extends JPanel{
         return label;
     }
 
-    private JComboBox<String> comboBoxSelectProject() throws IOException {
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-        for (ProjectData projectData : Start.getInjector().getInstance(TaigaClient.class).getProjectsList()) {
-            String project = projectData.getProjectName() + "\t #:" + projectData.getProjectId();
-            model.addElement(project);
+    private void comboBoxSelectProject() throws IOException {
+        for(int i = 0; i < 3; i++) {
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.removeAllElements();
+            for (ProjectData projectData : Start.getInjector().getInstance(TaigaClient.class).getProjectsList()) {
+                String project = projectData.getProjectName() + "\t #:" + projectData.getProjectId();
+                model.addElement(project);
+            }
+            JComboBox<String> comboBox = new JComboBox<>(model);
+            comboBox.setPreferredSize(new Dimension(100, 50));
+            comboBoxProjects[i] = comboBox;
         }
-        JComboBox<String> comboBox = new JComboBox<>(model);
-        comboBox.setPreferredSize(new Dimension(100, 50));
-        return comboBox;
     }
 
-    public JComboBox<String> createComboBoxRoles() throws IOException {
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-        for (ProjectData projectData : Start.getInjector().getInstance(TaigaClient.class).getProjectsList()) {
-            for (ProjectRolesData projectRolesData : projectData.getProjectRolesList()) {
-                model.addElement(projectData.getProjectName() + "/ #:" +
-                        projectData.getProjectId()+ "\tRole: " + projectRolesData.get_role_name() + "/ #:" +
-                        projectRolesData.get_role_id());
+    public void createComboBoxRoles() throws IOException {
+        for(int i = 0; i < 2; i++) {
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+            model.removeAllElements();
+            for (ProjectData projectData : Start.getInjector().getInstance(TaigaClient.class).getProjectsList()) {
+                for (ProjectRolesData projectRolesData : projectData.getProjectRolesList()) {
+                    model.addElement(projectData.getProjectName() + "/ #:" +
+                            projectData.getProjectId() + "\tRole: " + projectRolesData.get_role_name() + "/ #:" +
+                            projectRolesData.get_role_id());
+                }
             }
+            JComboBox<String> comboBox = new JComboBox<>(model);
+            comboBoxRoles[i] = comboBox;
         }
-        return new JComboBox<>(model);
     }
 
     public JPanel placeCenter(Component comp) {
@@ -455,8 +467,8 @@ public class ConfigureProject extends JPanel{
     public void resetCreateProjectRoles() {
         roleNameTextField.setText("");
         orderSpinner.setValue(0);
-        if (comboBoxRolesProjects != null ) {
-            comboBoxRolesProjects.setSelectedIndex(0);
+        if (comboBoxRoles[CREATE_ROLES] != null ) {
+            comboBoxRoles[CREATE_ROLES].setSelectedIndex(0);
         }
         if (comboBoxPermissions != null) {
             comboBoxPermissions.setSelectedIndex(0);
@@ -468,19 +480,66 @@ public class ConfigureProject extends JPanel{
             bulkInviteTextField.setText("");
             return;
         }
-        if (comboBoxBulkInviteProjects != null || comboBoxBulkRolesList != null) {
+        if (comboBoxProjects[BULK_INVITE] != null || comboBoxRoles[BULK_INVITE] != null) {
             bulkInviteTextField.setText("");
-            comboBoxBulkInviteProjects.setSelectedIndex(0);
-            comboBoxBulkRolesList.setSelectedIndex(0);
+            comboBoxProjects[BULK_INVITE].setSelectedIndex(0);
+            comboBoxRoles[BULK_INVITE].setSelectedIndex(0);
         }
     }
 
     public void resetSingleInvite() {
         singleInviteTextField.setText("");
-        if (comboBoxSingleInviteProjects != null || comboBoxSingleInviteRoles != null) {
-            comboBoxSingleInviteProjects.setSelectedIndex(0);
-            comboBoxSingleInviteRoles.setSelectedIndex(0);
+        if (comboBoxProjects[SINGLE_INVITE] != null || comboBoxRoles[SINGLE_INVITE] != null) {
+            comboBoxProjects[SINGLE_INVITE].setSelectedIndex(0);
+            comboBoxRoles[SINGLE_INVITE].setSelectedIndex(0);
         }
     }
 
+    @Override
+    public void update() throws IOException {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                List<ProjectData> projectsList = taigaClient.getProjectsList();
+
+                for (JComboBox<String> comboBox : comboBoxRoles) {
+                    DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) comboBox.getModel();
+                    model.removeAllElements();
+                    for (ProjectData projectData : projectsList) {
+                        for (ProjectRolesData projectRolesData : projectData.getProjectRolesList()) {
+                            model.addElement(projectData.getProjectName() + "/ #:" +
+                                    projectData.getProjectId() + "\tRole: " +
+                                    projectRolesData.get_role_name() + "/ #:" +
+                                    projectRolesData.get_role_id());
+                        }
+                    }
+                }
+                for (JComboBox<String> comboBox : comboBoxProjects) {
+                    DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) comboBox.getModel();
+                    model.removeAllElements();
+                    for (ProjectData projectData : projectsList) {
+                        String project = projectData.getProjectName() + "\t #:" + projectData.getProjectId();
+                        model.addElement(project);
+                    }
+                }
+                for(int i = 0; i < 3; i++) {
+                    comboBoxProjects[i].revalidate();
+                    comboBoxProjects[i].repaint();
+                    if (comboBoxProjects[i].getParent() != null) {
+                        comboBoxProjects[i].getParent().revalidate();
+                        comboBoxProjects[i].getParent().repaint();
+                    }
+                }
+                for(int i = 0; i < 2; i++) {
+                    comboBoxRoles[i].revalidate();
+                    comboBoxRoles[i].repaint();
+                    if (comboBoxRoles[i].getParent() != null) {
+                        comboBoxRoles[i].getParent().revalidate();
+                        comboBoxRoles[i].getParent().repaint();
+                    }
+                }
+            } catch (Exception e) {
+                new ExceptionDialog(e);
+            }
+        });
+    }
 }

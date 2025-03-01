@@ -14,22 +14,25 @@ public class HomeToolBarCards extends JPanel{
     public JPanel cardPanel;
     public JPanel homeTitle;
 
-    public static final String OVERVIEW_PANEL = "HOME_OVERVIEW";
     public static final String PROFILE_PANEL = "PROFILE";
     public static final String PROJECTS_PANEL = "PROJECTS";
     public static final String CONFIGURE_PANEL = "CONFIGURE";
 
-    private Profile profile = new Profile();
-    private Projects projects = new Projects();
-    private ConfigureProject  configureProject = new ConfigureProject();
+    private Profile profile;
+    private Projects projects;
+    private ConfigureProject configureProject;
 
-    private JPanel overviewPanel;
     private JPanel projectsPanel;
     private JPanel userProfilePanel;
     private JPanel configureProjectsPanel;
     public static JLabel homeTitleLabel = new JLabel("Welcome to Taidx!");
+
+
     @Inject
-    public HomeToolBarCards(CardLayout newCardLayout, JPanel newCardPanel){
+    public HomeToolBarCards(CardLayout newCardLayout, JPanel newCardPanel) {
+        profile = new Profile();
+        projects = new Projects();
+        configureProject = new ConfigureProject();
         cardLayout = newCardLayout;
         cardPanel = new JPanel(cardLayout);
 
@@ -40,7 +43,6 @@ public class HomeToolBarCards extends JPanel{
         homeTitle.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, UIManager.getColor("Button.darkShadow")));
         homeTitle.add(homeTitleLabel, BorderLayout.CENTER);
 
-
         userProfilePanel = createProfileCard();
         projectsPanel =createProjectsCard();
         configureProjectsPanel = createConfigureCard();
@@ -48,7 +50,6 @@ public class HomeToolBarCards extends JPanel{
         cardPanel.add(userProfilePanel, PROFILE_PANEL);
         cardPanel.add(projectsPanel, PROJECTS_PANEL);
         cardPanel.add(configureProjectsPanel, CONFIGURE_PANEL);
-
 
         setLayout(new BorderLayout());
         add(homeTitle, BorderLayout.NORTH);
@@ -77,10 +78,4 @@ public class HomeToolBarCards extends JPanel{
         return panel;
     }
 
-    public void refreshPanels() {
-        // TODO: centerWrapperOverview.refreshPanel();;
-        profile.refreshPanel();
-        //centerWrapperProjects.refreshPanel();
-        //centerWrapperConfigure.refreshPanel();
-    }
 }

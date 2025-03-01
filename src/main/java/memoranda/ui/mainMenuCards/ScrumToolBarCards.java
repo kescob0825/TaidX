@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import memoranda.Start;
 import memoranda.api.TaigaClient;
 import memoranda.api.models.*;
+import memoranda.ui.ExceptionDialog;
+import memoranda.util.subscriber.Subscriber;
 // import org.checkerframework.common.returnsreceiver.qual.This;
 // import memoranda.api.modules.TaigaProject;
 // import memoranda.ui.App;
@@ -20,6 +22,7 @@ import java.awt.*;
 // import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,7 +33,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class ScrumToolBarCards extends JPanel{
+public class ScrumToolBarCards extends JPanel implements Subscriber {
     public CardLayout cardLayout;
     public JPanel cardPanel;
     public JPanel homeTitle;
@@ -39,16 +42,20 @@ public class ScrumToolBarCards extends JPanel{
 
     public static final String BACKLOG_PANEL = "BACKLOG";
     public static final String BOARD_PANEL = "BOARD";
+    private JTabbedPane  tabbedPane;
+    private JScrollPane scrollPane;
+    private JPanel panel;
 
     public ScrumToolBarCards(CardLayout newCardLayout, JPanel newCardPanel) throws IOException {
         taigaClient = Start.getInjector().getInstance(TaigaClient.class);
         cardLayout = newCardLayout;
         cardPanel = new JPanel(cardLayout);
-
+        tabbedPane =  new JTabbedPane();
         homeTitle = new JPanel(new BorderLayout());
         JLabel titleLabel = new JLabel("Scrum");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        panel = new JPanel(new BorderLayout());
         // Add padding around the title
         homeTitle.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, UIManager.getColor("Button.darkShadow")));
         homeTitle.add(titleLabel, BorderLayout.CENTER);
@@ -59,6 +66,7 @@ public class ScrumToolBarCards extends JPanel{
         setLayout(new BorderLayout());
         add(homeTitle, BorderLayout.NORTH);
         add(cardPanel, BorderLayout.CENTER);
+        taigaClient.register(this);
     }
 
     public void showCard(String cardName) {
@@ -74,8 +82,9 @@ public class ScrumToolBarCards extends JPanel{
     /**
      * This method creates the panel for the product backlog.
      * @return panel
-     */
-    private JPanel createPBCard() {
+          * @throws IOException 
+          */
+         private JPanel createPBCard() throws IOException {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new EmptyBorder(5, 5, 5, 5)); // Add a small border for padding
 
@@ -108,7 +117,7 @@ public class ScrumToolBarCards extends JPanel{
 
         // Table Panel
         JPanel tablePanel = new JPanel(new BorderLayout());
-        String[] columnNames = {"", "USER STORY", "STATUS", "POINTS", ""}; // Added columns and empty columns for spacing/icons
+        String[] columnNames = {"","PROJECT", "ID", "USER STORY", "STATUS", ""}; // Added columns and empty columns for spacing/icons
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -121,7 +130,6 @@ public class ScrumToolBarCards extends JPanel{
         backlogTable.setShowGrid(false); // Hide grid lines
         backlogTable.setRowHeight(30); // Set a comfortable row height
 
-        // Populate table with dummy data (replace with your actual data)
         List<Object[]> data = getBacklogData();
         for (Object[] row : data) {
             model.addRow(row);
@@ -137,13 +145,30 @@ public class ScrumToolBarCards extends JPanel{
         return panel;
     }
 
-    //dumby implementation for the backlog chard needs implementation
-    private List<Object[]> getBacklogData() {
+    
+    private List<Object[]> getBacklogData() throws IOException {
         List<Object[]> data = new ArrayList<>();
-        data.add(new Object[]{"\u22EE",
-                "#30 As a user I want an sprint interface that displays information so that I can know if things have been done right or wrong", "New", 4, "\u2056"}); // Using unicode characters for vertical ellipsis
-        data.add(new Object[]{"\u22EE",
-                "#32 As a user I want to know if the progress was linear or ahead of schedule so that I can know if the team started the sprint too late", "New", 6, "\u2056"});
+
+        TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
+        List<ProjectData> projects = taigaClient.getProjectsList();
+
+        try {
+            for (ProjectData project : projects) {
+                for (UserStoryNode userStory : project.getProjectUserStoryList()) {
+                    if (userStory.getMilestoneId() == 0) {
+                        data.add(new Object[]{
+                            "\u22EE", project.getProjectName(), project.getProjectId(),
+                            "#" + userStory.getRefNumber() + " " + userStory.getUserStorySubject(),
+                            userStory.getStatus(),
+                            "\u2056"
+                        });
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+
         return data;
     }
 
@@ -155,13 +180,15 @@ public class ScrumToolBarCards extends JPanel{
      * @return panel
      */
     private JScrollPane createSBCard() throws IOException {
-        JPanel panel = new JPanel(new BorderLayout());
-        JTabbedPane  tabbedPane = new JTabbedPane();
+        if (tabbedPane.getTabCount() > 0) {
+            tabbedPane.removeAll();
+            panel.removeAll();
+        }
         for (ProjectData project : taigaClient.getProjectsList()) {
             tabbedPane.addTab(project.getProjectName(), createScrumBoard(project));
         }
         panel.add(tabbedPane, BorderLayout.CENTER);
-        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane = new JScrollPane(panel);
         return scrollPane;
     }
 
@@ -367,10 +394,10 @@ public class ScrumToolBarCards extends JPanel{
     }
 
     /**
-     * This method works with the click and drag functionality for tasks columns.
-     * Still requires better implementation.
-     * @return card
-     */
+    * This method works with the click and drag functionality for tasks columns.
+    *
+    * @return card
+    */
     private JPanel createTaskCard(TaskNode task) {
 
         JPanel card = new JPanel(new BorderLayout());
@@ -436,12 +463,15 @@ public class ScrumToolBarCards extends JPanel{
         chartPanel.setPreferredSize(new Dimension(600, 200)); // Adjust size as needed
 
 
+
+
+
         panel.add(subtitlePanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER); // Add scrollable table
-        panel.add(chartPanel, BorderLayout.SOUTH); // Add chart below the table
+        panel.add(chartPanel, BorderLayout.SOUTH);
         return panel;
     }
-
+    
     /**
      * this method creates the table inside the Milestone data panel and populates it.
      * @return table
@@ -497,8 +527,8 @@ public class ScrumToolBarCards extends JPanel{
 
     /**
      * This method works with the logic to pull the data for the milestone data from taiga
-     * @return milestones
-     */
+     * @return milestones 
+    */
     private static List<MilestoneData> getMilestoneData() throws IOException {
         try {
             TaigaClient taigaClient = Start.getInjector().getInstance(TaigaClient.class);
@@ -509,7 +539,7 @@ public class ScrumToolBarCards extends JPanel{
                 milestones.addAll(project.getProjectSprints());
             }
             return milestones;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace(); // Or handle the exception as appropriate
             return new ArrayList<>(); // Return an empty list or null
         }
@@ -562,4 +592,28 @@ public class ScrumToolBarCards extends JPanel{
         //  TODO: JPanel.refreshPanel();
     }
 
+    @Override
+    public void update() throws IOException {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                cardPanel.remove(scrollPane);
+                cardPanel.setVisible(false);
+                scrollPane = createSBCard();
+                scrollPane.revalidate();
+                scrollPane.repaint();
+                tabbedPane.revalidate();
+                tabbedPane.repaint();
+                panel.revalidate();
+                panel.repaint();
+                cardPanel.add(scrollPane, BOARD_PANEL);
+                cardPanel.revalidate();
+                cardPanel.repaint();
+                cardPanel.setVisible(true);
+                this.revalidate();
+                this.repaint();
+            } catch (Exception e) {
+                new ExceptionDialog(e);
+            }
+        });
+    }
 }
