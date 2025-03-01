@@ -47,19 +47,19 @@ Fill out your Sprint Planning here, based on the kickoff document and your team'
 ### Meeting Minutes (Daily Scrum):
 Track meeting notes and progress. Fill in the table below during each Daily Scrum meeting.
 
-| **Date**   | **Who Did Not Attend** | **Meeting Notes**                                    | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes** |
-|------------|------------------------|------------------------------------------------------|----------------------------------------|----------------------------------------------|----------------------|
-| 02/19/2025 | Everyone was present   | Sprint planning and creating tasks for User Stories  | On track                               | Pass                                         | 10 minutes           |
-| 02/24/2025 | Everyone was present   | Daily Scrum Meeting                                  | On track                               | Fail                                         | 10 minutes           |
-| _Date_     | _Name(s)_              | _Brief notes_                                        | On track                               | Fail                                         | Other relevant info  |
-
+| **Date**     | **Who Did Not Attend** | **Meeting Notes**                                     | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes**  |
+|--------------|------------------------|-------------------------------------------------------|----------------------------------------|---------------------------------------------|-----------------------|
+| _02/19/2025_ | _Everyone was present_ | _Sprint planning and creating tasks for User Stories_ | _On track_                             | _Pass/Fail_                                 | _10 minutes_          |
+| _02/24/2025_ | _Everyone was present_ | _Scrum Meeting_                                       | _On track_                             | _Pass/Fail_                                 | _10 minutes_          |
+| _02/28/2025_ | _Mohammed_             | _Scrum Meeting_                                       | _On track_                             | _Pass/Fail_                                 | _10 minutes_          |
+| _Date_       | _Name(s)_              | _Brief notes_                                         | _On track/Behind/Ahead_                | _Pass/Fail_                                 | _Other relevant info_ |
 ---
 
 ## 3: After the Sprint
 
 ### Sprint Review (Answer as a team)
 #### Screen Cast Link:  
-- [Youtube Link] (url here) - 
+- _Insert the link to your Sprint review screencast here._
 
 #### Sprint Review Questions:
 - **What value did you create during this Sprint?**
@@ -112,7 +112,8 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 ## 4: Contributions (Document each team member’s contributions for the Sprint)
 
-> This section should be filled out by each team member. Below is the structure for how each team member will describe their contributions. You may copy and paste the template below for each person.
+> This section should be filled out by each team member. Below is the structure for how each team member 
+> will describe their contributions. You may copy and paste the template below for each person.
 
 ### Team Member [Andrew]
 
@@ -136,15 +137,10 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > I worked in bursts due to time constraints from other classes and childcare. I stayed on pace linearly if averaged out 
-  > over the sprint.
+  > _Your Answer_
 
 - **What business value did you deliver personally?**
-  > I set up an observer design pattern to update UI after logging in and also after certain API calls that would alter 
-  > state. This proved somewhat successful. I tried adding a worker thread to update the UI in the background but the 
-  > Taiga API was so slow that I put a 60 second thread sleep() before the API call to update was made and the data it 
-  > received was still not updated on the server side despite a 201 response. The state would update eventually, but it 
-  > would not provide good business value if the API was that slow. That is server side and out of my control.
+  > _Your Answer_
 
 ### Team Member [Jimmy]
 
@@ -176,8 +172,9 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 #### GitHub Links to Work:
 Please provide the links to your key contributions on GitHub. Include **commits, pull requests**, and other important work items.
 
+### Team Member [Andrew]
 - **GitHub Commits (Up to 5)**
-    - [US85 - Observer](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/2c32bf5f26afb6872718525b0e2b1e1016f22e07) - This added a observer design pattern to update UI on login so the user doesn't have to cycle the app.
+    - [Commit 1](link) - _Short description of what the commit is about_
     - [Commit 2](link) - _Short description of what the commit is about_
     - [Commit 2](link) - _Short description of what the commit is about_
 
@@ -186,7 +183,7 @@ Please provide the links to your key contributions on GitHub. Include **commits,
     - [PR 2](link) - _Short description of the PR_
 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
-    - [Test 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13461165560) - CI/SA with JUnit test integration
+    - [Test 1](link) - _Short description of the test_
     - [Test 2](link) - _Short description of the test_
 
 - **Code Reviews (Up to 3, start in Sprint 2)**
@@ -194,9 +191,118 @@ Please provide the links to your key contributions on GitHub. Include **commits,
     - [Review 2](link) - _Short description of the code review_
 
 - **Static Analysis Contributions (Start in Sprint 3)**
-    - [Static Analysis 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13461165560) - The last CI/SA before it began to fail.
+    - [Static Analysis 1](link) - _Short description of the analysis contribution_
     - [Static Analysis 2](link) - _Short description of the analysis contribution_
 
+### Team Member [Edwin]
+- **GitHub Commits (Up to 5)**
+  - [Commit 1](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+
+- **GitHub Pull Requests (Up to 3)**
+  - [PR 1](link) - _Short description of the PR_
+  - [PR 2](link) - _Short description of the PR_
+
+- **GitHub Unit Tests (Up to 3, start in Sprint 2)**
+  - [Test 1](link) - _Short description of the test_
+  - [Test 2](link) - _Short description of the test_
+
+- **Code Reviews (Up to 3, start in Sprint 2)**
+  - [Review 1](link) - _Short description of the code review_
+  - [Review 2](link) - _Short description of the code review_
+
+- **Static Analysis Contributions (Start in Sprint 3)**
+  - [Static Analysis 1](link) - _Short description of the analysis contribution_
+  - [Static Analysis 2](link) - _Short description of the analysis contribution_
+
+### Team Member [Jedi]
+- **GitHub Commits (Up to 5)**
+  - [US85](https://github.com/amehlhase316/Ruebezahl_spring25A/tree/2c32bf5f26afb6872718525b0e2b1e1016f22e07) - US85 completion
+  - [US85 subtasks](https://github.com/amehlhase316/Ruebezahl_spring25A/tree/ce0c028fb3f434cba11bd1cedae96d858d7d9d86) - US85 subtasks
+  - [US81](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/1432733908854a9a332b99669e0bf5aa09629890) - US81 refactoring help
+
+- **GitHub Pull Requests (Up to 3)**
+  - [PR 1](link) - _Short description of the PR_
+  - [PR 2](link) - _Short description of the PR_
+
+- **GitHub Unit Tests (Up to 3, start in Sprint 2)**
+  - [Test 1](https://github.com/amehlhase316/Ruebezahl_spring25A/blob/dev/src/test/java/memoranda/taiga/CreateProjectTest.java) - Create Project test class
+  - [Test 2](https://github.com/amehlhase316/Ruebezahl_spring25A/blob/dev/src/test/java/memoranda/taiga/InviteTest.java) - InviteTest class
+
+- **Code Reviews (Up to 3, start in Sprint 2)**
+  - [Review 1](link) - _Short description of the code review_
+  - [Review 2](link) - _Short description of the code review_
+
+- **Static Analysis Contributions (Start in Sprint 3)**
+  - [Static Analysis 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13557127504) - Failed CI 
+  - [Static Analysis 2](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13600015459) - Failed CI on merge
+
+### Team Member [Jimmy]
+- **GitHub Commits (Up to 5)**
+  - [Commit 1](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+
+- **GitHub Pull Requests (Up to 3)**
+  - [PR 1](link) - _Short description of the PR_
+  - [PR 2](link) - _Short description of the PR_
+
+- **GitHub Unit Tests (Up to 3, start in Sprint 2)**
+  - [Test 1](link) - _Short description of the test_
+  - [Test 2](link) - _Short description of the test_
+
+- **Code Reviews (Up to 3, start in Sprint 2)**
+  - [Review 1](link) - _Short description of the code review_
+  - [Review 2](link) - _Short description of the code review_
+
+- **Static Analysis Contributions (Start in Sprint 3)**
+  - [Static Analysis 1](link) - _Short description of the analysis contribution_
+  - [Static Analysis 2](link) - _Short description of the analysis contribution_
+
+### Team Member [Karl]
+- **GitHub Commits (Up to 5)**
+  - [Commit 1](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+
+- **GitHub Pull Requests (Up to 3)**
+  - [PR 1](link) - _Short description of the PR_
+  - [PR 2](link) - _Short description of the PR_
+
+- **GitHub Unit Tests (Up to 3, start in Sprint 2)**
+  - [Test 1](link) - _Short description of the test_
+  - [Test 2](link) - _Short description of the test_
+
+- **Code Reviews (Up to 3, start in Sprint 2)**
+  - [Review 1](link) - _Short description of the code review_
+  - [Review 2](link) - _Short description of the code review_
+
+- **Static Analysis Contributions (Start in Sprint 3)**
+  - [Static Analysis 1](link) - _Short description of the analysis contribution_
+  - [Static Analysis 2](link) - _Short description of the analysis contribution_
+
+### Team Member [Mohammed]
+- **GitHub Commits (Up to 5)**
+  - [Commit 1](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 2](link) - _Short description of what the commit is about_
+
+- **GitHub Pull Requests (Up to 3)**
+  - [PR 1](link) - _Short description of the PR_
+  - [PR 2](link) - _Short description of the PR_
+
+- **GitHub Unit Tests (Up to 3, start in Sprint 2)**
+  - [Test 1](link) - _Short description of the test_
+  - [Test 2](link) - _Short description of the test_
+
+- **Code Reviews (Up to 3, start in Sprint 2)**
+  - [Review 1](link) - _Short description of the code review_
+  - [Review 2](link) - _Short description of the code review_
+
+- **Static Analysis Contributions (Start in Sprint 3)**
+  - [Static Analysis 1](link) - _Short description of the analysis contribution_
+  - [Static Analysis 2](link) - _Short description of the analysis contribution_
 ---
 
 ## 5: Sprint Completion Checklist (optional)

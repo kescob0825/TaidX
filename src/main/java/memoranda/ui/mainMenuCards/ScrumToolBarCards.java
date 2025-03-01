@@ -26,6 +26,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 public class ScrumToolBarCards extends JPanel implements Subscriber {
     public CardLayout cardLayout;
     public JPanel cardPanel;
@@ -70,7 +77,7 @@ public class ScrumToolBarCards extends JPanel implements Subscriber {
         return cardLayout;
     }
 
-    // ************** The methods below work on the product Backlog tab *************** // 
+    // ************** The methods below work on the product Backlog tab *************** //
 
     /**
      * This method creates the panel for the product backlog.
@@ -202,7 +209,8 @@ public class ScrumToolBarCards extends JPanel implements Subscriber {
         gbc.fill = GridBagConstraints.BOTH;
         boardPanel.add(createMilestoneTableCard(), gbc);
 
-        //This portion deals with the size for the Scrum Board panel 
+
+        //This portion deals with the size for the Scrum Board panel
         gbc.insets = new Insets(20,5,5,5);
         gbc.gridy = 1;
         gbc.weightx = 0.2;
@@ -234,11 +242,11 @@ public class ScrumToolBarCards extends JPanel implements Subscriber {
         mainScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         return mainScrollPane;
     }
-        
+
     /**
-    * This method works with the column for User Stories only.
-    * @return userStoryPanel 
-    */
+     * This method works with the column for User Stories only.
+     * @return userStoryPanel
+     */
     private JPanel createUserStoryColumn(ProjectData project){
         JPanel userStoryPanel = new JPanel();
         userStoryPanel.setLayout(new BoxLayout(userStoryPanel, BoxLayout.Y_AXIS));
@@ -266,11 +274,11 @@ public class ScrumToolBarCards extends JPanel implements Subscriber {
         userStoryPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         return userStoryPanel;
     }
-        
+
     /**
-    * This method works with the columns for the tasks
-    * @return panel
-    */
+     * This method works with the columns for the tasks
+     * @return panel
+     */
     private JPanel createColumPanel(ProjectData project, String title){
         addedTasks.clear();
         JPanel panel = new JPanel();
@@ -384,10 +392,10 @@ public class ScrumToolBarCards extends JPanel implements Subscriber {
         card.add(text, BorderLayout.CENTER);
         return card;
     }
-        
+
     /**
     * This method works with the click and drag functionality for tasks columns.
-    * Still requires better implementation.
+    *
     * @return card
     */
     private JPanel createTaskCard(TaskNode task) {
@@ -414,7 +422,7 @@ public class ScrumToolBarCards extends JPanel implements Subscriber {
         subtaskPanel.add(ownerText, BorderLayout.SOUTH);
 
         card.add(subtaskPanel, BorderLayout.CENTER);
-        
+
         return card;
     }
 
@@ -427,16 +435,16 @@ public class ScrumToolBarCards extends JPanel implements Subscriber {
      */
     private JPanel createEmptyTaskCard() {
         JPanel card = new JPanel(new BorderLayout());
-        card.setBackground(new Color(0, 0, 0, 0)); 
+        card.setBackground(new Color(0, 0, 0, 0));
         card.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-        card.setPreferredSize(new Dimension(160, 80)); 
+        card.setPreferredSize(new Dimension(160, 80));
         return card;
     }
-    
+
     /**
      * This method creates the Milestone Data panel
      * @return panel
-    */
+     */
     private static JPanel createMilestoneTableCard() throws IOException {
         JPanel panel = new JPanel(new BorderLayout());
         JPanel subtitlePanel = new JPanel();
@@ -448,16 +456,26 @@ public class ScrumToolBarCards extends JPanel implements Subscriber {
         JTable milestoneTable = createMilestoneTable();
         JScrollPane scrollPane = new JScrollPane(milestoneTable); // Add scroll pane
         scrollPane.setPreferredSize(new Dimension(600, 80));
+
+        // Create the chart
+        JFreeChart chart = createMilestoneChart();
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(600, 200)); // Adjust size as needed
+
+
+
+
+
         panel.add(subtitlePanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER); // Add scrollable table
-        
+        panel.add(chartPanel, BorderLayout.SOUTH);
         return panel;
     }
     
     /**
-     * this method creates the table inside the Milestone data panel and populates it. 
+     * this method creates the table inside the Milestone data panel and populates it.
      * @return table
-    */
+     */
     private static JTable createMilestoneTable() throws IOException {
         // Define column names
         String[] columnNames = {"ID", "Sprint", "Project ID", "User Stories", "Complete","Not Complete", "Points Complete", "Points Not Complete", "Total Points","Start", "Finish", "Closed"};
@@ -505,7 +523,7 @@ public class ScrumToolBarCards extends JPanel implements Subscriber {
 
         return table;
     }
-            
+
 
     /**
      * This method works with the logic to pull the data for the milestone data from taiga
@@ -527,6 +545,52 @@ public class ScrumToolBarCards extends JPanel implements Subscriber {
         }
     }
 
+    /**
+     * This method creates a chart and displays it on the ScrumToolBarCard
+     * @return JFreeChart
+     */
+    private static JFreeChart createMilestoneChart() throws IOException {
+        // Create a dataset for the chart
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        // Get the milestone data
+        List<MilestoneData> milestoneDataList = getMilestoneData();
+
+        // Populate the dataset with data from the milestones
+        if (milestoneDataList != null) {
+            for (MilestoneData data : milestoneDataList) {
+                //  Add "Points Complete" and "Points Not Complete" user stories
+                dataset.addValue(data.getTotal_points_complete(), "Points Complete", data.getSprintName());
+                dataset.addValue(data.getTotalPointsNotCompleted(), "Points Not Complete", data.getSprintName());
+            }
+        }
+
+        //create charts comments include basic legend if we decide to make more charts
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Milestone Progress", // Chart title
+                "Sprint",             // Category axis label
+                "Points",     // Value axis label
+                dataset,            // Dataset
+                PlotOrientation.VERTICAL, // Plot orientation
+                true,               // Include legend
+                true,               // Tooltips
+                false               // URLs
+        );
+        //  CHANGE BAR COLORS HERE
+        CategoryPlot plot = chart.getCategoryPlot();
+
+        // Set the color for "Points Complete"
+        plot.getRenderer().setSeriesPaint(0, new Color(0, 153, 51));
+
+        // Set the color for "Points Not Complete"
+        plot.getRenderer().setSeriesPaint(1, new Color(204, 0, 0));
+        return chart;
+    }
+
+
+    public void refreshPanels() {
+        //  TODO: JPanel.refreshPanel();
+    }
 
     @Override
     public void update() throws IOException {

@@ -66,6 +66,7 @@ dependencies {
 
     //Testing Section
     implementation 'com.puppycrawl.tools:checkstyle:10.20.0'
+    implementation 'org.jfree:jfreechart:1.5.4'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
     testImplementation 'org.mockito:mockito-core:5.15.2'
