@@ -74,17 +74,19 @@ public class TaigaClient implements Publisher {
         worker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
-                Thread.sleep(30000); //wait 30 seconds for the changes to post on Taiga then pull them and update
+                //wait 60 seconds for the changes to post on Taiga then pull them and update
+                Thread.sleep(60000);
                 initLoadProjectAndUserStoryData();
                 loadDataOnOpen();
                 notifySubscribers();
+                System.out.println("Data update attempt");
                 return null;
             }
         };
         loginWorker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
-                Thread.sleep(1000); //wait 1 seconds for the changes to post on Taiga then pull them and update
+                Thread.sleep(1000);
                 notifySubscribers();
                 return null;
             }
@@ -298,11 +300,11 @@ public class TaigaClient implements Publisher {
      * Refreshes the authentication token and refresh token.
      * @throws IOException if an I/O error occurs during the refresh process
      */
+
     public void refreshAuthClient() throws IOException {
         authenticator.refreshAuth();
         setLastResponseCode(authenticator.getLastResponseCode());
     }
-
     /**
      * Returns the authentication token.
      * @return the authentication token
