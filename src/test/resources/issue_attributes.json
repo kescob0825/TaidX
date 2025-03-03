@@ -1,0 +1,221 @@
+{
+  "types": [
+    {
+      "id": 4921867,
+      "name": "Bug",
+      "color": "#E44057",
+      "order": 1,
+      "count": 5
+    },
+    {
+      "id": 4921868,
+      "name": "Question",
+      "color": "#5178D3",
+      "order": 2,
+      "count": 1
+    },
+    {
+      "id": 4921869,
+      "name": "Enhancement",
+      "color": "#40E4CE",
+      "order": 3,
+      "count": 0
+    }
+  ],
+  "statuses": [
+    {
+      "id": 11460661,
+      "name": "New",
+      "color": "#70728F",
+      "order": 1,
+      "count": 6
+    },
+    {
+      "id": 11460662,
+      "name": "In progress",
+      "color": "#40A8E4",
+      "order": 2,
+      "count": 0
+    },
+    {
+      "id": 11460663,
+      "name": "Ready for test",
+      "color": "#E4CE40",
+      "order": 3,
+      "count": 0
+    },
+    {
+      "id": 11460664,
+      "name": "Closed",
+      "color": "#A8E440",
+      "order": 4,
+      "count": 0
+    },
+    {
+      "id": 11460665,
+      "name": "Needs Info",
+      "color": "#E44057",
+      "order": 5,
+      "count": 0
+    },
+    {
+      "id": 11460666,
+      "name": "Rejected",
+      "color": "#A9AABC",
+      "order": 6,
+      "count": 0
+    },
+    {
+      "id": 11460667,
+      "name": "Postponed",
+      "color": "#5178D3",
+      "order": 7,
+      "count": 0
+    }
+  ],
+  "priorities": [
+    {
+      "id": 4913939,
+      "name": "Low",
+      "color": "#A8E440",
+      "order": 1,
+      "count": 0
+    },
+    {
+      "id": 4913940,
+      "name": "Normal",
+      "color": "#E4CE40",
+      "order": 3,
+      "count": 6
+    },
+    {
+      "id": 4913941,
+      "name": "High",
+      "color": "#E47C40",
+      "order": 5,
+      "count": 0
+    }
+  ],
+  "severities": [
+    {
+      "id": 8180755,
+      "name": "Wishlist",
+      "color": "#70728F",
+      "order": 1,
+      "count": 0
+    },
+    {
+      "id": 8180756,
+      "name": "Minor",
+      "color": "#40A8E4",
+      "order": 2,
+      "count": 0
+    },
+    {
+      "id": 8180757,
+      "name": "Normal",
+      "color": "#40E47C",
+      "order": 3,
+      "count": 6
+    },
+    {
+      "id": 8180758,
+      "name": "Important",
+      "color": "#E4A240",
+      "order": 4,
+      "count": 0
+    },
+    {
+      "id": 8180759,
+      "name": "Critical",
+      "color": "#D35450",
+      "order": 5,
+      "count": 0
+    }
+  ],
+  "assigned_to": [
+    {
+      "id": null,
+      "full_name": "",
+      "count": 6
+    },
+    {
+      "id": 738341,
+      "full_name": "kescob12",
+      "count": 0
+    }
+  ],
+  "owners": [
+    {
+      "id": 738341,
+      "full_name": "kescob12",
+      "count": 6
+    }
+  ],
+  "tags": [
+    {
+      "name": "dfg",
+      "color": null,
+      "count": 1
+    },
+    {
+      "name": "fgh",
+      "color": null,
+      "count": 1
+    },
+    {
+      "name": "sdfsd",
+      "color": null,
+      "count": 1
+    },
+    {
+      "name": "werwe",
+      "color": null,
+      "count": 1
+    }
+  ],
+  "roles": [
+    {
+      "id": 9894388,
+      "name": "UX",
+      "color": null,
+      "order": 10,
+      "count": 0
+    },
+    {
+      "id": 9894389,
+      "name": "Design",
+      "color": null,
+      "order": 20,
+      "count": 0
+    },
+    {
+      "id": 9894390,
+      "name": "Front",
+      "color": null,
+      "order": 30,
+      "count": 0
+    },
+    {
+      "id": 9894391,
+      "name": "Back",
+      "color": null,
+      "order": 40,
+      "count": 0
+    },
+    {
+      "id": 9894392,
+      "name": "Product Owner",
+      "color": null,
+      "order": 50,
+      "count": 0
+    },
+    {
+      "id": 9894393,
+      "name": "Stakeholder",
+      "color": null,
+      "order": 60,
+      "count": 0
+    }
+  ]
+}
