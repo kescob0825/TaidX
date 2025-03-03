@@ -50,12 +50,13 @@ Fill out your Sprint Planning here, based on the kickoff document and your team'
 ### Meeting Minutes (Daily Scrum):
 Track meeting notes and progress. Fill in the table below during each Daily Scrum meeting.
 
-| **Date**   | **Who Did Not Attend** | **Meeting Notes**                                    | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes**  |
-|------------|------------------------|------------------------------------------------------|----------------------------------------|----------------------------------------------|-----------------------|
-| 02/19/2025 | Everyone was present   | Sprint planning and creating tasks for User Stories_ | On track                               | Pass/Fail                                    | 10 minutes            |
-| 02/24/2025 | Everyone was present   | Scrum Meeting                                        | On track                               | Pass/Fail                                    | 10 minutes            |
-| 02/28/2025 | Mohammed               | Scrum Meeting                                        | On track                               | Pass/Fail                                    | 10 minutes            |
-| _Date_     | _Name(s)_              | _Brief notes_                                        | _On track/Behind/Ahead_                | _Pass/Fail_                                  | _Other relevant info_ |
+| **Date**   | **Who Did Not Attend** | **Meeting Notes**                                             | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes** |
+|------------|----------------------|---------------------------------------------------------------|----------------------------------------|-------------------------------------------|----------------------|
+| 02/19/2025 | Everyone was present | Sprint planning and creating tasks for User Stories_          | On track                               | Pass/Fail                                 | 10 minutes           |
+| 02/24/2025 | Everyone was present | Scrum Meeting                                                 | On track                               | Pass/Fail                                 | 10 minutes           |
+| 02/28/2025 | Mohammed             | Scrum Meeting                                                 | On track                               | Pass/Fail                                 | 10 minutes           |
+| 03/02/2025 | Everyone was present | Scrum Meeting                                                 | On track                               | Pass/Fail                                 | 10 minutes           |
+| 03/04/2025 | Everyone was present | Sprint closing, deliverable contributions, final PR to master | On track                               | Pass/Fail                                 | 10 minutes           |
 ---
 
 ## 3: After the Sprint

@@ -1,0 +1,38 @@
+[
+  {
+    "assigned_to": null,
+    "blocked_note": "blocking reason",
+    "description": "Implement API CALL",
+    "is_blocked": false,
+    "is_closed": true,
+    "milestone": null,
+    "priority": 3,
+    "project": 1,
+    "severity": 2,
+    "status": 3,
+    "subject": "Customer personal data",
+    "tags": [
+      "service catalog",
+      "customer"
+    ],
+    "type": 1,
+    "watchers": []
+  },
+  {
+    "assigned_to": null,
+    "blocked_note": "blocking reason",
+    "description": "Implement API CALL",
+    "is_blocked": false,
+    "is_closed": true,
+    "milestone": null,
+    "priority": 3,
+    "severity": 2,
+    "status": 3,
+    "tags": [
+      "service catalog",
+      "customer"
+    ],
+    "type": 1,
+    "watchers": []
+  }
+]
