@@ -216,8 +216,8 @@ Please provide the links to your key contributions, on GitHub. Include **commits
 
 ### Team Member [Edwin]
 - **GitHub Commits (Up to 5)**
-  - [Commit 1]([link](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/0b34208445f30ad590dce9b3da1cb5cd9c905305)) - US30 Task86 Added calls to correctly display the Backlog from Taiga.
-  - [Commit 2]([link](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/5172d931941d294d454f90b748818a38e8514589)) - US30 Task86 Added a try / catch to the calls to correctly display the Backlog from Taiga.
+  - [[Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/0b34208445f30ad590dce9b3da1cb5cd9c905305)]([link]) - US30 Task86 Added calls to correctly display the Backlog from Taiga.
+  - [[Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/5172d931941d294d454f90b748818a38e8514589)]([link]) - US30 Task86 Added a try / catch to the calls to correctly display the Backlog from Taiga.
 
 - **GitHub Pull Requests (Up to 3)**
   - [PR 1](link) - _Short description of the PR_
