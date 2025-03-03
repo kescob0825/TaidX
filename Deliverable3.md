@@ -216,24 +216,24 @@ Please provide the links to your key contributions, on GitHub. Include **commits
 
 ### Team Member [Edwin]
 - **GitHub Commits (Up to 5)**
-  - [[Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/0b34208445f30ad590dce9b3da1cb5cd9c905305)]([link]) - US30 Task86 Added calls to correctly display the Backlog from Taiga.
-  - [[Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/5172d931941d294d454f90b748818a38e8514589)]([link]) - US30 Task86 Added a try / catch to the calls to correctly display the Backlog from Taiga.
+  - [[Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/0b34208445f30ad590dce9b3da1cb5cd9c905305)] - US30 Task86 Added calls to correctly display the Backlog from Taiga.
+  - [[Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/5172d931941d294d454f90b748818a38e8514589)] - US30 Task86 Added a try / catch to the calls to correctly display the Backlog from Taiga.
 
 - **GitHub Pull Requests (Up to 3)**
   - [PR 1](link) - _Short description of the PR_
   - [PR 2](link) - _Short description of the PR_
 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
-  - [Test 1]([link](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13558473901/job/37897220874)) - JUnit Test for Commit 5172d93, it failed due to payment issues. 
-  - [Test 2]([link](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13557231793/job/37893781322)) - JUnit Test for Commit 0b34208, it failed due to payment issues. 
+  - [[Test 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13558473901/job/37897220874)]- JUnit Test for Commit 5172d93, it failed due to payment issues. 
+  - [[Test 2](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13557231793/job/37893781322)]- JUnit Test for Commit 0b34208, it failed due to payment issues. 
 
 - **Code Reviews (Up to 3, start in Sprint 2)**
-  - [Review 1]([link](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/8be0e77e24112e02859a82e371336819420faf0d)) - Code review for PR to merge dev into Master. 
+  - [[Review 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/8be0e77e24112e02859a82e371336819420faf0d)] - Code review for PR to merge dev into Master. 
   - [Review 2](link) - _Short description of the code review_
 
 - **Static Analysis Contributions (Start in Sprint 3)**
-  - [Static Analysis 1]([link](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13558473907/job/37897221079)) - Static Analysis for Commit 5172d93, it failed due to payment issues. 
-  - [Static Analysis 2]([link](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13557231798/job/37893781320)) - Static Analysis for Commit 0b34208, it failed due to payment issues. 
+  - [[Static Analysis 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13558473907/job/37897221079)]- Static Analysis for Commit 5172d93, it failed due to payment issues. 
+  - [[[Static Analysis 2](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13557231798/job/37893781320)]- Static Analysis for Commit 0b34208, it failed due to payment issues. 
 
 ### Team Member [Jedi]
 - **GitHub Commits (Up to 5)**
