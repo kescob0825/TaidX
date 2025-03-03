@@ -63,7 +63,7 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 
 ### Sprint Review (Answer as a team)
 #### Screen Cast Link:  
-- [Youtube Link] (Link here)
+- [Youtube Link] https://youtu.be/Wwl1jytSGUc
 
 #### Sprint Review Questions:
 - **What value did you create during this Sprint?**
@@ -112,9 +112,12 @@ Provide clear answers based on your team’s actual data and performance.
 ### Burndown Chart (For Sprint 2 and 3):
 Please include a screenshot of your Burndown chart here, and provide a detailed analysis. 
 - **Analysis of Burndown**: _Why does it look like this? What would you improve?_
+![LinearProgressionChartSprint2.png](LinearProgressionChartSprint2.png)
 ![LinearProgressionChartSprint3.png](LinearProgressionChartSprint3.png)
 > Again this round was slowed down due to the implementation of a complex task that others were waiting on. Once the observer design pattern was 
-> implemented the rest of the task quickly followed.
+> implemented the rest of the task quickly followed. What could have been improved is having tasks broken down into smaller
+> more manageable pieces, enabling team members to complete and update progress continuously throughout the sprint. This
+> is shown by the high starting points with and the sharp drop near the end. 
 
 ---
 
@@ -127,10 +130,11 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-    > _Your Answer_
+> I worked on the screencast, so essentially going through the leftover USs in the sprint then matching that up 
+> to all the commits and changes in code, then try to speak the best I can about it. 
 
 - **What business value did you deliver personally?**
-    > _Your Answer_
+> zero in sprint 3 unless the screencast counts. 
 
 ### Team Member [Edwin]
 
