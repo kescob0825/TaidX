@@ -66,16 +66,16 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 
 #### Sprint Review Questions:
 - **What value did you create during this Sprint?**
-    > We made the application dynamic, added support for the burndown chart, created a sprint interface and an issues
-    > interface to allow the end user to interact with the application.
+> We made the application dynamic, added support for the burndown chart, created a sprint interface and an issues
+> interface to allow the end user to interact with the application.
 
 - **Do you feel you worked enough and met expectations?**
-    > Yes, we met the sprint goal and created an application that looks and feels nothing like the original memoranda app.
-    > it has completely evolved into a usable application.
+> Yes, we met the sprint goal and created an application that looks and feels nothing like the original memoranda app.
+> it has completely evolved into a usable application.
 
 - **Did you meet the customers’ expectations? Why or why not?**
-    > If the customer wanted an application to work on team planning and sprint related tasks, then yes. For one scrum round,
-    > our team accomplished just that. Given more time the application could be refined but this is a beta ready application.
+> If the customer wanted an application to work on team planning and sprint related tasks, then yes. For one scrum round,
+> our team accomplished just that. Given more time the application could be refined but this is a beta ready application.
 
 ---
 
@@ -83,37 +83,37 @@ Track meeting notes and progress. Fill in the table below during each Daily Scru
 Provide clear answers based on your team’s actual data and performance.
 
 - **Did you meet your Sprint Goal?**
-    > Sprint goal: Clear the rest of the US's out of the backlog and add design patterns to make the app dynamic.
-    > Yes, we cleared out the backlog and got the application ready for a beta launch.
+> Sprint goal: Clear the rest of the US's out of the backlog and add design patterns to make the app dynamic.
+> Yes, we cleared out the backlog and got the application ready for a beta launch.
 
 - **Did you complete all User Stories in the Sprint Backlog?**
-    > Yes, see burndown chart and product backlog.
+> Yes, see burndown chart and product backlog.
 
 - **If not, what went wrong?**
-    > We completed our goal but the unit testing and CR's were lacking.
+> We completed our goal but the unit testing and CR's were lacking. Poor QualityPolicy control by not submitting PR's of other branches into dev.
 
 - **Did you work at a consistent rate or velocity?**
-    > 27 tasks (25 completed, 2 remaining) 27 and counting commits for sprint 3.
-  ![Screenshot 2025-02-01 at 22.36.32.png](LinearProgressionChartSprint3.png)
+> 27 tasks (25 completed, 2 remaining) 27 and counting commits for sprint 3. See burndown chart below.
 - **Did you deliver business value and what was it?**
-    > The application is beta ready for a soft launch. We tested as much as we could. Now it is ready for the end user to use it and provide feedback.
+> The application is beta ready for a soft launch. We tested as much as we could. Now it is ready for the end user to use it and provide feedback.
 
 - **Did you follow the Scrum process (e.g., moving tasks, updating boards, etc.)?**
-    > Yes, boards were reviewed and updated each meeting. The team talked about obstacles and plans to overcome them. Collaboration was ample for those that attended meetings.
+> Yes, boards were reviewed and updated each meeting. The team talked about obstacles and plans to overcome them. Collaboration was ample for those that attended meetings.
 
 - **Is there anything you could improve for the next Sprint? (For the last Sprint mention what you would do if you were to continue)**
-    > Soft launch the app and get user/customer feedback. Use that to plan the next course of action.
+> Soft launch the app and get user/customer feedback. Use that to plan the next course of action.
 
 - **How do you feel about the Sprint? (Team optimism pulse)**
-    > Glad this is the last sprint. 
+> Glad this is the last sprint. 
 
 ---
 
 ### Burndown Chart (For Sprint 2 and 3):
 Please include a screenshot of your Burndown chart here, and provide a detailed analysis. 
 - **Analysis of Burndown**: _Why does it look like this? What would you improve?_
-
-> _Your Answer_
+![LinearProgressionChartSprint3.png](LinearProgressionChartSprint3.png)
+> Again this round was slowed down due to the implementation of a complex task that others were waiting on. Once the observer design pattern was 
+> implemented the rest of the task quickly followed.
 
 ---
 
@@ -144,10 +144,15 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+> Yes, I worked as much as time permitted. Once I was comfortable with the design pattern to enable dynamic loading and updating 
+> I began working on it. Once enabled this pattern allows the application to load and display updated information when a 
+> API call is made.
 
 - **What business value did you deliver personally?**
-  > _Your Answer_
+> Having a dynamic application is the minimum requirement that is needed to be beta. If everytime the user
+> had to close the app and reopen it to show change no person on earth would waste their time with this app. 
+> This creates business value by making it viable to be released as a beta where users can suggest improvements and 
+> features. 
 
 ### Team Member [Jimmy]
 
@@ -231,7 +236,7 @@ Please provide the links to your key contributions, on GitHub. Include **commits
 
 - **GitHub Pull Requests (Up to 3)**
   - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/23/commits) - _Short description of the PR_
-  - [PR 2](link) - _Short description of the PR_
+  - [PR 2](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/23) - _Short description of the PR_
 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
   - [Test 1](https://github.com/amehlhase316/Ruebezahl_spring25A/blob/dev/src/test/java/memoranda/taiga/CreateProjectTest.java) - Create Project test class
@@ -239,7 +244,7 @@ Please provide the links to your key contributions, on GitHub. Include **commits
 
 - **Code Reviews (Up to 3, start in Sprint 2)**
   - [Review 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/bf69d839a9be8774710b4e29766f16459385be95#diff-150e47fdd13c63587d97b59676c4fe48f3866b65570b7062d6c101a80dc4a4be) - Code Review on US81 tested and refactored UI
-  - [Review 2](link) - _Short description of the code review_
+  - [Review 2](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/23) - CR for merging dev into master
 
 - **Static Analysis Contributions (Start in Sprint 3)**
   - [Static Analysis 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13557127504) - Failed CI 
