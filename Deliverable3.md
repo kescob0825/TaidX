@@ -166,10 +166,14 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+  > I worked on US32 task87 using some new imports to help populate the application with a chart that shows our sprint progress and
+  >  many points were completed. While I had to learn some additional documentation and tools on how to implement graphs, I feel as 
+  > if it were a nice touch to wrap everything up.
 
 - **What business value did you deliver personally?**
-  > _Your Answer_
+  > I believe that having an application that can show different representations of data such as sprint progress is pretty helpful 
+  > in the grand scheme of things since people have multiple ways of interpreting data and having something helpful such as that chart
+  > can show other team members if the team is operating in a productive fashion.
 
 ### Team Member [Karl]
 
@@ -259,25 +263,23 @@ Please provide the links to your key contributions, on GitHub. Include **commits
 
 ### Team Member [Jimmy]
 - **GitHub Commits (Up to 5)**
-  - [Commit 1](link) - _Short description of what the commit is about_
-  - [Commit 2](link) - _Short description of what the commit is about_
-  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/17b0b176f17a0b3169d29b7429a5c2c43f980951) - added a chart to display our progress using points
 
 - **GitHub Pull Requests (Up to 3)**
-  - [PR 1](link) - _Short description of the PR_
-  - [PR 2](link) - _Short description of the PR_
+  - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/1331373860b4ecfc36d5e53a68dd92e0bd97ad03) -Merged US32 into dev-
 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
-  - [Test 1](link) - _Short description of the test_
-  - [Test 2](link) - _Short description of the test_
+- - [Test 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13598514417/job/38020435325) - JUnit Test for Commit 17b0b17, it failed due to payment issues
+  - [Test 2](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13601011433/job/38026826018) - JUnit Test for Commit 1331373, it failed due to payment issues.
+  - [Test 3](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13625890107/job/38082976005) - JUnit Test for Commit c68feeb, it failed due to payment issues.
 
 - **Code Reviews (Up to 3, start in Sprint 2)**
-  - [Review 1](link) - _Short description of the code review_
-  - [Review 2](link) - _Short description of the code review_
+  - [Review 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/c68feeb0d77fa3b09cf25b4fbf5d60e240da8fcf) - Approved merge pull request from Us81 to dev PR.
 
 - **Static Analysis Contributions (Start in Sprint 3)**
-  - [Static Analysis 1](link) - _Short description of the analysis contribution_
-  - [Static Analysis 2](link) - _Short description of the analysis contribution_
+  - [Static Analysis 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13598514414/job/38020435498) - Static Analysis for Commit 17b0b17, it failed due to payment issues.
+  - [Static Analysis 2](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13601011424/job/38026826028) - Static Analysis for Commit 1331373, it failed due to payment issues.
+  - [Static Analysis 3](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13625890111/job/38082976638) - Static Analysis for Commit c68feeb, it failed due to payment issues.
 
 ### Team Member [Karl]
 - **GitHub Commits (Up to 5)**
