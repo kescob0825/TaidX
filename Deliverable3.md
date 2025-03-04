@@ -179,10 +179,18 @@ Please include a screenshot of your Burndown chart here, and provide a detailed 
 
 #### Consistency and Effort:
 - **Did you work consistently and contribute enough to the project?**
-  > _Your Answer_
+  > Yes, I worked consistently on this project as evidence of my commits, though I wasn't able to start
+  > working on the project until halfway though the sprint due to how heavy other projects were during
+  > Sprint 3. Despite that, I was able to contribute my part by adding the necessary components which 
+  > were required in US81 and finish all the task which it contains.
 
 - **What business value did you deliver personally?**
-  > _Your Answer_
+  > TaidX now has fully functioning Issue Pages (Overview and Create Issue). I worked with Jedi and Mohammed to 
+  > deliver a fully functioning Issue Overview page, where they worked on the UI while I implemented the API calls 
+  > to Taiga; so issue information may now be pulled and displayed on our application. Additionally, with Jedi's 
+  > assistance, I implemented the UI and the backend for Create Issue Page so users may now able to create issues 
+  > in Taiga through our application. Lastly, I ensured the API calls are fully functional for both the issue retrieval 
+  > and creation by implementing the necessary unit testing.
 
 ### Team Member [Mohammed]
 
@@ -283,25 +291,21 @@ Please provide the links to your key contributions, on GitHub. Include **commits
 
 ### Team Member [Karl]
 - **GitHub Commits (Up to 5)**
-  - [Commit 1](link) - _Short description of what the commit is about_
-  - [Commit 2](link) - _Short description of what the commit is about_
-  - [Commit 2](link) - _Short description of what the commit is about_
+  - [Commit 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/bf69d839a9be8774710b4e29766f16459385be95) - US81 Task93 completion
+  - [Commit 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/a7cd85e9845c6ddf5498e5dcc3ee04217134a73d) - US81 Task98 completion
+  - [Commit 3](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/28e2323bb8d3662a4f6e57149bff82187dbbfbd0#diff-653ea32477033e1c1d87d8293b174a2c55e921f367d202fac4ab0fa93b955f73) - US81 Task99 completion
+  - [Commit 4](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/fa241c3e792f271bc51c711a5f4d038a73b60b97) - Unit Testing
 
 - **GitHub Pull Requests (Up to 3)**
-  - [PR 1](link) - _Short description of the PR_
-  - [PR 2](link) - _Short description of the PR_
+  - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/24) - US81 PR for the TaigaIssue and TaigaCreateIssue Unit Tests
 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
-  - [Test 1](link) - _Short description of the test_
-  - [Test 2](link) - _Short description of the test_
-
-- **Code Reviews (Up to 3, start in Sprint 2)**
-  - [Review 1](link) - _Short description of the code review_
-  - [Review 2](link) - _Short description of the code review_
+  - [Test 1](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/fa241c3e792f271bc51c711a5f4d038a73b60b97) - TaigaIssue Unit Testing
+  - [Test 2](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/fa241c3e792f271bc51c711a5f4d038a73b60b97) - TaigaCreateIssue Unit Testing
 
 - **Static Analysis Contributions (Start in Sprint 3)**
-  - [Static Analysis 1](link) - _Short description of the analysis contribution_
-  - [Static Analysis 2](link) - _Short description of the analysis contribution_
+  - [Static Analysis 1](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13584457135) - Static Analysis for TaigaCreateIssue
+  - [Static Analysis 2](https://github.com/amehlhase316/Ruebezahl_spring25A/actions/runs/13584499333) - Static Analysis for US81 Task100
 
 ### Team Member [Mohammed]
 - **GitHub Commits (Up to 5)**
