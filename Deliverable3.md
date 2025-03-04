@@ -51,19 +51,19 @@ Fill out your Sprint Planning here, based on the kickoff document and your team'
 Track meeting notes and progress. Fill in the table below during each Daily Scrum meeting.
 
 | **Date**   | **Who Did Not Attend** | **Meeting Notes**                                             | **Burndown Status** (Sprint 2 onwards) | **GitHub Actions Status** (Sprint 4 onwards) | **Additional Notes** |
-|------------|----------------------|---------------------------------------------------------------|----------------------------------------|-------------------------------------------|----------------------|
-| 02/19/2025 | Everyone was present | Sprint planning and creating tasks for User Stories_          | On track                               | Pass/Fail                                 | 10 minutes           |
-| 02/24/2025 | Everyone was present | Scrum Meeting                                                 | On track                               | Pass/Fail                                 | 10 minutes           |
-| 02/28/2025 | Mohammed             | Scrum Meeting                                                 | On track                               | Pass/Fail                                 | 10 minutes           |
-| 03/02/2025 | Everyone was present | Scrum Meeting                                                 | On track                               | Pass/Fail                                 | 10 minutes           |
-| 03/04/2025 | Everyone was present | Sprint closing, deliverable contributions, final PR to master | On track                               | Pass/Fail                                 | 10 minutes           |
+|------------|------------------------|---------------------------------------------------------------|----------------------------------------|----------------------------------------------|----------------------|
+| 02/19/2025 | Everyone was present   | Sprint planning and creating tasks for User Stories_          | On track                               | Pass/Fail                                    | 10 minutes           |
+| 02/24/2025 | Everyone was present   | Scrum Meeting                                                 | On track                               | Pass/Fail                                    | 10 minutes           |
+| 02/28/2025 | Mohammed               | Scrum Meeting                                                 | On track                               | Pass/Fail                                    | 10 minutes           |
+| 03/02/2025 | Everyone was present   | Scrum Meeting                                                 | On track                               | Pass/Fail                                    | 10 minutes           |
+| 03/04/2025 | Everyone was present   | Sprint closing, deliverable contributions, final PR to master | On track                               | Pass/Fail                                    | 10 minutes           |
 ---
 
 ## 3: After the Sprint
 
 ### Sprint Review (Answer as a team)
 #### Screen Cast Link:  
-- [Youtube Link] https://youtu.be/Wwl1jytSGUc
+- [Youtube Link] (https://youtu.be/Wwl1jytSGUc)
 
 #### Sprint Review Questions:
 - **What value did you create during this Sprint?**
@@ -242,8 +242,8 @@ Please provide the links to your key contributions, on GitHub. Include **commits
   - [US81](https://github.com/amehlhase316/Ruebezahl_spring25A/commit/1432733908854a9a332b99669e0bf5aa09629890) - US81 refactoring help
 
 - **GitHub Pull Requests (Up to 3)**
-  - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/23/commits) - _Short description of the PR_
-  - [PR 2](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/23) - _Short description of the PR_
+  - [PR 1](https://github.com/amehlhase316/Ruebezahl_spring25A/pull/23/commits) - Pull dev into master post sprint 3
+  
 
 - **GitHub Unit Tests (Up to 3, start in Sprint 2)**
   - [Test 1](https://github.com/amehlhase316/Ruebezahl_spring25A/blob/dev/src/test/java/memoranda/taiga/CreateProjectTest.java) - Create Project test class
@@ -329,15 +329,15 @@ Please provide the links to your key contributions, on GitHub. Include **commits
 Before submitting your Sprint deliverables, make sure to check the following items:
 
 - [ ] This document is complete and well-formatted.
-- [ ] Your software is on the master branch on GitHub, it is tested and compiles/runs.
-- [ ] Your document is on your GitHub repository.
-- [ ] Read the Kickoff Document again to ensure you followed all instructions.
-- [ ] User Stories that were not completed have been moved to the next Sprint’s backlog.
-- [ ] Quality Policies are up-to-date and accurate.
+- [X] Your software is on the master branch on GitHub, it is tested and compiles/runs.
+- [X] Your document is on your GitHub repository.
+- [X] Read the Kickoff Document again to ensure you followed all instructions.
+- [X] User Stories that were not completed have been moved to the next Sprint’s backlog.
+- [X] Quality Policies are up-to-date and accurate.
 - [ ] Individual Sprint Surveys have been submitted (one per team member).
   - [ ] Team member Andrew
   - [ ] Team member Edwin
-  - [ ] Team member Jedi
+  - [X] Team member Jedi
   - [ ] Team member Jimmy
   - [ ] Team member Karl
   - [ ] Team member Mohammed
